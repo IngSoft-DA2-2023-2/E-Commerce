@@ -14,6 +14,7 @@ namespace UnitTest
         private const string userSampleName = "userSample";
         private const string userSampleEmail = "user@Sample.com";
         private const string userSamplePassword = "userPassword";
+        private const string thisNameIsTooLong = "thisNameIsTooLong";
         [TestInitialize]
         public void Initialize()
         {
@@ -60,6 +61,14 @@ namespace UnitTest
             userSample.Password = userSamplePassword;
             Assert.AreEqual(userSamplePassword, userSample.Password);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Name length must be between 3 and 20")]
+        public void GivenTooLongNameThrowsBackEndException()
+        {
+            userSample.Name = thisNameIsTooLong;
+        }
+
 
     }
 }
