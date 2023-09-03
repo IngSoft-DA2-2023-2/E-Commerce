@@ -68,5 +68,11 @@ namespace UnitTest
             bool result = HelperValidator.IsTrimmable(_tenCharName + " ");
             Assert.IsTrue(result);
         }
+        [TestMethod]
+        public void GivenNameWithoutSpacesReturnsFalse()
+        {
+            bool result = HelperValidator.IsTrimmable(_tenCharName);
+            Assert.IsFalse(result);
+        }
     }
 }
