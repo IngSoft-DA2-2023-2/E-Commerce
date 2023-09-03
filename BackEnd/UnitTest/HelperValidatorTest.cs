@@ -8,17 +8,12 @@ namespace UnitTest
 {
 
     [TestClass]
-    public class UserTest
+    public class HelperValidatorTest
     {
-        private User userSample;
-        private const string userSampleName = "userSample";
-        private const string userSampleEmail = "user@Sample.com";
-        private const string userSamplePassword = "userPassword";
-        [TestInitialize]
-        public void Initialize()
-        {
-            userSample = new User();
-        }
+        private const int _minLength = 3;
+        private const int _maxLength = 10;
+        private const string _twoCharName = "Ab";
+
 
         #region Additional test attributes
         //
@@ -43,23 +38,10 @@ namespace UnitTest
         #endregion
 
         [TestMethod]
-        public void GivenValidNameAssignsToUser()
+        public void GivenNameShorterThanMinimumReturnsFalse()
         {
-            userSample.Name = userSampleName;
-            Assert.AreEqual(userSampleName, userSample.Name);
+            bool result = HelperValidator.IsLengthBetween(_twoCharName, _minLength, _maxLength);
+            Assert.IsFalse(result);
         }
-        [TestMethod]
-        public void GivenValidEmailAssignsToUser()
-        {
-            userSample.Email = userSampleEmail;
-            Assert.AreEqual(userSampleEmail, userSample.Email);
-        }
-        [TestMethod]
-        public void GivenValidPasswordAssignsToUser()
-        {
-            userSample.Password = userSamplePassword;
-            Assert.AreEqual(userSamplePassword, userSample.Password);
-        }
-
     }
 }
