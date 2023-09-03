@@ -45,10 +45,17 @@ namespace UnitTest
         #endregion
 
         [TestMethod]
-        public void GivenValidNameAssignsToClient()
+        public void GivenValidNameAssignsToUser()
         {
             userSample.Name = userSampleName;
             Assert.AreEqual(userSampleName, userSample.Name);
         }
+        [TestMethod]
+        public void GivenValidEmailAssignsToUser()
+        {
+            userSample.Email = userSampleEmail;
+            Assert.AreEqual(userSampleEmail, userSample.Email);
+        }
+ 
     }
 }
