@@ -6,9 +6,7 @@ using System.Text;
 
 namespace UnitTest
 {
-    /// <summary>
-    /// Summary description for UserTest
-    /// </summary>
+
     [TestClass]
     public class UserTest
     {
