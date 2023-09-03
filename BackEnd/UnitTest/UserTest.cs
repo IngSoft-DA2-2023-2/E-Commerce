@@ -15,6 +15,7 @@ namespace UnitTest
         private const string userSampleEmail = "user@Sample.com";
         private const string userSamplePassword = "userPassword";
         private const string thisNameIsTooLong = "thisNameIsTooLong";
+        private const string thisNameIsTooShort = "a";
         [TestInitialize]
         public void Initialize()
         {
@@ -67,6 +68,12 @@ namespace UnitTest
         public void GivenTooLongNameThrowsBackEndException()
         {
             userSample.Name = thisNameIsTooLong;
+        }
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Name length must be between 3 and 20")]
+        public void GivenTooShortNameThrowsBackEndException()
+        {
+            userSample.Name = thisNameIsTooShort;
         }
 
 
