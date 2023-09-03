@@ -56,6 +56,12 @@ namespace UnitTest
             userSample.Email = userSampleEmail;
             Assert.AreEqual(userSampleEmail, userSample.Email);
         }
- 
+        [TestMethod]
+        public void GivenValidPasswordAssignsToUser()
+        {
+            userSample.Password = userSamplePassword;
+            Assert.AreEqual(userSamplePassword, userSample.Password);
+        }
+
     }
 }
