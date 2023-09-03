@@ -14,7 +14,7 @@ namespace UnitTest
         private const string userSampleName = "userSample";
         private const string userSampleEmail = "user@Sample.com";
         private const string userSamplePassword = "userPassword";
-        private const string thisNameIsTooLong = "thisNameIsTooLong";
+        private const string thisNameIsTooLong = "thisPasswordIsIncorrectEvenThoughItCointainsAtLeast1NumberAnd1CapitalLetterA";
         private const string thisNameIsTooShort = "a";
         [TestInitialize]
         public void Initialize()
