@@ -14,7 +14,7 @@ namespace UnitTest
         private const int _maxLength = 10;
         private const string _twoCharName = "Ab";
         private const string _elevenCharName = "Abcdefghijk";
-        
+        private const string _tenCharName = "Abcdefghij";
 
         #region Additional test attributes
         //
@@ -49,6 +49,12 @@ namespace UnitTest
         {
             bool result = HelperValidator.IsLengthBetween(_elevenCharName, _minLength, _maxLength);
             Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void GivenValidNameReturnsTrue()
+        {
+            bool result = HelperValidator.IsLengthBetween(_tenCharName, _minLength, _maxLength);
+            Assert.IsTrue(result);
         }
     }
 }
