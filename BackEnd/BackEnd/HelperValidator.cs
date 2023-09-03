@@ -11,7 +11,7 @@ namespace BackEnd
 
         public static bool IsTrimmable(string name)
         {
-            return true;
+            return !name.Equals(name.Trim());
         }
     }
 }
