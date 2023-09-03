@@ -8,5 +8,10 @@ namespace BackEnd
         {
             return name.Length >= minLength && name.Length <= maxLength;
         }
+
+        public static bool IsTrimmable(string name)
+        {
+            return true;
+        }
     }
 }

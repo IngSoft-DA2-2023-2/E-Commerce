@@ -56,5 +56,11 @@ namespace UnitTest
             bool result = HelperValidator.IsLengthBetween(_tenCharName, _minLength, _maxLength);
             Assert.IsTrue(result);
         }
+        [TestMethod]
+        public void GivenNameStartingWithSpacesReturnsTrue()
+        {
+            bool result = HelperValidator.IsTrimmable(" " + _tenCharName);
+            Assert.IsTrue(result);
+        }
     }
 }
