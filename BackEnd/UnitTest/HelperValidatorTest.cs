@@ -15,6 +15,7 @@ namespace UnitTest
         private const string _twoCharName = "Ab";
         private const string _elevenCharName = "Abcdefghijk";
         private const string _tenCharName = "Abcdefghij";
+        private const string _nonAlphanumericalName = "_*";
 
         #region Additional test attributes
         //
@@ -74,5 +75,12 @@ namespace UnitTest
             bool result = HelperValidator.IsTrimmable(_tenCharName);
             Assert.IsFalse(result);
         }
+        [TestMethod]
+        public void GivenNonAlphanumericalNameReturnsFalse()
+        {
+            bool result = HelperValidator.IsAlphanumerical(_nonAlphanumericalName);
+            Assert.IsFalse(result);
+        }
+
     }
 }
