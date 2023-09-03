@@ -81,6 +81,12 @@ namespace UnitTest
             bool result = HelperValidator.IsAlphanumerical(_nonAlphanumericalName);
             Assert.IsFalse(result);
         }
+        [TestMethod]
+        public void GivenAlphanumericalNameReturnsTrue()
+        {
+            bool result = HelperValidator.IsAlphanumerical(_tenCharName);
+            Assert.IsTrue(result);
+        }
 
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace BackEnd
 {
     public class HelperValidator
     {
-        public static bool IsAlphanumerical(object nonAlphanumericalName)
+        public static bool IsAlphanumerical(string name)
         {
-            return false;
+            return name.All(char.IsLetterOrDigit);
         }
 
         public static bool IsLengthBetween(string name, int minLength, int maxLength)
