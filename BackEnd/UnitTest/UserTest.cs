@@ -83,6 +83,12 @@ namespace UnitTest
         {
             userSample.Name = nonAlphanumericalName;
         }
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Password length must be between 5 and 25")]
+        public void GivenTooShortPasswordThrowsBackEndException()
+        {
+            userSample.Password = "1";
+        }
 
 
     }

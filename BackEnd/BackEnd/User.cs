@@ -8,6 +8,8 @@ namespace BackEnd
         private const int _nameMinimumLength = 3;
         private const int _nameMaximumLength = 20;
         protected string _name;
+        protected string _password;
+        public string Email { get; set; }
         public string Name
         {
             get { return _name; }
@@ -15,6 +17,18 @@ namespace BackEnd
             {
                 ValidateName(value);
                 _name = value;
+            }
+        }
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                if (value.Length < 5)
+                {
+                    throw new BackEndException("password is too short");
+                }
+                _password = value;
             }
         }
 
@@ -30,7 +44,6 @@ namespace BackEnd
             }
         }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
+
     }
 }
