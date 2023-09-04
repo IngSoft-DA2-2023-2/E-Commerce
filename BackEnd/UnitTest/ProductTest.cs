@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using BackEnd;
+using System.Security;
 
 namespace UnitTest
 {
@@ -10,6 +11,8 @@ namespace UnitTest
         const string _nameSample = "name sample";
         const int _priceSample = 100;
         const string _descriptionSample = "description sample";
+        const string _brandSample = "brand sample";
+
         [TestMethod]
         public void GivenAProductReturnsItsName()
         {
@@ -34,7 +37,15 @@ namespace UnitTest
             p.Description = _descriptionSample;
 
             Assert.AreEqual(_descriptionSample, p.Description);
-        
+        }
+
+        [TestMethod]
+        public void GivenAProductReturnsItsBrand()
+        {
+            Product p = new Product();
+            p.Brand = _brandSample;
+
+            Assert.AreEqual(_brandSample, p.Brand);
         }
     }
 }
