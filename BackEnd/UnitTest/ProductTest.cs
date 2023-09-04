@@ -9,6 +9,7 @@ namespace UnitTest
     {
         const string _nameSample = "name sample";
         const int _priceSample = 100;
+        const string _descriptionSample = "description sample";
         [TestMethod]
         public void GivenAProductReturnsItsName()
         {
@@ -25,6 +26,15 @@ namespace UnitTest
             p.Price = _priceSample;
 
             Assert.AreEqual(_priceSample, p.Price);
+        }
+
+        [TestMethod]
+        public void GivenAProductReturnsItsDescription() {
+            Product p = new Product();
+            p.Description = _descriptionSample;
+
+            Assert.AreEqual(_descriptionSample, p.Description);
+        
         }
     }
 }
