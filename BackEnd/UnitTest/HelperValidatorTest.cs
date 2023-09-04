@@ -17,6 +17,7 @@ namespace UnitTest
         private const string _tenCharName = "Abcdefghij";
         private const string _nonAlphanumericalName = "_*";
         private const string _wrongEmail = "wrongemail@";
+        private const string _correctEmail = "myEmail@email.com";
 
 
         #region Additional test attributes
@@ -94,6 +95,12 @@ namespace UnitTest
         {
             bool result = HelperValidator.IsValidEmail(_wrongEmail);
             Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void GivenCorrectEmailFormatReturnsTrue()
+        {
+            bool result = HelperValidator.IsValidEmail(_correctEmail);
+            Assert.IsTrue(result);
         }
 
 
