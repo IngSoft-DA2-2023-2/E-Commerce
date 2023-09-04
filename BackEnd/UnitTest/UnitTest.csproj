@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="HelperValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProductTest.cs" />
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
