@@ -14,58 +14,58 @@ namespace UnitTest
         const string _brandSample = "brand sample";
         const string _categorySample = "category sample";
         const string _colorSample = "color sample";
+        Product productSample;
+
+        [TestInitialize]
+        public void Initialize() {
+            productSample = new Product();
+        }
+
 
         [TestMethod]
         public void GivenAProductReturnsItsName()
         {
-            Product p = new Product();
-            p.Name = _nameSample;
-            
-           Assert.AreEqual(_nameSample,p.Name);
+            productSample.Name = _nameSample;
+            Assert.AreEqual(_nameSample, productSample.Name);
         }
 
         [TestMethod]
         public void GivenAProductReturnsItsPrice()
         {
-            Product p = new Product();
-            p.Price = _priceSample;
+            productSample.Price = _priceSample;
 
-            Assert.AreEqual(_priceSample, p.Price);
+            Assert.AreEqual(_priceSample, productSample.Price);
         }
 
         [TestMethod]
         public void GivenAProductReturnsItsDescription() {
-            Product p = new Product();
-            p.Description = _descriptionSample;
-
-            Assert.AreEqual(_descriptionSample, p.Description);
+            productSample.Description = _descriptionSample;
+                
+            Assert.AreEqual(_descriptionSample, productSample.Description);
         }
 
         [TestMethod]
         public void GivenAProductReturnsItsBrand()
         {
-            Product p = new Product();
-            p.Brand = _brandSample;
+            productSample.Brand = _brandSample;
 
-            Assert.AreEqual(_brandSample, p.Brand);
+            Assert.AreEqual(_brandSample, productSample.Brand);
         }
 
         [TestMethod]
         public void GivenAProductReturnsItsCategory()
         {
-            Product p = new Product();
-            p.Category = _categorySample;
+            productSample.Category = _categorySample;
 
-            Assert.AreEqual(_categorySample, p.Category);
+            Assert.AreEqual(_categorySample, productSample.Category);
         }
 
         [TestMethod]
         public void GivenAProductReturnsItsColor()
         {
-            Product p = new Product();
-            p.Color = _colorSample;
+            productSample.Color = _colorSample;
 
-            Assert.AreEqual(_colorSample, p.Color);
+            Assert.AreEqual(_colorSample, productSample.Color);
         }
 
     }
