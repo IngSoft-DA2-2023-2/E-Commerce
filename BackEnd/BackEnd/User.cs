@@ -13,16 +13,20 @@ namespace BackEnd
             get { return _name; }
             set
             {
-                validateName(value);
+                ValidateName(value);
                 _name = value;
             }
         }
 
-        private void validateName(string value)
+        private void ValidateName(string value)
         {
             if (!HelperValidator.IsLengthBetween(value, _nameMinimumLength, _nameMaximumLength))
             {
                 throw new BackEndException($"Name length must be between {_nameMinimumLength} and {_nameMaximumLength}");
+            }
+            if(!HelperValidator.IsAlphanumerical(value))
+            {
+                throw new BackEndException("Name must be alphanumerical");
             }
         }
 

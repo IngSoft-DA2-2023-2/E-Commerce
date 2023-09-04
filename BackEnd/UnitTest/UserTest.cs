@@ -14,8 +14,9 @@ namespace UnitTest
         private const string userSampleName = "userSample";
         private const string userSampleEmail = "user@Sample.com";
         private const string userSamplePassword = "userPassword";
-        private const string thisNameIsTooLong = "thisPasswordIsIncorrectEvenThoughItCointainsAtLeast1NumberAnd1CapitalLetterA";
+        private const string thisNameIsTooLong = "thisPasswordIsIncorrectEvenThoughItOnlyCointainsLetters";
         private const string thisNameIsTooShort = "a";
+        private const string nonAlphanumericalName = "______";
         [TestInitialize]
         public void Initialize()
         {
@@ -74,6 +75,13 @@ namespace UnitTest
         public void GivenTooShortNameThrowsBackEndException()
         {
             userSample.Name = thisNameIsTooShort;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Name must be alphanumerical")]
+        public void GivenNonAlphanumericalNameThrowsBackEndException()
+        {
+            userSample.Name = nonAlphanumericalName;
         }
 
 
