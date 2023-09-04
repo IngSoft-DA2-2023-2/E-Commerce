@@ -12,6 +12,8 @@ namespace UnitTest
         const int _priceSample = 100;
         const string _descriptionSample = "description sample";
         const string _brandSample = "brand sample";
+        const string _categorySample = "category sample";
+        const string _colorSample = "color sample";
 
         [TestMethod]
         public void GivenAProductReturnsItsName()
@@ -47,5 +49,24 @@ namespace UnitTest
 
             Assert.AreEqual(_brandSample, p.Brand);
         }
+
+        [TestMethod]
+        public void GivenAProductReturnsItsCategory()
+        {
+            Product p = new Product();
+            p.Category = _categorySample;
+
+            Assert.AreEqual(_categorySample, p.Category);
+        }
+
+        [TestMethod]
+        public void GivenAProductReturnsItsColor()
+        {
+            Product p = new Product();
+            p.Color = _colorSample;
+
+            Assert.AreEqual(_colorSample, p.Color);
+        }
+
     }
 }
