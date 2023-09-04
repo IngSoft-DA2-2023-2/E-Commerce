@@ -28,6 +28,10 @@ namespace BackEnd
                 {
                     throw new BackEndException("password is too short");
                 }
+                if (value.Length > 20)
+                {
+                    throw new BackEndException("password is too long");
+                }
                 _password = value;
             }
         }
