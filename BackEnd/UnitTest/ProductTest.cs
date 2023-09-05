@@ -95,6 +95,13 @@ namespace UnitTest
         {
             productSample.Price = _negativePriceSample;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Description must not be null")]
+        public void GivenEmptyDescriptionThrowsBackEndException()
+        {
+            productSample.Description = null;
+        }
     }
 }
 

@@ -6,6 +6,8 @@ namespace BackEnd
     {
         private string _name;
         private int _price;
+        private string _description;
+
         public string Name
         {
             get => _name;
@@ -32,7 +34,17 @@ namespace BackEnd
             }
         }
 
-        public string Description { get; set; }
+        public string Description {
+            get => _description;
+            set{
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new BackEndException("Description must not be null");
+                }
+                _description = value;
+            }
+                
+        }
         public string Brand { get; set; }
         public string Category { get; set; }
         public List<string> Color { get; set; } = new List<string>();
