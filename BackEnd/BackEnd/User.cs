@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace BackEnd
 {
-    public class User
+    public abstract class User
     {
         private const int _nameMinimumLength = 3;
         private const int _nameMaximumLength = 20;
@@ -38,7 +38,7 @@ namespace BackEnd
                 _password = value;
             }
         }
-        private void ValidateEmail(string value)
+        protected void ValidateEmail(string value)
         {
             if (!HelperValidator.IsValidEmail(value))
             {
@@ -46,7 +46,7 @@ namespace BackEnd
             }
         }
 
-        private void ValidatePassword(string value)
+        protected void ValidatePassword(string value)
         {
             if (!HelperValidator.IsLengthBetween(value, _passwordMinimumLength, _passwordMaximumLength))
             {
@@ -54,7 +54,7 @@ namespace BackEnd
             }
         }
 
-        private void ValidateName(string value)
+        protected void ValidateName(string value)
         {
             if (!HelperValidator.IsLengthBetween(value, _nameMinimumLength, _nameMaximumLength))
             {
