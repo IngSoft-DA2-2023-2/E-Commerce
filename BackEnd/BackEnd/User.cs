@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
-namespace BackEnd
+﻿namespace BackEnd
 {
     public class User
     {
@@ -12,13 +9,14 @@ namespace BackEnd
         protected string _name;
         protected string _password;
         protected string _email;
-        public string Email {
+        public string Email
+        {
             get { return _email; }
-            set 
+            set
             {
                 ValidateEmail(value);
                 _email = value;
-            } 
+            }
         }
         public string Name
         {
@@ -60,7 +58,7 @@ namespace BackEnd
             {
                 throw new BackEndException($"Name length must be between {_nameMinimumLength} and {_nameMaximumLength}");
             }
-            if(!HelperValidator.IsAlphanumerical(value))
+            if (!HelperValidator.IsAlphanumerical(value))
             {
                 throw new BackEndException("Name must be alphanumerical");
             }
