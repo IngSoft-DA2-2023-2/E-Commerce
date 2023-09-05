@@ -5,16 +5,33 @@ namespace BackEnd
     public class Product
     {
         private string _name;
+        private int _price;
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
-                if(value==null) throw new BackEndException("Name must not be null");
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new BackEndException("Name must not be null");
+                }
                 _name = value;
             }
+        }
+
+        public int Price
+        {
+            get => _price;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new BackEndException("Price must not be negative");
+                }
+                _price = value;
             }
-        public int Price { get; set; }
+        }
+
         public string Description { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }

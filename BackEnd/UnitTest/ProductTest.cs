@@ -14,6 +14,7 @@ namespace UnitTest
         private const string _colorSample = "color sample";
         private const string _anotherColorSample = "another color sample";
         private Product productSample;
+        private const int _negativePriceSample = -10;
 
         [TestInitialize]
         public void Initialize()
@@ -87,5 +88,13 @@ namespace UnitTest
         {
             productSample.Name = null;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Price must not be negative")]
+        public void GivenNegativePriceThrowsBackEndException()
+        {
+            productSample.Price = _negativePriceSample;
+        }
     }
 }
+
