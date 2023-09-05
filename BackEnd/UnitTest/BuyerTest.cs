@@ -1,14 +1,11 @@
 ﻿using BackEnd;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UnitTest
 {
 
     [TestClass]
-    public class UserTest
+    public class BuyerTest
     {
         private User userSample;
         private const string _userSampleName = "userSample";
@@ -22,7 +19,7 @@ namespace UnitTest
         [TestInitialize]
         public void Initialize()
         {
-            userSample = new User();
+            userSample = new Buyer();
         }
 
         #region Additional test attributes

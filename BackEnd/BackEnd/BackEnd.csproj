@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackEndException.cs" />
+    <Compile Include="Buyer.cs" />
     <Compile Include="HelperValidator.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
