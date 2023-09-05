@@ -67,5 +67,14 @@ namespace UnitTest
 
             Assert.AreEqual(now, purchaseSample.Date);
         }
+
+        [TestMethod]
+        public void GivenPurchaseReturnsPromotionUsed()
+        {
+            Promotion p = new Promotion();
+            purchaseSample.Promotion = p;
+
+            Assert.AreEqual(p, purchaseSample.Promotion);
+        }
     }
 }
