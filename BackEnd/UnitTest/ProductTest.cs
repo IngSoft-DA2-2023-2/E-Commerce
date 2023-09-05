@@ -61,11 +61,12 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GivenAProductReturnsItsColor()
+        public void GivenASingleColoredProductReturnsItsColor()
         {
-            productSample.Color = _colorSample;
+            productSample.Color.Add(_colorSample);
 
-            Assert.AreEqual(_colorSample, productSample.Color);
+            Assert.AreEqual(1, productSample.Color.Count);
+            Assert.AreEqual(_colorSample, productSample.Color[0]);
         }
 
     }
