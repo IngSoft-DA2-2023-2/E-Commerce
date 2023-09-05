@@ -1,24 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using BackEnd;
-using System.Security;
+﻿using BackEnd;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest
 {
     [TestClass]
     public class ProductTest
     {
-        const string _nameSample = "name sample";
-        const int _priceSample = 100;
-        const string _descriptionSample = "description sample";
-        const string _brandSample = "brand sample";
-        const string _categorySample = "category sample";
-        const string _colorSample = "color sample";
-        const string _anotherColorSample = "another color sample";
-        Product productSample;
+        private const string _nameSample = "name sample";
+        private const int _priceSample = 100;
+        private const string _descriptionSample = "description sample";
+        private const string _brandSample = "brand sample";
+        private const string _categorySample = "category sample";
+        private const string _colorSample = "color sample";
+        private const string _anotherColorSample = "another color sample";
+        private Product productSample;
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             productSample = new Product();
         }
 
@@ -39,9 +38,10 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GivenProductReturnsItsDescription() {
+        public void GivenProductReturnsItsDescription()
+        {
             productSample.Description = _descriptionSample;
-                
+
             Assert.AreEqual(_descriptionSample, productSample.Description);
         }
 
@@ -79,9 +79,13 @@ namespace UnitTest
             Assert.AreEqual(2, productSample.Color.Count);
             Assert.AreEqual(_colorSample, productSample.Color[0]);
             Assert.AreEqual(_anotherColorSample, productSample.Color[1]);
-
         }
 
-
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Name must not be null")]
+        public void GivenEmptyNameThrowsBackEndException()
+        {
+            productSample.Name = null;
+        }
     }
 }
