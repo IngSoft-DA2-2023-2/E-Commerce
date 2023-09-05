@@ -11,7 +11,15 @@ namespace BackEnd
         private const int _passwordMaximumLength = 20;
         protected string _name;
         protected string _password;
-        public string Email { get; set; }
+        protected string _email;
+        public string Email {
+            get { return _email; }
+            set 
+            {
+                ValidateEmail(value);
+                _email = value;
+            } 
+        }
         public string Name
         {
             get { return _name; }
@@ -28,6 +36,13 @@ namespace BackEnd
             {
                 ValidatePassword(value);
                 _password = value;
+            }
+        }
+        private void ValidateEmail(string value)
+        {
+            if (!HelperValidator.IsValidEmail(value))
+            {
+                throw new BackEndException("email format is not valid");
             }
         }
 
