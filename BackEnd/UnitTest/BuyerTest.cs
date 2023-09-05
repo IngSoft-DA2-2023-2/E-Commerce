@@ -16,6 +16,7 @@ namespace UnitTest
         private const string _nonAlphanumericalName = "______";
         private const string _thisPasswordIsTooLong = "ThisP44swordIsT00Long1234";
         private const string _wrongEmailFormat = "format.com";
+        private const string _userSampleAddress = "Street1234";
         [TestInitialize]
         public void Initialize()
         {
@@ -100,7 +101,11 @@ namespace UnitTest
         {
             userSample.Email = _wrongEmailFormat;
         }
-
-
+        [TestMethod]
+        public void GivenValidAddressAssignsToUser()
+        {
+            ((Buyer)userSample).Address = _userSampleAddress;
+            Assert.AreEqual(_userSampleAddress, ((Buyer)userSample).Address);
+        }
     }
 }

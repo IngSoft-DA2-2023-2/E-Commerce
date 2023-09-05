@@ -52,7 +52,7 @@
     <Compile Include="HelperValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductTest.cs" />
-    <Compile Include="UserTest.cs" />
+    <Compile Include="BuyerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
