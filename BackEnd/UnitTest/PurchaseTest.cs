@@ -8,40 +8,45 @@ namespace UnitTest
     [TestClass]
     public class PurchaseTest
     {
+        private Purchase purchaseSample;
+        private readonly User userSample = new User();
+        private readonly Product productSample1 = new Product();
+
+        [TestInitialize] 
+        public void Initializer() {
+
+            purchaseSample = new Purchase();
+        }
+
         [TestMethod]
         public void GivenPurchaseReturnsUser()
         {
-            User u = new User();
+            purchaseSample.User = userSample;
 
-            Purchase p = new Purchase();
-            p.User = u;
-
-            Assert.AreEqual(u, p.User);
+            Assert.AreEqual(userSample, purchaseSample.User);
         }
 
         [TestMethod]
         public void GivenPurchaseReturnsProductsBought()
         {
-            List<Product> productsBought = new List<Product>();
-            Product product = new Product();
-            productsBought.Add(product);
-            
+            List<Product> productsBought = new List<Product>
+            {
+                productSample1
+            };
 
-            Purchase p = new Purchase();
-            p.Cart = productsBought;
+            purchaseSample.Cart = productsBought;
 
-           Assert.IsTrue(p.Cart.Count == 1);
-           Assert.AreEqual(product, p.Cart[0]);
+           Assert.IsTrue(purchaseSample.Cart.Count == 1);
+           Assert.AreEqual(productSample1, purchaseSample.Cart[0]);
         }
 
         [TestMethod]
         public void GivenPurchaseReturnsItsDate()
         {
-            Purchase purchase = new Purchase();
             DateTime now = DateTime.Now;
-            purchase.Date = now;
+            purchaseSample.Date = now;
 
-            Assert.AreEqual(now, purchase.Date);
+            Assert.AreEqual(now, purchaseSample.Date);
         }
     }
 }
