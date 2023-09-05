@@ -10,5 +10,6 @@ namespace BackEnd
     public class Purchase
     {
         public User User { get; set; }
+        public List<Product> Cart { get; set; }
     }
 }
