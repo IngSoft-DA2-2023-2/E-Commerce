@@ -11,5 +11,6 @@ namespace BackEnd
     {
         public User User { get; set; }
         public List<Product> Cart { get; set; }
+        public DateTime Date { get; set; }
     }
 }

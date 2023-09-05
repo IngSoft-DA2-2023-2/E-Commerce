@@ -31,7 +31,17 @@ namespace UnitTest
             p.Cart = productsBought;
 
            Assert.IsTrue(p.Cart.Count == 1);
-            Assert.AreEqual(product, p.Cart[0]);
+           Assert.AreEqual(product, p.Cart[0]);
+        }
+
+        [TestMethod]
+        public void GivenPurchaseReturnsItsDate()
+        {
+            Purchase purchase = new Purchase();
+            DateTime now = DateTime.Now;
+            purchase.Date = now;
+
+            Assert.AreEqual(now, purchase.Date);
         }
     }
 }
