@@ -2,6 +2,7 @@
 using System;
 using BackEnd;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace UnitTest
 {
@@ -83,5 +84,11 @@ namespace UnitTest
             Assert.AreEqual(null, purchaseSample.Promotion);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException),"Cart must not be empty")]
+        public void GivenNullCartThrowsBackEndException()
+        {
+            purchaseSample.Cart=null;
+        }
     }
 }
