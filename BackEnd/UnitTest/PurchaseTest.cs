@@ -76,5 +76,12 @@ namespace UnitTest
 
             Assert.AreEqual(p, purchaseSample.Promotion);
         }
+
+        [TestMethod]
+        public void GivenPurchaseReturnsNullAsDefaultPromotion()
+        {
+            Assert.AreEqual(null, purchaseSample.Promotion);
+        }
+
     }
 }
