@@ -49,7 +49,7 @@ namespace BackEnd
         }
         public string Brand { get; set; }
         public string Category { get; set; }
-        public List<string> Color { get; set; } = new List<string>();
+        public List<string> Color { get; } = new List<string>();
 
     }
 }

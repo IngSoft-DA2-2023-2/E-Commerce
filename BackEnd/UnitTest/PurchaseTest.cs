@@ -99,11 +99,11 @@ namespace UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException),"Purchase Date must be before the current date")]
+        [ExpectedException(typeof(BackEndException), "Purchase Date must be before the current date")]
         public void GivenFutureDateThrowsBackEndException()
         {
             DateTime tomorrow = DateTime.Now.AddDays(1);
-            purchaseSample.Date= tomorrow;
+            purchaseSample.Date = tomorrow;
         }
     }
 }
