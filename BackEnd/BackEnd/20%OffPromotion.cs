@@ -6,7 +6,7 @@ namespace BackEnd
     {
         public bool IsApplicable(Purchase p)
         {
-            if (p.Cart.Count == 2) return true;
+            if (p.Cart.Count >= 2) return true;
             return false;
         }
     }
