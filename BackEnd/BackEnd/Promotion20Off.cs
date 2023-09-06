@@ -2,12 +2,11 @@
 
 namespace BackEnd
 {
-    public class Promotion
+    public class Promotion20Off
     {
         public bool IsApplicable(Purchase p)
         {
-            if (p.Cart.Count >= 2) return true;
-            return false;
+            return p.Cart.Count >= 2;
         }
     }
 }
