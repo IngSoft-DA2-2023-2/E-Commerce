@@ -8,8 +8,9 @@ namespace BackEnd
 {
     public class PromotionTotalLook
     {
-        public bool IsApplicable(Purchase purchaseSample)
+        public bool IsApplicable(Purchase purchase)
         {
+            if(purchase.Cart.Count == 3) return true;
             return false;
         }
     }

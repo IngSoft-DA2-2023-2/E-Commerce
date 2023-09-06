@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace UnitTest
 {
+    [TestClass]
     public class PromotionTotalLookTest
     {
 
@@ -34,6 +35,21 @@ namespace UnitTest
 
             PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
             Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
+        }
+
+        [TestMethod]
+        public void Given3ItemOfSameColorPurchaseReturnsPromotionIsApplicable()
+        {
+            Purchase _purchaseSample = new Purchase();
+            List<Product> _cartSample = new List<Product>();
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue"} });
+            _cartSample.Add(new Product() { Color = new List<string> { "blue"} });
+            _cartSample.Add(new Product() { Color = new List<string> { "blue", "green"} });
+
+            _purchaseSample.Cart = _cartSample;
+
+            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
+            Assert.IsTrue(promotionTotalLook.IsApplicable(_purchaseSample));
         }
     }
 }
