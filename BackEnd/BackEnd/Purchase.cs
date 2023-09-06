@@ -21,10 +21,8 @@ namespace BackEnd
 
         private static void ValidateCart(List<Product> value)
         {
-            if (value == null || value.Count == 0)
-            {
-                throw new BackEndException("Cart must not be null");
-            }
+            if (value == null) throw new BackEndException("Cart must not be null");
+            if(value.Count == 0) throw new BackEndException("Cart must not be empty");
         }
 
         public DateTime Date { get; set; }
