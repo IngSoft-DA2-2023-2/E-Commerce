@@ -14,15 +14,15 @@ namespace BackEnd
             List<string> colorList = new List<string>();
             foreach (Product p in purchase.Cart)
             {
-                foreach(string color in colorList)
+                foreach(string color in p.Color)
                 {
                     if (!colorList.Contains(color)) colorList.Add(color);
                 }
             }
-            foreach(string color in colorList)
+            foreach (string color in colorList)
             {
                 List<Product> l = purchase.Cart.FindAll(c => c.Color.Contains(color));
-                if (l.Count == 3) return true;
+                if (l.Count >= 3) return true;
             }
             return false;
         }

@@ -66,5 +66,21 @@ namespace UnitTest
             PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
             Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
         }
+
+        [TestMethod]
+        public void Given4ItemOfSameColorsPurchaseReturnsPromotionIsApplicable()
+        {
+            Purchase _purchaseSample = new Purchase();
+            List<Product> _cartSample = new List<Product>();
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "green" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
+
+            _purchaseSample.Cart = _cartSample;
+
+            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
+            Assert.IsTrue(promotionTotalLook.IsApplicable(_purchaseSample));
+        }
     }
 }
