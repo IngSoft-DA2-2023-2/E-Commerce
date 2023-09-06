@@ -8,9 +8,23 @@ namespace BackEnd
         {
             return p.Cart.Count >= 2;
         }
-        public int ApplyDiscount(Purchase p)
+        public int CalculateDiscount(Purchase p)
         {
-            if(IsApplicable(p)) { return (int)(100 * .8 + 50); }
+            if(IsApplicable(p)) {
+
+                int maxPrice = 0;
+ 
+               foreach(Product item in p.Cart) {
+                    if(item.Price > maxPrice)
+                    {
+                        maxPrice = item.Price;
+                    }
+                }
+
+                return (int)(0.2 * maxPrice);
+
+
+            }
             throw new BackEndException("Not applicable promotion");
         }
 
