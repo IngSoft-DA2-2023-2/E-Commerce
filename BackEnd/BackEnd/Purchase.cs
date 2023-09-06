@@ -17,12 +17,16 @@ namespace BackEnd
 
             set
             {
-                if (value == null) throw new BackEndException("Cart must not be empty");
+                ValidateCart(value);
                 _cart = value;
             }
+        }
 
+        private static void ValidateCart(List<Product> value)
+        {
+            if (value == null) throw new BackEndException("Cart must not be empty");
+        }
 
-}
         public DateTime Date { get; set; }
         public Promotion Promotion { get; set; }
     }
