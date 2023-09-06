@@ -10,21 +10,32 @@ namespace BackEnd
     {
         public bool IsApplicable(Purchase purchase)
         {
-
-            List<string> colorList = new List<string>();
-            foreach (Product p in purchase.Cart)
+            List<string> colorList = ColorsInCart(purchase.Cart);
+         
+            foreach (string color in colorList)
             {
-                foreach(string color in p.Color)
+                List<Product> l = ProductsOfSpecificColor(purchase.Cart, color);
+                if (l.Count >= 3) return true;
+            }
+            return false;
+        }
+
+        private List<string> ColorsInCart(List<Product> products)
+        {
+            List<string> colorList = new List<string>();
+            foreach (Product p in products)
+            {
+                foreach (string color in p.Color)
                 {
                     if (!colorList.Contains(color)) colorList.Add(color);
                 }
             }
-            foreach (string color in colorList)
-            {
-                List<Product> l = purchase.Cart.FindAll(c => c.Color.Contains(color));
-                if (l.Count >= 3) return true;
-            }
-            return false;
+            return colorList;
+        }
+
+        public List<Product> ProductsOfSpecificColor(List<Product> cart,string color)
+        {
+            return cart.FindAll(c => c.Color.Contains(color));
         }
     }
 }
