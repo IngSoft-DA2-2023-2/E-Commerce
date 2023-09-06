@@ -9,10 +9,10 @@ namespace BackEnd
         private List<Product> _cart;
         private DateTime _date;
         public User User { get; set; }
+        public Promotion Promotion { get; set; }
         public List<Product> Cart
         {
             get => _cart;
-
             set
             {
                 ValidateCart(value);
@@ -20,19 +20,25 @@ namespace BackEnd
             }
         }
 
-        private static void ValidateCart(List<Product> value)
-        {
-            if (value == null) throw new BackEndException("Cart must not be null");
-            if(value.Count == 0) throw new BackEndException("Cart must not be empty");
-        }
-
         public DateTime Date { 
             get=>_date;
-            set {
-                if (value > DateTime.Now) throw new BackEndException("Purchase Date must be before the current date");
+            set
+            {
+                ValidateDate(value);
                 _date = value;
             }
         }
-        public Promotion Promotion { get; set; }
+
+        private void ValidateDate(DateTime value)
+        {
+            if (value > DateTime.Now) throw new BackEndException("Purchase Date must be before the current date");
+            _date = value;
+        }
+
+        private  void ValidateCart(List<Product> value)
+        {
+            if (value == null) throw new BackEndException("Cart must not be null");
+            if (value.Count == 0) throw new BackEndException("Cart must not be empty");
+        }
     }
 }
