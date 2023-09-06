@@ -23,5 +23,17 @@ namespace UnitTest
             Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
         }
 
+        [TestMethod]
+        public void Given2ItemPurchaseReturnsPromotionIsNotApplicable()
+        {
+            Purchase _purchaseSample = new Purchase();
+            List<Product> _cartSample = new List<Product>();
+            _cartSample.Add(new Product());
+            _cartSample.Add(new Product());
+            _purchaseSample.Cart = _cartSample;
+
+            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
+            Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
+        }
     }
 }
