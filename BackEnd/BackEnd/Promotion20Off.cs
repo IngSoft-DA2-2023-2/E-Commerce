@@ -8,6 +8,11 @@ namespace BackEnd
         {
             return p.Cart.Count >= 2;
         }
+        public void ApplyDiscount(Purchase purchaseSample)
+        {
+            throw new BackEndException("Not applicable promotion");
+        }
+
 
     }
 }

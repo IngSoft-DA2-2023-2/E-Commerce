@@ -55,5 +55,14 @@ namespace UnitTest
 
             Assert.IsTrue(_promo20Off.IsApplicable(_purchaseSample));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException),"Not applicable promotion")]
+        public void GivenNotApplicablePromotionThrowsBackEndException()
+        {
+            _cartSample.Add(new Product());
+
+            _promo20Off.ApplyDiscount(_purchaseSample);
+        }
     }
 }
