@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace BackEnd
@@ -12,7 +8,8 @@ namespace BackEnd
     {
         private List<Product> _cart;
         public User User { get; set; }
-        public List<Product> Cart {
+        public List<Product> Cart
+        {
             get => _cart;
 
             set
@@ -24,7 +21,10 @@ namespace BackEnd
 
         private static void ValidateCart(List<Product> value)
         {
-            if (value == null) throw new BackEndException("Cart must not be empty");
+            if (value == null || value.Count == 0)
+            {
+                throw new BackEndException("Cart must not be null");
+            }
         }
 
         public DateTime Date { get; set; }

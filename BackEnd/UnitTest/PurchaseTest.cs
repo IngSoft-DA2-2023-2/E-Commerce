@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BackEnd;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using BackEnd;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 
 namespace UnitTest
 {
@@ -15,8 +14,9 @@ namespace UnitTest
         private readonly Product productSample2 = new Product();
 
 
-        [TestInitialize] 
-        public void Initializer() {
+        [TestInitialize]
+        public void Initializer()
+        {
 
             purchaseSample = new Purchase();
         }
@@ -39,8 +39,8 @@ namespace UnitTest
 
             purchaseSample.Cart = productsBought;
 
-           Assert.IsTrue(purchaseSample.Cart.Count == 1);
-           Assert.AreEqual(productSample1, purchaseSample.Cart[0]);
+            Assert.IsTrue(purchaseSample.Cart.Count == 1);
+            Assert.AreEqual(productSample1, purchaseSample.Cart[0]);
         }
 
         [TestMethod]
@@ -85,10 +85,17 @@ namespace UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException),"Cart must not be empty")]
+        [ExpectedException(typeof(BackEndException), "Cart must not be null")]
         public void GivenNullCartThrowsBackEndException()
         {
-            purchaseSample.Cart=null;
+            purchaseSample.Cart = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Cart must not be empty")]
+        public void GivenEmptyCartThrowsBackEndException()
+        {
+            purchaseSample.Cart = new List<Product>();
         }
     }
 }
