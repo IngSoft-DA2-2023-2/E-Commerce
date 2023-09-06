@@ -97,5 +97,13 @@ namespace UnitTest
         {
             purchaseSample.Cart = new List<Product>();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException),"Purchase Date must be before the current date")]
+        public void GivenFutureDateThrowsBackEndException()
+        {
+            DateTime tomorrow = DateTime.Now.AddDays(1);
+            purchaseSample.Date= tomorrow;
+        }
     }
 }

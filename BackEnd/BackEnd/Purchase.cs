@@ -7,6 +7,7 @@ namespace BackEnd
     public class Purchase
     {
         private List<Product> _cart;
+        private DateTime _date;
         public User User { get; set; }
         public List<Product> Cart
         {
@@ -25,7 +26,13 @@ namespace BackEnd
             if(value.Count == 0) throw new BackEndException("Cart must not be empty");
         }
 
-        public DateTime Date { get; set; }
+        public DateTime Date { 
+            get=>_date;
+            set {
+                if (value > DateTime.Now) throw new BackEndException("Purchase Date must be before the current date");
+                _date = value;
+            }
+        }
         public Promotion Promotion { get; set; }
     }
 }
