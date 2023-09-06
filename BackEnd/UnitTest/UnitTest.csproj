@@ -53,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductTest.cs" />
     <Compile Include="PurchaseTest.cs" />
-    <Compile Include="20%25OffPromotionTest.cs" />
+    <Compile Include="Promotion20OffTest.cs" />
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>

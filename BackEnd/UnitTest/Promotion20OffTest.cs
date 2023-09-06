@@ -10,39 +10,35 @@ namespace UnitTest
     {
         private Promotion20Off _promo20Off;
         private Purchase _purchaseSample;
-        private List<Product> products;
+        private List<Product> _cartSample;
 
         [TestInitialize] 
         public void Initialize() {
-            products = new List<Product>();
-
+            _cartSample = new List<Product>();
+            _purchaseSample = new Purchase();
+            _promo20Off = new Promotion20Off();
         }
 
         [TestMethod]
         public void Given1ItemPurchaseReturnsPromotionIsNotApplicable()
         {
-            products.Add(new Product());
-           
-           _purchaseSample.Cart = products;
+            _cartSample.Add(new Product());
+           _purchaseSample.Cart = _cartSample;
 
-            Promotion20Off promotion = new Promotion20Off();
-
-            Assert.IsFalse(promotion.IsApplicable(p));
+            Assert.IsFalse(_promo20Off.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void Given2ItemPurchaseReturnsPromotionIsApplicable()
         {
-            List<Product> products = new List<Product>() { 
-            new Product(),
-            new Product()
-            };
-            Purchase p = new Purchase() {
-                Cart = products
-            };
-            Promotion20Off promotion = new Promotion20Off();
+            _cartSample.Add(new Product());
+            _cartSample.Add(new Product());
 
-            Assert.IsTrue(promotion.IsApplicable(p));
+            _purchaseSample = new Purchase() {
+                Cart = _cartSample,
+            };
+
+            Assert.IsTrue(_promo20Off.IsApplicable(_purchaseSample));
         }
 
     }
