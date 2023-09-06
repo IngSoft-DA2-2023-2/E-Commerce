@@ -12,6 +12,13 @@ namespace UnitTest
         private Purchase _purchaseSample;
         private List<Product> _cartSample;
 
+        private readonly Product _fiftyDollarProduct = new Product() { Price = 50 };
+        private readonly Product _seventyFiveDollarProduct = new Product() { Price = 75 };
+        private readonly Product _oneHundredDollarProduct = new Product() { Price = 100 };
+        private const int _oneHundred = 100;
+        private const float _twentyPercent = 0.2f;
+
+
         [TestInitialize] 
         public void Initialize() {
             _cartSample = new List<Product>();
@@ -73,30 +80,30 @@ namespace UnitTest
         [TestMethod]
         public void Given2ItemPurchaseCalculatesDiscount()
         {
-            _cartSample.Add(new Product() { Price = 100 }) ;
-            _cartSample.Add(new Product() { Price = 50});
+            _cartSample.Add(_oneHundredDollarProduct) ;
+            _cartSample.Add(_fiftyDollarProduct);
 
             _purchaseSample = new Purchase()
             {
                 Cart = _cartSample,
             };
 
-            Assert.AreEqual(100*0.2,_promo20Off.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_oneHundred*_twentyPercent,_promo20Off.CalculateDiscount(_purchaseSample));
         }
 
         [TestMethod]
         public void Given3ItemPurchaseCalculatesDiscount()
         {
-            _cartSample.Add(new Product() { Price = 100 });
-            _cartSample.Add(new Product() { Price = 75 });
-            _cartSample.Add(new Product() { Price = 50 });
+            _cartSample.Add(_oneHundredDollarProduct);
+            _cartSample.Add(_seventyFiveDollarProduct);
+            _cartSample.Add(_fiftyDollarProduct);
 
             _purchaseSample = new Purchase()
             {
                 Cart = _cartSample,
             };
 
-            Assert.AreEqual(100 * .2, _promo20Off.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_oneHundred * _twentyPercent, _promo20Off.CalculateDiscount(_purchaseSample));
         }
     }
 }
