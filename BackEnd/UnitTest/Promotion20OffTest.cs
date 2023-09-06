@@ -61,8 +61,27 @@ namespace UnitTest
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
             _cartSample.Add(new Product());
+           
+            _purchaseSample = new Purchase()
+            {
+                Cart = _cartSample,
+            };
 
             _promo20Off.ApplyDiscount(_purchaseSample);
+        }
+
+        [TestMethod]
+        public void Given2ItemPurchaseCalculatesDiscount()
+        {
+            _cartSample.Add(new Product() { Price = 100 }) ;
+            _cartSample.Add(new Product() { Price = 50});
+
+            _purchaseSample = new Purchase()
+            {
+                Cart = _cartSample,
+            };
+
+            Assert.AreEqual(100*.8+50,_promo20Off.ApplyDiscount(_purchaseSample));
         }
     }
 }

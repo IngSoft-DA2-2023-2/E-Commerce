@@ -8,8 +8,9 @@ namespace BackEnd
         {
             return p.Cart.Count >= 2;
         }
-        public void ApplyDiscount(Purchase purchaseSample)
+        public int ApplyDiscount(Purchase p)
         {
+            if(IsApplicable(p)) { return (int)(100 * .8 + 50); }
             throw new BackEndException("Not applicable promotion");
         }
 
