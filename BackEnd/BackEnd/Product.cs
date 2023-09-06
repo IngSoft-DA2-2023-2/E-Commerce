@@ -34,20 +34,22 @@ namespace BackEnd
             }
         }
 
-        public string Description {
+        public string Description
+        {
             get => _description;
-            set{
+            set
+            {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new BackEndException("Description must not be null");
                 }
                 _description = value;
             }
-                
+
         }
         public string Brand { get; set; }
         public string Category { get; set; }
-        public List<string> Color { get; set; } = new List<string>();
+        public List<string> Color { get; } = new List<string>();
 
     }
 }
