@@ -41,5 +41,19 @@ namespace UnitTest
             Assert.IsTrue(_promo20Off.IsApplicable(_purchaseSample));
         }
 
+        [TestMethod]
+        public void Given3ItemPurchaseReturnsPromotionIsApplicable()
+        {
+            _cartSample.Add(new Product());
+            _cartSample.Add(new Product());
+            _cartSample.Add(new Product());
+
+            _purchaseSample = new Purchase()
+            {
+                Cart = _cartSample,
+            };
+
+            Assert.IsTrue(_promo20Off.IsApplicable(_purchaseSample));
+        }
     }
 }
