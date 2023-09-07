@@ -6,6 +6,7 @@ namespace BackEnd
 {
     public class Promotion3x1Fidelity : IPromotionable
     {
+        private const int _minQuantity = 3;
         public bool IsApplicable(Purchase purchase)
         {
             List<string> uniqueBrands = purchase.Cart.Select(p => p.Brand).Distinct().ToList();
@@ -14,7 +15,7 @@ namespace BackEnd
             {
                 List<Product> productsOfBrand = purchase.Cart.Where(p => p.Brand == brand).ToList();
 
-                if (productsOfBrand.Count >= 3)
+                if (productsOfBrand.Count >= _minQuantity)
                 {
                     return true;
                 }

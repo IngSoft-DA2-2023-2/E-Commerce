@@ -2,76 +2,79 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
+
 namespace UnitTest
 {
     [TestClass]
     public class Promotion3x1FidelityTest
     {
+        private IPromotionable _promo = new Promotion3x1Fidelity();
+        private Purchase _purchaseSample;
+
+        [TestInitialize]
+        public void Init()
+        {
+            _purchaseSample = new Purchase()
+            {
+                Cart = new List<Product>() 
+            };
+
+        }
+
         [TestMethod]
         public void GivenOneItemReturnsDiscountIsNotApplicable()
         {
-            Purchase purchase = new Purchase()
-            {
-                Cart = new List<Product>
-                {
-                    new Product(){Brand = "brand sample", Price = 1},
-                }
-            };
+            Product productSample = new Product() { Brand = "brand sample", Price = 1 };
 
-            IPromotionable promo = new Promotion3x1Fidelity();
-            Assert.IsFalse(promo.IsApplicable(purchase));
+            _purchaseSample.Cart.Add(productSample);
+                    
+
+            Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void GivenThreeItemsOfSameBrandReturnsDiscountIsApplicable()
         {
-            Purchase purchase = new Purchase()
-            {
-                Cart = new List<Product>
+
+            _purchaseSample.Cart = new List<Product>
                 {
                     new Product(){Brand = "brand sample", Price = 1},
                     new Product(){Brand = "brand sample", Price = 1},
                     new Product(){Brand = "brand sample", Price = 1},
-                }
-            };
+                };
+            
 
-            IPromotionable promo = new Promotion3x1Fidelity();
-            Assert.IsTrue(promo.IsApplicable(purchase));
+            Assert.IsTrue(_promo.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void GivenThreeItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
         {
-            Purchase purchase = new Purchase()
-            {
-                Cart = new List<Product>
+
+            _purchaseSample.Cart = new List<Product>
                 {
                     new Product(){Brand = "brand sample 1", Price = 1},
                     new Product(){Brand = "brand sample 2", Price = 1},
                     new Product(){Brand = "brand sample 3", Price = 1},
-                }
-            };
+                };
+           
 
-            IPromotionable promo = new Promotion3x1Fidelity();
-            Assert.IsFalse(promo.IsApplicable(purchase));
+            Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void GivenFourItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
         {
-            Purchase purchase = new Purchase()
-            {
-                Cart = new List<Product>
+
+            _purchaseSample.Cart = new List<Product>
                 {
                     new Product(){Brand = "brand sample 1", Price = 1},
                     new Product(){Brand = "brand sample 2", Price = 1},
                     new Product(){Brand = "brand sample 3", Price = 1},
                     new Product(){Brand = "brand sample 4", Price = 1}
-                }
-            };
-
-            IPromotionable promo = new Promotion3x1Fidelity();
-            Assert.IsFalse(promo.IsApplicable(purchase));
+                };
+            
+            Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
         }
     }
 }
