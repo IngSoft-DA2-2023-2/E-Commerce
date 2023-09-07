@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace BackEnd
@@ -26,10 +25,26 @@ namespace BackEnd
 
         public int CalculateDiscount(Purchase purchase)
         {
-            if(!IsApplicable(purchase))throw new BackEndException("Not applicable promotion");
+            if (!IsApplicable(purchase)) throw new BackEndException("Not applicable promotion");
 
-            return 60;
+            List<string> uniqueCategories = purchase.Cart.Select(p => p.Category).Distinct().ToList();
+
+            int maxDiscount = 0;
+            foreach (string category in uniqueCategories)
+            {
+                List<Product> productsInCategory = purchase.Cart.Where(p => p.Category == category).ToList();
+                productsInCategory.Sort((a,b)=>b.Price-a.Price);
+
+                if (productsInCategory.Count < _minQuantity) continue;
+                if (productsInCategory[_minQuantity - 1].Price > maxDiscount) maxDiscount = productsInCategory[_minQuantity - 1].Price;
+
+
+            }
+            return maxDiscount;
         }
 
     }
+
+
 }
+

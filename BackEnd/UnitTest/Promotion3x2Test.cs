@@ -66,11 +66,11 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GivenItemsOfSameCategoryReturnsItsDiscount()
+        public void Given3ItemsOfSameCategoryReturnsItsDiscount()
         {
-            Product product1 = new Product() { Category = "category sample 1" ,Price = 100};
-            Product product2 = new Product() { Category = "category sample 1" ,Price = 60};
-            Product product3 = new Product() { Category = "category sample 1" ,Price = 80};
+            Product product1 = new Product() { Category = "category sample 1", Price = 100 };
+            Product product2 = new Product() { Category = "category sample 1", Price = 60 };
+            Product product3 = new Product() { Category = "category sample 1", Price = 80 };
 
             List<Product> products = new List<Product>
             {
@@ -85,7 +85,30 @@ namespace UnitTest
             };
 
             Promotion3x2 promo = new Promotion3x2();
-            Assert.AreEqual(60,promo.CalculateDiscount(purchase));
+            Assert.AreEqual(60, promo.CalculateDiscount(purchase));
+        }
+
+        [TestMethod]
+        public void Given3ItemsOfSameCategoryAndSamePriceReturnsItsDiscount()
+        {
+            Product product1 = new Product() { Category = "category sample 1", Price = 100 };
+            Product product2 = new Product() { Category = "category sample 1", Price = 100 };
+            Product product3 = new Product() { Category = "category sample 1", Price = 100 };
+
+            List<Product> products = new List<Product>
+            {
+                product1,
+                product2,
+                product3
+            };
+
+            Purchase purchase = new Purchase()
+            {
+                Cart = products
+            };
+
+            Promotion3x2 promo = new Promotion3x2();
+            Assert.AreEqual(100, promo.CalculateDiscount(purchase));
         }
     }
 }
