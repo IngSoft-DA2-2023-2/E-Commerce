@@ -6,44 +6,30 @@ namespace BackEnd
     public class Promotion3x2 : IPromotionable
     {
         private const int _minQuantity = 3;
+
         public bool IsApplicable(Purchase purchase)
         {
-            List<string> uniqueCategories = purchase.Cart.Select(p => p.Category).Distinct().ToList();
-
-            foreach (string category in uniqueCategories)
-            {
-                List<Product> productsInCategory = purchase.Cart.Where(p => p.Category == category).ToList();
-
-                if (productsInCategory.Count >= _minQuantity)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return purchase.Cart.GroupBy(p => p.Category)
+                                 .Any(g => g.Count() >= _minQuantity);
         }
 
         public int CalculateDiscount(Purchase purchase)
         {
             if (!IsApplicable(purchase)) throw new BackEndException("Not applicable promotion");
 
-            List<string> uniqueCategories = purchase.Cart.Select(p => p.Category).Distinct().ToList();
+            var discount = 0;
 
-            int maxDiscount = 0;
-            foreach (string category in uniqueCategories)
+            foreach (var group in purchase.Cart.GroupBy(p => p.Category))
             {
-                List<Product> productsInCategory = purchase.Cart.Where(p => p.Category == category).ToList();
-                productsInCategory.Sort((a, b) => b.Price - a.Price);
-
-                if (productsInCategory.Count < _minQuantity) continue;
-                if (productsInCategory.Last().Price > maxDiscount) maxDiscount = productsInCategory.Last().Price;
-
+                if (group.Count() >= _minQuantity)
+                {
+                    var cheapestProduct = group.OrderBy(p => p.Price)
+                                               .First();
+                    discount += cheapestProduct.Price;
+                }
             }
-            return maxDiscount;
+
+            return discount;
         }
-
     }
-
-
 }
-
