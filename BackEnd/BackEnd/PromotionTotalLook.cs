@@ -9,6 +9,8 @@ namespace BackEnd
     public class PromotionTotalLook
     {
         private const int _numberOfSameColor = 3;
+        private const float _fiftyPercent = 0.5f;
+
         public bool IsApplicable(Purchase purchase)
         {
             List<string> colorList = ColorsInCart(purchase.Cart);
@@ -39,9 +41,29 @@ namespace BackEnd
             return cart.FindAll(c => c.Color.Contains(color));
         }
 
-        public void CalculateDiscount(Purchase purchaseSample)
+        public int CalculateDiscount(Purchase purchase)
         {
-            throw new BackEndException("Not applicable promotion");
+            if (!IsApplicable(purchase))
+            {
+                throw new BackEndException("Not applicable promotion");
+            }
+            
+            List<string> colorList = ColorsInCart(purchase.Cart);
+
+            int maxPrice = 0;
+            foreach (string color in colorList)
+            {  
+                List<Product> l = ProductsOfSpecificColor(purchase.Cart, color);
+                if (l.Count >= _numberOfSameColor)
+                {
+                    foreach(Product p in l)
+                    {
+                        if(p.Price > maxPrice) maxPrice = p.Price;
+                    }
+                }
+            }
+            return (int)(maxPrice * _fiftyPercent);
+
         }
     }
 }

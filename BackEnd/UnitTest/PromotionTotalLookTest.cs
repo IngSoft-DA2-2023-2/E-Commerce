@@ -108,5 +108,23 @@ namespace UnitTest
             promotionTotalLook.CalculateDiscount(_purchaseSample);
 
         }
+
+        [TestMethod]
+        public void GivenApplicablePromotionReturnsDiscount()
+        {
+            Purchase _purchaseSample = new Purchase();
+            List<Product> _cartSample = new List<Product>
+            {
+                new Product() { Color = new List<string> { "red", "blue" },Price = 100 },
+                new Product() { Color = new List<string> { "red" } , Price = 50 },
+                new Product() { Color = new List<string> { "red" }, Price = 80 },
+            };
+
+            _purchaseSample.Cart = _cartSample;
+
+            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
+            Assert.AreEqual(((int)(100*.5f)),promotionTotalLook.CalculateDiscount(_purchaseSample));
+
+        }
     }
 }
