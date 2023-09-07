@@ -55,5 +55,23 @@ namespace UnitTest
             IPromotionable promo = new Promotion3x1Fidelity();
             Assert.IsFalse(promo.IsApplicable(purchase));
         }
+
+        [TestMethod]
+        public void GivenFourItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
+        {
+            Purchase purchase = new Purchase()
+            {
+                Cart = new List<Product>
+                {
+                    new Product(){Brand = "brand sample 1", Price = 1},
+                    new Product(){Brand = "brand sample 2", Price = 1},
+                    new Product(){Brand = "brand sample 3", Price = 1},
+                    new Product(){Brand = "brand sample 4", Price = 1}
+                }
+            };
+
+            IPromotionable promo = new Promotion3x1Fidelity();
+            Assert.IsFalse(promo.IsApplicable(purchase));
+        }
     }
 }
