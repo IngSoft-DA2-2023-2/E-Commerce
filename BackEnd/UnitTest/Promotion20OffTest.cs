@@ -7,7 +7,7 @@ namespace UnitTest
     [TestClass]
     public class Promotion20OffTest
     {
-        private Promotion20Off _promo20Off;
+        private IPromotionable _promo20Off;
         private Purchase _purchaseSample;
         private List<Product> _cartSample;
 

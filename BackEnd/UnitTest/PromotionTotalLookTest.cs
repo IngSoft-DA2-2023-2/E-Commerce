@@ -9,7 +9,7 @@ namespace UnitTest
     {
         private Purchase _purchaseSample;
         private List<Product> _cartSample;
-        private PromotionTotalLook _promotionTotalLook;
+        private IPromotionable _promotionTotalLook;
 
         private const string _red = "red";
         private const string _blue = "blue";

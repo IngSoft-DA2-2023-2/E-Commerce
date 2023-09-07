@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BackEndException.cs" />
     <Compile Include="HelperValidator.cs" />
+    <Compile Include="IPromotionable.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Promotion20Off.cs" />
     <Compile Include="Promotion3x2.cs" />

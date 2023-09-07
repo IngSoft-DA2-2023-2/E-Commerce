@@ -27,7 +27,7 @@ namespace UnitTest
 
             };
 
-            Promotion3x2 promo = new Promotion3x2();
+            IPromotionable promo = new Promotion3x2();
             Assert.IsFalse(promo.IsApplicable(purchase));
         }
 
@@ -50,7 +50,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Promotion3x2 promo = new Promotion3x2();
+            IPromotionable promo = new Promotion3x2();
             Assert.IsTrue(promo.IsApplicable(purchase));
         }
 
@@ -61,7 +61,7 @@ namespace UnitTest
             Product product1 = new Product() { Category = "category sample 1" };
             Purchase purchase = new Purchase() { Cart = new List<Product> { product1 } };
 
-            Promotion3x2 promo = new Promotion3x2();
+            IPromotionable promo = new Promotion3x2();
             promo.CalculateDiscount(purchase);
         }
 
@@ -84,7 +84,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Promotion3x2 promo = new Promotion3x2();
+            IPromotionable promo = new Promotion3x2();
             Assert.AreEqual(60, promo.CalculateDiscount(purchase));
         }
 
@@ -107,7 +107,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Promotion3x2 promo = new Promotion3x2();
+            IPromotionable promo = new Promotion3x2();
             Assert.AreEqual(100, promo.CalculateDiscount(purchase));
         }
 
@@ -133,7 +133,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Promotion3x2 promo = new Promotion3x2();
+            IPromotionable promo = new Promotion3x2();
             Assert.AreEqual(1, promo.CalculateDiscount(purchase));
         }
 

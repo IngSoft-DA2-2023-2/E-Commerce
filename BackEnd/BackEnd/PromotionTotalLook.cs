@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BackEnd
 {
-    public class PromotionTotalLook
+    public class PromotionTotalLook : IPromotionable
     {
         private const int MinimumSameColorProducts = 3;
         private const float DiscountPercentage = 0.5f;

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace BackEnd
 {
-    public class Promotion3x2
+    public class Promotion3x2 : IPromotionable
     {
         private const int _minQuantity = 3;
         public bool IsApplicable(Purchase purchase)
@@ -37,7 +37,6 @@ namespace BackEnd
 
                 if (productsInCategory.Count < _minQuantity) continue;
                 if (productsInCategory.Last().Price > maxDiscount) maxDiscount = productsInCategory.Last().Price;
-
 
             }
             return maxDiscount;
