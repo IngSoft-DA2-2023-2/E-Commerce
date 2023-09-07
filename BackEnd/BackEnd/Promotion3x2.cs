@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BackEnd
 {
@@ -10,6 +6,20 @@ namespace BackEnd
     {
         public bool IsApplicable(Purchase purchase)
         {
+            List<string> categories = new List<string>();
+            foreach (Product p in purchase.Cart)
+            {
+                if (!categories.Contains(p.Category)) categories.Add(p.Category);
+            }
+
+            foreach (string category in categories)
+            {
+                List<Product> prod = purchase.Cart.FindAll(x => x.Category == category);
+
+                if (prod.Count < 3) continue;
+
+                return true;
+            }
             return false;
         }
     }
