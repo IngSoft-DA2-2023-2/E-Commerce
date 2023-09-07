@@ -7,141 +7,114 @@ namespace UnitTest
     [TestClass]
     public class PromotionTotalLookTest
     {
+        private Purchase _purchaseSample;
+        private List<Product> _cartSample;
+        private PromotionTotalLook _promotionTotalLook;
 
         [TestInitialize]
         public void Init() {
+        _purchaseSample = new Purchase();
+        _cartSample = new List<Product>();
+        _promotionTotalLook = new PromotionTotalLook();
 
-        }
+    }
+
+        
 
         [TestMethod]
         public void Given1ItemPurchaseReturnsPromotionIsNotApplicable()
-        {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product()
-            };
+        { 
+            _cartSample.Add(new Product());
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void Given2ItemPurchaseReturnsPromotionIsNotApplicable()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product(),
-                new Product()
-            };
+            _cartSample.Add(new Product());
+            _cartSample.Add(new Product());
+
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void Given3ItemOfSameColorPurchaseReturnsPromotionIsApplicable()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product() { Color = new List<string> { "red", "blue" } },
-                new Product() { Color = new List<string> { "blue" } },
-                new Product() { Color = new List<string> { "blue", "green" } }
-            };
-
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "blue", "green" } });
+           
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.IsTrue(promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promotionTotalLook.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
-        public void Given3ItemOfDifferentColorsPurchaseReturnsPromotionIsApplicable()
+        public void Given3ItemOfDifferentColorsPurchaseReturnsPromotionIsNotApplicable()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product() { Color = new List<string> { "red", "blue" } },
-                new Product() { Color = new List<string> { "blue" } },
-                new Product() { Color = new List<string> { "red", "green" } }
-            };
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "green" } });
 
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.IsFalse(promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         public void Given4ItemOfSameColorsPurchaseReturnsPromotionIsApplicable()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product() { Color = new List<string> { "red", "blue" } },
-                new Product() { Color = new List<string> { "red" } },
-                new Product() { Color = new List<string> { "red", "green" } },
-                new Product() { Color = new List<string> { "red" } }
-            };
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "green" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
 
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.IsTrue(promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promotionTotalLook.IsApplicable(_purchaseSample));
         }
 
         [TestMethod]
         [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNonApplicablePromotionThrowsBackEndException()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product() { Color = new List<string> { "red", "blue" } },
-                new Product() { Color = new List<string> { "red" } },
-            };
+
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
+            
 
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            promotionTotalLook.CalculateDiscount(_purchaseSample);
+            _promotionTotalLook.CalculateDiscount(_purchaseSample);
         }
 
         [TestMethod]
         public void GivenApplicablePromotionReturnsDiscount()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product() { Color = new List<string> { "red", "blue" },Price = 100 },
-                new Product() { Color = new List<string> { "red" } , Price = 50 },
-                new Product() { Color = new List<string> { "red" }, Price = 80 },
-            };
 
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" }, Price = 100 });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" }, Price = 50 });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" }, Price = 80 });
+            
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.AreEqual(((int)(100 * .5f)), promotionTotalLook.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(((int)(100 * .5f)), _promotionTotalLook.CalculateDiscount(_purchaseSample));
         }
         public void GivenTwoPossibleApplicationReturnsHigherDiscount()
         {
-            Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>
-            {
-                new Product() { Color = new List<string> { "red", "blue" }, Price = 100 },
-                new Product() { Color = new List<string> { "blue" }, Price = 200 },
-                new Product() { Color = new List<string> { "red" } , Price = 50 },
-                new Product() { Color = new List<string> { "red", "blue" }, Price = 80 },
-            };
 
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" }, Price = 100 });
+            _cartSample.Add(new Product() { Color = new List<string> { "blue" }, Price = 200 });
+            _cartSample.Add(new Product() { Color = new List<string> { "red" }, Price = 50 });
+            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" }, Price = 80 });
+            
             _purchaseSample.Cart = _cartSample;
 
-            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.AreEqual(((int)(200 * .5f)), promotionTotalLook.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(((int)(200 * .5f)), _promotionTotalLook.CalculateDiscount(_purchaseSample));
         }
     }
 }
