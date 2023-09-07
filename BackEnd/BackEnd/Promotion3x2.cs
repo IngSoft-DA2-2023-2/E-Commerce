@@ -36,7 +36,7 @@ namespace BackEnd
                 productsInCategory.Sort((a,b)=>b.Price-a.Price);
 
                 if (productsInCategory.Count < _minQuantity) continue;
-                if (productsInCategory[_minQuantity - 1].Price > maxDiscount) maxDiscount = productsInCategory[_minQuantity - 1].Price;
+                if (productsInCategory.Last().Price > maxDiscount) maxDiscount = productsInCategory.Last().Price;
 
 
             }

@@ -110,5 +110,32 @@ namespace UnitTest
             Promotion3x2 promo = new Promotion3x2();
             Assert.AreEqual(100, promo.CalculateDiscount(purchase));
         }
+
+        [TestMethod]
+        public void Given4ItemsOfSameCategoryAndSamePriceReturnsDiscountOfCheapest()
+        {
+            Product product1 = new Product() { Category = "category sample 1", Price = 1 };
+            Product product2 = new Product() { Category = "category sample 1", Price = 2 };
+            Product product3 = new Product() { Category = "category sample 1", Price = 3 };
+            Product product4 = new Product() { Category = "category sample 1", Price = 4 };
+
+
+            List<Product> products = new List<Product>
+            {
+                product1,
+                product2,
+                product3,
+                product4
+            };
+
+            Purchase purchase = new Purchase()
+            {
+                Cart = products
+            };
+
+            Promotion3x2 promo = new Promotion3x2();
+            Assert.AreEqual(1, promo.CalculateDiscount(purchase));
+        }
+
     }
 }
