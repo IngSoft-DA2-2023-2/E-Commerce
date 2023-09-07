@@ -83,5 +83,18 @@ namespace UnitTest
 
             _promo.CalculateDiscount(_purchaseSample);
         }
+
+        [TestMethod]
+        public void GivenThreeItemsOfSameBrandCalculatesItsDiscount()
+        {
+
+            _purchaseSample.Cart = new List<Product>
+                {
+                    new Product(){Brand = "brand sample", Price = 1},
+                    new Product(){Brand = "brand sample", Price = 1},
+                    new Product(){Brand = "brand sample", Price = 1},
+                };
+            Assert.AreEqual(2,_promo.CalculateDiscount(_purchaseSample));
+        }
     }
 }

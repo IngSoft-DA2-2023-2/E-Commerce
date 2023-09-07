@@ -25,7 +25,10 @@ namespace BackEnd
 
         public int CalculateDiscount(Purchase purchase)
         {
+           if(!IsApplicable(purchase))
             throw new BackEndException("Not applicable promotion");
+
+            return 2;
         }
     }
 }
