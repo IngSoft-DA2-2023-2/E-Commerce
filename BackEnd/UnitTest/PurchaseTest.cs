@@ -15,7 +15,7 @@ namespace UnitTest
 
 
         [TestInitialize]
-        public void Initializer()
+        public void Init()
         {
 
             purchaseSample = new Purchase();

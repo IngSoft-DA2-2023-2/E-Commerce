@@ -19,7 +19,7 @@ namespace UnitTest
 
 
         [TestInitialize]
-        public void Initialize()
+        public void Init()
         {
             _cartSample = new List<Product>();
             _purchaseSample = new Purchase();

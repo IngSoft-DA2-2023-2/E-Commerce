@@ -8,6 +8,11 @@ namespace UnitTest
     public class PromotionTotalLookTest
     {
 
+        [TestInitialize]
+        public void Init() {
+
+        }
+
         [TestMethod]
         public void Given1ItemPurchaseReturnsPromotionIsNotApplicable()
         {
