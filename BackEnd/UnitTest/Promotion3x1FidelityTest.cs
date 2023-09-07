@@ -24,7 +24,7 @@ namespace UnitTest
             List<Product> products = new List<Product> { new Product() { Brand = "brand sample", Price = 1 } };
 
             _purchaseSample.Cart = products;
-                    
+
 
             Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
         }
@@ -39,7 +39,7 @@ namespace UnitTest
                     new Product(){Brand = "brand sample", Price = 1},
                     new Product(){Brand = "brand sample", Price = 1},
                 };
-            
+
 
             Assert.IsTrue(_promo.IsApplicable(_purchaseSample));
         }
@@ -54,7 +54,7 @@ namespace UnitTest
                     new Product(){Brand = "brand sample 2", Price = 1},
                     new Product(){Brand = "brand sample 3", Price = 1},
                 };
-           
+
 
             Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
         }
@@ -70,7 +70,7 @@ namespace UnitTest
                     new Product(){Brand = "brand sample 3", Price = 1},
                     new Product(){Brand = "brand sample 4", Price = 1}
                 };
-            
+
             Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
         }
 
@@ -94,7 +94,23 @@ namespace UnitTest
                     new Product(){Brand = "brand sample", Price = 1},
                     new Product(){Brand = "brand sample", Price = 1},
                 };
-            Assert.AreEqual(2,_promo.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(2, _promo.CalculateDiscount(_purchaseSample));
+        }
+
+        [TestMethod]
+        public void GivenSixItemsOfSameBrandCalculatesItsDiscount()
+        {
+
+            _purchaseSample.Cart = new List<Product>
+                {
+                    new Product(){Brand = "brand sample", Price = 1},
+                    new Product(){Brand = "brand sample", Price = 2},
+                    new Product(){Brand = "brand sample", Price = 3},
+                    new Product(){Brand = "brand sample", Price = 4},
+                    new Product(){Brand = "brand sample", Price = 5},
+                    new Product(){Brand = "brand sample", Price = 6},
+                };
+            Assert.AreEqual(3, _promo.CalculateDiscount(_purchaseSample));
         }
     }
 }
