@@ -8,25 +8,22 @@ namespace UnitTest
     [TestClass]
     public class Promotion3x1FidelityTest
     {
-        private IPromotionable _promo = new Promotion3x1Fidelity();
+        private readonly IPromotionable _promo = new Promotion3x1Fidelity();
         private Purchase _purchaseSample;
 
         [TestInitialize]
         public void Init()
         {
-            _purchaseSample = new Purchase()
-            {
-                Cart = new List<Product>() 
-            };
+            _purchaseSample = new Purchase();
 
         }
 
         [TestMethod]
         public void GivenOneItemReturnsDiscountIsNotApplicable()
         {
-            Product productSample = new Product() { Brand = "brand sample", Price = 1 };
+            List<Product> products = new List<Product> { new Product() { Brand = "brand sample", Price = 1 } };
 
-            _purchaseSample.Cart.Add(productSample);
+            _purchaseSample.Cart = products;
                     
 
             Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
