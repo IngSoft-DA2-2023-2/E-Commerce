@@ -1,44 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BackEnd
 {
     public class PromotionTotalLook
     {
-        private const int _numberOfSameColor = 3;
-        private const float _fiftyPercent = 0.5f;
+        private const int MinimumSameColorProducts = 3;
+        private const float DiscountPercentage = 0.5f;
 
         public bool IsApplicable(Purchase purchase)
         {
-            List<string> colorList = ColorsInCart(purchase.Cart);
-         
-            foreach (string color in colorList)
-            {
-                List<Product> l = ProductsOfSpecificColor(purchase.Cart, color);
-                if (l.Count >= _numberOfSameColor) return true;
-            }
-            return false;
-        }
+            List<string> colorsInCart = GetDistinctColorsInCart(purchase.Cart);
 
-        private List<string> ColorsInCart(List<Product> products)
-        {
-            List<string> colorList = new List<string>();
-            foreach (Product p in products)
-            {
-                foreach (string color in p.Color)
-                {
-                    if (!colorList.Contains(color)) colorList.Add(color);
-                }
-            }
-            return colorList;
-        }
-
-        public List<Product> ProductsOfSpecificColor(List<Product> cart,string color)
-        {
-            return cart.FindAll(c => c.Color.Contains(color));
+            return colorsInCart.Any(color => GetProductsOfColor(purchase.Cart, color).Count >= MinimumSameColorProducts);
         }
 
         public int CalculateDiscount(Purchase purchase)
@@ -47,23 +22,39 @@ namespace BackEnd
             {
                 throw new BackEndException("Not applicable promotion");
             }
-            
-            List<string> colorList = ColorsInCart(purchase.Cart);
 
+            List<string> colorsInCart = GetDistinctColorsInCart(purchase.Cart);
             int maxPrice = 0;
-            foreach (string color in colorList)
-            {  
-                List<Product> l = ProductsOfSpecificColor(purchase.Cart, color);
-                if (l.Count >= _numberOfSameColor)
+
+            foreach (string color in colorsInCart)
+            {
+                List<Product> productsOfSpecificColor = GetProductsOfColor(purchase.Cart, color);
+
+                if (productsOfSpecificColor.Count >= MinimumSameColorProducts)
                 {
-                    foreach(Product p in l)
-                    {
-                        if(p.Price > maxPrice) maxPrice = p.Price;
-                    }
+                    int colorMaxPrice = productsOfSpecificColor.Max(p => p.Price);
+                    maxPrice = Math.Max(maxPrice, colorMaxPrice);
                 }
             }
-            return (int)(maxPrice * _fiftyPercent);
 
+            return (int)(maxPrice * DiscountPercentage);
+        }
+
+        private List<string> GetDistinctColorsInCart(List<Product> products)
+        {
+            List<string> colorList = new List<string>();
+
+            foreach (Product product in products)
+            {
+                colorList.AddRange(product.Color.Where(color => !colorList.Contains(color)));
+            }
+
+            return colorList.Distinct().ToList();
+        }
+
+        private List<Product> GetProductsOfColor(List<Product> cart, string color)
+        {
+            return cart.Where(product => product.Color.Contains(color)).ToList();
         }
     }
 }
