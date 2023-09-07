@@ -90,5 +90,23 @@ namespace UnitTest
             PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
             Assert.IsTrue(promotionTotalLook.IsApplicable(_purchaseSample));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException),"Not applicable promotion")]
+        public void GivenNonApplicablePromotionThrowsBackEndException()
+        {
+            Purchase _purchaseSample = new Purchase();
+            List<Product> _cartSample = new List<Product>
+            {
+                new Product() { Color = new List<string> { "red", "blue" } },
+                new Product() { Color = new List<string> { "red" } },
+            };
+
+            _purchaseSample.Cart = _cartSample;
+
+            PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
+            promotionTotalLook.CalculateDiscount(_purchaseSample);
+
+        }
     }
 }

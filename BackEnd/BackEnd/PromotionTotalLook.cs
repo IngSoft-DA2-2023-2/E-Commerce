@@ -38,5 +38,10 @@ namespace BackEnd
         {
             return cart.FindAll(c => c.Color.Contains(color));
         }
+
+        public void CalculateDiscount(Purchase purchaseSample)
+        {
+            throw new BackEndException("Not applicable promotion");
+        }
     }
 }
