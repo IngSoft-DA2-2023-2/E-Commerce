@@ -24,7 +24,7 @@ namespace BackEnd
             }
 
             List<string> colorsInCart = GetDistinctColorsInCart(purchase.Cart);
-            
+
             int maxPrice = 0;
             foreach (string color in colorsInCart)
             {
