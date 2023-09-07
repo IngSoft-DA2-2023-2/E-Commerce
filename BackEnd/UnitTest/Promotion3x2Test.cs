@@ -12,6 +12,11 @@ namespace UnitTest
         private const string _categorySample2 = "category sample 2";
         private const string _categorySample3 = "category sample 3";
 
+        private const int _one = 1;
+        private const int _two = 2;
+        private const int _three = 3;
+        private const int _four = 4;
+
         [TestInitialize]
         public void Init()
         {
@@ -76,9 +81,9 @@ namespace UnitTest
         [TestMethod]
         public void Given3ItemsOfSameCategoryReturnsItsDiscount()
         {
-            Product product1 = new Product() { Category = _categorySample1, Price = 100 };
-            Product product2 = new Product() { Category = _categorySample1, Price = 60 };
-            Product product3 = new Product() { Category = _categorySample1, Price = 80 };
+            Product product1 = new Product() { Category = _categorySample1, Price = _one };
+            Product product2 = new Product() { Category = _categorySample1, Price = _two };
+            Product product3 = new Product() { Category = _categorySample1, Price = _three };
 
             List<Product> products = new List<Product>
             {
@@ -92,15 +97,15 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.AreEqual(60, _promo3x2.CalculateDiscount(purchase));
+            Assert.AreEqual(_one, _promo3x2.CalculateDiscount(purchase));
         }
 
         [TestMethod]
         public void Given3ItemsOfSameCategoryAndSamePriceReturnsItsDiscount()
         {
-            Product product1 = new Product() { Category = _categorySample1, Price = 100 };
-            Product product2 = new Product() { Category = _categorySample1, Price = 100 };
-            Product product3 = new Product() { Category = _categorySample1, Price = 100 };
+            Product product1 = new Product() { Category = _categorySample1, Price = _three };
+            Product product2 = new Product() { Category = _categorySample1, Price = _three };
+            Product product3 = new Product() { Category = _categorySample1, Price = _three };
 
             List<Product> products = new List<Product>
             {
@@ -114,16 +119,16 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.AreEqual(100, _promo3x2.CalculateDiscount(purchase));
+            Assert.AreEqual(_three, _promo3x2.CalculateDiscount(purchase));
         }
 
         [TestMethod]
         public void Given4ItemsOfSameCategoryAndSamePriceReturnsDiscountOfCheapest()
         {
-            Product product1 = new Product() { Category = _categorySample1, Price = 1 };
-            Product product2 = new Product() { Category = _categorySample1, Price = 2 };
-            Product product3 = new Product() { Category = _categorySample1, Price = 3 };
-            Product product4 = new Product() { Category = _categorySample1, Price = 4 };
+            Product product1 = new Product() { Category = _categorySample1, Price = _one };
+            Product product2 = new Product() { Category = _categorySample1, Price = _two };
+            Product product3 = new Product() { Category = _categorySample1, Price = _three };
+            Product product4 = new Product() { Category = _categorySample1, Price = _four };
 
             List<Product> products = new List<Product>
             {
@@ -138,7 +143,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.AreEqual(1, _promo3x2.CalculateDiscount(purchase));
+            Assert.AreEqual(_one, _promo3x2.CalculateDiscount(purchase));
         }
 
     }
