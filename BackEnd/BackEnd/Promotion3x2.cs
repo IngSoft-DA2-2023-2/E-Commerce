@@ -33,7 +33,7 @@ namespace BackEnd
             foreach (string category in uniqueCategories)
             {
                 List<Product> productsInCategory = purchase.Cart.Where(p => p.Category == category).ToList();
-                productsInCategory.Sort((a,b)=>b.Price-a.Price);
+                productsInCategory.Sort((a, b) => b.Price - a.Price);
 
                 if (productsInCategory.Count < _minQuantity) continue;
                 if (productsInCategory.Last().Price > maxDiscount) maxDiscount = productsInCategory.Last().Price;
