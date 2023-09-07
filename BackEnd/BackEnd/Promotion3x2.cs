@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BackEnd
 {
     public class Promotion3x2
     {
+        private const int _minQuantity = 3;
         public bool IsApplicable(Purchase purchase)
         {
-            List<string> categories = new List<string>();
-            foreach (Product p in purchase.Cart)
+            List<string> uniqueCategories = purchase.Cart.Select(p => p.Category).Distinct().ToList();
+
+            foreach (string category in uniqueCategories)
             {
-                if (!categories.Contains(p.Category)) categories.Add(p.Category);
+                List<Product> productsInCategory = purchase.Cart.Where(p => p.Category == category).ToList();
+
+                if (productsInCategory.Count >= _minQuantity)
+                {
+                    return true;
+                }
             }
 
-            foreach (string category in categories)
-            {
-                List<Product> prod = purchase.Cart.FindAll(x => x.Category == category);
-
-                if (prod.Count < 3) continue;
-
-                return true;
-            }
             return false;
         }
+
     }
 }
