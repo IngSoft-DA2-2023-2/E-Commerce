@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BackEnd
+﻿namespace BackEnd
 {
     public class Promotion20Off
     {

@@ -1,10 +1,6 @@
 ﻿using BackEnd;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTest
 {
@@ -92,7 +88,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException),"Not applicable promotion")]
+        [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNonApplicablePromotionThrowsBackEndException()
         {
             Purchase _purchaseSample = new Purchase();
@@ -123,7 +119,7 @@ namespace UnitTest
             _purchaseSample.Cart = _cartSample;
 
             PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
-            Assert.AreEqual(((int)(100*.5f)),promotionTotalLook.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(((int)(100 * .5f)), promotionTotalLook.CalculateDiscount(_purchaseSample));
 
         }
     }

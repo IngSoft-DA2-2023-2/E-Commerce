@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using BackEnd;
+﻿using BackEnd;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 namespace UnitTest
@@ -19,8 +18,9 @@ namespace UnitTest
         private const float _twentyPercent = 0.2f;
 
 
-        [TestInitialize] 
-        public void Initialize() {
+        [TestInitialize]
+        public void Initialize()
+        {
             _cartSample = new List<Product>();
             _purchaseSample = new Purchase();
             _promo20Off = new Promotion20Off();
@@ -30,7 +30,7 @@ namespace UnitTest
         public void Given1ItemPurchaseReturnsPromotionIsNotApplicable()
         {
             _cartSample.Add(new Product());
-           _purchaseSample.Cart = _cartSample;
+            _purchaseSample.Cart = _cartSample;
 
             Assert.IsFalse(_promo20Off.IsApplicable(_purchaseSample));
         }
@@ -41,7 +41,8 @@ namespace UnitTest
             _cartSample.Add(new Product());
             _cartSample.Add(new Product());
 
-            _purchaseSample = new Purchase() {
+            _purchaseSample = new Purchase()
+            {
                 Cart = _cartSample,
             };
 
@@ -64,11 +65,11 @@ namespace UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException),"Not applicable promotion")]
+        [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
             _cartSample.Add(new Product());
-           
+
             _purchaseSample = new Purchase()
             {
                 Cart = _cartSample,
@@ -80,7 +81,7 @@ namespace UnitTest
         [TestMethod]
         public void Given2ItemPurchaseCalculatesDiscount()
         {
-            _cartSample.Add(_oneHundredDollarProduct) ;
+            _cartSample.Add(_oneHundredDollarProduct);
             _cartSample.Add(_fiftyDollarProduct);
 
             _purchaseSample = new Purchase()
@@ -88,7 +89,7 @@ namespace UnitTest
                 Cart = _cartSample,
             };
 
-            Assert.AreEqual(_oneHundred*_twentyPercent,_promo20Off.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_oneHundred * _twentyPercent, _promo20Off.CalculateDiscount(_purchaseSample));
         }
 
         [TestMethod]
