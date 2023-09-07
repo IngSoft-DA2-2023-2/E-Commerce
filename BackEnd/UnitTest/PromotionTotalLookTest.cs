@@ -7,7 +7,6 @@ namespace UnitTest
     [TestClass]
     public class PromotionTotalLookTest
     {
-
         private Purchase _purchaseSample;
         private List<Product> _cartSample;
         private PromotionTotalLook _promotionTotalLook;
@@ -29,7 +28,6 @@ namespace UnitTest
             _purchaseSample = new Purchase();
             _cartSample = new List<Product>();
             _promotionTotalLook = new PromotionTotalLook();
-
         }
 
         [TestMethod]
