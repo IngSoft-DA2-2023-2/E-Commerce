@@ -6,7 +6,8 @@ namespace BackEnd
     {
         public bool IsApplicable(Purchase purchase)
         {
-            return false;
+           if(purchase.Cart.Count==3) return true;
+           return false;
         }
         public int CalculateDiscount(Purchase purchase)
         {
