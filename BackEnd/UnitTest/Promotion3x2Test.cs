@@ -7,12 +7,23 @@ namespace UnitTest
     [TestClass]
     public class Promotion3x2Test
     {
+        private IPromotionable _promo3x2;
+        private const string _categorySample1 = "category sample 1";
+        private const string _categorySample2 = "category sample 2";
+        private const string _categorySample3 = "category sample 3";
+
+        [TestInitialize]
+        public void Init()
+        {
+            _promo3x2 = new Promotion3x2();
+        }
+
         [TestMethod]
         public void GivenItemsOfDifferentCategoriesReturnsIsNotApplicable()
         {
-            Product product1 = new Product() { Category = "category sample 1" };
-            Product product2 = new Product() { Category = "category sample 2" };
-            Product product3 = new Product() { Category = "category sample 3" };
+            Product product1 = new Product() { Category = _categorySample1 };
+            Product product2 = new Product() { Category = _categorySample2 };
+            Product product3 = new Product() { Category = _categorySample3 };
 
             List<Product> products = new List<Product>
             {
@@ -27,16 +38,15 @@ namespace UnitTest
 
             };
 
-            IPromotionable promo = new Promotion3x2();
-            Assert.IsFalse(promo.IsApplicable(purchase));
+            Assert.IsFalse(_promo3x2.IsApplicable(purchase));
         }
 
         [TestMethod]
         public void GivenItemsOfSameCategoryReturnsIsApplicable()
         {
-            Product product1 = new Product() { Category = "category sample 1" };
-            Product product2 = new Product() { Category = "category sample 1" };
-            Product product3 = new Product() { Category = "category sample 1" };
+            Product product1 = new Product() { Category = _categorySample1 };
+            Product product2 = new Product() { Category = _categorySample1 };
+            Product product3 = new Product() { Category = _categorySample1 };
 
             List<Product> products = new List<Product>
             {
@@ -50,27 +60,25 @@ namespace UnitTest
                 Cart = products
             };
 
-            IPromotionable promo = new Promotion3x2();
-            Assert.IsTrue(promo.IsApplicable(purchase));
+            Assert.IsTrue(_promo3x2.IsApplicable(purchase));
         }
 
         [TestMethod]
         [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNonApplicablePurchaseThrowsBackEndException()
         {
-            Product product1 = new Product() { Category = "category sample 1" };
+            Product product1 = new Product() { Category = _categorySample1 };
             Purchase purchase = new Purchase() { Cart = new List<Product> { product1 } };
 
-            IPromotionable promo = new Promotion3x2();
-            promo.CalculateDiscount(purchase);
+            _promo3x2.CalculateDiscount(purchase);
         }
 
         [TestMethod]
         public void Given3ItemsOfSameCategoryReturnsItsDiscount()
         {
-            Product product1 = new Product() { Category = "category sample 1", Price = 100 };
-            Product product2 = new Product() { Category = "category sample 1", Price = 60 };
-            Product product3 = new Product() { Category = "category sample 1", Price = 80 };
+            Product product1 = new Product() { Category = _categorySample1, Price = 100 };
+            Product product2 = new Product() { Category = _categorySample1, Price = 60 };
+            Product product3 = new Product() { Category = _categorySample1, Price = 80 };
 
             List<Product> products = new List<Product>
             {
@@ -84,16 +92,15 @@ namespace UnitTest
                 Cart = products
             };
 
-            IPromotionable promo = new Promotion3x2();
-            Assert.AreEqual(60, promo.CalculateDiscount(purchase));
+            Assert.AreEqual(60, _promo3x2.CalculateDiscount(purchase));
         }
 
         [TestMethod]
         public void Given3ItemsOfSameCategoryAndSamePriceReturnsItsDiscount()
         {
-            Product product1 = new Product() { Category = "category sample 1", Price = 100 };
-            Product product2 = new Product() { Category = "category sample 1", Price = 100 };
-            Product product3 = new Product() { Category = "category sample 1", Price = 100 };
+            Product product1 = new Product() { Category = _categorySample1, Price = 100 };
+            Product product2 = new Product() { Category = _categorySample1, Price = 100 };
+            Product product3 = new Product() { Category = _categorySample1, Price = 100 };
 
             List<Product> products = new List<Product>
             {
@@ -107,18 +114,16 @@ namespace UnitTest
                 Cart = products
             };
 
-            IPromotionable promo = new Promotion3x2();
-            Assert.AreEqual(100, promo.CalculateDiscount(purchase));
+            Assert.AreEqual(100, _promo3x2.CalculateDiscount(purchase));
         }
 
         [TestMethod]
         public void Given4ItemsOfSameCategoryAndSamePriceReturnsDiscountOfCheapest()
         {
-            Product product1 = new Product() { Category = "category sample 1", Price = 1 };
-            Product product2 = new Product() { Category = "category sample 1", Price = 2 };
-            Product product3 = new Product() { Category = "category sample 1", Price = 3 };
-            Product product4 = new Product() { Category = "category sample 1", Price = 4 };
-
+            Product product1 = new Product() { Category = _categorySample1, Price = 1 };
+            Product product2 = new Product() { Category = _categorySample1, Price = 2 };
+            Product product3 = new Product() { Category = _categorySample1, Price = 3 };
+            Product product4 = new Product() { Category = _categorySample1, Price = 4 };
 
             List<Product> products = new List<Product>
             {
@@ -133,8 +138,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            IPromotionable promo = new Promotion3x2();
-            Assert.AreEqual(1, promo.CalculateDiscount(purchase));
+            Assert.AreEqual(1, _promo3x2.CalculateDiscount(purchase));
         }
 
     }
