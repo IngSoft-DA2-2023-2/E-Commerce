@@ -28,9 +28,11 @@ namespace UnitTest
         public void Given2ItemPurchaseReturnsPromotionIsNotApplicable()
         {
             Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>();
-            _cartSample.Add(new Product());
-            _cartSample.Add(new Product());
+            List<Product> _cartSample = new List<Product>
+            {
+                new Product(),
+                new Product()
+            };
             _purchaseSample.Cart = _cartSample;
 
             PromotionTotalLook promotionTotalLook = new PromotionTotalLook();
@@ -41,10 +43,12 @@ namespace UnitTest
         public void Given3ItemOfSameColorPurchaseReturnsPromotionIsApplicable()
         {
             Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>();
-            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue"} });
-            _cartSample.Add(new Product() { Color = new List<string> { "blue"} });
-            _cartSample.Add(new Product() { Color = new List<string> { "blue", "green"} });
+            List<Product> _cartSample = new List<Product>
+            {
+                new Product() { Color = new List<string> { "red", "blue" } },
+                new Product() { Color = new List<string> { "blue" } },
+                new Product() { Color = new List<string> { "blue", "green" } }
+            };
 
             _purchaseSample.Cart = _cartSample;
 
@@ -56,10 +60,12 @@ namespace UnitTest
         public void Given3ItemOfDifferentColorsPurchaseReturnsPromotionIsApplicable()
         {
             Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>();
-            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
-            _cartSample.Add(new Product() { Color = new List<string> { "blue" } });
-            _cartSample.Add(new Product() { Color = new List<string> { "red", "green" } });
+            List<Product> _cartSample = new List<Product>
+            {
+                new Product() { Color = new List<string> { "red", "blue" } },
+                new Product() { Color = new List<string> { "blue" } },
+                new Product() { Color = new List<string> { "red", "green" } }
+            };
 
             _purchaseSample.Cart = _cartSample;
 
@@ -71,11 +77,13 @@ namespace UnitTest
         public void Given4ItemOfSameColorsPurchaseReturnsPromotionIsApplicable()
         {
             Purchase _purchaseSample = new Purchase();
-            List<Product> _cartSample = new List<Product>();
-            _cartSample.Add(new Product() { Color = new List<string> { "red", "blue" } });
-            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
-            _cartSample.Add(new Product() { Color = new List<string> { "red", "green" } });
-            _cartSample.Add(new Product() { Color = new List<string> { "red" } });
+            List<Product> _cartSample = new List<Product>
+            {
+                new Product() { Color = new List<string> { "red", "blue" } },
+                new Product() { Color = new List<string> { "red" } },
+                new Product() { Color = new List<string> { "red", "green" } },
+                new Product() { Color = new List<string> { "red" } }
+            };
 
             _purchaseSample.Cart = _cartSample;
 

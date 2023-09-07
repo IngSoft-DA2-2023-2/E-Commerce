@@ -8,6 +8,7 @@ namespace BackEnd
 {
     public class PromotionTotalLook
     {
+        private const int _numberOfSameColor = 3;
         public bool IsApplicable(Purchase purchase)
         {
             List<string> colorList = ColorsInCart(purchase.Cart);
@@ -15,7 +16,7 @@ namespace BackEnd
             foreach (string color in colorList)
             {
                 List<Product> l = ProductsOfSpecificColor(purchase.Cart, color);
-                if (l.Count >= 3) return true;
+                if (l.Count >= _numberOfSameColor) return true;
             }
             return false;
         }
