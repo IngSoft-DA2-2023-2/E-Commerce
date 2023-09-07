@@ -17,7 +17,7 @@ namespace UnitTest
         private const int _negativePriceSample = -10;
 
         [TestInitialize]
-        public void Initialize()
+        public void Init()
         {
             productSample = new Product();
         }

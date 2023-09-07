@@ -17,7 +17,7 @@ namespace UnitTest
         private const string _thisPasswordIsTooLong = "ThisP44swordIsT00Long1234";
         private const string _wrongEmailFormat = "format.com";
         [TestInitialize]
-        public void Initialize()
+        public void Init()
         {
             userSample = new User();
         }

@@ -50,9 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HelperValidatorTest.cs" />
+    <Compile Include="PromotionTotalLookTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductTest.cs" />
     <Compile Include="PurchaseTest.cs" />
+    <Compile Include="Promotion20OffTest.cs" />
+    <Compile Include="Promotion3x2Test.cs" />
+    <Compile Include="Promotion3x1FidelityTest.cs" />
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
