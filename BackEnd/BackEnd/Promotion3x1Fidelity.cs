@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BackEnd
 {
@@ -6,9 +8,20 @@ namespace BackEnd
     {
         public bool IsApplicable(Purchase purchase)
         {
-           if(purchase.Cart.Count==3) return true;
-           return false;
+            List<string> uniqueBrands = purchase.Cart.Select(p => p.Brand).Distinct().ToList();
+
+            foreach (string brand in uniqueBrands)
+            {
+                List<Product> productsOfBrand = purchase.Cart.Where(p => p.Brand == brand).ToList();
+
+                if (productsOfBrand.Count >= 3)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+
         public int CalculateDiscount(Purchase purchase)
         {
             throw new NotImplementedException();
