@@ -48,11 +48,21 @@ namespace UnitTest
             Purchase purchase = new Purchase()
             {
                 Cart = products
-
             };
 
             Promotion3x2 promo = new Promotion3x2();
             Assert.IsTrue(promo.IsApplicable(purchase));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
+        public void GivenNonApplicablePurchaseThrowsBackEndException()
+        {
+            Product product1 = new Product() { Category = "category sample 1" };
+            Purchase purchase = new Purchase() { Cart = new List<Product> { product1 } };
+
+            Promotion3x2 promo = new Promotion3x2();
+            promo.CalculateDiscount(purchase);
         }
     }
 }

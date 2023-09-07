@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BackEnd
@@ -21,6 +22,11 @@ namespace BackEnd
             }
 
             return false;
+        }
+
+        public int CalculateDiscount(Purchase purchase)
+        {
+            throw new BackEndException("Not applicable promotion");
         }
 
     }
