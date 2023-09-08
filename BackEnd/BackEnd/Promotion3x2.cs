@@ -9,8 +9,8 @@ namespace BackEnd
 
         public bool IsApplicable(Purchase purchase)
         {
-            return purchase.Cart.GroupBy(p => p.Category)
-                                 .Any(g => g.Count() >= _minQuantity);
+            return purchase.Cart.GroupBy(product => product.Category)
+                                 .Any(group => group.Count() >= _minQuantity);
         }
 
         public int CalculateDiscount(Purchase purchase)
@@ -19,11 +19,11 @@ namespace BackEnd
 
             var discount = 0;
 
-            foreach (var group in purchase.Cart.GroupBy(p => p.Category))
+            foreach (var group in purchase.Cart.GroupBy(product => product.Category))
             {
                 if (group.Count() >= _minQuantity)
                 {
-                    var cheapestProduct = group.OrderBy(p => p.Price)
+                    var cheapestProduct = group.OrderBy(product => product.Price)
                                                .First();
                     discount += cheapestProduct.Price;
                 }

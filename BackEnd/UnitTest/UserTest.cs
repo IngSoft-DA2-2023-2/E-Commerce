@@ -13,6 +13,7 @@ namespace UnitTest
         private const string _userSamplePassword = "userPassword";
         private const string _thisNameIsTooLong = "thisPasswordIsIncorrectEvenThoughItOnlyCointainsLetters";
         private const string _thisNameIsTooShort = "a";
+        private const string _thisPasswordIsTooShort = "1";
         private const string _nonAlphanumericalName = "______";
         private const string _thisPasswordIsTooLong = "ThisP44swordIsT00Long1234";
         private const string _wrongEmailFormat = "format.com";
@@ -86,7 +87,7 @@ namespace UnitTest
         [ExpectedException(typeof(BackEndException), "Password length must be between 5 and 25")]
         public void GivenTooShortPasswordThrowsBackEndException()
         {
-            userSample.Password = "1";
+            userSample.Password = _thisPasswordIsTooShort;
         }
         [TestMethod]
         [ExpectedException(typeof(BackEndException), "Password length must be between 5 and 25")]
