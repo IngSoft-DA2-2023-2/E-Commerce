@@ -32,7 +32,7 @@ namespace BackEnd
 
                 if (productsOfSpecificColor.Count >= MinimumSameColorProducts)
                 {
-                    int colorMaxPrice = productsOfSpecificColor.Max(p => p.Price);
+                    int colorMaxPrice = productsOfSpecificColor.Max(product => product.Price);
                     maxPrice = Math.Max(maxPrice, colorMaxPrice);
                 }
             }

@@ -6,11 +6,12 @@ namespace BackEnd
     public class Promotion3x1Fidelity : IPromotionable
     {
         private const int _minQuantity = 3;
+        private const int _numberOfProductsToTake = 2;
 
         public bool IsApplicable(Purchase purchase)
         {
-            return purchase.Cart.GroupBy(p => p.Brand)
-                                 .Any(g => g.Count() >= _minQuantity);
+            return purchase.Cart.GroupBy(product => product.Brand)
+                                 .Any(group => group.Count() >= _minQuantity);
         }
 
         public int CalculateDiscount(Purchase purchase)
@@ -22,14 +23,14 @@ namespace BackEnd
 
             int currentDiscount = 0;
 
-            foreach (var group in purchase.Cart.GroupBy(p => p.Brand))
+            foreach (var group in purchase.Cart.GroupBy(product => product.Brand))
             {
                 if (group.Count() >= _minQuantity)
                 {
-                    var cheapestProducts = group.OrderBy(p => p.Price)
-                                                .Take(2);
+                    var cheapestProducts = group.OrderBy(product => product.Price)
+                                                .Take(_numberOfProductsToTake);
 
-                    currentDiscount += cheapestProducts.Sum(p => p.Price);
+                    currentDiscount += cheapestProducts.Sum(product => product.Price);
                 }
             }
 
