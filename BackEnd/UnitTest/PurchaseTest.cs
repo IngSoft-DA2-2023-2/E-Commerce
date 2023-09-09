@@ -114,13 +114,13 @@ namespace UnitTest
             IPromotionable promo3 = new PromotionTotalLook();
             IPromotionable promo4 = new Promotion20Off();
 
-            List<IPromotionable> promotions = new List<IPromotionable>() { 
+            List<IPromotionable> promotions = new List<IPromotionable>() {
             promo1,
             promo2,
             promo3,
             promo4
             };
-            
+
             purchaseSample.Promotions = promotions;
 
             Assert.IsTrue(purchaseSample.Promotions.Count == 4);
@@ -129,7 +129,23 @@ namespace UnitTest
             Assert.AreEqual(promo2, purchaseSample.Promotions[1]);
             Assert.AreEqual(promo3, purchaseSample.Promotions[2]);
             Assert.AreEqual(promo4, purchaseSample.Promotions[3]);
+        }
 
+        [TestMethod]
+        public void Given1ItemPurchaseReturnsThereAreNotApplicablePromotions()
+        {
+            List<Product> cart = new List<Product> { new Product() {
+                Name = "name sample 3",
+                Brand = "brand sample 3",
+                Category = "category sample 3",
+                Description = "description sample 3",
+                Color = new List<String> { "color sample 3" },
+            }
+            };
+
+            purchaseSample.Cart = cart;
+
+            Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
         }
     }
 }

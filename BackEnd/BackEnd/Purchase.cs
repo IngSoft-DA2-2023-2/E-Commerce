@@ -8,7 +8,7 @@ namespace BackEnd
     {
         private List<Product> _cart;
         private DateTime _date;
-       
+
         public User User { get; set; }
         public IPromotionable CurrentPromotion { get; set; }
         public List<IPromotionable> Promotions { get; set; }
@@ -45,6 +45,11 @@ namespace BackEnd
         {
             if (value == null) throw new BackEndException("Cart must not be null");
             if (value.Count == 0) throw new BackEndException("Cart must not be empty");
+        }
+
+        public bool IsEligibleForPromotions()
+        {
+            return false;
         }
     }
 }
