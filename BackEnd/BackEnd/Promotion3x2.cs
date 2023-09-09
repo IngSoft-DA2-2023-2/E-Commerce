@@ -7,19 +7,19 @@ namespace BackEnd
     {
         private const int _minQuantity = 3;
 
-        public bool IsApplicable(Purchase purchase)
+        public bool IsApplicable(List<Product> cart)
         {
-            return purchase.Cart.GroupBy(product => product.Category)
+            return cart.GroupBy(product => product.Category)
                                  .Any(group => group.Count() >= _minQuantity);
         }
 
-        public int CalculateDiscount(Purchase purchase)
+        public int CalculateDiscount(List<Product> cart)
         {
-            if (!IsApplicable(purchase)) throw new BackEndException("Not applicable promotion");
+            if (!IsApplicable(cart)) throw new BackEndException("Not applicable promotion");
 
             var discount = 0;
 
-            foreach (var group in purchase.Cart.GroupBy(product => product.Category))
+            foreach (var group in cart.GroupBy(product => product.Category))
             {
                 if (group.Count() >= _minQuantity)
                 {

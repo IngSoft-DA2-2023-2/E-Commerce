@@ -1,9 +1,11 @@
-﻿namespace BackEnd
+﻿using System.Collections.Generic;
+
+namespace BackEnd
 {
     public interface IPromotionable
     {
-        bool IsApplicable(Purchase purchase);
+        bool IsApplicable(List<Product> purchase);
 
-        int CalculateDiscount(Purchase purchase);
+        int CalculateDiscount(List<Product> purchase);
     }
 }

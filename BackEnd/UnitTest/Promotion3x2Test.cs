@@ -43,7 +43,7 @@ namespace UnitTest
 
             };
 
-            Assert.IsFalse(_promo3x2.IsApplicable(purchase));
+            Assert.IsFalse(_promo3x2.IsApplicable(purchase.Cart));
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.IsTrue(_promo3x2.IsApplicable(purchase));
+            Assert.IsTrue(_promo3x2.IsApplicable(purchase.Cart));
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace UnitTest
             Product product1 = new Product() { Category = _categorySample1 };
             Purchase purchase = new Purchase() { Cart = new List<Product> { product1 } };
 
-            _promo3x2.CalculateDiscount(purchase);
+            _promo3x2.CalculateDiscount(purchase.Cart);
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.AreEqual(_one, _promo3x2.CalculateDiscount(purchase));
+            Assert.AreEqual(_one, _promo3x2.CalculateDiscount(purchase.Cart));
         }
 
         [TestMethod]
@@ -119,7 +119,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.AreEqual(_three, _promo3x2.CalculateDiscount(purchase));
+            Assert.AreEqual(_three, _promo3x2.CalculateDiscount(purchase.Cart));
         }
 
         [TestMethod]
@@ -143,7 +143,7 @@ namespace UnitTest
                 Cart = products
             };
 
-            Assert.AreEqual(_one, _promo3x2.CalculateDiscount(purchase));
+            Assert.AreEqual(_one, _promo3x2.CalculateDiscount(purchase.Cart));
         }
 
     }

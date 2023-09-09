@@ -9,26 +9,26 @@ namespace BackEnd
         private const int MinimumSameColorProducts = 3;
         private const float DiscountPercentage = 0.5f;
 
-        public bool IsApplicable(Purchase purchase)
+        public bool IsApplicable(List<Product> cart)
         {
-            List<string> colorsInCart = GetDistinctColorsInCart(purchase.Cart);
+            List<string> colorsInCart = GetDistinctColorsInCart(cart);
 
-            return colorsInCart.Any(color => GetProductsOfColor(purchase.Cart, color).Count >= MinimumSameColorProducts);
+            return colorsInCart.Any(color => GetProductsOfColor(cart, color).Count >= MinimumSameColorProducts);
         }
 
-        public int CalculateDiscount(Purchase purchase)
+        public int CalculateDiscount(List<Product> cart)
         {
-            if (!IsApplicable(purchase))
+            if (!IsApplicable(cart))
             {
                 throw new BackEndException("Not applicable promotion");
             }
 
-            List<string> colorsInCart = GetDistinctColorsInCart(purchase.Cart);
+            List<string> colorsInCart = GetDistinctColorsInCart(cart);
 
             int maxPrice = 0;
             foreach (string color in colorsInCart)
             {
-                List<Product> productsOfSpecificColor = GetProductsOfColor(purchase.Cart, color);
+                List<Product> productsOfSpecificColor = GetProductsOfColor(cart, color);
 
                 if (productsOfSpecificColor.Count >= MinimumSameColorProducts)
                 {
