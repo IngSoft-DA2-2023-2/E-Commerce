@@ -49,7 +49,27 @@ namespace BackEnd
 
         public bool IsEligibleForPromotions()
         {
-            return Promotions.Any(promo => promo.IsApplicable(_cart));
+            return Promotions.Any(promo => promo.IsApplicable(Cart));
+        }
+
+        public void AssignsBestPromotion()
+        {
+            IPromotionable best = null;
+            int maxDiscount = 0;
+            foreach (var promo in Promotions)
+            {
+                if(promo.IsApplicable(Cart))
+                {
+                    int currentDiscount = promo.CalculateDiscount(Cart);
+                    if ( currentDiscount > maxDiscount)
+                    {
+                        best = promo;
+                        maxDiscount = currentDiscount;
+                    }
+                }
+            }
+
+            CurrentPromotion = best;
         }
 
     }

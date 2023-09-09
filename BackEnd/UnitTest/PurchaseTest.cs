@@ -17,7 +17,7 @@ namespace UnitTest
             Category = "category sample 1",
             Description = "description sample 1",
             Color = new List<String> { "color sample 1" },
-            Price = 1,
+            Price = 10,
         };
 
     private readonly Product productSample2 = new Product()
@@ -27,7 +27,7 @@ namespace UnitTest
         Category = "category sample 2",
         Description = "description sample 2",
         Color = new List<String> { "color sample 2" },
-        Price = 2,
+        Price = 20,
         };
         private readonly Product productSample3 = new Product()
         {
@@ -36,7 +36,7 @@ namespace UnitTest
             Category = "category sample 3",
             Description = "description sample 3",
             Color = new List<String> { "color sample 3" },
-            Price = 3,
+            Price = 30,
         };
 
         private readonly List<IPromotionable> promotions = new List<IPromotionable> {
@@ -188,5 +188,15 @@ namespace UnitTest
 
             Assert.IsTrue(purchaseSample.IsEligibleForPromotions());
         }
+
+        [TestMethod]
+        public void Given3ItemPurchaseAssigns20OffPromotionAsBest()
+        {
+            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
+            purchaseSample.AssignsBestPromotion();
+
+            Assert.IsInstanceOfType(purchaseSample.CurrentPromotion, typeof(Promotion20Off));
+        }
+
     }
 }
