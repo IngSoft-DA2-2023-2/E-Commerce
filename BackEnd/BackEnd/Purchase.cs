@@ -49,6 +49,10 @@ namespace BackEnd
 
         public bool IsEligibleForPromotions()
         {
+            foreach (IPromotionable promo in Promotions)
+            {
+                if (promo.IsApplicable(this)) return true;
+            }
             return false;
         }
     }

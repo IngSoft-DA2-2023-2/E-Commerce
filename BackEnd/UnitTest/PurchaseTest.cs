@@ -10,15 +10,48 @@ namespace UnitTest
     {
         private Purchase purchaseSample;
         private readonly User userSample = new User();
-        private readonly Product productSample1 = new Product();
-        private readonly Product productSample2 = new Product();
+        private readonly Product productSample1 = new Product()
+        {
+            Name = "name sample 1",
+            Brand = "brand sample 1",
+            Category = "category sample 1",
+            Description = "description sample 1",
+            Color = new List<String> { "color sample 1" },
+            Price = 1,
+        };
 
+    private readonly Product productSample2 = new Product()
+    {
+        Name = "name sample 2",
+        Brand = "brand sample 2",
+        Category = "category sample 2",
+        Description = "description sample 2",
+        Color = new List<String> { "color sample 2" },
+        Price = 2,
+        };
+        private readonly Product productSample3 = new Product()
+        {
+            Name = "name sample 3",
+            Brand = "brand sample 3",
+            Category = "category sample 3",
+            Description = "description sample 3",
+            Color = new List<String> { "color sample 3" },
+            Price = 3,
+        };
+
+        private readonly List<IPromotionable> promotions = new List<IPromotionable> {
+            new Promotion20Off(),
+            new Promotion3x1Fidelity(),
+            new Promotion3x2(),
+            new PromotionTotalLook()
+        };
 
         [TestInitialize]
         public void Init()
         {
 
             purchaseSample = new Purchase();
+            purchaseSample.Promotions = promotions;
         }
 
         [TestMethod]
@@ -132,7 +165,7 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void Given1ItemPurchaseReturnsThereAreNotApplicablePromotions()
+        public void Given1ItemPurchaseReturnsIsNotEligibleForPromotions()
         {
             List<Product> cart = new List<Product> { new Product() {
                 Name = "name sample 3",
@@ -146,6 +179,14 @@ namespace UnitTest
             purchaseSample.Cart = cart;
 
             Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
+        }
+
+        [TestMethod]
+        public void Given3ItemPurchaseReturnsIsEligibleForPromotions()
+        {
+            purchaseSample.Cart = new List<Product> { productSample1 , productSample2 , productSample3 };
+
+            Assert.IsTrue(purchaseSample.IsEligibleForPromotions());
         }
     }
 }
