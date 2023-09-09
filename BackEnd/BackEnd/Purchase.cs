@@ -62,6 +62,7 @@ namespace BackEnd
         {
             CurrentPromotion = null;
         }
+
         private void ValidateDate(DateTime value)
         {
             if (value.CompareTo(DateTime.Now) > 0)

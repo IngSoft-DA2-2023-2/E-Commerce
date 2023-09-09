@@ -92,7 +92,6 @@ namespace UnitTest
             Assert.IsTrue(purchaseSample.Cart.Count == 2);
             Assert.AreEqual(productSample1, purchaseSample.Cart[0]);
             Assert.AreEqual(productSample2, purchaseSample.Cart[1]);
-
         }
 
         [TestMethod]
@@ -148,15 +147,7 @@ namespace UnitTest
         [TestMethod]
         public void Given1ItemPurchaseReturnsIsNotEligibleForPromotions()
         {
-            List<Product> cart = new List<Product> { new Product() {
-                Name = "name sample 3",
-                Brand = "brand sample 3",
-                Category = "category sample 3",
-                Description = "description sample 3",
-                Color = new List<String> { "color sample 3" },
-            }
-            };
-
+            List<Product> cart = new List<Product> { productSample3 };
             purchaseSample.Cart = cart;
 
             Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
@@ -195,7 +186,7 @@ namespace UnitTest
         [ExpectedException(typeof(BackEndException), "Not eligible for promotions")]
         public void GivenNotApplicableCartThrowsBackEndExceptionTryingToAssignBestPromotion()
         {
-            purchaseSample.Cart = new List<Product>() { productSample1};
+            purchaseSample.Cart = new List<Product>() { productSample1 };
             Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
 
             purchaseSample.AssignsBestPromotion();
