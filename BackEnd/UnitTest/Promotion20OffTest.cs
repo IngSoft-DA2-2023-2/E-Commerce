@@ -8,7 +8,7 @@ namespace UnitTest
     public class Promotion20OffTest
     {
         private IPromotionable _promo20Off;
-        private Purchase _purchaseSample;
+        private readonly Purchase _purchaseSample;
         private List<Product> _cartSample;
 
         private readonly Product _fiftyDollarProduct = new Product() { Price = 50 };

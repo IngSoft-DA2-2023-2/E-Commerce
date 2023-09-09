@@ -9,14 +9,14 @@ namespace BackEnd
         private const int MinimumSameColorProducts = 3;
         private const float DiscountPercentage = 0.5f;
 
-        public bool IsApplicable(List<Product>cart)
+        public bool IsApplicable(List<Product> cart)
         {
             List<string> colorsInCart = GetDistinctColorsInCart(cart);
 
             return colorsInCart.Any(color => GetProductsOfColor(cart, color).Count >= MinimumSameColorProducts);
         }
 
-        public int CalculateDiscount(List<Product>cart)
+        public int CalculateDiscount(List<Product> cart)
         {
             if (!IsApplicable(cart))
             {

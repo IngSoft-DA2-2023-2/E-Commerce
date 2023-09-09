@@ -32,6 +32,30 @@ namespace BackEnd
             }
         }
 
+        public bool IsEligibleForPromotions()
+        {
+            return Promotions.Any(promo => promo.IsApplicable(Cart));
+        }
+
+        public void AssignsBestPromotion()
+        {
+            IPromotionable best = null;
+            int maxDiscount = 0;
+            foreach (var promo in Promotions)
+            {
+                if (promo.IsApplicable(Cart))
+                {
+                    int currentDiscount = promo.CalculateDiscount(Cart);
+                    if (currentDiscount > maxDiscount)
+                    {
+                        best = promo;
+                        maxDiscount = currentDiscount;
+                    }
+                }
+            }
+
+            CurrentPromotion = best;
+        }
         private void ValidateDate(DateTime value)
         {
             if (value.CompareTo(DateTime.Now) > 0)
@@ -45,31 +69,6 @@ namespace BackEnd
         {
             if (value == null) throw new BackEndException("Cart must not be null");
             if (value.Count == 0) throw new BackEndException("Cart must not be empty");
-        }
-
-        public bool IsEligibleForPromotions()
-        {
-            return Promotions.Any(promo => promo.IsApplicable(Cart));
-        }
-
-        public void AssignsBestPromotion()
-        {
-            IPromotionable best = null;
-            int maxDiscount = 0;
-            foreach (var promo in Promotions)
-            {
-                if(promo.IsApplicable(Cart))
-                {
-                    int currentDiscount = promo.CalculateDiscount(Cart);
-                    if ( currentDiscount > maxDiscount)
-                    {
-                        best = promo;
-                        maxDiscount = currentDiscount;
-                    }
-                }
-            }
-
-            CurrentPromotion = best;
         }
 
     }

@@ -10,7 +10,21 @@ namespace UnitTest
     {
         private Purchase purchaseSample;
         private readonly User userSample = new User();
-        private readonly Product productSample1 = new Product()
+        private readonly Product productSample1 = new Product();
+
+        private IPromotionable promo20Off = new Promotion20Off();
+        private IPromotionable promo3x2 = new Promotion3x2();
+        private IPromotionable promoTotalLook = new PromotionTotalLook();
+        private IPromotionable promo3x1Fidelity = new Promotion3x1Fidelity();
+
+       private List<IPromotionable> promotions = new List<IPromotionable>() {
+            new Promotion20Off(),
+            new Promotion3x2(),
+            new PromotionTotalLook(),
+            new Promotion3x1Fidelity(),
+       };
+
+        private readonly Product productSample = new Product()
         {
             Name = "name sample 1",
             Brand = "brand sample 1",
@@ -20,14 +34,14 @@ namespace UnitTest
             Price = 10,
         };
 
-    private readonly Product productSample2 = new Product()
-    {
-        Name = "name sample 2",
-        Brand = "brand sample 2",
-        Category = "category sample 2",
-        Description = "description sample 2",
-        Color = new List<String> { "color sample 2" },
-        Price = 20,
+        private readonly Product productSample2 = new Product()
+        {
+            Name = "name sample 2",
+            Brand = "brand sample 2",
+            Category = "category sample 2",
+            Description = "description sample 2",
+            Color = new List<String> { "color sample 2" },
+            Price = 20,
         };
         private readonly Product productSample3 = new Product()
         {
@@ -39,19 +53,13 @@ namespace UnitTest
             Price = 30,
         };
 
-        private readonly List<IPromotionable> promotions = new List<IPromotionable> {
-            new Promotion20Off(),
-            new Promotion3x1Fidelity(),
-            new Promotion3x2(),
-            new PromotionTotalLook()
-        };
-
         [TestInitialize]
         public void Init()
         {
-
-            purchaseSample = new Purchase();
-            purchaseSample.Promotions = promotions;
+            purchaseSample = new Purchase
+            {
+                Promotions = promotions
+            };
         }
 
         [TestMethod]
@@ -142,26 +150,14 @@ namespace UnitTest
         [TestMethod]
         public void GivenListOfPromotionsAssignsThemAsPromotionList()
         {
-            IPromotionable promo1 = new Promotion20Off();
-            IPromotionable promo2 = new Promotion3x2();
-            IPromotionable promo3 = new PromotionTotalLook();
-            IPromotionable promo4 = new Promotion20Off();
-
-            List<IPromotionable> promotions = new List<IPromotionable>() {
-            promo1,
-            promo2,
-            promo3,
-            promo4
-            };
-
             purchaseSample.Promotions = promotions;
 
             Assert.IsTrue(purchaseSample.Promotions.Count == 4);
 
-            Assert.AreEqual(promo1, purchaseSample.Promotions[0]);
-            Assert.AreEqual(promo2, purchaseSample.Promotions[1]);
-            Assert.AreEqual(promo3, purchaseSample.Promotions[2]);
-            Assert.AreEqual(promo4, purchaseSample.Promotions[3]);
+            Assert.AreEqual(typeof(Promotion20Off), purchaseSample.Promotions[0].GetType());
+            Assert.AreEqual(typeof(Promotion3x2), purchaseSample.Promotions[1].GetType());
+            Assert.AreEqual(typeof(PromotionTotalLook), purchaseSample.Promotions[2].GetType());
+            Assert.AreEqual(typeof(Promotion3x1Fidelity), purchaseSample.Promotions[3].GetType());
         }
 
         [TestMethod]
@@ -184,7 +180,7 @@ namespace UnitTest
         [TestMethod]
         public void Given3ItemPurchaseReturnsIsEligibleForPromotions()
         {
-            purchaseSample.Cart = new List<Product> { productSample1 , productSample2 , productSample3 };
+            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
 
             Assert.IsTrue(purchaseSample.IsEligibleForPromotions());
         }

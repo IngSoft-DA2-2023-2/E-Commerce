@@ -13,7 +13,7 @@ namespace BackEnd
                                  .Any(group => group.Count() >= _minQuantity);
         }
 
-        public int CalculateDiscount(List<Product>cart)
+        public int CalculateDiscount(List<Product> cart)
         {
             if (!IsApplicable(cart)) throw new BackEndException("Not applicable promotion");
 

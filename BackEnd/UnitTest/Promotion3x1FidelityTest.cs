@@ -45,7 +45,7 @@ namespace UnitTest
         public void GivenThreeItemsOfSameBrandReturnsDiscountIsApplicable()
         {
 
-           List<Product> cartSample = new List<Product>
+            List<Product> cartSample = new List<Product>
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},
