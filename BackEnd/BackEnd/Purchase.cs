@@ -10,7 +10,7 @@ namespace BackEnd
         private DateTime _date;
 
         public User User { get; set; }
-        public IPromotionable CurrentPromotion { get; set; }
+        public IPromotionable CurrentPromotion { get; private set; }
         public List<IPromotionable> Promotions { get; set; }
         public List<Product> Cart
         {
@@ -55,6 +55,11 @@ namespace BackEnd
             }
 
             CurrentPromotion = best;
+        }
+
+        public void DropPromotion()
+        {
+            CurrentPromotion = null;
         }
         private void ValidateDate(DateTime value)
         {

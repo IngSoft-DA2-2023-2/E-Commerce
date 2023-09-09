@@ -106,15 +106,6 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GivenPurchaseReturnsPromotionUsed()
-        {
-            IPromotionable promotion = new Promotion20Off();
-            purchaseSample.CurrentPromotion = promotion;
-
-            Assert.AreEqual(promotion, purchaseSample.CurrentPromotion);
-        }
-
-        [TestMethod]
         public void GivenPurchaseReturnsNullAsDefaultPromotion()
         {
             Assert.AreEqual(null, purchaseSample.CurrentPromotion);
@@ -189,5 +180,16 @@ namespace UnitTest
             Assert.IsInstanceOfType(purchaseSample.CurrentPromotion, typeof(Promotion20Off));
         }
 
+        [TestMethod]
+        public void GivenAssignedPromotionUnassignsIt()
+        {
+            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
+            purchaseSample.AssignsBestPromotion();
+            Assert.IsNotNull(purchaseSample.CurrentPromotion);
+
+            purchaseSample.DropPromotion();
+
+            Assert.IsNull(purchaseSample.CurrentPromotion);
+        }
     }
 }
