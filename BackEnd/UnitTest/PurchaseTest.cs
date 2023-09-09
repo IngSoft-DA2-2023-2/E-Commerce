@@ -12,12 +12,7 @@ namespace UnitTest
         private readonly User userSample = new User();
         private readonly Product productSample1 = new Product();
 
-        private IPromotionable promo20Off = new Promotion20Off();
-        private IPromotionable promo3x2 = new Promotion3x2();
-        private IPromotionable promoTotalLook = new PromotionTotalLook();
-        private IPromotionable promo3x1Fidelity = new Promotion3x1Fidelity();
-
-       private List<IPromotionable> promotions = new List<IPromotionable>() {
+        private readonly List<IPromotionable> promotions = new List<IPromotionable>() {
             new Promotion20Off(),
             new Promotion3x2(),
             new PromotionTotalLook(),
