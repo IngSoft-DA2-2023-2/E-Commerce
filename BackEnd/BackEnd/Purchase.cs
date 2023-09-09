@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace BackEnd
 {
@@ -49,11 +49,8 @@ namespace BackEnd
 
         public bool IsEligibleForPromotions()
         {
-            foreach (IPromotionable promo in Promotions)
-            {
-                if (promo.IsApplicable(_cart)) return true;
-            }
-            return false;
+            return Promotions.Any(promo => promo.IsApplicable(_cart));
         }
+
     }
 }
