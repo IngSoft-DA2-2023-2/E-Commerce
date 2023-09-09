@@ -1,24 +1,26 @@
-﻿namespace BackEnd
+﻿using System.Collections.Generic;
+
+namespace BackEnd
 {
     public class Promotion20Off : IPromotionable
     {
         private const float _twentyPercent = 0.2f;
         private const int _minCartSize = 2;
 
-        public bool IsApplicable(Purchase purchase)
+        public bool IsApplicable(List<Product> cart)
         {
-            return purchase.Cart.Count >= _minCartSize;
+            return cart.Count >= _minCartSize;
         }
 
-        public int CalculateDiscount(Purchase purchase)
+        public int CalculateDiscount(List<Product> cart)
         {
-            if (!IsApplicable(purchase))
+            if (!IsApplicable(cart))
             {
                 throw new BackEndException("Not applicable promotion");
             }
 
             int maxPrice = 0;
-            foreach (Product item in purchase.Cart)
+            foreach (Product item in cart)
             {
                 if (item.Price > maxPrice)
                 {

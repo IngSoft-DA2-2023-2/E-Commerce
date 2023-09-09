@@ -36,19 +36,16 @@ namespace UnitTest
         [TestMethod]
         public void GivenOneItemReturnsDiscountIsNotApplicable()
         {
-            List<Product> products = new List<Product> { new Product() { Brand = _brandSample1, Price = _one } };
+            List<Product> cart = new List<Product> { new Product() { Brand = _brandSample1, Price = _one } };
 
-            _purchaseSample.Cart = products;
-
-
-            Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promo.IsApplicable(cart));
         }
 
         [TestMethod]
         public void GivenThreeItemsOfSameBrandReturnsDiscountIsApplicable()
         {
 
-            _purchaseSample.Cart = new List<Product>
+           List<Product> cartSample = new List<Product>
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},
@@ -56,14 +53,14 @@ namespace UnitTest
                 };
 
 
-            Assert.IsTrue(_promo.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promo.IsApplicable(cartSample));
         }
 
         [TestMethod]
         public void GivenThreeItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
         {
 
-            _purchaseSample.Cart = new List<Product>
+            List<Product> cartSample = new List<Product>
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample2, Price = _one},
@@ -71,14 +68,14 @@ namespace UnitTest
                 };
 
 
-            Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promo.IsApplicable(cartSample));
         }
 
         [TestMethod]
         public void GivenFourItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
         {
 
-            _purchaseSample.Cart = new List<Product>
+            List<Product> cartSample = new List<Product>
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample2, Price = _one},
@@ -86,7 +83,7 @@ namespace UnitTest
                     new Product(){Brand = _brandSample4, Price = _one}
                 };
 
-            Assert.IsFalse(_promo.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promo.IsApplicable(cartSample));
         }
 
 
@@ -94,29 +91,29 @@ namespace UnitTest
         [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
-            _purchaseSample.Cart = new List<Product> { (new Product()) };
+            List<Product> cartSample = new List<Product> { (new Product()) };
 
-            _promo.CalculateDiscount(_purchaseSample);
+            _promo.CalculateDiscount(cartSample);
         }
 
         [TestMethod]
         public void GivenThreeItemsOfSameBrandCalculatesItsDiscount()
         {
 
-            _purchaseSample.Cart = new List<Product>
+            List<Product> cartSample = new List<Product>
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},
                 };
-            Assert.AreEqual(_discount2, _promo.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_discount2, _promo.CalculateDiscount(cartSample));
         }
 
         [TestMethod]
         public void GivenSixItemsOfSameBrandCalculatesItsDiscount()
         {
 
-            _purchaseSample.Cart = new List<Product>
+            List<Product> cartSample = new List<Product>
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _two},
@@ -125,7 +122,7 @@ namespace UnitTest
                     new Product(){Brand = _brandSample1, Price = _five},
                     new Product(){Brand = _brandSample1, Price = _six},
                 };
-            Assert.AreEqual(_discount3, _promo.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_discount3, _promo.CalculateDiscount(cartSample));
         }
     }
 }

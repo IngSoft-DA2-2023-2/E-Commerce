@@ -51,7 +51,7 @@ namespace BackEnd
         {
             foreach (IPromotionable promo in Promotions)
             {
-                if (promo.IsApplicable(this)) return true;
+                if (promo.IsApplicable(_cart)) return true;
             }
             return false;
         }

@@ -22,7 +22,6 @@ namespace UnitTest
         public void Init()
         {
             _cartSample = new List<Product>();
-            _purchaseSample = new Purchase();
             _promo20Off = new Promotion20Off();
         }
 
@@ -30,9 +29,8 @@ namespace UnitTest
         public void Given1ItemPurchaseReturnsPromotionIsNotApplicable()
         {
             _cartSample.Add(new Product());
-            _purchaseSample.Cart = _cartSample;
 
-            Assert.IsFalse(_promo20Off.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promo20Off.IsApplicable(_cartSample));
         }
 
         [TestMethod]
@@ -41,12 +39,7 @@ namespace UnitTest
             _cartSample.Add(new Product());
             _cartSample.Add(new Product());
 
-            _purchaseSample = new Purchase()
-            {
-                Cart = _cartSample,
-            };
-
-            Assert.IsTrue(_promo20Off.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promo20Off.IsApplicable(_cartSample));
         }
 
         [TestMethod]
@@ -56,12 +49,7 @@ namespace UnitTest
             _cartSample.Add(new Product());
             _cartSample.Add(new Product());
 
-            _purchaseSample = new Purchase()
-            {
-                Cart = _cartSample,
-            };
-
-            Assert.IsTrue(_promo20Off.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promo20Off.IsApplicable(_cartSample));
         }
 
         [TestMethod]
@@ -70,12 +58,7 @@ namespace UnitTest
         {
             _cartSample.Add(new Product());
 
-            _purchaseSample = new Purchase()
-            {
-                Cart = _cartSample,
-            };
-
-            _promo20Off.CalculateDiscount(_purchaseSample);
+            _promo20Off.CalculateDiscount(_cartSample);
         }
 
         [TestMethod]
@@ -84,12 +67,7 @@ namespace UnitTest
             _cartSample.Add(_oneHundredDollarProduct);
             _cartSample.Add(_fiftyDollarProduct);
 
-            _purchaseSample = new Purchase()
-            {
-                Cart = _cartSample,
-            };
-
-            Assert.AreEqual(_oneHundred * _twentyPercent, _promo20Off.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_oneHundred * _twentyPercent, _promo20Off.CalculateDiscount(_cartSample));
         }
 
         [TestMethod]
@@ -99,12 +77,7 @@ namespace UnitTest
             _cartSample.Add(_seventyFiveDollarProduct);
             _cartSample.Add(_fiftyDollarProduct);
 
-            _purchaseSample = new Purchase()
-            {
-                Cart = _cartSample,
-            };
-
-            Assert.AreEqual(_oneHundred * _twentyPercent, _promo20Off.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(_oneHundred * _twentyPercent, _promo20Off.CalculateDiscount(_cartSample));
         }
     }
 }

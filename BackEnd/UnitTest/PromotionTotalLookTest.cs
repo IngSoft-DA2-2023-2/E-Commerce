@@ -36,7 +36,7 @@ namespace UnitTest
             _cartSample.Add(new Product());
             _purchaseSample.Cart = _cartSample;
 
-            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.IsTrue(_promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.IsTrue(_promotionTotalLook.IsApplicable(_purchaseSample));
+            Assert.IsTrue(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            _promotionTotalLook.CalculateDiscount(_purchaseSample);
+            _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart);
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.AreEqual(((int)(_hundred * _discount)), _promotionTotalLook.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(((int)(_hundred * _discount)), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
         }
 
         public void GivenTwoPossibleApplicationReturnsHigherDiscount()
@@ -121,7 +121,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.AreEqual(((int)(_twoHundred * _discount)), _promotionTotalLook.CalculateDiscount(_purchaseSample));
+            Assert.AreEqual(((int)(_twoHundred * _discount)), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
         }
     }
 }
