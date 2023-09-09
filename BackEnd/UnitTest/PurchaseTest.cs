@@ -72,7 +72,7 @@ namespace UnitTest
         [TestMethod]
         public void GivenPurchaseReturnsPromotionUsed()
         {
-            Promotion20Off promotion = new Promotion20Off();
+            IPromotionable promotion = new Promotion20Off();
             purchaseSample.Promotion = promotion;
 
             Assert.AreEqual(promotion, purchaseSample.Promotion);

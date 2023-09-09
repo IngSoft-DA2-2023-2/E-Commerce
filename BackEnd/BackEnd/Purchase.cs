@@ -10,7 +10,7 @@ namespace BackEnd
         private DateTime _date;
 
         public User User { get; set; }
-        public Promotion20Off Promotion { get; set; }
+        public IPromotionable Promotion { get; set; }
         public List<Product> Cart
         {
             get => _cart;
