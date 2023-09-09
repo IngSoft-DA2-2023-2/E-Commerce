@@ -39,6 +39,7 @@ namespace BackEnd
 
         public void AssignsBestPromotion()
         {
+            if (!IsEligibleForPromotions()) throw new BackEndException("Not eligible for promotions");
             IPromotionable best = null;
             int maxDiscount = 0;
             foreach (var promo in Promotions)

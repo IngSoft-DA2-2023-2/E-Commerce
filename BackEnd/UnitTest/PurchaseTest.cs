@@ -10,7 +10,6 @@ namespace UnitTest
     {
         private Purchase purchaseSample;
         private readonly User userSample = new User();
-        private readonly Product productSample1 = new Product();
 
         private readonly List<IPromotionable> promotions = new List<IPromotionable>() {
             new Promotion20Off(),
@@ -19,7 +18,7 @@ namespace UnitTest
             new Promotion3x1Fidelity(),
        };
 
-        private readonly Product productSample = new Product()
+        private readonly Product productSample1 = new Product()
         {
             Name = "name sample 1",
             Brand = "brand sample 1",
@@ -190,6 +189,16 @@ namespace UnitTest
             purchaseSample.DropPromotion();
 
             Assert.IsNull(purchaseSample.CurrentPromotion);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(BackEndException), "Not eligible for promotions")]
+        public void GivenNotApplicableCartThrowsBackEndExceptionTryingToAssignBestPromotion()
+        {
+            purchaseSample.Cart = new List<Product>() { productSample1};
+            Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
+
+            purchaseSample.AssignsBestPromotion();
         }
     }
 }
