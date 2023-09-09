@@ -8,9 +8,10 @@ namespace BackEnd
     {
         private List<Product> _cart;
         private DateTime _date;
-
+       
         public User User { get; set; }
-        public IPromotionable Promotion { get; set; }
+        public IPromotionable CurrentPromotion { get; set; }
+        public List<IPromotionable> Promotions { get; set; }
         public List<Product> Cart
         {
             get => _cart;

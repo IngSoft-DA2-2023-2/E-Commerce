@@ -73,15 +73,15 @@ namespace UnitTest
         public void GivenPurchaseReturnsPromotionUsed()
         {
             IPromotionable promotion = new Promotion20Off();
-            purchaseSample.Promotion = promotion;
+            purchaseSample.CurrentPromotion = promotion;
 
-            Assert.AreEqual(promotion, purchaseSample.Promotion);
+            Assert.AreEqual(promotion, purchaseSample.CurrentPromotion);
         }
 
         [TestMethod]
         public void GivenPurchaseReturnsNullAsDefaultPromotion()
         {
-            Assert.AreEqual(null, purchaseSample.Promotion);
+            Assert.AreEqual(null, purchaseSample.CurrentPromotion);
         }
 
         [TestMethod]
@@ -104,6 +104,32 @@ namespace UnitTest
         {
             DateTime tomorrow = DateTime.Now.AddDays(1);
             purchaseSample.Date = tomorrow;
+        }
+
+        [TestMethod]
+        public void GivenListOfPromotionsAssignsThemAsPromotionList()
+        {
+            IPromotionable promo1 = new Promotion20Off();
+            IPromotionable promo2 = new Promotion3x2();
+            IPromotionable promo3 = new PromotionTotalLook();
+            IPromotionable promo4 = new Promotion20Off();
+
+            List<IPromotionable> promotions = new List<IPromotionable>() { 
+            promo1,
+            promo2,
+            promo3,
+            promo4
+            };
+            
+            purchaseSample.Promotions = promotions;
+
+            Assert.IsTrue(purchaseSample.Promotions.Count == 4);
+
+            Assert.AreEqual(promo1, purchaseSample.Promotions[0]);
+            Assert.AreEqual(promo2, purchaseSample.Promotions[1]);
+            Assert.AreEqual(promo3, purchaseSample.Promotions[2]);
+            Assert.AreEqual(promo4, purchaseSample.Promotions[3]);
+
         }
     }
 }
