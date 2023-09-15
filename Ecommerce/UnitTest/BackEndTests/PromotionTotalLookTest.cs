@@ -1,8 +1,9 @@
 ﻿using BackEnd;
+using BackEnd.Promotions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace UnitTest
+namespace UnitTest.BackEndTests
 {
     [TestClass]
     public class PromotionTotalLookTest
@@ -109,7 +110,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.AreEqual(((int)(_hundred * _discount)), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
+            Assert.AreEqual((int)(_hundred * _discount), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
         }
 
         public void GivenTwoPossibleApplicationReturnsHigherDiscount()
@@ -121,7 +122,7 @@ namespace UnitTest
 
             _purchaseSample.Cart = _cartSample;
 
-            Assert.AreEqual(((int)(_twoHundred * _discount)), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
+            Assert.AreEqual((int)(_twoHundred * _discount), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
         }
     }
 }

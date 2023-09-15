@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BackEnd
+namespace BackEnd.Promotions
 {
     public class Promotion20Off : IPromotionable
     {

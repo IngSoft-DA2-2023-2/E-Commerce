@@ -1,4 +1,6 @@
-﻿namespace BackEnd
+﻿using BackEnd.Utilities;
+
+namespace BackEnd
 {
     public class User
     {

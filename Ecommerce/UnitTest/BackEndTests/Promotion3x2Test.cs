@@ -1,8 +1,9 @@
 ﻿using BackEnd;
+using BackEnd.Promotions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace UnitTest
+namespace UnitTest.BackEndTests
 {
     [TestClass]
     public class Promotion3x2Test

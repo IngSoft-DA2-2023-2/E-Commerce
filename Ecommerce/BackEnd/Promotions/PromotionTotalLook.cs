@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackEnd
+namespace BackEnd.Promotions
 {
     public class PromotionTotalLook : IPromotionable
     {
