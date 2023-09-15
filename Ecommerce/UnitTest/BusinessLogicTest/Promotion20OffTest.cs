@@ -1,20 +1,22 @@
-﻿using BackEnd;
-using BackEnd.Promotions;
+﻿using BackEnd.ExceptionBackEnd;
+using BackEnd.Domain;
+using BackEnd.BusinessLogic.Promotions;
+using BackEnd.LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace UnitTest.BackEndTests
+
+namespace UnitTest.BusinessLogicTest
 {
     [TestClass]
     public class Promotion20OffTest
     {
         private IPromotionable _promo20Off;
-        private readonly Purchase _purchaseSample;
         private List<Product> _cartSample;
 
-        private readonly Product _fiftyDollarProduct = new Product() { Price = 50 };
-        private readonly Product _seventyFiveDollarProduct = new Product() { Price = 75 };
-        private readonly Product _oneHundredDollarProduct = new Product() { Price = 100 };
+        private readonly Product _fiftyDollarProduct = new() { Price = 50 };
+        private readonly Product _seventyFiveDollarProduct = new() { Price = 75 };
+        private readonly Product _oneHundredDollarProduct = new() { Price = 100 };
         private const int _oneHundred = 100;
         private const float _twentyPercent = 0.2f;
 

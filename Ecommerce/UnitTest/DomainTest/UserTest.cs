@@ -1,7 +1,8 @@
-﻿using BackEnd;
+﻿using BackEnd.ExceptionBackEnd;
+using BackEnd.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTest.BackEndTests
+namespace UnitTest.DomainTest
 {
 
     [TestClass]

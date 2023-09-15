@@ -1,6 +1,7 @@
 ﻿using BackEnd.Utilities;
+using BackEnd.ExceptionBackEnd;
 
-namespace BackEnd
+namespace BackEnd.Domain
 {
     public class User
     {
@@ -38,7 +39,7 @@ namespace BackEnd
                 _password = value;
             }
         }
-        private void ValidateEmail(string value)
+        private static void ValidateEmail(string value)
         {
             if (!HelperValidator.IsValidEmail(value))
             {
@@ -46,7 +47,7 @@ namespace BackEnd
             }
         }
 
-        private void ValidatePassword(string value)
+        private static void ValidatePassword(string value)
         {
             if (!HelperValidator.IsLengthBetween(value, _passwordMinimumLength, _passwordMaximumLength))
             {
@@ -54,7 +55,7 @@ namespace BackEnd
             }
         }
 
-        private void ValidateName(string value)
+        private static void ValidateName(string value)
         {
             if (!HelperValidator.IsLengthBetween(value, _nameMinimumLength, _nameMaximumLength))
             {

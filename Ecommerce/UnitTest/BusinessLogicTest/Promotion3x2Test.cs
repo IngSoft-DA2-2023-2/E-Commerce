@@ -1,9 +1,11 @@
-﻿using BackEnd;
-using BackEnd.Promotions;
+﻿using BackEnd.ExceptionBackEnd;
+using BackEnd.Domain;
+using BackEnd.BusinessLogic.Promotions;
+using BackEnd.LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace UnitTest.BackEndTests
+namespace UnitTest.BusinessLogicTest
 {
     [TestClass]
     public class Promotion3x2Test

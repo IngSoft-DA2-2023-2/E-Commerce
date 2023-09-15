@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BackEnd.Domain;
+using BackEnd.LogicInterface;
+using BackEnd.ExceptionBackEnd;
 
-namespace BackEnd.Promotions
+namespace BackEnd.BusinessLogic.Promotions
 {
     public class PromotionTotalLook : IPromotionable
     {
@@ -40,9 +43,9 @@ namespace BackEnd.Promotions
             return (int)(maxPrice * DiscountPercentage);
         }
 
-        private List<string> GetDistinctColorsInCart(List<Product> products)
+        private static List<string> GetDistinctColorsInCart(List<Product> products)
         {
-            List<string> colorList = new List<string>();
+            List<string> colorList = new();
 
             foreach (Product product in products)
             {
@@ -52,7 +55,7 @@ namespace BackEnd.Promotions
             return colorList.Distinct().ToList();
         }
 
-        private List<Product> GetProductsOfColor(List<Product> cart, string color)
+        private static List<Product> GetProductsOfColor(List<Product> cart, string color)
         {
             return cart.Where(product => product.Color.Contains(color)).ToList();
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using BackEnd.Domain;
 
-namespace BackEnd.Promotions
+namespace BackEnd.LogicInterface
 {
     public interface IPromotionable
     {

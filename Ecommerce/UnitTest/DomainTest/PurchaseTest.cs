@@ -1,10 +1,12 @@
-﻿using BackEnd;
-using BackEnd.Promotions;
+﻿using BackEnd.ExceptionBackEnd;
+using BackEnd.BusinessLogic.Promotions;
+using BackEnd.Domain;
+using BackEnd.LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace UnitTest.BackEndTests
+namespace UnitTest.DomainTest
 {
     [TestClass]
     public class PurchaseTest
