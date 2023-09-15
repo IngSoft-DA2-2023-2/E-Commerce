@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace BackEnd
+namespace BackEnd.Utilities
 {
     public class HelperValidator
     {

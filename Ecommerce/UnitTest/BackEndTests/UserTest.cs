@@ -1,7 +1,7 @@
 ﻿using BackEnd;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTest
+namespace UnitTest.BackEndTests
 {
 
     [TestClass]

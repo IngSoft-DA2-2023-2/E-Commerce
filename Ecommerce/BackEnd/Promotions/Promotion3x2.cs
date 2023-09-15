@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BackEnd
+namespace BackEnd.Promotions
 {
     public class Promotion3x2 : IPromotionable
     {

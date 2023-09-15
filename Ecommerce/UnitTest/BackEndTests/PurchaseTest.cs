@@ -1,9 +1,10 @@
 ﻿using BackEnd;
+using BackEnd.Promotions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace UnitTest
+namespace UnitTest.BackEndTests
 {
     [TestClass]
     public class PurchaseTest
@@ -24,7 +25,7 @@ namespace UnitTest
             Brand = "brand sample 1",
             Category = "category sample 1",
             Description = "description sample 1",
-            Color = new List<String> { "color sample 1" },
+            Color = new List<string> { "color sample 1" },
             Price = 10,
         };
 
@@ -34,7 +35,7 @@ namespace UnitTest
             Brand = "brand sample 2",
             Category = "category sample 2",
             Description = "description sample 2",
-            Color = new List<String> { "color sample 2" },
+            Color = new List<string> { "color sample 2" },
             Price = 20,
         };
         private readonly Product productSample3 = new Product()
@@ -43,7 +44,7 @@ namespace UnitTest
             Brand = "brand sample 3",
             Category = "category sample 3",
             Description = "description sample 3",
-            Color = new List<String> { "color sample 3" },
+            Color = new List<string> { "color sample 3" },
             Price = 30,
         };
 

@@ -1,9 +1,10 @@
 ﻿using BackEnd;
+using BackEnd.Promotions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 
-namespace UnitTest
+namespace UnitTest.BackEndTests
 {
     [TestClass]
     public class Promotion3x1FidelityTest
@@ -91,7 +92,7 @@ namespace UnitTest
         [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
-            List<Product> cartSample = new List<Product> { (new Product()) };
+            List<Product> cartSample = new List<Product> { new Product() };
 
             _promo.CalculateDiscount(cartSample);
         }
