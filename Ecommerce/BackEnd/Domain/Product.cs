@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using BackEnd.ExceptionBackEnd;
 
-namespace BackEnd
+namespace BackEnd.Domain
 {
     public class Product
     {

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BackEnd.Domain;
+using BackEnd.LogicInterface;
+using BackEnd.ExceptionBackEnd;
 
-namespace BackEnd.Promotions
+namespace BackEnd.BusinessLogic.Promotions
 {
     public class Promotion3x1Fidelity : IPromotionable
     {

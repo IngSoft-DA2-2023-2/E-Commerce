@@ -1,10 +1,12 @@
-﻿using BackEnd;
-using BackEnd.Promotions;
+﻿using BackEnd.ExceptionBackEnd;
+using BackEnd.BusinessLogic.Promotions;
+using BackEnd.Domain;
+using BackEnd.LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 
-namespace UnitTest.BackEndTests
+namespace UnitTest.BusinessLogicTest
 {
     [TestClass]
     public class Promotion3x1FidelityTest
@@ -37,7 +39,7 @@ namespace UnitTest.BackEndTests
         [TestMethod]
         public void GivenOneItemReturnsDiscountIsNotApplicable()
         {
-            List<Product> cart = new List<Product> { new Product() { Brand = _brandSample1, Price = _one } };
+            List<Product> cart = new List<Product>() { new Product() { Brand = _brandSample1, Price = _one } };
 
             Assert.IsFalse(_promo.IsApplicable(cart));
         }
@@ -46,8 +48,8 @@ namespace UnitTest.BackEndTests
         public void GivenThreeItemsOfSameBrandReturnsDiscountIsApplicable()
         {
 
-            List<Product> cartSample = new List<Product>
-                {
+            List<Product> cartSample = new List<Product>()
+            {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},
@@ -61,7 +63,7 @@ namespace UnitTest.BackEndTests
         public void GivenThreeItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
         {
 
-            List<Product> cartSample = new List<Product>
+            List<Product> cartSample = new List<Product>()
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample2, Price = _one},
@@ -76,7 +78,7 @@ namespace UnitTest.BackEndTests
         public void GivenFourItemsOfDifferentBrandsReturnsDiscountIsNotApplicable()
         {
 
-            List<Product> cartSample = new List<Product>
+            List<Product> cartSample = new()
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample2, Price = _one},
@@ -92,7 +94,7 @@ namespace UnitTest.BackEndTests
         [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
-            List<Product> cartSample = new List<Product> { new Product() };
+            List<Product> cartSample = new List<Product>() { new Product() };
 
             _promo.CalculateDiscount(cartSample);
         }
@@ -101,7 +103,7 @@ namespace UnitTest.BackEndTests
         public void GivenThreeItemsOfSameBrandCalculatesItsDiscount()
         {
 
-            List<Product> cartSample = new List<Product>
+            List<Product> cartSample = new()
                 {
                     new Product(){Brand = _brandSample1, Price = _one},
                     new Product(){Brand = _brandSample1, Price = _one},

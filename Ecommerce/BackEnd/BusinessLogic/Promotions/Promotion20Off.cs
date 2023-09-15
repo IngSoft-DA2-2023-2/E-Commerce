@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using BackEnd.Domain;
+using BackEnd.LogicInterface;
+using BackEnd.ExceptionBackEnd;
 
-namespace BackEnd.Promotions
+namespace BackEnd.BusinessLogic.Promotions
 {
     public class Promotion20Off : IPromotionable
     {

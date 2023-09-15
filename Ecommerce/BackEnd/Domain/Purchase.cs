@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BackEnd.Promotions;
+using BackEnd.LogicInterface;
+using BackEnd.ExceptionBackEnd;
 
-namespace BackEnd
+namespace BackEnd.Domain
 {
     public class Purchase
     {
@@ -73,7 +74,7 @@ namespace BackEnd
             _date = value;
         }
 
-        private void ValidateCart(List<Product> value)
+        private static void ValidateCart(List<Product> value)
         {
             if (value == null) throw new BackEndException("Cart must not be null");
             if (value.Count == 0) throw new BackEndException("Cart must not be empty");
