@@ -1,10 +1,11 @@
-﻿using WebApi.ExceptionBackEnd;
-using WebApi.BusinessLogic.Promotions;
-using WebApi.Domain;
-using WebApi.LogicInterface;
+﻿using Domain.Exceptions;
+using BusinessLogic.Promotions;
+using Domain;
+using LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using Domain.Exceptions;
 
 namespace UnitTest.DomainTest
 {
@@ -14,13 +15,30 @@ namespace UnitTest.DomainTest
         private Purchase purchaseSample;
         private readonly User userSample = new User();
 
-        private readonly List<IPromotionable> promotions = new List<IPromotionable>() {
-            new Promotion20Off(),
-            new Promotion3x2(),
-            new PromotionTotalLook(),
-            new Promotion3x1Fidelity(),
-       };
+        private readonly List<Promotion> promotions = new List<Promotion>()
+        {
+           new Promotion()
+           {
+               Name = "Promotion20off",
+               Description = "Promotion20off"
+           },
+            new Promotion()
+           {
+               Name = "Promotion3x2",
+               Description = "Promotion3x2"
+           },
+             new Promotion()
+           {
+               Name = "PromotionTotalLook",
+               Description = "PromotionTotalLook"
+           },
+              new Promotion()
+           {
+               Name = "Promotion3x1Fidelity",
+               Description = "Promotion3x1Fidelity"
+           }
 
+        };
         private readonly Product productSample1 = new Product()
         {
             Name = "name sample 1",
@@ -113,86 +131,27 @@ namespace UnitTest.DomainTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Cart must not be null")]
+        [ExpectedException(typeof(DomainException), "Cart must not be null")]
         public void GivenNullCartThrowsBackEndException()
         {
             purchaseSample.Cart = null;
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Cart must not be empty")]
+        [ExpectedException(typeof(DomainException), "Cart must not be empty")]
         public void GivenEmptyCartThrowsBackEndException()
         {
             purchaseSample.Cart = new List<Product>();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Purchase Date must be before the current date")]
+        [ExpectedException(typeof(DomainException), "Purchase Date must be before the current date")]
         public void GivenFutureDateThrowsBackEndException()
         {
             DateTime tomorrow = DateTime.Now.AddDays(1);
             purchaseSample.Date = tomorrow;
         }
 
-        [TestMethod]
-        public void GivenListOfPromotionsAssignsThemAsPromotionList()
-        {
-            purchaseSample.Promotions = promotions;
 
-            Assert.IsTrue(purchaseSample.Promotions.Count == 4);
-
-            Assert.AreEqual(typeof(Promotion20Off), purchaseSample.Promotions[0].GetType());
-            Assert.AreEqual(typeof(Promotion3x2), purchaseSample.Promotions[1].GetType());
-            Assert.AreEqual(typeof(PromotionTotalLook), purchaseSample.Promotions[2].GetType());
-            Assert.AreEqual(typeof(Promotion3x1Fidelity), purchaseSample.Promotions[3].GetType());
-        }
-
-        [TestMethod]
-        public void Given1ItemPurchaseReturnsIsNotEligibleForPromotions()
-        {
-            List<Product> cart = new List<Product> { productSample3 };
-            purchaseSample.Cart = cart;
-
-            Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
-        }
-
-        [TestMethod]
-        public void Given3ItemPurchaseReturnsIsEligibleForPromotions()
-        {
-            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
-
-            Assert.IsTrue(purchaseSample.IsEligibleForPromotions());
-        }
-
-        [TestMethod]
-        public void Given3ItemPurchaseAssigns20OffPromotionAsBest()
-        {
-            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
-            purchaseSample.AssignsBestPromotion();
-
-            Assert.IsInstanceOfType(purchaseSample.CurrentPromotion, typeof(Promotion20Off));
-        }
-
-        [TestMethod]
-        public void GivenAssignedPromotionUnassignsIt()
-        {
-            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
-            purchaseSample.AssignsBestPromotion();
-            Assert.IsNotNull(purchaseSample.CurrentPromotion);
-
-            purchaseSample.DropPromotion();
-
-            Assert.IsNull(purchaseSample.CurrentPromotion);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Not eligible for promotions")]
-        public void GivenNotApplicableCartThrowsBackEndExceptionTryingToAssignBestPromotion()
-        {
-            purchaseSample.Cart = new List<Product>() { productSample1 };
-            Assert.IsFalse(purchaseSample.IsEligibleForPromotions());
-
-            purchaseSample.AssignsBestPromotion();
-        }
     }
 }

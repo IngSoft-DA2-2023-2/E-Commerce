@@ -1,7 +1,7 @@
-﻿using WebApi.Utilities;
-using WebApi.ExceptionBackEnd;
+﻿using Utilities;
+using Domain.Exceptions;
 
-namespace WebApi.Domain
+namespace Domain
 {
     public class User
     {
@@ -43,7 +43,7 @@ namespace WebApi.Domain
         {
             if (!HelperValidator.IsValidEmail(value))
             {
-                throw new BackEndException("email format is not valid");
+                throw new DomainException("email format is not valid");
             }
         }
 
@@ -51,7 +51,7 @@ namespace WebApi.Domain
         {
             if (!HelperValidator.IsLengthBetween(value, _passwordMinimumLength, _passwordMaximumLength))
             {
-                throw new BackEndException($"Password length must be between {_passwordMinimumLength} and {_passwordMaximumLength}");
+                throw new DomainException($"Password length must be between {_passwordMinimumLength} and {_passwordMaximumLength}");
             }
         }
 
@@ -59,11 +59,11 @@ namespace WebApi.Domain
         {
             if (!HelperValidator.IsLengthBetween(value, _nameMinimumLength, _nameMaximumLength))
             {
-                throw new BackEndException($"Name length must be between {_nameMinimumLength} and {_nameMaximumLength}");
+                throw new DomainException($"Name length must be between {_nameMinimumLength} and {_nameMaximumLength}");
             }
             if (!HelperValidator.IsAlphanumerical(value))
             {
-                throw new BackEndException("Name must be alphanumerical");
+                throw new DomainException("Name must be alphanumerical");
             }
         }
 

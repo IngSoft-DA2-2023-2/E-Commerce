@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System;
 using WebApi.Models.In;
 using WebApi.Controllers;
-using WebApi.LogicInterface;
+using LogicInterface;
 using Moq;
-using WebApi.Domain;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UnitTest.WebApiModelsTest.Controller

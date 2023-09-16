@@ -1,7 +1,7 @@
-﻿using WebApi.ExceptionBackEnd;
-using WebApi.Domain;
-using WebApi.BusinessLogic.Promotions;
-using WebApi.LogicInterface;
+﻿using BusinessLogic.Exceptions;
+using Domain;
+using BusinessLogic.Promotions;
+using LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -56,7 +56,7 @@ namespace UnitTest.BusinessLogicTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
+        [ExpectedException(typeof(BusinessLogicException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
             _cartSample.Add(new Product());

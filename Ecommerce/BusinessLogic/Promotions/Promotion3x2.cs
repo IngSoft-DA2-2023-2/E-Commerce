@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebApi.Domain;
-using WebApi.LogicInterface;
-using WebApi.ExceptionBackEnd;
+using Domain;
+using LogicInterface;
+using BusinessLogic.Exceptions;
 
-namespace WebApi.BusinessLogic.Promotions
+namespace BusinessLogic.Promotions
 {
     public class Promotion3x2 : IPromotionable
     {
@@ -18,7 +18,7 @@ namespace WebApi.BusinessLogic.Promotions
 
         public int CalculateDiscount(List<Product> cart)
         {
-            if (!IsApplicable(cart)) throw new BackEndException("Not applicable promotion");
+            if (!IsApplicable(cart)) throw new BusinessLogicException("Not applicable promotion");
 
             var discount = 0;
 

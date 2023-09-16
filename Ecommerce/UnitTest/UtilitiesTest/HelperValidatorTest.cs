@@ -1,4 +1,4 @@
-﻿using WebApi.Utilities;
+﻿using Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest.UtilitiesTest

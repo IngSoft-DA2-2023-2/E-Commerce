@@ -1,8 +1,8 @@
 ﻿
 using System.Linq;
-using WebApi.Domain;
+using Domain;
 
-namespace WebApi.LogicInterface
+namespace LogicInterface
 
 {
     public interface IProductLogic

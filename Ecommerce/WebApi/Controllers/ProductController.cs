@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApi.Domain;
-using WebApi.LogicInterface;
+using Domain;
+using LogicInterface;
 
 namespace WebApi.Controllers
 {

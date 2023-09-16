@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WebApi.ExceptionBackEnd;
+using Domain.Exceptions;
 
-namespace WebApi.Domain
+namespace Domain
 {
     public class Product
     {
@@ -16,7 +16,7 @@ namespace WebApi.Domain
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new BackEndException("Name must not be null");
+                    throw new DomainException("Name must not be null");
                 }
                 _name = value;
             }
@@ -29,7 +29,7 @@ namespace WebApi.Domain
             {
                 if (value < 0)
                 {
-                    throw new BackEndException("Price must not be negative");
+                    throw new DomainException("Price must not be negative");
                 }
                 _price = value;
             }
@@ -42,7 +42,7 @@ namespace WebApi.Domain
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new BackEndException("Description must not be null");
+                    throw new DomainException("Description must not be null");
                 }
                 _description = value;
             }

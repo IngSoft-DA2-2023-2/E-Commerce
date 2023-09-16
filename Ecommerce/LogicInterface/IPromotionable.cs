@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WebApi.Domain;
+using Domain;
 
-namespace WebApi.LogicInterface
+namespace LogicInterface
 {
     public interface IPromotionable
     {

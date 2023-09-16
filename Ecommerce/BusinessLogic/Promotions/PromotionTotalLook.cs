@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApi.Domain;
-using WebApi.LogicInterface;
-using WebApi.ExceptionBackEnd;
+using Domain;
+using LogicInterface;
+using BusinessLogic.Exceptions;
 
-namespace WebApi.BusinessLogic.Promotions
+namespace BusinessLogic.Promotions
 {
     public class PromotionTotalLook : IPromotionable
     {
@@ -23,7 +23,7 @@ namespace WebApi.BusinessLogic.Promotions
         {
             if (!IsApplicable(cart))
             {
-                throw new BackEndException("Not applicable promotion");
+                throw new BusinessLogicException("Not applicable promotion");
             }
 
             List<string> colorsInCart = GetDistinctColorsInCart(cart);
