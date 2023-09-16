@@ -31,7 +31,14 @@ namespace UnitTest.WebApiModelsTest.Out
             productResponseExample.GUID = _guidSample;
             Assert.AreEqual(_guidSample, productResponseExample.GUID);
         }
-        
+
+
+        [TestMethod]
+        public void GivenProductResponseReturnsItsName()
+        {
+            productResponseExample.Name = _nameSample;
+            Assert.AreEqual(_nameSample, productResponseExample.Name);
+        }
 
     }
 }
