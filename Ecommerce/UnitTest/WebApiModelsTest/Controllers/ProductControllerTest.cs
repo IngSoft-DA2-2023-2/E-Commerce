@@ -22,7 +22,7 @@ namespace UnitTest.WebApiModelsTest.Controller
         }
 
         [TestMethod]
-        public void GetAllProducts()
+        public void GetAllProductsOk()
         {
             List<Product> products = new List<Product>();
             products.Add(new Product() { Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
@@ -35,6 +35,18 @@ namespace UnitTest.WebApiModelsTest.Controller
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
+
+        [TestMethod]
+        public void GetAllProductsInternalServerError()
+        {
+            Mock<IProductLogic> mock = new Mock<IProductLogic>();
+            mock.Setup(p => p.GetProducts()).Throws(new Exception());
+            ProductController productController = new ProductController(mock.Object);
+            var result = productController.GetAllProducts().Result as StatusCodeResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(500, result.StatusCode);
+        }
+
 
 
     }

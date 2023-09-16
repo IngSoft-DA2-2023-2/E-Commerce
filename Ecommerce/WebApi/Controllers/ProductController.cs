@@ -15,7 +15,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<List<Product>> GetAllProducts()
         {
-            return Ok(productLogic.GetProducts());
+            try
+            {
+                return Ok(productLogic.GetProducts());
+            } catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+           
         }
     }
 }
