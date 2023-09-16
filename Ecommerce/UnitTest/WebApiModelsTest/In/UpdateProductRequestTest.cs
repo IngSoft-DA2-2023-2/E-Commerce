@@ -25,7 +25,14 @@ namespace UnitTest.WebApiModelsTest.In
             updateProductRequestExample = new UpdateProductRequest();
         }
 
-       
+
+        [TestMethod]
+        public void GivenProductRequestReturnsItsName()
+        {
+            updateProductRequestExample.Name = _nameSample;
+            Assert.AreEqual(_nameSample, updateProductRequestExample.Name);
+        }
+
 
 
     }

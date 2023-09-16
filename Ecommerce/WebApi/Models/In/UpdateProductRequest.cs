@@ -2,5 +2,6 @@
 {
     public class UpdateProductRequest
     {
+        public string Name { get; set; }
     }
 }
