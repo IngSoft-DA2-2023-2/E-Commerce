@@ -9,7 +9,7 @@ namespace UnitTest.WebApiModelsTest.Out
     [TestClass]
     public class UpdateProductResponseTest
     {
-        private UpdateProductResponse productResponseExample;
+        private UpdateProductResponse updateProductResponseExample;
         private const string _nameSample = "name sample";
         private const int _priceSample = 100;
         private const string _descriptionSample = "description sample";
@@ -22,8 +22,14 @@ namespace UnitTest.WebApiModelsTest.Out
         [TestInitialize]
         public void Init()
         {
-            productResponseExample = new UpdateProductResponse();
+            updateProductResponseExample = new UpdateProductResponse();
         }
 
+        [TestMethod]
+        public void GivenUpdateProductResponseReturnsItsGUID()
+        {
+            updateProductResponseExample.GUID = _guidSample;
+            Assert.AreEqual(_guidSample, updateProductResponseExample.GUID);
+        }
     }
 }
