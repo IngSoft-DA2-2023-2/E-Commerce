@@ -1,7 +1,7 @@
-﻿using BackEnd.ExceptionBackEnd;
-using BackEnd.BusinessLogic.Promotions;
-using BackEnd.Domain;
-using BackEnd.LogicInterface;
+﻿using WebApi.ExceptionBackEnd;
+using WebApi.BusinessLogic.Promotions;
+using WebApi.Domain;
+using WebApi.LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

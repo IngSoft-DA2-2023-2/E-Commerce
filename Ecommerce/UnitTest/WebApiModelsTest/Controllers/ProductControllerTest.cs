@@ -10,16 +10,11 @@ namespace UnitTest.WebApiModelsTest.Controller
     public class ProductControllerTest
     {
       
-
-
         [TestInitialize]
         public void Init()
         {
             
         }
-
-        
-
 
 
     }
