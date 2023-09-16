@@ -32,6 +32,12 @@ namespace UnitTest.WebApiModelsTest.In
             Assert.AreEqual(_nameSample, productRequestExample.Name);
         }
 
+        [TestMethod]
+        public void GivenProductRequestReturnsItsDescrition()
+        {
+            productRequestExample.Description = _descriptionSample;
+            Assert.AreEqual(_descriptionSample, productRequestExample.Description);
+        }
 
 
     }
