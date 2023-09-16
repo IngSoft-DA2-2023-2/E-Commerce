@@ -39,6 +39,20 @@ namespace UnitTest.WebApiModelsTest.In
             Assert.AreEqual(_descriptionSample, productRequestExample.Description);
         }
 
+        [TestMethod]
+        public void GivenProductRequestReturnsItsPrice()
+        {
+            productRequestExample.Price = _priceSample;
+            Assert.AreEqual(_priceSample, productRequestExample.Price);
+        }
+
+        [TestMethod]
+        public void GivenProductRequestReturnsItsBrand()
+        {
+            productRequestExample.Brand = _brandSample;
+            Assert.AreEqual(_brandSample, productRequestExample.Brand);
+        }
+
 
     }
 }
