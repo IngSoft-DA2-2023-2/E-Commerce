@@ -7,6 +7,7 @@
         public int Price { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }
+        public List<string> Color { get; set; }
 
     }
 }
