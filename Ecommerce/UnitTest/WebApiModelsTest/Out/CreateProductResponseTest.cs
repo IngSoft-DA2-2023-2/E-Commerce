@@ -68,5 +68,11 @@ namespace UnitTest.WebApiModelsTest.Out
             Assert.AreEqual(_categorySample, productResponseExample.Category);
         }
 
+        [TestMethod]
+        public void GivenProductResponseReturnsItsColor()
+        {
+            productResponseExample.Colors = _colorsSample;
+            Assert.AreEqual(_colorsSample, productResponseExample.Colors);
+        }
     }
 }
