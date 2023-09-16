@@ -1,0 +1,32 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System;
+using WebApi.Models.In;
+
+namespace UnitTest.WebApiModelsTest.In
+{
+
+    [TestClass]
+    public class UpdateProductRequestTest
+    {
+        private UpdateProductRequest updateProductRequestExample;
+        private const string _nameSample = "name sample";
+        private const int _priceSample = 100;
+        private const string _descriptionSample = "description sample";
+        private const string _brandSample = "brand sample";
+        private const string _categorySample = "category sample";
+        private List<string> _colorsSample = new List<string> { "Red", "Blue" };
+      
+
+
+        [TestInitialize]
+        public void Init()
+        {
+            updateProductRequestExample = new UpdateProductRequest();
+        }
+
+       
+
+
+    }
+}

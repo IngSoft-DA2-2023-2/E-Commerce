@@ -16,7 +16,7 @@ namespace UnitTest.WebApiModelsTest.In
         private const string _brandSample = "brand sample";
         private const string _categorySample = "category sample";
         private List<string> _colorsSample = new List<string> { "Red", "Blue" };
-        private Guid _guidSample = new Guid();
+      
 
 
         [TestInitialize]
@@ -66,6 +66,8 @@ namespace UnitTest.WebApiModelsTest.In
             productRequestExample.Color = _colorsSample;
             Assert.AreEqual(_colorsSample, productRequestExample.Color);
         }
+
+
 
     }
 }
