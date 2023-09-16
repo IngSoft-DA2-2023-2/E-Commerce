@@ -7,7 +7,7 @@ namespace UnitTest.WebApiModelsTest.Out
 {
 
     [TestClass]
-    public class CreateProductResponseTest
+    public class CreateProductRequestTest
     {
         private CreateProductResponse productResponseExample;
         private const string _nameSample = "name sample";
