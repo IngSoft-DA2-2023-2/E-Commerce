@@ -53,6 +53,13 @@ namespace UnitTest.WebApiModelsTest.In
             Assert.AreEqual(_brandSample, productRequestExample.Brand);
         }
 
+        [TestMethod]
+        public void GivenProductRequestReturnsItsCategory()
+        {
+            productRequestExample.Category = _categorySample;
+            Assert.AreEqual(_categorySample, productRequestExample.Category);
+        }
+
 
     }
 }
