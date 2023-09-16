@@ -5,7 +5,7 @@ namespace UnitTest.UtilitiesTest
 {
 
     [TestClass]
-    public class CreateProductResponseTest
+    public class HelperValidatorTest
     {
         private const int _minLength = 3;
         private const int _maxLength = 10;
