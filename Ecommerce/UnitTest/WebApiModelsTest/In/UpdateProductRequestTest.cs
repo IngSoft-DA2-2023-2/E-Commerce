@@ -34,7 +34,7 @@ namespace UnitTest.WebApiModelsTest.In
         }
 
         [TestMethod]
-        public void GivenUpdateProductRequestReturnsItsDescrition()
+        public void GivenUpdateProductRequestReturnsItsDescription()
         {
             updateProductRequestExample.Description = _descriptionSample;
             Assert.AreEqual(_descriptionSample, updateProductRequestExample.Description);
