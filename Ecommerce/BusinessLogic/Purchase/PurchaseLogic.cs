@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Domain;
-using BusinessLogic.Exceptions;
+using LogicInterface.Exceptions;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.PurchaseLogic
@@ -18,7 +18,7 @@ namespace BusinessLogic.PurchaseLogic
         }
         public void AssignsBestPromotion(Purchase purchase)
         {
-            if (!IsEligibleForPromotions(purchase)) throw new BusinessLogicException("Not eligible for promotions");
+            if (!IsEligibleForPromotions(purchase)) throw new LogicException("Not eligible for promotions");
             Promotion best = null;
             int maxDiscount = 0;
             foreach (var promo in purchase.Promotions)

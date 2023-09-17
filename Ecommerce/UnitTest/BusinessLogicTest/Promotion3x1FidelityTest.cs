@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Exceptions;
+﻿using LogicInterface.Exceptions;
 using BusinessLogic.Promotions;
 using Domain;
 using LogicInterface;
@@ -91,7 +91,7 @@ namespace UnitTest.BusinessLogicTest
 
 
         [TestMethod]
-        [ExpectedException(typeof(BusinessLogicException), "Not applicable promotion")]
+        [ExpectedException(typeof(LogicException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
             List<Product> cartSample = new List<Product>() { new Product() };

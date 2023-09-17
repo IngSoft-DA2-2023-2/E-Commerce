@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using LogicInterface;
 using BusinessLogic.Promotions;
-using BusinessLogic.Exceptions;
+using LogicInterface.Exceptions;
 using Moq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -141,7 +141,7 @@ namespace UnitTest.BusinessLogicTest
        }
 
        [TestMethod]
-       [ExpectedException(typeof(BusinessLogicException), "Not eligible for promotions")]
+       [ExpectedException(typeof(LogicException), "Not eligible for promotions")]
        public void GivenNotApplicableCartThrowsBackEndExceptionTryingToAssignBestPromotion()
        {
            purchaseSample.Cart = new List<Product>() { productSample1 };
