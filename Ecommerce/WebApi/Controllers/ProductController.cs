@@ -3,6 +3,7 @@ using Domain;
 using LogicInterface;
 using WebApi.Models.In;
 using WebApi.Models.Out;
+using LogicInterface.Exceptions;
 
 namespace WebApi.Controllers
 {
@@ -33,32 +34,46 @@ namespace WebApi.Controllers
         [HttpPost]
         public ActionResult<CreateProductResponse> CreateProduct([FromBody] CreateProductRequest product)
         {
-            Product newProduct = new Product()
+            try
             {
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Brand = product.Brand,
-                Category = product.Category,
-                Color = product.Color
-            };
+                Product newProduct = new Product()
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    Brand = product.Brand,
+                    Category = product.Category,
+                    Color = product.Color
+                };
 
-            var GUID = productLogic.AddProduct(newProduct);
+                var GUID = productLogic.AddProduct(newProduct);
 
-            CreateProductResponse response = new CreateProductResponse()
+                CreateProductResponse response = new CreateProductResponse()
+                {
+                    Id = GUID,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    Brand = product.Brand,
+                    Category = product.Category,
+                    Colors = product.Color
+
+                };
+                return Ok(response);
+
+            }
+            catch (LogicException ex)
             {
-                Id = GUID,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Brand = product.Brand,
-                Category = product.Category,
-                Colors = product.Color
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
 
-            };
-            return Ok(response);
+                return StatusCode(500);
+            }
+
+
         }
-
 
     }
 }

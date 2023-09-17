@@ -120,6 +120,7 @@ namespace UnitTest.WebApiModelsTest.Controller
             Assert.AreEqual(products, result.Value);
         }
 
+
         [TestMethod]
         public void CreateNewProduct()
         {
@@ -161,6 +162,40 @@ namespace UnitTest.WebApiModelsTest.Controller
             Assert.AreEqual(productRequest.Color, response.Colors);
             Assert.AreEqual(productRequest.Price, response.Price);
 
+        }
+
+        [TestMethod]
+        public void CreateNewProductInternalServerError()
+        {
+            CreateProductRequest productRequest = new CreateProductRequest()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = new List<string>() { "Red", "Blue" },
+                Price = 100
+            };
+            Product product = new Product()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = new List<string>() { "Red", "Blue" },
+                Price = 100
+            };
+            Guid guid = Guid.NewGuid();
+            Mock<IProductLogic> mock = new Mock<IProductLogic>();
+            mock.Setup(p => p.AddProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
+                         product.Description == productRequest.Description &&
+                                       product.Category == productRequest.Category &&
+                                                      product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
+                                                                      product.Price == productRequest.Price))).Throws(new Exception());
+            ProductController productController = new ProductController(mock.Object);
+            var result = productController.CreateProduct(productRequest).Result as StatusCodeResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(500, result.StatusCode);
         }
 
 

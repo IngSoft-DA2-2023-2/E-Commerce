@@ -2,7 +2,7 @@
 using System.Linq;
 using Domain;
 using LogicInterface;
-using BusinessLogic.Exceptions;
+using LogicInterface.Exceptions;
 
 namespace BusinessLogic.Promotions
 {
@@ -21,7 +21,7 @@ namespace BusinessLogic.Promotions
         {
             if (!IsApplicable(cart))
             {
-                throw new BusinessLogicException("Not applicable promotion");
+                throw new LogicException("Not applicable promotion");
             }
 
             int currentDiscount = 0;
