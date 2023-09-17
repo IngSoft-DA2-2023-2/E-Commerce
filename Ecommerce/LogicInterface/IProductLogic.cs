@@ -7,7 +7,7 @@ namespace LogicInterface
 {
     public interface IProductLogic
     {
-        public List<Product> GetProducts(string? name);
+        public List<Product> GetProducts(string? name,  string? brandName);
 
     }
 }

@@ -15,11 +15,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Product>> GetAllProductsByFilters([FromQuery] string? name = null)
+        public ActionResult<List<Product>> GetAllProductsByFilters([FromQuery] string? name = null, [FromQuery] string? brandName = null)
         {
             try
             {
-                return Ok(productLogic.GetProducts(name));
+                return Ok(productLogic.GetProducts(name, brandName));
             } catch (Exception ex)
             {
                 return StatusCode(500);
