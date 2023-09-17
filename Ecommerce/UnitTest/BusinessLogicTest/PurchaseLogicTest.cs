@@ -6,6 +6,7 @@ using LogicInterface;
 using BusinessLogic.Promotions;
 using BusinessLogic.Exceptions;
 using Moq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UnitTest.BusinessLogicTest
 {
@@ -81,9 +82,8 @@ namespace UnitTest.BusinessLogicTest
         {
             purchaseSample = new Purchase
             {
-                Promotions = promotions,
-                
-                
+                Promotions = promotions
+
             };
         }
 
@@ -93,6 +93,9 @@ namespace UnitTest.BusinessLogicTest
             
             Mock<IPromotionLogic> mock = new Mock<IPromotionLogic>();
             mock.Setup(x => x.GetPromotionable(It.Is<Promotion>(p => p.Equals(promotions[0])))).Returns(promotionables[0]);
+            mock.Setup(x => x.GetPromotionable(It.Is<Promotion>(p => p.Equals(promotions[1])))).Returns(promotionables[1]);
+            mock.Setup(x => x.GetPromotionable(It.Is<Promotion>(p => p.Equals(promotions[2])))).Returns(promotionables[2]);
+            mock.Setup(x => x.GetPromotionable(It.Is<Promotion>(p => p.Equals(promotions[3])))).Returns(promotionables[3]);
             PurchaseLogic purchaseLogic = new PurchaseLogic(mock.Object);
             Assert.IsFalse(purchaseLogic.IsEligibleForPromotions(purchaseSample));
         }

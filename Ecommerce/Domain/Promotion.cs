@@ -11,9 +11,13 @@ namespace Domain
         public string Name { get; set; }  
         public string Description { get; set; }
 
+        
         public override bool Equals(object? obj)
         {
-            return base.Equals(obj);
+            var other = obj as Promotion;
+            if (other == null) return false;
+            if (other.Name != Name) return false;
+            return true;
         }
 
     }
