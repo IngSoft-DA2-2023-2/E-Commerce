@@ -4,6 +4,8 @@ using LogicInterface;
 
 namespace WebApi.Controllers
 {
+    [Route("api/products")]
+    [ApiController]
     public class ProductController : ControllerBase
     {
         private IProductLogic productLogic;
@@ -13,16 +15,18 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Product>> GetAllProducts()
+        public ActionResult<List<Product>> GetAllProductsByFilters([FromQuery] string? name = null)
         {
             try
             {
-                return Ok(productLogic.GetProducts());
+                return Ok(productLogic.GetProducts(name));
             } catch (Exception ex)
             {
                 return StatusCode(500);
             }
            
         }
+
+
     }
 }
