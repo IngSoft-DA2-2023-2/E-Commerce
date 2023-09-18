@@ -1,6 +1,7 @@
-﻿using BackEnd.ExceptionBackEnd;
-using BackEnd.Domain;
+﻿using Domain.Exceptions;
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain.Exceptions;
 
 namespace UnitTest.DomainTest
 {
@@ -84,21 +85,21 @@ namespace UnitTest.DomainTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Name must not be null")]
+        [ExpectedException(typeof(DomainException), "Name must not be null")]
         public void GivenEmptyNameThrowsBackEndException()
         {
             productSample.Name = null;
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Price must not be negative")]
+        [ExpectedException(typeof(DomainException), "Price must not be negative")]
         public void GivenNegativePriceThrowsBackEndException()
         {
             productSample.Price = _negativePriceSample;
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Description must not be null")]
+        [ExpectedException(typeof(DomainException), "Description must not be null")]
         public void GivenEmptyDescriptionThrowsBackEndException()
         {
             productSample.Description = null;

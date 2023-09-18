@@ -1,11 +1,11 @@
-﻿using BackEnd.Utilities;
+﻿using Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest.UtilitiesTest
 {
 
     [TestClass]
-    public class HelperValidatorTest
+    public class CreateProductResponseTest
     {
         private const int _minLength = 3;
         private const int _maxLength = 10;

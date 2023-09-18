@@ -1,7 +1,7 @@
-﻿using BackEnd.ExceptionBackEnd;
-using BackEnd.Domain;
-using BackEnd.BusinessLogic.Promotions;
-using BackEnd.LogicInterface;
+﻿using LogicInterface.Exceptions;
+using Domain;
+using BusinessLogic.Promotions;
+using LogicInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -72,7 +72,7 @@ namespace UnitTest.BusinessLogicTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(BackEndException), "Not applicable promotion")]
+        [ExpectedException(typeof(LogicException), "Not applicable promotion")]
         public void GivenNonApplicablePurchaseThrowsBackEndException()
         {
             Product product1 = new Product() { Category = _categorySample1 };
