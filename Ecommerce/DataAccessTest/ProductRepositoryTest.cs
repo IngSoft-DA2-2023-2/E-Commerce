@@ -1,4 +1,6 @@
-using DataAccess;
+using DataAccess.Context;
+using DataAccess.Exceptions;
+using DataAccess.Repository;
 using DataAccessInterface;
 using Domain;
 using Moq;
@@ -35,7 +37,7 @@ namespace DataAccessTest
             {
                 catchedException = ex;
             };
-            Assert.IsInstanceOfType(catchedException, typeof(ArgumentException));
+            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals("Product Sample already exists."));
         }
     }

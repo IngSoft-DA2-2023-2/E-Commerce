@@ -1,7 +1,9 @@
-﻿using DataAccessInterface;
+﻿using DataAccess.Context;
+using DataAccess.Exceptions;
+using DataAccessInterface;
 using Domain;
 
-namespace DataAccess
+namespace DataAccess.Repository
 {
     public class ProductRepository : IProductRepository
     {
@@ -11,7 +13,7 @@ namespace DataAccess
             _eCommerceContext = context;
         }
 
-       
+
 
         public Product CreateProduct(Product product)
         {
@@ -21,7 +23,7 @@ namespace DataAccess
                 _eCommerceContext.SaveChanges();
                 return product;
             }
-            throw new ArgumentException($"Product {product.Name} already exists.");
+            throw new DataAccessException($"Product {product.Name} already exists.");
         }
     }
 }
