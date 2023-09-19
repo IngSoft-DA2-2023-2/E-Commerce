@@ -15,7 +15,9 @@ namespace DataAccess
 
         public Product CreateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _eCommerceContext.Products.Add(product);
+            _eCommerceContext.SaveChanges();
+            return product;
         }
     }
 }
