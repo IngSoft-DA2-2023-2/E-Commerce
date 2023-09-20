@@ -8,6 +8,10 @@ namespace Domain
         private string _name;
         private int _price;
         private string _description;
+        public Guid Id { get; set; }
+        public string Brand { get; set; }
+        public string Category { get; set; }
+        public List<string> Color { get; set; } = new List<string>(); 
 
         public string Name
         {
@@ -48,9 +52,7 @@ namespace Domain
             }
 
         }
-        public string Brand { get; set; }
-        public string Category { get; set; }
-        public List<string> Color { get; set; } = new List<string>();
+
 
     }
 }
