@@ -100,35 +100,65 @@ namespace UnitTest.WebApiModelsTest.Controllers
         [TestMethod]
         public void CreateUserThrowsException()
         {
+            CreateUserRequest userRequest = new()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+            };
+            User user = new()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+            };
 
-                CreateUserRequest userRequest = new()
-                {
-                    Name = "nameSample",
-                    Email = "email@sample.com",
-                    Roles = new List<string> { "role sample" },
-                    Address = "address sample",
-                    Password = "password sample",
-                };
-                User user = new()
-                {
-                    Name = "nameSample",
-                    Email = "email@sample.com",
-                    Roles = new List<string> { "role sample" },
-                    Address = "address sample",
-                    Password = "password sample",
-                };
+            Guid guid = Guid.NewGuid();
+            Mock<IUserLogic> mock = new();
+            mock.Setup(u => u.AddUser(It.Is<User>(user => user.Name == userRequest.Name && user.Email == userRequest.Email &&
+                    user.Roles.Equals(userRequest.Roles) && user.Address == userRequest.Address && user.Password == userRequest.Password
+            ))).Throws(new Exception());
 
+            UserController userController = new(mock.Object);
+            var result = userController.CreateUser(userRequest).Result as StatusCodeResult;
 
-                Guid guid = Guid.NewGuid();
-                Mock<IUserLogic> mock = new();
-                mock.Setup(u => u.AddUser(It.Is<User>(user => user.Name == userRequest.Name && user.Email == userRequest.Email &&
-                        user.Roles.Equals(userRequest.Roles) && user.Address == userRequest.Address && user.Password == userRequest.Password
-                ))).Throws(new Exception());
-
-                UserController userController = new(mock.Object);
-                var result = userController.CreateUser(userRequest).Result as StatusCodeResult;
-
-                Assert.AreEqual(500, result.StatusCode);
-            }
+            Assert.AreEqual(500, result.StatusCode);
         }
+
+        [TestMethod]
+        public void CreateUserThrowsLogicException()
+        {
+            CreateUserRequest userRequest = new()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+            };
+            User user = new()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+            };
+
+            Guid guid = Guid.NewGuid();
+            Mock<IUserLogic> mock = new();
+            mock.Setup(u => u.AddUser(It.Is<User>(user => user.Name == userRequest.Name && user.Email == userRequest.Email &&
+                    user.Roles.Equals(userRequest.Roles) && user.Address == userRequest.Address && user.Password == userRequest.Password
+            ))).Throws(new LogicException("w"));
+
+            UserController userController = new(mock.Object);
+            var result = userController.CreateUser(userRequest).Result as StatusCodeResult;
+
+            Assert.AreEqual(400, result.StatusCode);
+        }
+    }
 }

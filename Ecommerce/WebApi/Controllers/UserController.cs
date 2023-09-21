@@ -29,7 +29,7 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
-       
+
         [HttpPost]
         public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
         {
@@ -58,7 +58,12 @@ namespace WebApi.Controllers
 
                 return Ok(response);
             }
-            catch (Exception ex) { 
+            catch (LogicException)
+            {
+                return BadRequest();
+            }
+            catch (Exception)
+            {
                 return StatusCode(500);
             }
         }
