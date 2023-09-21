@@ -1,8 +1,8 @@
 ﻿using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using WebApi.Models.In;
+using WebApi.Models.Out;
 
 namespace WebApi.Controllers
 {
@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserLogic _userLogic;
+        private readonly IUserLogic _userLogic;
         public UserController(IUserLogic logic)
         {
             _userLogic = logic;
@@ -28,6 +28,36 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
+
+        
+           [HttpPost]
+            public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
+            {
+            User newUser = new()
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password,
+                Address = user.Address,
+                Roles = user.Roles,
+            };
+
+            var GUID = _userLogic.AddUser(newUser);
+
+            CreateUserResponse response = new() {
+                Id = GUID,
+                Name = user.Name,
+                Email = user.Email,
+                Address = user.Address,
+                Roles = user.Roles, 
+                Password = user.Password,
+            };
+                
+            return Ok(response);
+            }
+         
+
+
     }
 }
     

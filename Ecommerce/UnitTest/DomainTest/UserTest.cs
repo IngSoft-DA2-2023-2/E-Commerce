@@ -1,6 +1,7 @@
 ﻿using Domain.Exceptions;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace UnitTest.DomainTest
 {
@@ -12,6 +13,9 @@ namespace UnitTest.DomainTest
         private const string _userSampleName = "userSample";
         private const string _userSampleEmail = "user@Sample.com";
         private const string _userSamplePassword = "userPassword";
+        private const string _userSampleAddress = "user street";
+        private readonly List<string> _userSampleRoles = new() { "role sample 1" };
+        private readonly string _nameRoleSample = "role sample 2";
         private const string _thisNameIsTooLong = "thisPasswordIsIncorrectEvenThoughItOnlyCointainsLetters";
         private const string _thisNameIsTooShort = "a";
         private const string _thisPasswordIsTooShort = "1";
@@ -24,40 +28,20 @@ namespace UnitTest.DomainTest
             userSample = new User();
         }
 
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
         [TestMethod]
         public void GivenValidNameAssignsToUser()
         {
             userSample.Name = _userSampleName;
             Assert.AreEqual(_userSampleName, userSample.Name);
         }
+
         [TestMethod]
         public void GivenValidEmailAssignsToUser()
         {
             userSample.Email = _userSampleEmail;
             Assert.AreEqual(_userSampleEmail, userSample.Email);
         }
+
         [TestMethod]
         public void GivenValidPasswordAssignsToUser()
         {
@@ -71,6 +55,7 @@ namespace UnitTest.DomainTest
         {
             userSample.Name = _thisNameIsTooLong;
         }
+
         [TestMethod]
         [ExpectedException(typeof(DomainException), "Name length must be between 3 and 20")]
         public void GivenTooShortNameThrowsBackEndException()
@@ -84,18 +69,21 @@ namespace UnitTest.DomainTest
         {
             userSample.Name = _nonAlphanumericalName;
         }
+
         [TestMethod]
         [ExpectedException(typeof(DomainException), "Password length must be between 5 and 25")]
         public void GivenTooShortPasswordThrowsBackEndException()
         {
             userSample.Password = _thisPasswordIsTooShort;
         }
+
         [TestMethod]
         [ExpectedException(typeof(DomainException), "Password length must be between 5 and 25")]
         public void GivenTooLongPasswordThrowsBackEndException()
         {
             userSample.Password = _thisPasswordIsTooLong;
         }
+
         [TestMethod]
         [ExpectedException(typeof(DomainException), "email format is not valid")]
         public void GivenWrongEmailFormatThrowsBackEndException()
@@ -103,6 +91,28 @@ namespace UnitTest.DomainTest
             userSample.Email = _wrongEmailFormat;
         }
 
+        [TestMethod]
+        public void GivenAddressAssignsIt()
+        {
+            userSample.Address = _userSampleName;
+            Assert.AreEqual(_userSamleAddress, userSample.Address);
+        }
 
+        [TestMethod]
+        public void GivenListOfRolesAssignThem()
+        {
+            userSample.Roles = _userSampleRoles;
+            Assert.AreEqual(1, userSample.Roles.Count);
+            Assert.AreEqual(_userSampleRoles, userSample.Roles);
+        }
+
+        [TestMethod]
+        public void GivenRoleAddsItToCurrentOnes()
+        {
+            Assert.IsTrue(userSample.Roles.Count == 0);
+            userSample.Roles.Add(_nameRoleSample);
+            Assert.IsTrue(_userSampleRoles.Count == 1);
+            Assert.AreEqual (_userSampleRoles, userSample.Roles);
+        }
     }
 }
