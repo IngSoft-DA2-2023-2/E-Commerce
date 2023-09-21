@@ -1,5 +1,6 @@
 ﻿using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models.In;
 using WebApi.Models.Out;
@@ -28,37 +29,39 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
-
-
+       
         [HttpPost]
         public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
         {
-            User newUser = new()
+            try
             {
-                Name = user.Name,
-                Email = user.Email,
-                Password = user.Password,
-                Address = user.Address,
-                Roles = user.Roles,
-            };
+                User newUser = new()
+                {
+                    Name = user.Name,
+                    Email = user.Email,
+                    Password = user.Password,
+                    Address = user.Address,
+                    Roles = user.Roles,
+                };
 
-            var GUID = _userLogic.AddUser(newUser);
+                var GUID = _userLogic.AddUser(newUser);
 
-            CreateUserResponse response = new()
-            {
-                Id = GUID,
-                Name = user.Name,
-                Email = user.Email,
-                Address = user.Address,
-                Roles = user.Roles,
-                Password = user.Password,
-            };
+                CreateUserResponse response = new()
+                {
+                    Id = GUID,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Address = user.Address,
+                    Roles = user.Roles,
+                    Password = user.Password,
+                };
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (Exception ex) { 
+                return StatusCode(500);
+            }
         }
-
-
-
     }
 }
 

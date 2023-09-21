@@ -1,5 +1,6 @@
 ﻿using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -94,9 +95,40 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(userRequest.Roles, response.Roles);
             Assert.AreEqual(userRequest.Password, response.Password);
             Assert.AreEqual(userRequest.Address, response.Address);
-
-
         }
 
-    }
+        [TestMethod]
+        public void CreateUserThrowsException()
+        {
+
+                CreateUserRequest userRequest = new()
+                {
+                    Name = "nameSample",
+                    Email = "email@sample.com",
+                    Roles = new List<string> { "role sample" },
+                    Address = "address sample",
+                    Password = "password sample",
+                };
+                User user = new()
+                {
+                    Name = "nameSample",
+                    Email = "email@sample.com",
+                    Roles = new List<string> { "role sample" },
+                    Address = "address sample",
+                    Password = "password sample",
+                };
+
+
+                Guid guid = Guid.NewGuid();
+                Mock<IUserLogic> mock = new();
+                mock.Setup(u => u.AddUser(It.Is<User>(user => user.Name == userRequest.Name && user.Email == userRequest.Email &&
+                        user.Roles.Equals(userRequest.Roles) && user.Address == userRequest.Address && user.Password == userRequest.Password
+                ))).Throws(new Exception());
+
+                UserController userController = new(mock.Object);
+                var result = userController.CreateUser(userRequest).Result as StatusCodeResult;
+
+                Assert.AreEqual(500, result.StatusCode);
+            }
+        }
 }
