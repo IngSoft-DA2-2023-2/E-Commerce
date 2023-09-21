@@ -14,7 +14,7 @@ namespace DataAccessTest
         [TestMethod]
         public void CreateProductOk()
         {
-            Product product = new Product() {Name = "Sample"};
+            Product product = new Product() { Name = "Sample" };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
@@ -24,9 +24,9 @@ namespace DataAccessTest
         [TestMethod]
         public void CreateAlreadyExistingProduct()
         {
-            Product product = new Product() {Name = "Sample" };
+            Product product = new Product() { Name = "Sample" };
             var productContext = new Mock<ECommerceContext>();
-            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() {product });
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             Exception catchedException = null;
             try

@@ -8,6 +8,6 @@
         public string Password { get; set; }
         public List<string> Roles { get; set; }
         public string Address { get; set; }
-      
+
     }
 }

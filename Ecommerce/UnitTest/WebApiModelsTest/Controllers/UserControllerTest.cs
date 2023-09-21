@@ -5,12 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using WebApi.Controllers;
 using WebApi.Models.In;
 using WebApi.Models.Out;
@@ -72,7 +66,8 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Address = "address sample",
                 Password = "password sample",
             };
-            User user = new User() {
+            User user = new User()
+            {
                 Name = "nameSample",
                 Email = "email@sample.com",
                 Roles = new List<string> { "role sample" },

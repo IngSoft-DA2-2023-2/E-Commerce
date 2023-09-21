@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LogicInterface.Exceptions
+﻿namespace LogicInterface.Exceptions
 {
     public class LogicException : Exception
     {

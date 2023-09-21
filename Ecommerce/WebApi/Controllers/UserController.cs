@@ -29,10 +29,10 @@ namespace WebApi.Controllers
             }
         }
 
-        
-           [HttpPost]
-            public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
-            {
+
+        [HttpPost]
+        public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
+        {
             User newUser = new()
             {
                 Name = user.Name,
@@ -44,20 +44,21 @@ namespace WebApi.Controllers
 
             var GUID = _userLogic.AddUser(newUser);
 
-            CreateUserResponse response = new() {
+            CreateUserResponse response = new()
+            {
                 Id = GUID,
                 Name = user.Name,
                 Email = user.Email,
                 Address = user.Address,
-                Roles = user.Roles, 
+                Roles = user.Roles,
                 Password = user.Password,
             };
-                
+
             return Ok(response);
-            }
-         
+        }
+
 
 
     }
 }
-    
+

@@ -1,5 +1,5 @@
-﻿using Utilities;
-using Domain.Exceptions;
+﻿using Domain.Exceptions;
+using Utilities;
 
 namespace Domain
 {

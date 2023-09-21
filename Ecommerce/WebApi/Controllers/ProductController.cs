@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Domain;
+﻿using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.Models.In;
 using WebApi.Models.Out;
-using LogicInterface.Exceptions;
 
 namespace WebApi.Controllers
 {
@@ -11,10 +11,11 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private IProductLogic productLogic;
+        private readonly IProductLogic productLogic;
 
-        public ProductController(IProductLogic productLogic) {
-           this.productLogic = productLogic;
+        public ProductController(IProductLogic productLogic)
+        {
+            this.productLogic = productLogic;
         }
 
         [HttpGet]
@@ -24,11 +25,12 @@ namespace WebApi.Controllers
             try
             {
                 return Ok(productLogic.GetProducts(name, brandName, categoryName));
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return StatusCode(500);
             }
-           
+
         }
 
         [HttpPost]

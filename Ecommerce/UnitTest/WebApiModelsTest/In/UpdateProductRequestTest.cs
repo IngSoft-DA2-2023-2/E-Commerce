@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System;
 using WebApi.Models.In;
 
 namespace UnitTest.WebApiModelsTest.In
@@ -15,8 +14,8 @@ namespace UnitTest.WebApiModelsTest.In
         private const string _descriptionSample = "description sample";
         private const string _brandSample = "brand sample";
         private const string _categorySample = "category sample";
-        private List<string> _colorsSample = new List<string> { "Red", "Blue" };
-      
+        private readonly List<string> _colorsSample = new List<string> { "Red", "Blue" };
+
 
 
         [TestInitialize]

@@ -1,5 +1,5 @@
-﻿using Domain.Exceptions;
-using Domain;
+﻿using Domain;
+using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -94,8 +94,8 @@ namespace UnitTest.DomainTest
         [TestMethod]
         public void GivenAddressAssignsIt()
         {
-            userSample.Address = _userSampleName;
-            Assert.AreEqual(_userSamleAddress, userSample.Address);
+            userSample.Address = _userSampleAddress;
+            Assert.AreEqual(_userSampleAddress, userSample.Address);
         }
 
         [TestMethod]
@@ -109,10 +109,10 @@ namespace UnitTest.DomainTest
         [TestMethod]
         public void GivenRoleAddsItToCurrentOnes()
         {
-            Assert.IsTrue(userSample.Roles.Count == 0);
             userSample.Roles.Add(_nameRoleSample);
+
             Assert.IsTrue(_userSampleRoles.Count == 1);
-            Assert.AreEqual (_userSampleRoles, userSample.Roles);
+            Assert.AreEqual(_nameRoleSample, userSample.Roles[0]);
         }
     }
 }

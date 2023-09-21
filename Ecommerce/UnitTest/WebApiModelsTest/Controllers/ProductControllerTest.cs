@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System;
-using WebApi.Models.In;
-using WebApi.Controllers;
+﻿using Domain;
 using LogicInterface;
-using Moq;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
+using System.Collections.Generic;
+using WebApi.Controllers;
+using WebApi.Models.In;
 using WebApi.Models.Out;
 
 namespace UnitTest.WebApiModelsTest.Controller
@@ -151,7 +151,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                  product.Price == productRequest.Price))).Returns(guid);
             ProductController productController = new ProductController(mock.Object);
             var result = productController.CreateProduct(productRequest).Result as OkObjectResult;
-            
+
             Assert.IsNotNull(result);
             var response = result.Value as CreateProductResponse;
             Assert.AreEqual(guid, response.Id);

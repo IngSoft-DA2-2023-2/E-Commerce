@@ -1,7 +1,7 @@
-﻿using LogicInterface.Exceptions;
-using BusinessLogic.Promotions;
+﻿using BusinessLogic.Promotions;
 using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
