@@ -8,6 +8,7 @@ using Moq;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models.Out;
+using System.Drawing;
 
 namespace UnitTest.WebApiModelsTest.Controller
 {
@@ -124,13 +125,14 @@ namespace UnitTest.WebApiModelsTest.Controller
         [TestMethod]
         public void CreateNewProduct()
         {
+            List<string> color = new List<string>() { "Red", "Blue" };
             CreateProductRequest productRequest = new CreateProductRequest()
             {
                 Name = "Name1",
                 Description = "Description1",
                 Category = "Category1",
                 Brand = "Brand1",
-                Color = new List<string>() { "Red", "Blue" },
+                Color = color,
                 Price = 100
             };
             Product product = new Product()
@@ -139,29 +141,25 @@ namespace UnitTest.WebApiModelsTest.Controller
                 Description = "Description1",
                 Category = "Category1",
                 Brand = "Brand1",
-                Color = new List<string>() { "Red", "Blue" },
+                Color = color,
                 Price = 100
             };
-            Guid guid = Guid.NewGuid();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.AddProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
               product.Description == productRequest.Description &&
                product.Category == productRequest.Category &&
                 product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
-                 product.Price == productRequest.Price))).Returns(guid);
+                 product.Price == productRequest.Price))).Returns(product);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.CreateProduct(productRequest).Result as OkObjectResult;
-            
+            var result = productController.CreateProduct(productRequest).Result as OkObjectResult;          
             Assert.IsNotNull(result);
             var response = result.Value as CreateProductResponse;
-            Assert.AreEqual(guid, response.Id);
             Assert.AreEqual(productRequest.Name, response.Name);
             Assert.AreEqual(productRequest.Description, response.Description);
             Assert.AreEqual(productRequest.Category, response.Category);
             Assert.AreEqual(productRequest.Brand, response.Brand);
             Assert.AreEqual(productRequest.Color, response.Colors);
             Assert.AreEqual(productRequest.Price, response.Price);
-
         }
 
         [TestMethod]
