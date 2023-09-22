@@ -81,6 +81,19 @@ namespace UnitTest.WebApiModelsTest.Controllers
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateUser", "User", new {id = 5},expectedMappedResult);
 
+            var result = userController.CreateUser(received);
+
+            logic.VerifyAll();
+            CreatedAtActionResult resultObject = result as CreatedAtActionResult;
+            UserResponse resultValue = resultObject.Value as UserResponse;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
+            Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
+            Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
+            Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
+
         }
     }
 }
