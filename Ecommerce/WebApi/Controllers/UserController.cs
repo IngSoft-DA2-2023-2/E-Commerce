@@ -1,9 +1,10 @@
 ﻿using ApiModels;
+using ApiModels.UserRequest;
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Diagnostics;
 
 namespace WebApi.Controllers
 {
@@ -23,44 +24,18 @@ namespace WebApi.Controllers
                 return Ok(_userLogic.GetUsers().Select(u => new UserResponse(u)).ToList());           
         }
 
-       /* [HttpPost]
-        public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] UserRequest received)
         {
-            try
-            {
-                User newUser = new()
-                {
-                    Name = user.Name,
-                    Email = user.Email,
-                    Password = user.Password,
-                    Address = user.Address,
-                    Roles = user.Roles,
-                };
 
-                var GUID = _userLogic.AddUser(newUser);
+            var user = received.ToEntity();
+            var resultLogic = _userLogic.CreateUser(user);
+            var result = new UserResponse(resultLogic);
 
-                CreateUserResponse response = new()
-                {
-                    Id = GUID,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Address = user.Address,
-                    Roles = user.Roles,
-                    Password = user.Password,
-                };
+            return CreatedAtAction(nameof(CreateUser), result);
 
-                return Ok(response);
-            }
-            catch (LogicException)
-            {
-                return BadRequest();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
         }
-
+/*
         [HttpDelete]
         public ActionResult<CreateUserResponse> DeleteUser([FromQuery] Guid userId)
         {
