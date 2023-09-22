@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace WebApi.Models.Out
+namespace ApiModels
 {
     public class UserResponse
     {
@@ -8,7 +8,7 @@ namespace WebApi.Models.Out
         public string Name { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public List<string> Roles { get; set; }
+        public IEnumerable<string> Roles { get; set; }
 
         public UserResponse(User user)
         {

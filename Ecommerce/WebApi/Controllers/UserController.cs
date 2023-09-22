@@ -1,9 +1,9 @@
-﻿using Domain;
+﻿using ApiModels;
+using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Models.In;
-using WebApi.Models.Out;
+
 
 namespace WebApi.Controllers
 {
@@ -18,19 +18,12 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<User>> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
-            try
-            {
-                return Ok(_userLogic.GetUsers());
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
+                return Ok(_userLogic.GetUsers().Select(u => new UserResponse(u)).ToList());           
         }
 
-        [HttpPost]
+       /* [HttpPost]
         public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest user)
         {
             try
@@ -86,7 +79,7 @@ namespace WebApi.Controllers
             }
 
         }
-
+       */
     }
 }
 

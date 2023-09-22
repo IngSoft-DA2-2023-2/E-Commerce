@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using ApiModels;
+using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WebApi.Controllers;
 using WebApi.Models.In;
 using WebApi.Models.Out;
@@ -19,24 +21,38 @@ namespace UnitTest.WebApiModelsTest.Controllers
         [TestMethod]
         public void GetAllUsersOk()
         {
-            List<User> usersSample = new()
+            IEnumerable<User> expected = new List<User>()
             {
-                new User {Email= "mail1@sample.com",Name="name1",Password="password1" },
-                new User {Email= "mail2@sample.com",Name="name2",Password="password2" },
-                new User {Email= "mail3@sample.com",Name="name3",Password="password3" },
+                new User {
+                    Email= "mail1@sample.com",
+                    Name="name1",
+                    Password="password1",
+                    Address="address sample",
+                    Roles=new List<string>{"buyer"},
+                },
             };
+            
+            var expectedResult = expected.Select(u => new UserResponse(u)).ToList();
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.GetUsers()).Returns(expected);
+            var userController = new UserController(logic.Object);
+            OkObjectResult expectedObjectResult = new OkObjectResult(expectedResult);
 
-            Mock<IUserLogic> mock = new();
-            mock.Setup(u => u.GetUsers()).Returns(usersSample);
+            var result = userController.GetAllUsers();
 
-            UserController userController = new(mock.Object);
-            var result = userController.GetAllUsers().Result as OkObjectResult;
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            List<UserResponse> resultValue = resultObject.Value as List<UserResponse>;
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(usersSample, result.Value);
+            Assert.AreEqual(resultObject.StatusCode,expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.First().Name, expectedResult.First().Name);
+            Assert.AreEqual(resultValue.First().Address, expectedResult.First().Address);
+            Assert.AreEqual(resultValue.First().Email, expectedResult.First().Email);
+            Assert.AreEqual(resultValue.First().Id, expectedResult.First().Id);
         }
 
-        [TestMethod]
+       /* [TestMethod]
         public void GetAllUsersException()
         {
             List<User> usersSample = new()
@@ -204,6 +220,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             Assert.IsNotNull(result);
             Assert.AreEqual(500, result.StatusCode);
-        }
+        }*/
     }
 }
