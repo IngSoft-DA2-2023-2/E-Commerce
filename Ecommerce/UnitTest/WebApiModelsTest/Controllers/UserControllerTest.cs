@@ -190,5 +190,20 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.IsNotNull(result);
             Assert.AreEqual(400, result.StatusCode);
         }
+
+        [TestMethod]
+        public void DeleteUserThrowsException()
+        {
+            Mock<IUserLogic> mock = new();
+
+            var userId = Guid.NewGuid();
+            mock.Setup(logic => logic.DeleteUser(userId)).Throws(new Exception());
+
+            UserController userController = new(mock.Object);
+            var result = userController.DeleteUser(userId).Result as StatusCodeResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(500, result.StatusCode);
+        }
     }
 }

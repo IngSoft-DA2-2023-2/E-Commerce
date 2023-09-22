@@ -76,9 +76,13 @@ namespace WebApi.Controllers
                 _userLogic.DeleteUser(userId);
                 return Ok();
             }
-            catch(Exception)
+            catch (LogicException)
             {
                 return BadRequest();
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
             }
 
         }
