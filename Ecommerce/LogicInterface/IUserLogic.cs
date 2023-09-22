@@ -6,7 +6,7 @@ namespace LogicInterface
     {
         public IEnumerable<User> GetUsers();
         public User CreateUser(User user);
-        public void DeleteUser(Guid id);
+        public User DeleteUser(User user);
 
     }
 }

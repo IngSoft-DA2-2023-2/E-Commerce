@@ -35,26 +35,16 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(CreateUser), result);
 
         }
-/*
-        [HttpDelete]
-        public ActionResult<CreateUserResponse> DeleteUser([FromQuery] Guid userId)
-        {
-            try
-            {
-                _userLogic.DeleteUser(userId);
-                return Ok();
-            }
-            catch (LogicException)
-            {
-                return BadRequest();
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
 
+        [HttpDelete]
+        public IActionResult DeleteUser([FromBody] UserRequest received)
+        {
+            var user = received.ToEntity();
+            var resultLogic = _userLogic.DeleteUser(user);
+            var result = new UserResponse(resultLogic);
+
+            return Ok(result);
         }
-       */
     }
 }
 

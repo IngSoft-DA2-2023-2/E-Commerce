@@ -3,6 +3,7 @@ using ApiModels.UserRequest;
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -20,7 +21,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
     {
 
         [TestMethod]
-        public void GetAllUsersOk()
+        public void GetAllUsers()
         {
             IEnumerable<User> expected = new List<User>()
             {
@@ -54,7 +55,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
         }
 
         [TestMethod]
-        public void CreateUserOK()
+        public void CreateUser()
         {
             UserRequest received = new UserRequest()
             {
@@ -93,7 +94,51 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
             Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
             Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
-
         }
+
+        [TestMethod]
+        public void DeleteUser()
+        {
+            UserRequest received = new UserRequest()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Address = "address sample",
+                Password = "password sample",
+
+            };
+
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+                Id = Guid.NewGuid(),
+            };
+
+            var expectedMappedResult = new UserResponse(expected);
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.DeleteUser(It.IsAny<User>())).Returns(expected);
+            var userController = new UserController(logic.Object);
+            var expectedObjectResult = new OkObjectResult(expectedMappedResult);
+
+            var result = userController.DeleteUser(received);
+
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            UserResponse resultValue = resultObject.Value as UserResponse;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
+            Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
+            Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
+            Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
+        }
+
+
+
     }
 }
