@@ -153,11 +153,41 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Mock<IUserLogic> mock = new();
             mock.Setup(u => u.AddUser(It.Is<User>(user => user.Name == userRequest.Name && user.Email == userRequest.Email &&
                     user.Roles.Equals(userRequest.Roles) && user.Address == userRequest.Address && user.Password == userRequest.Password
-            ))).Throws(new LogicException("w"));
+            ))).Throws(new LogicException("error"));
 
             UserController userController = new(mock.Object);
             var result = userController.CreateUser(userRequest).Result as StatusCodeResult;
 
+            Assert.AreEqual(400, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteUserReturnsOk()
+        {
+            Mock<IUserLogic>mock = new();
+
+            var userId = Guid.NewGuid();
+            mock.Setup(logic => logic.DeleteUser(userId));
+
+            UserController userController = new(mock.Object);
+            var result = userController.DeleteUser(userId).Result as StatusCodeResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(200, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteUserThrowsLogicalException()
+        {
+            Mock<IUserLogic> mock = new();
+
+            var userId = Guid.NewGuid();
+            mock.Setup(logic => logic.DeleteUser(userId)).Throws(new LogicException("error"));
+
+            UserController userController = new(mock.Object);
+            var result = userController.DeleteUser(userId).Result as StatusCodeResult;
+
+            Assert.IsNotNull(result);
             Assert.AreEqual(400, result.StatusCode);
         }
     }

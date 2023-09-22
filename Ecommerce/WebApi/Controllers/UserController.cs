@@ -67,6 +67,22 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
+
+        [HttpDelete]
+        public ActionResult<CreateUserResponse> DeleteUser([FromQuery] Guid userId)
+        {
+            try
+            {
+                _userLogic.DeleteUser(userId);
+                return Ok();
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+
+        }
+
     }
 }
 
