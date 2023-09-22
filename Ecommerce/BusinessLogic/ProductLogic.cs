@@ -18,8 +18,10 @@ namespace BusinessLogic
         }
         public Product AddProduct(Product newProduct)
         {
-            throw new NotImplementedException();
-
+           Guid guid = Guid.NewGuid();
+           newProduct.Id = guid;
+           _productRepository.CreateProduct(newProduct);
+           return newProduct;
         }
 
         public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
