@@ -8,7 +8,7 @@ namespace LogicInterface
     public interface IProductLogic
     {
         Product AddProduct(Product newProduct);
-        public List<Product> GetProducts(string? name,  string? brandName, string? categoryName);
+        public IEnumerable<Product> GetProducts(string? name,  string? brandName, string? categoryName);
 
     }
 }

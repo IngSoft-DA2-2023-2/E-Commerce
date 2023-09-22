@@ -24,9 +24,9 @@ namespace BusinessLogic
            return newProduct;
         }
 
-        public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> GetProducts(string? name, string? brandName, string? categoryName)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetProducts(name, brandName, categoryName);
         }
     }
 }

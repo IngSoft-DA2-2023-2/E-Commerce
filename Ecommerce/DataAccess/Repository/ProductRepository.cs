@@ -25,5 +25,9 @@ namespace DataAccess.Repository
             }
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
+        public IEnumerable<Product> GetProducts(string? name, string? brandName, string? categoryName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

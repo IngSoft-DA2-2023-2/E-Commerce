@@ -30,5 +30,28 @@ namespace UnitTest.BusinessLogicTest
             repository.VerifyAll();
             Assert.AreEqual(result.Name,expected.Name);
         }
+        [TestMethod] public void GetAllProducts()
+        {
+            List<string> color = new List<string>() { "Red", "Blue" };
+            Product test = new Product()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Sample",
+                Description = "Description",
+                Brand = "Brand",
+                Category = "Category",
+                Color = color
+            };
+            IEnumerable<Product> expected = new List<Product>()
+            {
+                test
+            };
+            Mock<IProductRepository> repository = new Mock<IProductRepository>();
+            repository.Setup(logic => logic.GetProducts(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(expected);
+            var productLogic = new ProductLogic(repository.Object);
+            var result = productLogic.GetProducts(null,null, null);
+            repository.VerifyAll();
+            Assert.AreEqual(result.First().Name, expected.First().Name);
+        }
     }
 }
