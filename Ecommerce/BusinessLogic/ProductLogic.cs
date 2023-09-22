@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using DataAccessInterface;
+using Domain;
 using LogicInterface;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    internal class ProductLogic : IProductLogic
+    public class ProductLogic : IProductLogic
     {
-        public Guid AddProduct(Product newProduct)
+       private IProductRepository _productRepository;
+        public ProductLogic(IProductRepository productRepository) 
+        {
+            _productRepository = productRepository;  
+        }
+        public Product AddProduct(Product newProduct)
         {
             throw new NotImplementedException();
+
         }
 
         public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
