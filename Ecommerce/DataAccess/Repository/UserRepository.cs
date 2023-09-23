@@ -37,16 +37,17 @@ namespace DataAccess.Repository
 
         }
 
+        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate)
+        {
+            return _eCommerceContext.Users.Where(predicate).ToList();
+        }
 
         public bool Exist(Func<User, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public User UpdateUser(User user)
         {
