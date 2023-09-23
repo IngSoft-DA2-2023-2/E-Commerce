@@ -1,7 +1,10 @@
 ﻿using ApiModels;
 using ApiModels.UserRequest;
+using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace WebApi.Controllers
 {
@@ -18,7 +21,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            return Ok(_userLogic.GetUsers("").Select(u => new UserResponse(u)).ToList());
+                return Ok(_userLogic.GetUsers().Select(u => new UserResponse(u)).ToList());           
         }
 
         [HttpPost]
@@ -44,10 +47,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(Guid id, [FromBody] UserRequest received)
+        public IActionResult UpdateUser(Guid id,[FromBody] UserRequest received)
         {
             var user = received.ToEntity();
-            var resultLogic = _userLogic.UpdateUser(id, user);
+            var resultLogic = _userLogic.UpdateUser(id,user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);
