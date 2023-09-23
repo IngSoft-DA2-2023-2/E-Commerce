@@ -42,7 +42,6 @@ namespace Domain
         public string Address { get; set; }
 
         public List<string> Roles { get; set; } = new List<string>();
-        public Guid Id { get; set; }
 
         private static void ValidateEmail(string value)
         {

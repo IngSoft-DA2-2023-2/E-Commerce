@@ -19,7 +19,6 @@ namespace UnitTest
         {
             User expected = new User()
             {
-                Id = Guid.NewGuid(),
                 Name = "Juan",
                 Email = "a@a.com",
                 Address = "aaa",
@@ -36,7 +35,6 @@ namespace UnitTest
 
             repo.VerifyAll();
 
-            Assert.AreEqual(result.Id, expected.Id);
             Assert.AreEqual(result.Name, expected.Name);
             Assert.AreEqual(result.Email, expected.Email);
             Assert.AreEqual(result.Address, expected.Address);
@@ -65,7 +63,6 @@ namespace UnitTest
             {
                new User()
                {
-               Id = Guid.NewGuid(),
                Name = "Juan",
                Email = "a@a.com",
                Address = "aaa",

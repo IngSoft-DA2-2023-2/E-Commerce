@@ -47,7 +47,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.First().Name, expectedMappedResult.First().Name);
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
-            Assert.AreEqual(resultValue.First().Id, expectedMappedResult.First().Id);
         }
 
         [TestMethod]
@@ -69,7 +68,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Roles = new List<string> { "role sample" },
                 Address = "address sample",
                 Password = "password sample",
-                Id = Guid.NewGuid(),
             };
 
             var expectedMappedResult = new UserResponse(expected);
@@ -89,7 +87,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
             Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
-            Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
         }
 
         [TestMethod]
@@ -111,7 +108,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Roles = new List<string> { "role sample" },
                 Address = "address sample",
                 Password = "password sample",
-                Id = Guid.NewGuid(),
             };
 
             var expectedMappedResult = new UserResponse(expected);
@@ -131,7 +127,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
             Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
-            Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
         }
 
         [TestMethod]
@@ -155,7 +150,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Roles = new List<string> { "role sample" },
                 Address = "address sample",
                 Password = "password sample",
-                Id = guid,
             };
 
             var expectedMappedResult = new UserResponse(expected);
@@ -175,7 +169,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
             Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
-            Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
             Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
         }
 
