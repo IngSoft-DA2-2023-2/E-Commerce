@@ -35,7 +35,7 @@ namespace BusinessLogic
 
         public User DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            return _userRepository.DeleteUser(user);
         }
 
 

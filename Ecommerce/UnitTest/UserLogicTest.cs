@@ -120,6 +120,30 @@ namespace UnitTest
             Assert.AreEqual(result.Address, updated.Address);
         }
 
+        [TestMethod]
+        public void DeleteUser()
+        {
+            User toDelete = new User() { Email = "a@a.com" };
+
+            User deleted = new User()
+            {
+                Name = "Juan",
+                Email = "a@a.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<string> { "buyer" },
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.DeleteUser(It.IsAny<User>())).Returns(deleted);
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.DeleteUser(toDelete);
+
+            repo.VerifyAll();
+            Assert.AreEqual(result.Email, toDelete.Email);
+        }
+
     }
 }
 
