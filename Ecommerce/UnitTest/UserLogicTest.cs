@@ -1,0 +1,65 @@
+﻿using BusinessLogic;
+using DataAccessInterface;
+using Domain;
+using LogicInterface.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UnitTest
+{
+    [TestClass]
+    public class UserLogicTest
+    {
+
+        [TestMethod]
+        public void CreateUserCorrect()
+        {
+            User expected = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Juan",
+                Email = "a@a.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<string> { "buyer" },
+            };
+
+             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+             repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
+             repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(false);
+             var userLogic = new UserLogic(repo.Object);
+
+             var result = userLogic.CreateUser(expected);
+
+             repo.VerifyAll();
+
+             Assert.AreEqual(result.Id,expected.Id);
+             Assert.AreEqual(result.Name, expected.Name);
+             Assert.AreEqual(result.Email, expected.Email);
+             Assert.AreEqual(result.Address,expected.Address);
+             Assert.AreEqual(result.Password,expected.Password);
+             Assert.AreEqual(result.Roles, expected.Roles);           
+        }
+
+        [TestMethod]
+        public void CreateUserLogicException()
+        {
+            User newUser = new User();
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(newUser);
+            repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(true);
+            
+            var userLogic = new UserLogic(repo.Object);
+
+            Assert.ThrowsException<LogicException>(() => userLogic.CreateUser(newUser));
+        }
+    }
+}
+
+
