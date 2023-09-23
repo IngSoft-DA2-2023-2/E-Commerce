@@ -7,8 +7,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTest
 {
@@ -29,21 +27,21 @@ namespace UnitTest
                 Roles = new List<string> { "buyer" },
             };
 
-             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-             repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
-             repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(false);
-             var userLogic = new UserLogic(repo.Object);
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
+            repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(false);
+            var userLogic = new UserLogic(repo.Object);
 
-             var result = userLogic.CreateUser(expected);
+            var result = userLogic.CreateUser(expected);
 
-             repo.VerifyAll();
+            repo.VerifyAll();
 
-             Assert.AreEqual(result.Id,expected.Id);
-             Assert.AreEqual(result.Name, expected.Name);
-             Assert.AreEqual(result.Email, expected.Email);
-             Assert.AreEqual(result.Address,expected.Address);
-             Assert.AreEqual(result.Password,expected.Password);
-             Assert.AreEqual(result.Roles, expected.Roles);           
+            Assert.AreEqual(result.Id, expected.Id);
+            Assert.AreEqual(result.Name, expected.Name);
+            Assert.AreEqual(result.Email, expected.Email);
+            Assert.AreEqual(result.Address, expected.Address);
+            Assert.AreEqual(result.Password, expected.Password);
+            Assert.AreEqual(result.Roles, expected.Roles);
         }
 
         [TestMethod]
@@ -54,10 +52,40 @@ namespace UnitTest
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
             repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(newUser);
             repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(true);
-            
+
             var userLogic = new UserLogic(repo.Object);
 
             Assert.ThrowsException<LogicException>(() => userLogic.CreateUser(newUser));
+        }
+
+        [TestMethod]
+        public void GetAllUsers()
+        {
+            List<User> expected = new List<User> {
+                new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Juan",
+                Email = "a@a.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<string> { "buyer" },
+            }
+                };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.GetUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.GetUsers("");
+
+            repo.VerifyAll();
+
+            Assert.AreEqual(result.First().Name, expected.First().Name);
+            Assert.AreEqual(result.First().Address, expected.First().Address);
+            Assert.AreEqual(result.First().Password, expected.First().Password);
+            Assert.AreEqual(result.First().Id, expected.First().Id);
+            Assert.AreEqual(result.First().Email, expected.First().Email);
         }
     }
 }

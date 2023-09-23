@@ -2,11 +2,6 @@
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
@@ -21,25 +16,19 @@ namespace BusinessLogic
         public User CreateUser(User user)
         {
 
-            if(this._userRepository.Exist(GetUserByEmail(user.Email)))
+            if (this._userRepository.Exist(u => u.Email == user.Email))
             {
                 throw new LogicException("Existing user with that email");
             }
             return this._userRepository.CreateUser(user);
         }
 
-        private Func<User, bool> GetUserByEmail(string email)
+        public IEnumerable<User> GetUsers(string nameOrEmpty)
         {
-            return (User u) => u.Email == email;
+            return _userRepository.GetUsers(GetUsersByEmail(nameOrEmpty);
         }
-
 
         public User DeleteUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<User> GetUsers()
         {
             throw new NotImplementedException();
         }
@@ -48,5 +37,10 @@ namespace BusinessLogic
         {
             throw new NotImplementedException();
         }
+        private Func<User, bool> GetUsersByEmail(string email)
+        {
+            return (User u) => email == "" || u.Email == email;
+        }
+
     }
 }
