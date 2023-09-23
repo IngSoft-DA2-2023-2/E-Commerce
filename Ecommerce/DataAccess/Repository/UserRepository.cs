@@ -31,6 +31,7 @@ namespace DataAccess.Repository
         public User DeleteUser(User user)
         {
             throw new NotImplementedException();
+
         }
 
         public bool Exist(Func<User, bool> predicate)

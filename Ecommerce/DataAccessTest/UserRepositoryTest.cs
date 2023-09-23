@@ -1,4 +1,5 @@
 ﻿using DataAccess.Context;
+using DataAccess.Exceptions;
 using DataAccess.Repository;
 using DataAccessInterface;
 using Domain;
@@ -17,14 +18,47 @@ namespace DataAccessTest
     [TestClass]
     public class UserRepositoryTest
     {
+
         [TestMethod]
-        public void AddUser()
+        public void CreateUser()
         {
-            User user = new User() { Email = "sample@sample.com" };
+
+            User newUser = new User
+            {
+                Name = "TestUser",
+                Email = "test@example.com"
+            };
+
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>() { });
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
+            userContext.Setup(c => c.Users.Add(newUser));
+            userContext.Setup(c => c.SaveChanges());
+
             IUserRepository userRepository = new UserRepository(userContext.Object);
+            var expectedReturn = userRepository.CreateUser(newUser);
+            Assert.AreEqual(expectedReturn, newUser);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(DataAccessException))]
+        public void CreateUserThrowsException()
+        {
+            User newUser = new User
+            {
+                Name = "TestUser",
+                Email = "test@example.com"
+            };
+
+            var userContext = new Mock<ECommerceContext>();
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
+            userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException());
+            userContext.Setup(c => c.SaveChanges());
+
+            IUserRepository userRepository = new UserRepository(userContext.Object);
+            userRepository.CreateUser(newUser);   
+        }
+
+
 
     }
 }
