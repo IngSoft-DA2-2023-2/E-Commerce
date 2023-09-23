@@ -160,11 +160,11 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.UpdateUser(It.IsAny<Guid>(), It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(expected);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.UpdateUser(guid, received);
+            var result = userController.UpdateUser(received);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;

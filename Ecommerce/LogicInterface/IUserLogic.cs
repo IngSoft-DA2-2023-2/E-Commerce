@@ -7,6 +7,6 @@ namespace LogicInterface
         IEnumerable<User> GetAllUsers(string emailOrEmpty);
         User CreateUser(User user);
         User DeleteUser(User user);
-        User UpdateUser(Guid id, User user);
+        User UpdateUser(User user);
     }
 }

@@ -86,8 +86,40 @@ namespace UnitTest
             Assert.AreEqual(result.First().Password, expected.First().Password);
             Assert.AreEqual(result.First().Email, expected.First().Email);
             Assert.AreEqual(result.First().Roles, expected.First().Roles);
-
         }
+
+        [TestMethod]
+        public void UpdateUser()
+        {
+
+           User modifications =  new User()
+           {
+               Name = "Juancito",
+               Address = "aaa2",
+           };
+
+            User updated = new User()
+            {
+                Name = "Juancito",
+                Email = "a@a.com",
+                Address = "aaa2",
+                Password = "123456",
+                Roles = new List<string> { "buyer" },
+            };
+
+
+
+            Mock <IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(updated);
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.UpdateUser(modifications);
+
+            repo.VerifyAll();
+            Assert.AreEqual(result.Name, updated.Name);
+            Assert.AreEqual(result.Address, updated.Address);
+        }
+
     }
 }
 

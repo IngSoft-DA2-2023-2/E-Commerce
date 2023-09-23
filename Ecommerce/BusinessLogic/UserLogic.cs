@@ -16,11 +16,11 @@ namespace BusinessLogic
         public User CreateUser(User user)
         {
 
-            if (this._userRepository.Exist(GetUserByEmail(user.Email)))
+            if (_userRepository.Exist(GetUserByEmail(user.Email)))
             {
                 throw new LogicException("Existing user with that email");
             }
-            return this._userRepository.CreateUser(user);
+            return _userRepository.CreateUser(user);
         }
 
         public IEnumerable<User> GetAllUsers(string emailOrEmpty)
@@ -28,17 +28,16 @@ namespace BusinessLogic
             return _userRepository.GetAllUsers(GetUserByEmail(emailOrEmpty));
         }
 
+        public User UpdateUser(User user)
+        {
+           return _userRepository.UpdateUser(user);
+        }
+
         public User DeleteUser(User user)
         {
             throw new NotImplementedException();
         }
 
-
-
-        public User UpdateUser(Guid id, User user)
-        {
-            throw new NotImplementedException();
-        }
 
         private Func<User, bool> GetUserByEmail(string email)
         {

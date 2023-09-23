@@ -44,10 +44,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(Guid id, [FromBody] UserRequest received)
+        public IActionResult UpdateUser([FromBody] UserRequest received)
         {
             var user = received.ToEntity();
-            var resultLogic = _userLogic.UpdateUser(id, user);
+            var resultLogic = _userLogic.UpdateUser(user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);
