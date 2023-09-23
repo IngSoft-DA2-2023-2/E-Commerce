@@ -30,7 +30,7 @@ namespace BusinessLogic
 
         public User UpdateUser(User user)
         {
-           return _userRepository.UpdateUser(user);
+            return _userRepository.UpdateUser(user);
         }
 
         public User DeleteUser(User user)

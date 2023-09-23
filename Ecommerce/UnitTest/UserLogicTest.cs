@@ -89,11 +89,11 @@ namespace UnitTest
         public void UpdateUser()
         {
 
-           User modifications =  new User()
-           {
-               Name = "Juancito",
-               Address = "aaa2",
-           };
+            User modifications = new User()
+            {
+                Name = "Juancito",
+                Address = "aaa2",
+            };
 
             User updated = new User()
             {
@@ -106,7 +106,7 @@ namespace UnitTest
 
 
 
-            Mock <IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
             repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(updated);
             var userLogic = new UserLogic(repo.Object);
 

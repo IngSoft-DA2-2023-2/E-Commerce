@@ -2,11 +2,6 @@
 using DataAccess.Exceptions;
 using DataAccessInterface;
 using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
@@ -30,9 +25,18 @@ namespace DataAccess.Repository
 
         public User DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Email == user.Email);
+
+            if (existingUser != null)
+            {
+                _eCommerceContext.Users.Remove(existingUser);
+                _eCommerceContext.SaveChanges();
+                return existingUser;
+            }
+            throw new DataAccessException($"No users found");
 
         }
+
 
         public bool Exist(Func<User, bool> predicate)
         {
