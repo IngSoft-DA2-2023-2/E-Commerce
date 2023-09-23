@@ -4,9 +4,9 @@ namespace LogicInterface
 {
     public interface IUserLogic
     {
-        public IEnumerable<User> GetUsers();
-        public User CreateUser(User user);
-        public User DeleteUser(User user);
-        User UpdateUser(Guid id,User user);
+        IEnumerable<User> GetAllUsers(string emailOrEmpty);
+        User CreateUser(User user);
+        User DeleteUser(User user);
+        User UpdateUser(Guid id, User user);
     }
 }
