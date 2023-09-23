@@ -138,6 +138,53 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
         }
 
+        [TestMethod]
+        public void UpdateUser()
+        {
+            UserRequest received = new UserRequest()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Address = "address sample",
+                Password = "password sample",
+
+            };
+
+            Guid guid = Guid.NewGuid();
+
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+                Id = guid,
+            };
+
+            var expectedMappedResult = new UserResponse(expected);
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.UpdateUser(It.IsAny<Guid>(),It.IsAny<User>())).Returns(expected);
+            var userController = new UserController(logic.Object);
+            var expectedObjectResult = new OkObjectResult(expectedMappedResult);
+
+            var result = userController.UpdateUser(guid,received);
+
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            UserResponse resultValue = resultObject.Value as UserResponse;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
+            Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
+            Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
+            Assert.AreEqual(resultValue.Id, expectedMappedResult.Id);
+            Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
+        }
+
+
+
 
 
     }

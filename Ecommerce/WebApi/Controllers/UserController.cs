@@ -45,6 +45,17 @@ namespace WebApi.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(Guid id,[FromBody] UserRequest received)
+        {
+            var user = received.ToEntity();
+            var resultLogic = _userLogic.UpdateUser(id,user);
+            var result = new UserResponse(resultLogic);
+
+            return Ok(result);
+        }
+
     }
 }
 
