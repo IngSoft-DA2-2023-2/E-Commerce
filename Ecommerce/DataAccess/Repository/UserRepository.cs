@@ -2,6 +2,7 @@
 using DataAccess.Exceptions;
 using DataAccessInterface;
 using Domain;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DataAccess.Repository
 {
@@ -42,10 +43,21 @@ namespace DataAccess.Repository
             return _eCommerceContext.Users.Where(predicate).ToList();
         }
 
-
-        public User UpdateUser(User user)
+        public User UpdateUser(User updatedUser)
         {
-            throw new NotImplementedException();
+            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Email == updatedUser.Email);
+            if (existingUser != null)
+            {
+              if(!updatedUser.Address.IsNullOrEmpty()) existingUser.Address = updatedUser.Address;
+              if(!updatedUser.Password.IsNullOrEmpty()) existingUser.Password = updatedUser.Password;
+              if(!updatedUser.Roles.Any()) existingUser.Roles = updatedUser.Roles;
+              if(!updatedUser.Name.IsNullOrEmpty()) existingUser.Name = updatedUser.Name;
+
+                _eCommerceContext.Update(existingUser);
+
+                return _eCommerceContext.Users.FirstOrDefault(u => u.Email == updatedUser.Email);
+            }
+            throw new DataAccessException("No user found");
         }
     }
 }
