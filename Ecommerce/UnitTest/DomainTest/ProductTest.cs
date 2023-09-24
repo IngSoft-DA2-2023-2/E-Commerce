@@ -1,7 +1,6 @@
-﻿using Domain.Exceptions;
-using Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain;
 using Domain.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest.DomainTest
 {

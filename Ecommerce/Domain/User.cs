@@ -1,5 +1,5 @@
-﻿using Utilities;
-using Domain.Exceptions;
+﻿using Domain.Exceptions;
+using Utilities;
 
 namespace Domain
 {
@@ -39,6 +39,10 @@ namespace Domain
                 _password = value;
             }
         }
+        public string Address { get; set; }
+
+        public List<string> Roles { get; set; } = new List<string>();
+
         private static void ValidateEmail(string value)
         {
             if (!HelperValidator.IsValidEmail(value))
@@ -66,7 +70,6 @@ namespace Domain
                 throw new DomainException("Name must be alphanumerical");
             }
         }
-
 
     }
 }

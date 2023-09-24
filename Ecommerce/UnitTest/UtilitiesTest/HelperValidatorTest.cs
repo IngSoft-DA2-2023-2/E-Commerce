@@ -1,5 +1,5 @@
-﻿using Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Utilities;
 
 namespace UnitTest.UtilitiesTest
 {

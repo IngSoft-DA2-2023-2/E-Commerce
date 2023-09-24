@@ -1,12 +1,11 @@
-﻿using Domain;
+﻿using BusinessLogic.Promotions;
 using BusinessLogic.PurchaseLogic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+using Domain;
 using LogicInterface;
-using BusinessLogic.Promotions;
 using LogicInterface.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using static System.Net.Mime.MediaTypeNames;
+using System.Collections.Generic;
 
 namespace UnitTest.BusinessLogicTest
 {
@@ -100,17 +99,17 @@ namespace UnitTest.BusinessLogicTest
             Assert.IsFalse(purchaseLogic.IsEligibleForPromotions(purchaseSample));
         }
 
-        
+
         [TestMethod]
         public void Given1ItemPurchaseReturnsIsNotEligibleForPromotions()
         {
-          
+
             List<Product> cart = new List<Product> { productSample3 };
             purchaseSample.Cart = cart;
 
             Assert.IsFalse(purchaseLogic.IsEligibleForPromotions(purchaseSample));
         }
-       
+
         [TestMethod]
         public void Given3ItemPurchaseReturnsIsEligibleForPromotions()
         {
@@ -118,39 +117,39 @@ namespace UnitTest.BusinessLogicTest
 
             Assert.IsTrue(purchaseLogic.IsEligibleForPromotions(purchaseSample));
         }
-        
-       [TestMethod]
-       public void Given3ItemPurchaseAssigns20OffPromotionAsBest()
-       {
-           purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
-           purchaseLogic.AssignsBestPromotion(purchaseSample);
 
-           Assert.AreEqual(purchaseSample.CurrentPromotion, promotions[0]);
-       }
+        [TestMethod]
+        public void Given3ItemPurchaseAssigns20OffPromotionAsBest()
+        {
+            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
+            purchaseLogic.AssignsBestPromotion(purchaseSample);
 
-       [TestMethod]
-       public void GivenAssignedPromotionUnassignsIt()
-       {
-           purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
-           purchaseLogic.AssignsBestPromotion(purchaseSample);
-           Assert.IsNotNull(purchaseSample.CurrentPromotion);
+            Assert.AreEqual(purchaseSample.CurrentPromotion, promotions[0]);
+        }
 
-           purchaseSample.DropPromotion();
+        [TestMethod]
+        public void GivenAssignedPromotionUnassignsIt()
+        {
+            purchaseSample.Cart = new List<Product> { productSample1, productSample2, productSample3 };
+            purchaseLogic.AssignsBestPromotion(purchaseSample);
+            Assert.IsNotNull(purchaseSample.CurrentPromotion);
 
-           Assert.IsNull(purchaseSample.CurrentPromotion);
-       }
+            purchaseSample.DropPromotion();
 
-       [TestMethod]
-       [ExpectedException(typeof(LogicException), "Not eligible for promotions")]
-       public void GivenNotApplicableCartThrowsBackEndExceptionTryingToAssignBestPromotion()
-       {
-           purchaseSample.Cart = new List<Product>() { productSample1 };
-           Assert.IsFalse(purchaseLogic.IsEligibleForPromotions(purchaseSample));
+            Assert.IsNull(purchaseSample.CurrentPromotion);
+        }
 
-           purchaseLogic.AssignsBestPromotion(purchaseSample);
-       }
+        [TestMethod]
+        [ExpectedException(typeof(LogicException), "Not eligible for promotions")]
+        public void GivenNotApplicableCartThrowsBackEndExceptionTryingToAssignBestPromotion()
+        {
+            purchaseSample.Cart = new List<Product>() { productSample1 };
+            Assert.IsFalse(purchaseLogic.IsEligibleForPromotions(purchaseSample));
 
-       
+            purchaseLogic.AssignsBestPromotion(purchaseSample);
+        }
+
+
 
     }
 }

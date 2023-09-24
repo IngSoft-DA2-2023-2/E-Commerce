@@ -1,7 +1,3 @@
-using Domain;
-using LogicInterface;
-using WebApi.Controllers;
-
 namespace WebApi
 {
     public class Program
@@ -38,5 +34,5 @@ namespace WebApi
         }
     }
 
-  
+
 }

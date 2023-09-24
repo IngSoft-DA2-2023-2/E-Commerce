@@ -1,6 +1,4 @@
-﻿
-using System.Linq;
-using Domain;
+﻿using Domain;
 
 namespace LogicInterface
 

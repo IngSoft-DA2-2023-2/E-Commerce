@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Domain.Exceptions;
+﻿using Domain.Exceptions;
 
 namespace Domain
 {
@@ -13,7 +10,7 @@ namespace Domain
         public User User { get; set; }
 
         public Promotion CurrentPromotion { get; set; }
-         public List<Promotion> Promotions { get; set; }
+        public List<Promotion> Promotions { get; set; }
         public List<Product> Cart
         {
             get => _cart;
@@ -34,10 +31,10 @@ namespace Domain
             }
         }
         public void DropPromotion()
-          {
-             CurrentPromotion = null;
-          }
-       
+        {
+            CurrentPromotion = null;
+        }
+
         private void ValidateDate(DateTime value)
         {
             if (value.CompareTo(DateTime.Now) > 0)

@@ -1,19 +1,15 @@
-﻿using LogicInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Domain;
+﻿using Domain;
+using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.PurchaseLogic
 {
     public class PurchaseLogic : IPurchaseLogic
     {
-        private IPromotionLogic promotionLogic;
+        private readonly IPromotionLogic promotionLogic;
 
-        public PurchaseLogic(IPromotionLogic promotionLogic) {
+        public PurchaseLogic(IPromotionLogic promotionLogic)
+        {
             this.promotionLogic = promotionLogic;
         }
         public void AssignsBestPromotion(Purchase purchase)
@@ -40,7 +36,8 @@ namespace BusinessLogic.PurchaseLogic
 
         public bool IsEligibleForPromotions(Purchase purchase)
         {
-            return purchase.Promotions.Any(promo => {
+            return purchase.Promotions.Any(promo =>
+            {
                 var promoLogic = promotionLogic.GetPromotionable(promo);
                 return promoLogic.IsApplicable(purchase.Cart);
 
