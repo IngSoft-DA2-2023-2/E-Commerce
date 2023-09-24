@@ -14,7 +14,7 @@ namespace BusinessLogic
             this._userRepository = userRepository;
         }
 
-        public User CreateUser(User user)
+        public User AddUser(User user)
         {
             try
             {

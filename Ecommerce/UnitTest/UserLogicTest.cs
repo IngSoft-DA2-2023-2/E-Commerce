@@ -31,7 +31,7 @@ namespace UnitTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
             var userLogic = new UserLogic(repo.Object);
 
-            var result = userLogic.CreateUser(expected);
+            var result = userLogic.AddUser(expected);
 
             repo.VerifyAll();
 
@@ -53,7 +53,7 @@ namespace UnitTest
 
             var userLogic = new UserLogic(repo.Object);
 
-            Assert.ThrowsException<LogicException>(() => userLogic.CreateUser(newUser));
+            Assert.ThrowsException<LogicException>(() => userLogic.AddUser(newUser));
         }
 
         [TestMethod]

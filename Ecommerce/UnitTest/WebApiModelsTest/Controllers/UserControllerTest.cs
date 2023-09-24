@@ -72,7 +72,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.AddUser(It.IsAny<User>())).Returns(expected);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateUser", "User", new { id = 5 }, expectedMappedResult);
 
