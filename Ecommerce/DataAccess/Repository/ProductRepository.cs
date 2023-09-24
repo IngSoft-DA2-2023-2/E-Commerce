@@ -26,6 +26,19 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
+        public Product? GetProductById(Guid id)
+        {
+            var product = _eCommerceContext.Products.FirstOrDefault(p => p.Id.Equals(id));
+            if (product is null)
+            {
+                throw new DataAccessException($"Product with id {id} does not exist.");
+            }
+            else
+            {
+                return product;
+            }
+        }
+
         public Product UpdateProduct(Product newProduct)
         {
             if(_eCommerceContext.Products.First(p=> p.Id.Equals(newProduct.Id)) is null)

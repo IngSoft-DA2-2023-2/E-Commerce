@@ -20,13 +20,13 @@ namespace BusinessLogic
         {
            Guid guid = Guid.NewGuid();
            newProduct.Id = guid;
-           _productRepository.CreateProduct(newProduct);
-           return newProduct;
+            return _productRepository.CreateProduct(newProduct);
         }
 
-        public object? GetProductById(Guid id)
+        public Product GetProductById(Guid id)
         {
-            throw new NotImplementedException();
+            
+            return _productRepository.GetProductById(id);
         }
 
         public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
@@ -36,8 +36,7 @@ namespace BusinessLogic
 
         public Product UpdateProduct(Product newProduct)
         {
-            _productRepository.UpdateProduct(newProduct);
-            return newProduct;
+            return _productRepository.UpdateProduct(newProduct);
         }
     }
 }

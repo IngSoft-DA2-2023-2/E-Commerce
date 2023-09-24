@@ -54,5 +54,26 @@ namespace DataAccessTest
             var result =  productRepository.UpdateProduct(expectedReturn);
             Assert.AreEqual(expectedReturn, result);
         }
+
+        [TestMethod]
+        public void UpdateNonExistingProduct()
+        {
+            Product product = new Product() { Name = "Sample", Id = new Guid() };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            var expectedReturn = new Product() { Name = "Sample", Id = new Guid(), Color = new List<string> { "Green" } };
+        }
+
+        [TestMethod]
+        public void GetProductByIdOk()
+        {
+            Product product = new Product() { Name = "Sample", Id = new Guid() };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetProductById(product.Id);
+            Assert.AreEqual(response, product);
+        }
+
     }
 }
