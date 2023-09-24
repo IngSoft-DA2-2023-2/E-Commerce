@@ -26,9 +26,18 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
-        public void UpdateProduct(Product newProduct)
+        public Product UpdateProduct(Product newProduct)
         {
-            throw new NotImplementedException();
+            if(_eCommerceContext.Products.First(p=> p.Id.Equals(newProduct.Id)) is null)
+            {
+                throw new DataAccessException($"Product {newProduct.Name} does not exist.");
+            }
+            else
+            {
+                _eCommerceContext.Products.Update(newProduct);
+                _eCommerceContext.SaveChanges();
+                return newProduct;
+            }
         }
     }
 }

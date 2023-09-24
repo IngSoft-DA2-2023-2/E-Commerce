@@ -31,7 +31,6 @@ namespace BusinessLogic
 
         public Product UpdateProduct(Product newProduct)
         {
-           
             _productRepository.UpdateProduct(newProduct);
             return newProduct;
         }

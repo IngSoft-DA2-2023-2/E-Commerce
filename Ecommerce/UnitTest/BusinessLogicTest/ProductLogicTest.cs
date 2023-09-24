@@ -30,5 +30,21 @@ namespace UnitTest.BusinessLogicTest
             repository.VerifyAll();
             Assert.AreEqual(result.Name,expected.Name);
         }
+
+        [TestMethod]
+        public void UpdateProductCorrectly()
+        {
+            Product expected = new()
+            {
+                Name = "ProductSample"
+            };
+
+            Mock<IProductRepository> repository = new Mock<IProductRepository>(MockBehavior.Strict);
+            repository.Setup(logic => logic.UpdateProduct(It.IsAny<Product>())).Returns(expected);
+            var productLogic = new ProductLogic(repository.Object);
+            var result = productLogic.UpdateProduct(expected);
+            repository.VerifyAll();
+            Assert.AreEqual(result.Name, expected.Name);
+        }
     }
 }
