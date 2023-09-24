@@ -36,6 +36,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
         public IActionResult CreateProduct([FromBody] CreateProductRequest product)
         {
 
@@ -70,7 +71,7 @@ namespace WebApi.Controllers
 
         [HttpPut("/{id}")]
         [AnnotatedCustomExceptionFilter]
-
+        [AuthenticationFilter]
         public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product)
         {
 
