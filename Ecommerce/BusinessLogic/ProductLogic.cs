@@ -28,5 +28,12 @@ namespace BusinessLogic
         {
             throw new NotImplementedException();
         }
+
+        public Product UpdateProduct(Product newProduct)
+        {
+           
+            _productRepository.UpdateProduct(newProduct);
+            return newProduct;
+        }
     }
 }

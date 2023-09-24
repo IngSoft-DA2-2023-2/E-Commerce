@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Product>> GetAllProductsByFilters([FromQuery] string? name = null,
+        public IActionResult GetAllProductsByFilters([FromQuery] string? name = null,
             [FromQuery] string? brandName = null, [FromQuery] string? categoryName = null)
         {
             try
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CreateProductResponse> CreateProduct([FromBody] CreateProductRequest product)
+        public IActionResult CreateProduct([FromBody] CreateProductRequest product)
         {
             try
             {
@@ -71,9 +71,38 @@ namespace WebApi.Controllers
 
                 return StatusCode(500);
             }
+        }
 
+        [HttpPut("/{id}")]
+       public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product)
+        {
+            Product newProduct = new Product()
+            {
+                Id = id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Brand = product.Brand,
+                Category = product.Category,
+                Color = product.Color
+            };
+            var savedProduct = productLogic.UpdateProduct(newProduct);
+
+            UpdateProductResponse response = new UpdateProductResponse()
+            {
+                GUID = savedProduct.Id,
+                Name = savedProduct.Name,
+                Description = savedProduct.Description,
+                Price = savedProduct.Price,
+                Brand = savedProduct.Brand,
+                Category = savedProduct.Category,
+                Colors = savedProduct.Color
+
+            };
+            return Ok(response);
 
         }
+
 
     }
 }

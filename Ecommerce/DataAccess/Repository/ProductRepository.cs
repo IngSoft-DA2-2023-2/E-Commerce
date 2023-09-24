@@ -25,5 +25,10 @@ namespace DataAccess.Repository
             }
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
+
+        public void UpdateProduct(Product newProduct)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

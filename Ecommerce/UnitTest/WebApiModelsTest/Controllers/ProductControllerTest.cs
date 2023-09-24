@@ -27,15 +27,18 @@ namespace UnitTest.WebApiModelsTest.Controller
         public void GetAllProductsOk()
         {
             List<Product> products = new List<Product>();
-            products.Add(new Product() { Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
-            products.Add(new Product() { Name = "Name2", Description = "Description2", Category = "Category2", Brand = "Brand2", Color = { "Red", "Blue " }, Price = 200 });
-            products.Add(new Product() { Name = "Name3", Description = "Description3", Category = "Category3", Brand = "Brand3", Color = { "Red", "Blue " }, Price = 300 });
+            products.Add(new Product() { 
+                Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
+            products.Add(new Product() { 
+                Name = "Name2", Description = "Description2", Category = "Category2", Brand = "Brand2", Color = { "Red", "Blue " }, Price = 200 });
+            products.Add(new Product() { 
+                Name = "Name3", Description = "Description3", Category = "Category3", Brand = "Brand3", Color = { "Red", "Blue " }, Price = 300 });
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.GetAllProductsByFilters().Result as OkObjectResult;
+            var result = productController.GetAllProductsByFilters() as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -48,7 +51,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Throws(new Exception());
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.GetAllProductsByFilters().Result as StatusCodeResult;
+            var result = productController.GetAllProductsByFilters() as StatusCodeResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(500, result.StatusCode);
         }
@@ -62,7 +65,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.GetAllProductsByFilters().Result as OkObjectResult;
+            var result = productController.GetAllProductsByFilters() as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -80,7 +83,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.GetAllProductsByFilters(name: exceptedName).Result as OkObjectResult;
+            var result = productController.GetAllProductsByFilters(name: exceptedName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -98,7 +101,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.GetAllProductsByFilters(brandName: exceptedBrandName).Result as OkObjectResult;
+            var result = productController.GetAllProductsByFilters(brandName: exceptedBrandName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -116,7 +119,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.GetAllProductsByFilters(categoryName: exceptedCategoryName).Result as OkObjectResult;
+            var result = productController.GetAllProductsByFilters(categoryName: exceptedCategoryName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -151,7 +154,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
                  product.Price == productRequest.Price))).Returns(product);
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.CreateProduct(productRequest).Result as OkObjectResult;          
+            var result = productController.CreateProduct(productRequest) as OkObjectResult;          
             Assert.IsNotNull(result);
             var response = result.Value as CreateProductResponse;
             Assert.AreEqual(productRequest.Name, response.Name);
@@ -191,9 +194,51 @@ namespace UnitTest.WebApiModelsTest.Controller
                                                       product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
                                                                       product.Price == productRequest.Price))).Throws(new Exception());
             ProductController productController = new ProductController(mock.Object);
-            var result = productController.CreateProduct(productRequest).Result as StatusCodeResult;
+            var result = productController.CreateProduct(productRequest) as StatusCodeResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(500, result.StatusCode);
+        }
+
+
+        [TestMethod]
+        public void UpdateNewProduct()
+        {
+            List<string> color = new List<string>() { "Red", "Blue" };
+            UpdateProductRequest productRequest = new UpdateProductRequest()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = color,
+                Price = 100
+            };
+            Product product = new Product()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = color,
+                Price = 100
+            };
+            Mock<IProductLogic> mock = new Mock<IProductLogic>();
+            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
+                         product.Description == productRequest.Description &&
+                                       product.Category == productRequest.Category &&
+                                                      product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
+                                                                      product.Price == productRequest.Price))).Returns(product);
+            ProductController productController = new ProductController(mock.Object);
+            Guid id = new Guid();
+            var result = productController.UpdateProduct(id,productRequest) as OkObjectResult;
+            Assert.IsNotNull(result);
+            var response = result.Value as UpdateProductResponse;
+            Assert.AreEqual(productRequest.Name, response.Name);
+            Assert.AreEqual(productRequest.Description, response.Description);
+            Assert.AreEqual(productRequest.Category, response.Category);
+            Assert.AreEqual(productRequest.Brand, response.Brand);
+            Assert.AreEqual(productRequest.Color, response.Colors);
+            Assert.AreEqual(productRequest.Price, response.Price);
         }
 
 
