@@ -13,8 +13,9 @@ namespace WebApi.Controllers
     {
         private IProductLogic productLogic;
 
-        public ProductController(IProductLogic productLogic) {
-           this.productLogic = productLogic;
+        public ProductController(IProductLogic productLogic)
+        {
+            this.productLogic = productLogic;
         }
 
         [HttpGet]
@@ -24,11 +25,12 @@ namespace WebApi.Controllers
             try
             {
                 return Ok(productLogic.GetProducts(name, brandName, categoryName));
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return StatusCode(500);
             }
-           
+
         }
 
         [HttpPost]
@@ -74,35 +76,47 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("/{id}")]
-       public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product)
+        public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product)
         {
-            Product newProduct = new Product()
+            try
             {
-                Id = id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Brand = product.Brand,
-                Category = product.Category,
-                Color = product.Color
-            };
-            var savedProduct = productLogic.UpdateProduct(newProduct);
+                Product newProduct = new Product()
+                {
+                    Id = id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    Brand = product.Brand,
+                    Category = product.Category,
+                    Color = product.Color
+                };
+                var savedProduct = productLogic.UpdateProduct(newProduct);
 
-            UpdateProductResponse response = new UpdateProductResponse()
+                UpdateProductResponse response = new UpdateProductResponse()
+                {
+                    GUID = savedProduct.Id,
+                    Name = savedProduct.Name,
+                    Description = savedProduct.Description,
+                    Price = savedProduct.Price,
+                    Brand = savedProduct.Brand,
+                    Category = savedProduct.Category,
+                    Colors = savedProduct.Color
+
+                };
+                return Ok(response);
+            }
+            catch (LogicException ex)
             {
-                GUID = savedProduct.Id,
-                Name = savedProduct.Name,
-                Description = savedProduct.Description,
-                Price = savedProduct.Price,
-                Brand = savedProduct.Brand,
-                Category = savedProduct.Category,
-                Colors = savedProduct.Color
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
 
-            };
-            return Ok(response);
-
+                return StatusCode(500);
+            }
         }
-
-
     }
+
+
 }
+
