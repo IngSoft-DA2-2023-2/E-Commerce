@@ -1,5 +1,5 @@
 ﻿using DataAccess.Context;
-using DataAccess.Exceptions;
+using DataAccessInterface.Exceptions;
 using DataAccessInterface;
 using Domain;
 
@@ -26,7 +26,7 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
-        public Product? GetProductById(Guid id)
+        public Product GetProductById(Guid id)
         {
             var product = _eCommerceContext.Products.FirstOrDefault(p => p.Id.Equals(id));
             if (product is null)

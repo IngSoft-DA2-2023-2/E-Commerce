@@ -1,4 +1,5 @@
 ﻿using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
@@ -15,27 +16,59 @@ namespace BusinessLogic
 
         public User CreateUser(User user)
         {
-
-            if (_userRepository.GetAllUsers(GetUserByEmail(user.Email)).Any())
+            try
             {
-                throw new LogicException("Existing user with that email");
+                if (_userRepository.GetAllUsers(GetUserByEmail(user.Email)).Any())
+                {
+                    throw new LogicException("Existing user with that email");
+                }
+                return _userRepository.CreateUser(user);
             }
-            return _userRepository.CreateUser(user);
+             catch(DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+
         }
 
         public IEnumerable<User> GetAllUsers(string emailOrEmpty)
         {
-            return _userRepository.GetAllUsers(GetUserByEmail(emailOrEmpty));
+            try
+            {
+                return _userRepository.GetAllUsers(GetUserByEmail(emailOrEmpty));
+
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
 
         public User UpdateUser(User user)
         {
-            return _userRepository.UpdateUser(user);
+            try
+            {
+              return _userRepository.UpdateUser(user);
+
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
 
         public User DeleteUser(User user)
         {
-            return _userRepository.DeleteUser(user);
+            try
+            {
+                return _userRepository.DeleteUser(user);
+
+
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
 
 

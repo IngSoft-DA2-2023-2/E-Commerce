@@ -1,4 +1,4 @@
-﻿namespace DataAccess.Exceptions
+﻿namespace DataAccessInterface.Exceptions
 {
     public class DataAccessException : Exception
     {
