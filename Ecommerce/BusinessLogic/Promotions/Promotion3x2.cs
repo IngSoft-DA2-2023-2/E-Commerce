@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Domain;
+﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 

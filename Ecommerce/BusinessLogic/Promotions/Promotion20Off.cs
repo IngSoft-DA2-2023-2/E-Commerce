@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Domain;
+﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 

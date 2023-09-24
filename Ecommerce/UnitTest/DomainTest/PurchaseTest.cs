@@ -1,11 +1,8 @@
-﻿using Domain.Exceptions;
-using BusinessLogic.Promotions;
-using Domain;
-using LogicInterface;
+﻿using Domain;
+using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using Domain.Exceptions;
 
 namespace UnitTest.DomainTest
 {

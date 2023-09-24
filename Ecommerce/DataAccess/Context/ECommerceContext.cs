@@ -6,6 +6,7 @@ namespace DataAccess.Context
     public class ECommerceContext : DbContext
     {
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public ECommerceContext() { }
 
