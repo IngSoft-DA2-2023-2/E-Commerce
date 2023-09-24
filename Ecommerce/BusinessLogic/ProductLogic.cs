@@ -24,6 +24,11 @@ namespace BusinessLogic
            return newProduct;
         }
 
+        public object? GetProductById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
         {
             throw new NotImplementedException();

@@ -33,6 +33,24 @@ namespace WebApi.Controllers
 
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetProductById([FromRoute] Guid id)
+        {
+            try
+            {
+                return Ok(productLogic.GetProductById(id));
+            }
+            catch (LogicException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateProduct([FromBody] CreateProductRequest product)
         {

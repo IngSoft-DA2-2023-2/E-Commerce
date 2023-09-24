@@ -275,6 +275,27 @@ namespace UnitTest.WebApiModelsTest.Controller
             Assert.AreEqual(500, result.StatusCode);
         }
 
+        [TestMethod]
+        public void GetProductByIdOk()
+        {
+            Product product = new Product()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = new List<string>() { "Red", "Blue" },
+                Price = 100
+            };
+            Guid guid = Guid.NewGuid();
+            Mock<IProductLogic> mock = new Mock<IProductLogic>();
+            mock.Setup(p => p.GetProductById(It.Is<Guid>(id => id == guid))).Returns(product);
+            ProductController productController = new ProductController(mock.Object);
+            var result = productController.GetProductById(guid) as OkObjectResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(product, result.Value);
+        }
+
 
 
 
