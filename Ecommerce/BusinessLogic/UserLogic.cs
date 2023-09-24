@@ -16,7 +16,7 @@ namespace BusinessLogic
         public User CreateUser(User user)
         {
 
-            if (_userRepository.Exist(GetUserByEmail(user.Email)))
+            if (_userRepository.GetAllUsers(GetUserByEmail(user.Email)).Any())
             {
                 throw new LogicException("Existing user with that email");
             }

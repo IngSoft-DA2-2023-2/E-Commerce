@@ -28,7 +28,7 @@ namespace UnitTest
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
             repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
-            repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(false);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
             var userLogic = new UserLogic(repo.Object);
 
             var result = userLogic.CreateUser(expected);
@@ -48,8 +48,8 @@ namespace UnitTest
             User newUser = new User();
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(newUser);
-            repo.Setup(logic => logic.Exist(It.IsAny<Func<User, bool>>())).Returns(true);
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new LogicException());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
 
             var userLogic = new UserLogic(repo.Object);
 

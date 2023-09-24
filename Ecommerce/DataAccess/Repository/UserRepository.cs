@@ -42,12 +42,6 @@ namespace DataAccess.Repository
             return _eCommerceContext.Users.Where(predicate).ToList();
         }
 
-        public bool Exist(Func<User, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-
 
         public User UpdateUser(User user)
         {
