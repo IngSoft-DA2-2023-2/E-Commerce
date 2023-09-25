@@ -108,7 +108,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
         [TestMethod]
         public void CreateUser()
         {
-            UserRequest received = new UserRequest()
+            CreateUserRequest received = new CreateUserRequest()
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
@@ -149,13 +149,12 @@ namespace UnitTest.WebApiModelsTest.Controllers
         public void DeleteUser()
         {
             Guid guid = Guid.NewGuid();
-            UserRequest received = new UserRequest()
+            CreateUserRequest received = new CreateUserRequest()
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
                 Address = "address sample",
                 Password = "password sample",
-                Guid = guid,
             };
 
         User expected = new User()
@@ -191,10 +190,9 @@ namespace UnitTest.WebApiModelsTest.Controllers
         [TestMethod]
         public void UpdateUser()
         {
-            UserRequest received = new UserRequest()
+            UpdateUserRequest received = new UpdateUserRequest()
             {
                 Name = "nameSample",
-                Email = "email@sample.com",
                 Address = "address sample",
                 Password = "password sample",
 
@@ -217,7 +215,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.UpdateUser(received);
+            var result = userController.UpdateUser(received,guid);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -227,7 +225,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
-            Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
             Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
         }
 

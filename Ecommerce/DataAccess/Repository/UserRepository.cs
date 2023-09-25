@@ -48,11 +48,6 @@ namespace DataAccess.Repository
             var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Email == updatedUser.Email);
             if (existingUser != null)
             {
-              if(!updatedUser.Address.IsNullOrEmpty()) existingUser.Address = updatedUser.Address;
-              if(!updatedUser.Password.IsNullOrEmpty()) existingUser.Password = updatedUser.Password;
-              if(!updatedUser.Roles.Any()) existingUser.Roles = updatedUser.Roles;
-              if(!updatedUser.Name.IsNullOrEmpty()) existingUser.Name = updatedUser.Name;
-
                 _eCommerceContext.Update(existingUser);
 
                 return _eCommerceContext.Users.FirstOrDefault(u => u.Email == updatedUser.Email);

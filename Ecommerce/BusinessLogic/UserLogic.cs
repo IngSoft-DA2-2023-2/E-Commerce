@@ -23,6 +23,7 @@ namespace BusinessLogic
                 {
                     throw new LogicException("Existing user with that email");
                 }
+                user.Guid = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
             }
              catch(DataAccessException e)
@@ -51,11 +52,19 @@ namespace BusinessLogic
         }
 
 
-        public User UpdateUser(User user)
+        public User UpdateUser(User updated)
         {
             try
             {
-              return _userRepository.UpdateUser(user);
+                var outdated = _userRepository.GetAllUsers(u => u.Guid == updated.Guid).FirstOrDefault();
+                    if (outdated == null) throw new LogicException("User not found");
+                
+                    if (updated.Address != null) outdated.Address = updated.Address;
+                    if (updated.Password != null) outdated.Password = updated.Password;
+                    if (outdated.Roles != null ) outdated.Roles = updated.Roles;
+                    if (updated.Name != null) outdated.Name = updated.Name;
+                
+              return _userRepository.UpdateUser(outdated);
 
             }
             catch (DataAccessException e)

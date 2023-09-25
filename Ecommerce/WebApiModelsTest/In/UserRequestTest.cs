@@ -14,21 +14,19 @@ namespace WebApiModelsTest.In
     {
         private string nameSample = "nameSample";
         private string addressSample = "address sample";
-        private Guid guidSample = Guid.NewGuid();
         private string emailSample = "email@sample.com";
         private string passwordSample = "passwordSample";
         private List<string> roles = new List<string>();
-        private UserRequest request;
+        private CreateUserRequest request;
 
 
         [TestInitialize]
         public void Init()
         {
-            request = new UserRequest()
+            request = new CreateUserRequest()
             {
                 Name = nameSample,
                 Address = addressSample,
-                Guid = guidSample,
                 Email = emailSample,
                 Password = passwordSample,
                 Roles = roles,
@@ -42,7 +40,6 @@ namespace WebApiModelsTest.In
         {
             Assert.AreEqual(request.Name, nameSample);
             Assert.AreEqual(request.Address, addressSample);
-            Assert.AreEqual(request.Guid, guidSample);
             Assert.AreEqual(request.Email, emailSample);
             Assert.AreEqual(request.Password, passwordSample);
             Assert.IsTrue(request.Roles.Count == 0);
@@ -55,7 +52,6 @@ namespace WebApiModelsTest.In
 
             Assert.AreEqual(entity.Name, nameSample);
             Assert.AreEqual(entity.Address, addressSample);
-            Assert.AreEqual(entity.Guid, guidSample);
             Assert.AreEqual(entity.Email, emailSample);
             Assert.AreEqual(entity.Password, passwordSample);
             Assert.IsTrue(entity.Roles.Count == 0);

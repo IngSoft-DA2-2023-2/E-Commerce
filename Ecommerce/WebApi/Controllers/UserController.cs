@@ -32,9 +32,8 @@ namespace WebApi.Controllers
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult CreateUser([FromBody] UserRequest received)
+        public IActionResult CreateUser([FromBody] CreateUserRequest received)
         {
-
             var user = received.ToEntity();
             var resultLogic = _userLogic.AddUser(user);
             var result = new UserResponse(resultLogic);
@@ -49,6 +48,7 @@ namespace WebApi.Controllers
         public IActionResult DeleteUser(Guid id)
         {
             var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
+            
             var resultLogic = _userLogic.DeleteUser(user);
             var result = new UserResponse(resultLogic);
 
@@ -58,9 +58,11 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUser([FromBody] UserRequest received)
+        public IActionResult UpdateUser([FromBody] UpdateUserRequest received,Guid id)
         {
             var user = received.ToEntity();
+            user.Guid = id;
+
             var resultLogic = _userLogic.UpdateUser(user);
             var result = new UserResponse(resultLogic);
 

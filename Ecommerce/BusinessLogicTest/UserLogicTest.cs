@@ -178,7 +178,7 @@ namespace BusinessLogicTest
                 Address = "aaa2",
             };
 
-            User updated = new User()
+            User outdated = new User()
             {
                 Name = "Juancito",
                 Email = "a@a.com",
@@ -187,14 +187,16 @@ namespace BusinessLogicTest
                 Roles = new List<string> { "buyer" },
             };
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(updated);
+            repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(modifications);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(new List<User> { outdated});
+
             var userLogic = new UserLogic(repo.Object);
 
             var result = userLogic.UpdateUser(modifications);
 
             repo.VerifyAll();
-            Assert.AreEqual(result.Name, updated.Name);
-            Assert.AreEqual(result.Address, updated.Address);
+            Assert.AreEqual(result.Name, modifications.Name);
+            Assert.AreEqual(result.Address, modifications.Address);
         }
 
         [TestMethod]
@@ -208,7 +210,7 @@ namespace BusinessLogicTest
             };
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(new List<User>());
             var userLogic = new UserLogic(repo.Object);
             
             userLogic.UpdateUser(user);
