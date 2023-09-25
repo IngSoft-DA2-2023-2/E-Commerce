@@ -7,7 +7,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -17,15 +17,15 @@ namespace WebApi.Controllers
             _userLogic = logic;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult GetUsers(Guid? guid)
+        public IActionResult GetUsers(Guid? id)
         {
-            if(guid == null)
+            if(id == null)
                 return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
 
-            return Ok(_userLogic.GetAllUsers(c => c.Guid == guid).Select(u => new UserResponse(u)).ToList());
+            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
         }
 
 
@@ -43,12 +43,12 @@ namespace WebApi.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult DeleteUser([FromBody] UserRequest received)
+        public IActionResult DeleteUser(Guid id)
         {
-            var user = received.ToEntity();
+            var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
             var resultLogic = _userLogic.DeleteUser(user);
             var result = new UserResponse(resultLogic);
 

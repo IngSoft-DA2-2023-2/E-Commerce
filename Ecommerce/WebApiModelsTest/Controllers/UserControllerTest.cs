@@ -148,31 +148,34 @@ namespace UnitTest.WebApiModelsTest.Controllers
         [TestMethod]
         public void DeleteUser()
         {
+            Guid guid = Guid.NewGuid();
             UserRequest received = new UserRequest()
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
                 Address = "address sample",
                 Password = "password sample",
-
+                Guid = guid,
             };
 
-            User expected = new User()
-            {
-                Name = "nameSample",
-                Email = "email@sample.com",
-                Roles = new List<string> { "role sample" },
-                Address = "address sample",
-                Password = "password sample",
+        User expected = new User()
+        {
+            Name = "nameSample",
+            Email = "email@sample.com",
+            Roles = new List<string> { "role sample" },
+            Address = "address sample",
+            Password = "password sample",
+            Guid = guid,
             };
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>?>())).Returns(new List<User> { expected });
             logic.Setup(logic => logic.DeleteUser(It.IsAny<User>())).Returns(expected);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.DeleteUser(received);
+            var result = userController.DeleteUser(guid);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
