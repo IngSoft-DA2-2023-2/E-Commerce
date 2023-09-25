@@ -34,7 +34,7 @@ namespace DataAccess.Repository
                 _eCommerceContext.SaveChanges();
                 return existingUser;
             }
-            throw new DataAccessException($"No users found");
+            throw new DataAccessException("No users found");
 
         }
 

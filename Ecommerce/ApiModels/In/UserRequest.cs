@@ -13,8 +13,15 @@ namespace ApiModels.In
 
         public User ToEntity()
         {
-            return new User { Name = Name, Email = Email, Password = Password, Address = Address,
-            Guid =Guid, Roles = Roles};
+            return new User
+            { 
+                Name = Name, 
+                Email = Email,
+                Password = Password,
+                Address = Address,
+                Guid =Guid,
+                Roles = Roles
+            };
         }
     }
 }

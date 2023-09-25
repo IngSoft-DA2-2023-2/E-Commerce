@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -43,18 +44,48 @@ namespace BusinessLogicTest
         }
 
         [TestMethod]
-        public void CreateUserLogicException()
+        [ExpectedException(typeof(LogicException))]
+        public void CreateUserWithExistingEmailThrowsLogicException()
         {
-            User newUser = new User();
+            User expected = new User()
+            {
+                Name = "Juan",
+                Email = "a@a.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<string> { "buyer" },
+            };
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new LogicException());
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
-
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> {expected});
             var userLogic = new UserLogic(repo.Object);
 
-            Assert.ThrowsException<LogicException>(() => userLogic.AddUser(newUser));
+            var result = userLogic.AddUser(expected);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void CreateUserReceivesDataAccessExceptionAndThrowsLogicException()
+        {
+            User expected = new User()
+            {
+                Name = "Juan",
+                Email = "a@a.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<string> { "buyer" },
+ 
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { });
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.AddUser(expected);
+        }
+
 
         [TestMethod]
         public void GetAllUsers()
@@ -86,6 +117,58 @@ namespace BusinessLogicTest
         }
 
         [TestMethod]
+        public void GetUserByPredicate()
+        {
+            IEnumerable<User> expected = new List<User>()
+            {
+               new User()
+               {
+               Name = "Juan",
+               Email = "a@a.com",
+               Address = "aaa",
+               Password = "12345",
+               Roles = new List<string> { "buyer" },
+               },
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.GetAllUsers(u=>u.Name=="Juan");
+
+            repo.VerifyAll();
+            Assert.AreEqual(result.First().Name, expected.First().Name);
+            Assert.AreEqual(result.First().Address, expected.First().Address);
+            Assert.AreEqual(result.First().Password, expected.First().Password);
+            Assert.AreEqual(result.First().Email, expected.First().Email);
+            Assert.AreEqual(result.First().Roles, expected.First().Roles);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void GetUsersThrowsDataAccessException()
+        {
+            IEnumerable<User> expected = new List<User>()
+            {
+               new User()
+               {
+               Name = "Juan",
+               Email = "a@a.com",
+               Address = "aaa",
+               Password = "12345",
+               Roles = new List<string> { "buyer" },
+               },
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException());
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.GetAllUsers(u => u.Name == "Juan");
+        }
+
+        [TestMethod]
         public void UpdateUser()
         {
 
@@ -103,9 +186,6 @@ namespace BusinessLogicTest
                 Password = "123456",
                 Roles = new List<string> { "buyer" },
             };
-
-
-
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
             repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(updated);
             var userLogic = new UserLogic(repo.Object);
@@ -115,6 +195,23 @@ namespace BusinessLogicTest
             repo.VerifyAll();
             Assert.AreEqual(result.Name, updated.Name);
             Assert.AreEqual(result.Address, updated.Address);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void UpdateUserThrowsLogicException()
+        {
+            User user = new User()
+            {
+                Name = "Juancito",
+                Address = "aaa2",
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Throws(new DataAccessException());
+            var userLogic = new UserLogic(repo.Object);
+            
+            userLogic.UpdateUser(user);
         }
 
         [TestMethod]
@@ -139,6 +236,26 @@ namespace BusinessLogicTest
 
             repo.VerifyAll();
             Assert.AreEqual(result.Email, toDelete.Email);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void DeleteUserThrowsLogicException()
+        {
+            User user = new User()
+            {
+                Name = "Juan",
+                Email = "a@a.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<string> { "buyer" },
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.DeleteUser(It.IsAny<User>())).Throws(new DataAccessException());
+            var userLogic = new UserLogic(repo.Object);
+
+           userLogic.DeleteUser(user);
         }
 
     }
