@@ -20,10 +20,14 @@ namespace WebApi.Controllers
         [HttpGet]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult GetAllUsers()
+        public IActionResult GetUsers(Guid? guid)
         {
-            return Ok(_userLogic.GetAllUsers("").Select(u => new UserResponse(u)).ToList());
+            if(guid == null)
+                return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
+
+            return Ok(_userLogic.GetAllUsers(c => c.Guid == guid).Select(u => new UserResponse(u)).ToList());
         }
+
 
         [HttpPost]
         [AnnotatedCustomExceptionFilter]

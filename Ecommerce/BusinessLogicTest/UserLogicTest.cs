@@ -75,7 +75,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
             var userLogic = new UserLogic(repo.Object);
 
-            var result = userLogic.GetAllUsers("");
+            var result = userLogic.GetAllUsers(null);
 
             repo.VerifyAll();
             Assert.AreEqual(result.First().Name, expected.First().Name);

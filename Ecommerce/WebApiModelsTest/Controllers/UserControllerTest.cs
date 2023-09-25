@@ -3,11 +3,7 @@ using ApiModels.Out;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using WebApi.Controllers;
 
 namespace UnitTest.WebApiModelsTest.Controllers
@@ -32,11 +28,11 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.GetAllUsers("")).Returns(expected);
+            logic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetAllUsers();
+            var result = userController.GetUsers(null);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -48,6 +44,66 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
         }
+
+        [TestMethod]
+        public void GetExistingUserById()
+        {
+            Guid guid = Guid.NewGuid();
+
+            IEnumerable<User> expected = new List<User>()
+            {
+                new User {
+                    Email= "mail1@sample.com",
+                    Name="name1",
+                    Password="password1",
+                    Address="address sample",
+                    Roles=new List<string>{"buyer"},
+                    Guid = guid,
+                },
+            };
+
+            var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(expected);
+            var userController = new UserController(logic.Object);
+            OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
+
+            var result = userController.GetUsers(null);
+
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            List<UserResponse> resultValue = resultObject.Value as List<UserResponse>;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.First().Name, expectedMappedResult.First().Name);
+            Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
+            Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
+            Assert.AreEqual(resultValue.First().Password, expectedMappedResult.First().Password);
+            Assert.AreEqual(resultValue.First().Roles, expectedMappedResult.First().Roles);
+        }
+
+        [TestMethod]
+        public void GetNonExistingUserByIdReturnsEmptyList()
+        {
+            IEnumerable<User> expected = new List<User>() { };
+
+            var expectedMappedResult = expected.ToList();
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
+            var userController = new UserController(logic.Object);
+            OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
+
+            var result = userController.GetUsers(Guid.NewGuid());
+
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            List<UserResponse> resultValue = resultObject.Value as List<UserResponse>;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+            Assert.AreEqual(resultValue.Count, 0);
+        }
+
 
         [TestMethod]
         public void CreateUser()
@@ -171,10 +227,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
             Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
         }
-
-
-
-
 
     }
 }
