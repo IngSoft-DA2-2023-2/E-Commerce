@@ -1,5 +1,5 @@
 using DataAccess.Context;
-using DataAccess.Exceptions;
+using DataAccessInterface.Exceptions;
 using DataAccess.Repository;
 using DataAccessInterface;
 using Domain;

@@ -1,6 +1,8 @@
 ﻿using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +20,30 @@ namespace BusinessLogic
         }
         public Product AddProduct(Product newProduct)
         {
-           Guid guid = Guid.NewGuid();
-           newProduct.Id = guid;
-            return _productRepository.CreateProduct(newProduct);
+            try
+            {
+
+                Guid guid = Guid.NewGuid();
+                newProduct.Id = guid;
+                return _productRepository.CreateProduct(newProduct);
+            }
+            catch
+            (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
 
         public Product GetProductById(Guid id)
         {
-            
-            return _productRepository.GetProductById(id);
+            try
+            {
+                return _productRepository.GetProductById(id);
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
 
         public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
@@ -36,7 +53,15 @@ namespace BusinessLogic
 
         public Product UpdateProduct(Product newProduct)
         {
-            return _productRepository.UpdateProduct(newProduct);
+            try
+            {
+                return _productRepository.UpdateProduct(newProduct);
+
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
     }
 }

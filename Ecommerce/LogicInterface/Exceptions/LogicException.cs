@@ -4,6 +4,8 @@
     {
         public LogicException() { }
 
+        public LogicException(Exception innerException) : base(innerException.Message, innerException) { }
+
         public LogicException(string message) : base(message) { }
     }
 }

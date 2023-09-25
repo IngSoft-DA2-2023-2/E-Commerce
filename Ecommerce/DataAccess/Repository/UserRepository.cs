@@ -1,5 +1,5 @@
 ﻿using DataAccess.Context;
-using DataAccess.Exceptions;
+using DataAccessInterface.Exceptions;
 using DataAccessInterface;
 using Domain;
 using Microsoft.IdentityModel.Tokens;

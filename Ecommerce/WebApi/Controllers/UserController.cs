@@ -1,7 +1,9 @@
 ﻿using ApiModels;
-using ApiModels.UserRequest;
+using ApiModels.In;
+using ApiModels.Out;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -16,17 +18,21 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
         public IActionResult GetAllUsers()
         {
             return Ok(_userLogic.GetAllUsers("").Select(u => new UserResponse(u)).ToList());
         }
 
         [HttpPost]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
         public IActionResult CreateUser([FromBody] UserRequest received)
         {
 
             var user = received.ToEntity();
-            var resultLogic = _userLogic.CreateUser(user);
+            var resultLogic = _userLogic.AddUser(user);
             var result = new UserResponse(resultLogic);
 
             return CreatedAtAction(nameof(CreateUser), result);
@@ -34,6 +40,8 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
         public IActionResult DeleteUser([FromBody] UserRequest received)
         {
             var user = received.ToEntity();
@@ -44,6 +52,8 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
         public IActionResult UpdateUser([FromBody] UserRequest received)
         {
             var user = received.ToEntity();
