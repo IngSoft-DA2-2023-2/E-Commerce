@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace ApiModels.UserRequest
+namespace ApiModels.In
 {
     public class UserRequest
     {

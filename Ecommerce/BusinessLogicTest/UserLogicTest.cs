@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnitTest
+namespace BusinessLogicTest
 {
     [TestClass]
     public class UserLogicTest

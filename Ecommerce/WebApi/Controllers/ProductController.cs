@@ -39,65 +39,24 @@ namespace WebApi.Controllers
         [AuthenticationFilter]
         public IActionResult CreateProduct([FromBody] CreateProductRequest product)
         {
-
-            Product newProduct = new Product()
-            {
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Brand = product.Brand,
-                Category = product.Category,
-                Color = product.Color
-            };
-
+            var newProduct = product.ToEntity();
             Product savedProduct = productLogic.AddProduct(newProduct);
-
-            CreateProductResponse response = new CreateProductResponse()
-            {
-                Id = savedProduct.Id,
-                Name = savedProduct.Name,
-                Description = savedProduct.Description,
-                Price = savedProduct.Price,
-                Brand = savedProduct.Brand,
-                Category = savedProduct.Category,
-                Colors = savedProduct.Color
-
-            };
+            var response = new CreateProductResponse(savedProduct);
             return Ok(response);
 
 
 
         }
 
-        [HttpPut("/{id}")]
+        [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product)
         {
-
-            Product newProduct = new Product()
-            {
-                Id = id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Brand = product.Brand,
-                Category = product.Category,
-                Color = product.Color
-            };
+            var newProduct = product.ToEntity(id);
             var savedProduct = productLogic.UpdateProduct(newProduct);
-
-            UpdateProductResponse response = new UpdateProductResponse()
-            {
-                GUID = savedProduct.Id,
-                Name = savedProduct.Name,
-                Description = savedProduct.Description,
-                Price = savedProduct.Price,
-                Brand = savedProduct.Brand,
-                Category = savedProduct.Category,
-                Colors = savedProduct.Color
-
-            };
+            var response = new UpdateProductResponse(savedProduct);
+            
             return Ok(response);
 
 

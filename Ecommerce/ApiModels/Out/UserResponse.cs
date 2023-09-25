@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace ApiModels
+namespace ApiModels.Out
 {
     public class UserResponse
     {

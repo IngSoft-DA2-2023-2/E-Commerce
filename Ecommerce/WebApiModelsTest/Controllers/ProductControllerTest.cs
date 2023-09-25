@@ -9,7 +9,7 @@ using WebApi.Controllers;
 using WebApi.Models.In;
 using WebApi.Models.Out;
 using System.Drawing;
-using UnitTest.Exceptions;
+using WebApiTest.Exceptions;
 
 namespace UnitTest.WebApiModelsTest.Controller
 {
@@ -50,9 +50,9 @@ namespace UnitTest.WebApiModelsTest.Controller
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
-                It.Is<string?>(categoryName => categoryName == null))).Throws(new UnitTestException("This is a test exception"));
+                It.Is<string?>(categoryName => categoryName == null))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
-            Assert.ThrowsException<UnitTestException>(() => productController.GetAllProductsByFilters());
+            Assert.ThrowsException<TestException>(() => productController.GetAllProductsByFilters());
 
         }
 
@@ -192,9 +192,9 @@ namespace UnitTest.WebApiModelsTest.Controller
                          product.Description == productRequest.Description &&
                                        product.Category == productRequest.Category &&
                                                       product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
-                                                                      product.Price == productRequest.Price))).Throws(new UnitTestException("This is a test exception"));
+                                                                      product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
-            Assert.ThrowsException<UnitTestException>(() => productController.CreateProduct(productRequest));
+            Assert.ThrowsException<TestException>(() => productController.CreateProduct(productRequest));
         }
 
 
@@ -266,10 +266,10 @@ namespace UnitTest.WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category == productRequest.Category &&
             product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
-            product.Price == productRequest.Price))).Throws(new UnitTestException("This is a test exception"));
+            product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
             
-            Assert.ThrowsException<UnitTestException>(() => productController.UpdateProduct(guid, productRequest));
+            Assert.ThrowsException<TestException>(() => productController.UpdateProduct(guid, productRequest));
 
         }
 

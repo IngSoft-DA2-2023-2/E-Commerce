@@ -1,5 +1,6 @@
 ﻿using ApiModels;
-using ApiModels.UserRequest;
+using ApiModels.In;
+using ApiModels.Out;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Filters;

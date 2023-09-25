@@ -28,8 +28,8 @@ namespace UnitTest.WebApiModelsTest.Out
         [TestMethod]
         public void GivenUpdateProductResponseReturnsItsGUID()
         {
-            updateProductResponseExample.GUID = _guidSample;
-            Assert.AreEqual(_guidSample, updateProductResponseExample.GUID);
+            updateProductResponseExample.Id = _guidSample;
+            Assert.AreEqual(_guidSample, updateProductResponseExample.Id);
         }
 
         [TestMethod]

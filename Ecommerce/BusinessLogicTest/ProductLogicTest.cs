@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessInterface;
 
-namespace UnitTest.BusinessLogicTest
+namespace BusinessLogicTest
 {
     [TestClass]
     public class ProductLogicTest

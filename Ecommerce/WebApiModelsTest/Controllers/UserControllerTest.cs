@@ -1,5 +1,5 @@
-﻿using ApiModels;
-using ApiModels.UserRequest;
+﻿using ApiModels.In;
+using ApiModels.Out;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;

@@ -5,7 +5,7 @@ using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace UnitTest.BusinessLogicTest
+namespace BusinessLogicTest
 {
     [TestClass]
     public class PromotionTotalLookTest

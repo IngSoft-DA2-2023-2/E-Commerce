@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using LogicInterface.Exceptions;
 namespace WebApi.Filters
 {
-    public class AnnotatedCustomExceptionFilter : IExceptionFilter
+    public class AnnotatedCustomExceptionFilter : ExceptionFilterAttribute
     {
-        public void OnException(ExceptionContext context)
+        public override void OnException(ExceptionContext context)
         {
             if (context.Exception is LogicException)
             {
