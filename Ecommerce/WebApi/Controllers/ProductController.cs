@@ -44,8 +44,6 @@ namespace WebApi.Controllers
             var response = new CreateProductResponse(savedProduct);
             return Ok(response);
 
-
-
         }
 
         [HttpPut("{id}")]

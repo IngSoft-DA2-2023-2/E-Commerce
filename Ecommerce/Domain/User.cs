@@ -12,6 +12,8 @@ namespace Domain
         protected string _name;
         protected string _password;
         protected string _email;
+
+        public Guid Guid { get; set; }
         public string Email
         {
             get { return _email; }

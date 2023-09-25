@@ -7,7 +7,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -17,20 +17,23 @@ namespace WebApi.Controllers
             _userLogic = logic;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult GetAllUsers()
+        public IActionResult GetUsers(Guid? id)
         {
-            return Ok(_userLogic.GetAllUsers("").Select(u => new UserResponse(u)).ToList());
+            if(id == null)
+                return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
+
+            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
         }
+
 
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult CreateUser([FromBody] UserRequest received)
+        public IActionResult CreateUser([FromBody] CreateUserRequest received)
         {
-
             var user = received.ToEntity();
             var resultLogic = _userLogic.AddUser(user);
             var result = new UserResponse(resultLogic);
@@ -39,12 +42,13 @@ namespace WebApi.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult DeleteUser([FromBody] UserRequest received)
+        public IActionResult DeleteUser(Guid id)
         {
-            var user = received.ToEntity();
+            var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
+            
             var resultLogic = _userLogic.DeleteUser(user);
             var result = new UserResponse(resultLogic);
 
@@ -54,9 +58,11 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUser([FromBody] UserRequest received)
+        public IActionResult UpdateUser([FromBody] UpdateUserRequest received,Guid id)
         {
             var user = received.ToEntity();
+            user.Guid = id;
+
             var resultLogic = _userLogic.UpdateUser(user);
             var result = new UserResponse(resultLogic);
 

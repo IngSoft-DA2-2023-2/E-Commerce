@@ -3,6 +3,7 @@ using DataAccessInterface.Exceptions;
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using System.Xml.XPath;
 
 namespace BusinessLogic
 {
@@ -18,10 +19,11 @@ namespace BusinessLogic
         {
             try
             {
-                if (_userRepository.GetAllUsers(GetUserByEmail(user.Email)).Any())
+                if (_userRepository.GetAllUsers(u=>u.Email == user.Email).Any())
                 {
                     throw new LogicException("Existing user with that email");
                 }
+                user.Guid = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
             }
              catch(DataAccessException e)
@@ -31,11 +33,16 @@ namespace BusinessLogic
 
         }
 
-        public IEnumerable<User> GetAllUsers(string emailOrEmpty)
+        public IEnumerable<User> GetAllUsers(Func<User,bool>? predicate)
         {
             try
             {
-                return _userRepository.GetAllUsers(GetUserByEmail(emailOrEmpty));
+                if (predicate == null)
+                {
+                    return _userRepository.GetAllUsers(u => true);
+                }
+
+                return _userRepository.GetAllUsers(predicate);
 
             }
             catch (DataAccessException e)
@@ -44,11 +51,20 @@ namespace BusinessLogic
             }
         }
 
-        public User UpdateUser(User user)
+
+        public User UpdateUser(User updated)
         {
             try
             {
-              return _userRepository.UpdateUser(user);
+                var outdated = _userRepository.GetAllUsers(u => u.Guid == updated.Guid).FirstOrDefault();
+                    if (outdated == null) throw new LogicException("User not found");
+                
+                    if (updated.Address != null) outdated.Address = updated.Address;
+                    if (updated.Password != null) outdated.Password = updated.Password;
+                    if (outdated.Roles != null ) outdated.Roles = updated.Roles;
+                    if (updated.Name != null) outdated.Name = updated.Name;
+                
+              return _userRepository.UpdateUser(outdated);
 
             }
             catch (DataAccessException e)
@@ -62,8 +78,6 @@ namespace BusinessLogic
             try
             {
                 return _userRepository.DeleteUser(user);
-
-
             }
             catch (DataAccessException e)
             {
@@ -71,11 +85,9 @@ namespace BusinessLogic
             }
         }
 
-
-        private Func<User, bool> GetUserByEmail(string email)
+        private Func<User, bool> GetUserByGuid(Guid? guid)
         {
-            return (User u) => email == "" || u.Email == email;
+            return (User u) => guid == null || u.Guid == guid;
         }
-
     }
 }

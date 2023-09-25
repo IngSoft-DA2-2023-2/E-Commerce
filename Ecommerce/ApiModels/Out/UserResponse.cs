@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.Globalization;
 
 namespace ApiModels.Out
 {
@@ -8,6 +9,8 @@ namespace ApiModels.Out
         public string Email { get; set; }
         public string Address { get; set; }
         public IEnumerable<string> Roles { get; set; }
+        public Guid Guid { get; set; }
+        public string Password { get; set; }
 
         public UserResponse(User user)
         {
@@ -15,6 +18,8 @@ namespace ApiModels.Out
             Email = user.Email;
             Address = user.Address;
             Roles = user.Roles;
+            Guid = user.Guid;
+            Password = user.Password;
         }
     }
 }

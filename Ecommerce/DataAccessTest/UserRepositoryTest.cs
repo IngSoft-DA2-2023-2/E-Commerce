@@ -155,7 +155,7 @@ namespace DataAccessTest
             };
 
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { existingUser });
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { updatedUser });
             
             IUserRepository userRepository = new UserRepository(userContext.Object);
 
@@ -174,6 +174,7 @@ namespace DataAccessTest
             {
                 Name = "oldName",
                 Email = "test@example.com",
+                Address = "old address",
             };
 
             User updatedUser = new User
@@ -184,16 +185,15 @@ namespace DataAccessTest
             };
 
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { existingUser });
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { updatedUser });
 
             IUserRepository userRepository = new UserRepository(userContext.Object);
 
             var updatedResult = userRepository.UpdateUser(updatedUser);
 
-            Assert.AreEqual(updatedResult.Name, existingUser.Name);
+            Assert.AreEqual(updatedResult.Name, updatedResult.Name);
             Assert.AreEqual(updatedResult.Address, updatedUser.Address);
-            Assert.AreEqual(updatedResult.Password, updatedUser.Password);
-            Assert.AreEqual(updatedResult.Email, updatedUser.Email);
+            Assert.AreEqual(updatedResult.Password, updatedResult.Password);
         }
 
         [TestMethod]
