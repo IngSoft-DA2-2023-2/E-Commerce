@@ -6,20 +6,26 @@ namespace BusinessLogic.PurchaseLogic
 {
     public class PurchaseLogic : IPurchaseLogic
     {
-        private readonly IPromotionLogic promotionLogic;
+        private readonly IPurchaseLogic _purchaseLogic;
 
-        public PurchaseLogic(IPromotionLogic promotionLogic)
+        public PurchaseLogic(IPurchaseLogic promotionLogic)
         {
-            this.promotionLogic = promotionLogic;
+            _purchaseLogic = promotionLogic;
         }
+
         public void AssignsBestPromotion(Purchase purchase)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Purchase CreatePurchase(Purchase purchase)
         {
             throw new NotImplementedException();
         }
 
         public bool IsEligibleForPromotions(Purchase purchase)
         {
-          throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

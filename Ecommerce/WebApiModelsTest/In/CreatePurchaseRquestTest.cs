@@ -7,6 +7,7 @@ namespace WebApiModelsTest.In
     public class CreatePurchaseRquestTest
     {
         private CreatePurchaseRequest purchaseRequest;
+        Guid guid = Guid.NewGuid();
         private List<CreateProductRequest> products = new List<CreateProductRequest>()
         { 
             new CreateProductRequest()
@@ -26,5 +27,13 @@ namespace WebApiModelsTest.In
             purchaseRequest.Cart = products;
             Assert.AreEqual(purchaseRequest.Cart.First().Name, products.First().Name);
         }
+
+        [TestMethod]
+        public void GivenPurchaseRequestReturnsBuyerId()
+        {
+            purchaseRequest.Id = guid;
+            Assert.AreEqual(purchaseRequest.Id, guid);
+        }
+
     }
 }
