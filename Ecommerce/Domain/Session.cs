@@ -9,5 +9,6 @@ namespace Domain
 {
     public class Session
     {
+        public Guid Token { get; set; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
+using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("api/users")]
+    [Route("api/sessions")]
     [ApiController]
     public class SessionController : ControllerBase
     {
@@ -18,10 +19,10 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult LogIn([FromBody] CreateSessionRequest received)
         {
-            var resultLogic = _sessionLogic.LogIn(received.Email,received.Password);
-            var result = new UserResponse(resultLogic);
+            Session session = _sessionLogic.LogIn(received.Email, received.Password);
+            var result = new CreateSessionResponse(session);
 
-            return CreatedAtAction(nameof(RegistrationByAdmin), result);
+            return CreatedAtAction(nameof(result), result);
         }
     }
 }
