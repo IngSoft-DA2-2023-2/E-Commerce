@@ -41,7 +41,19 @@ namespace WebApiModelsTest.Out
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(Id, createPurchaseResponse.Id);
         }
-        
+        [TestMethod]
+        public void GivenProductResponseReturnsBuyerGuid()
+        {
+            purchase = new Purchase()
+            {
+                Id = Id,
+                BuyerId = BuyerId,
+                Cart = products
+            };
+            createPurchaseResponse = new CreatePurchaseResponse(purchase);
+            Assert.AreEqual(BuyerId, createPurchaseResponse.BuyerId);
+        }
+
 
 
 
