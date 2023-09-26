@@ -17,7 +17,7 @@ namespace WebApi.Filters
             {
                 context.Result = new ObjectResult("Authorization header is required.")
                 {
-                    StatusCode = 401
+                    StatusCode = StatusCodes.Status401Unauthorized
                 };
             }
         }

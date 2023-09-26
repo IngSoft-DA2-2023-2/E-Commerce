@@ -2,7 +2,7 @@
 
 namespace ApiModels.In
 {
-    public class CreateUserRequest
+    public class CreateUserByAdminRequest
     {
         public string Name { get; set; }
         public string Email { get; set; }

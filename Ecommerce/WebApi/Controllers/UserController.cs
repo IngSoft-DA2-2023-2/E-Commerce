@@ -1,8 +1,12 @@
 ﻿using ApiModels;
 using ApiModels.In;
 using ApiModels.Out;
+using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Sockets;
+using System.Xml.Linq;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -28,18 +32,27 @@ namespace WebApi.Controllers
             return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
         }
 
-
         [HttpPost]
-        [AnnotatedCustomExceptionFilter]
-        [AuthenticationFilter]
-        public IActionResult CreateUser([FromBody] CreateUserRequest received)
+        public IActionResult SelfRegistration([FromBody] CreateUserByThemselfRequest received)
         {
             var user = received.ToEntity();
-            var resultLogic = _userLogic.AddUser(user);
+            var resultLogic = _userLogic.AddUserByThemself(user);
             var result = new UserResponse(resultLogic);
 
-            return CreatedAtAction(nameof(CreateUser), result);
+            return CreatedAtAction(nameof(RegistrationByAdmin), result);
+        }
 
+        [HttpPost]
+        [Route("admin")]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult RegistrationByAdmin([FromBody] CreateUserByAdminRequest received)
+        {
+            var user = received.ToEntity();
+            var resultLogic = _userLogic.AddUserByAdmin(user);
+            var result = new UserResponse(resultLogic);
+
+            return CreatedAtAction(nameof(RegistrationByAdmin), result);
         }
 
         [HttpDelete("{id}")]
@@ -55,20 +68,53 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUser([FromBody] UpdateUserRequest received,Guid id)
+        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,[FromQuery]Guid id)
         {
-            var user = received.ToEntity();
-            user.Guid = id;
+              var user = UserRequestByAdminToEntity(received);
+              user.Guid = id;
 
-            var resultLogic = _userLogic.UpdateUser(user);
+              var resultLogic = _userLogic.UpdateUserByAdmin(user);
+              var result = new UserResponse(resultLogic);
+
+              return Ok(result);
+        }
+
+        private User UserRequestByAdminToEntity(UpdateUserRequestByAdmin received)
+        {
+            User ret = new User();
+            if (received.Name is not null) ret.Name = received.Name;
+            if (received.Address is not null) ret.Address = received.Address;
+            if (received.Roles is not null) ret.Roles = received.Roles;
+            if (received.Password is not null) ret.Password = received.Password;
+            return ret;
+        }
+
+        [HttpPut]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received,[FromQuery]Guid id)
+        {
+            var user = UpdateUserRequestByThemselfToEntity(received,id);
+
+
+            var resultLogic = _userLogic.UpdateUserByThemself(user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);
         }
 
+        private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received,Guid id)
+        {
+            User ret = new User();
+            ret.Guid=id;
+            if (received.Name is not null) ret.Name = received.Name;
+            if (received.Password is not null) ret.Password = received.Password;
+            if (received.Address is not null) ret.Address = received.Address;
+            return ret;
+        }
     }
 }
 

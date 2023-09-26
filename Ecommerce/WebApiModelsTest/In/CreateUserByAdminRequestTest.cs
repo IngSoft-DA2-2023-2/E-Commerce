@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 namespace WebApiModelsTest.In
 {
     [TestClass]
-    public class UserRequestTest
+    public class CreateUserByAdminRequestTest
     {
         private string nameSample = "nameSample";
         private string addressSample = "address sample";
         private string emailSample = "email@sample.com";
         private string passwordSample = "passwordSample";
         private List<string> roles = new List<string>();
-        private CreateUserRequest request;
+        private CreateUserByAdminRequest request;
 
 
         [TestInitialize]
         public void Init()
         {
-            request = new CreateUserRequest()
+            request = new CreateUserByAdminRequest()
             {
                 Name = nameSample,
                 Address = addressSample,
