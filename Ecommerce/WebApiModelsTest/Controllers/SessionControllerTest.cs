@@ -26,7 +26,7 @@ namespace WebApiModelsTest.Controllers
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { Token = guid };
+            Session session = new Session() { SessionToken = guid };
             var expectedMappedResult = new CreateSessionResponse(session);
 
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
