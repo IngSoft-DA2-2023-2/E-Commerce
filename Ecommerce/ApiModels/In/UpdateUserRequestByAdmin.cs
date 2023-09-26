@@ -13,6 +13,5 @@ namespace ApiModels.In
         public string Password;
         public string Address;
         public List<string> Roles;
-        public string Email;
     }
 }

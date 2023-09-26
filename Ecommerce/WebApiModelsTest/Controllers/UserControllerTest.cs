@@ -183,9 +183,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
         }
 
-
-
-
         [TestMethod]
         public void DeleteUser()
         {
@@ -236,7 +233,6 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Name = "nameSample",
                 Address = "address sample",
                 Password = "password sample",
-                Email = "a@a.com",
                 Roles = new List<string>(),
 
             };
@@ -269,6 +265,49 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
             Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
+        }
+
+        [TestMethod]
+        public void UpdateUserByThemself()
+        {
+            UpdateUserRequestByThemself received = new UpdateUserRequestByThemself()
+            {
+                Name = "nameSample",
+                Address = "address sample",
+                Password = "password sample",
+
+            };
+
+            Guid guid = Guid.NewGuid();
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+                Guid = guid
+            };
+
+            var expectedMappedResult = new UserResponse(expected);
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.UpdateUserByThemself(It.IsAny<User>())).Returns(expected);
+
+            var userController = new UserController(logic.Object);
+            var expectedObjectResult = new OkObjectResult(expectedMappedResult);
+
+            var result = userController.UpdateUserByThemself(received,guid);
+
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            UserResponse resultValue = resultObject.Value as UserResponse;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
+            Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
+            Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
+            Assert.AreEqual(resultValue.Guid, guid);
         }
 
     }

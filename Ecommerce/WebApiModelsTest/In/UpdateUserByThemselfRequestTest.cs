@@ -37,14 +37,6 @@ namespace WebApiModelsTest.In
                 Assert.AreEqual(user.Address, addressSample);
             }
 
-            [TestMethod]
-            public void FromRequestToEntity()
-            {
-                User entity = user.ToEntity();
 
-                Assert.AreEqual(entity.Name, nameSample);
-                Assert.AreEqual(entity.Address, addressSample);
-                Assert.AreEqual(entity.Password, passwordSample);
-            }
         }
 }

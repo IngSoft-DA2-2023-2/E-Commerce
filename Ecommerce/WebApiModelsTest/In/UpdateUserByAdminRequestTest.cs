@@ -15,7 +15,6 @@ namespace WebApiModelsTest.In
         private string nameSample = "nameSample";
         private string passwordSample = "passwordSample";
         private string addressSample = "addressSample";
-        private string emailSample = "a@a.com";
         private List<string> buyerRole = new List<string> { "buyer" };
         private UpdateUserRequestByAdmin user;
 
@@ -28,7 +27,6 @@ namespace WebApiModelsTest.In
                  Password = passwordSample,
                  Address = addressSample,
                  Roles = buyerRole,
-                 Email = emailSample
              };
         }
 
@@ -39,7 +37,6 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(user.Password, passwordSample);
             Assert.AreEqual(user.Address, addressSample);
             Assert.AreEqual(user.Roles, buyerRole);
-            Assert.AreEqual(user.Email, emailSample);
         }
 
 

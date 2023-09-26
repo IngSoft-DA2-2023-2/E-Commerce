@@ -295,6 +295,37 @@ namespace BusinessLogicTest
         }
 
         [TestMethod]
+        public void UpdateUserByThemself()
+        {
+
+            User modifications = new User()
+            {
+                Name = "Juancito",
+                Address = "aaa2",
+                Password = "12345",
+            };
+
+            User outdated = new User()
+            {
+                Name = "Juancito",
+                Address = "aaa2",
+                Password = "123456",
+            };
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(modifications);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { outdated });
+
+            var userLogic = new UserLogic(repo.Object);
+
+            var result = userLogic.UpdateUserByThemself(modifications);
+
+            repo.VerifyAll();
+            Assert.AreEqual(result.Name, modifications.Name);
+            Assert.AreEqual(result.Address, modifications.Address);
+            Assert.AreEqual(result.Password, modifications.Password);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(LogicException))]
         public void UpdateUserByUserThrowsLogicException()
         {
