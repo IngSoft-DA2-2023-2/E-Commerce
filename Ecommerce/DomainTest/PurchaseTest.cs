@@ -12,30 +12,6 @@ namespace UnitTest.DomainTest
         private Purchase purchaseSample;
         private readonly User userSample = new User();
 
-        private readonly List<Promotion> promotions = new List<Promotion>()
-        {
-           new Promotion()
-           {
-               Name = "Promotion20off",
-               Description = "Promotion20off"
-           },
-            new Promotion()
-           {
-               Name = "Promotion3x2",
-               Description = "Promotion3x2"
-           },
-             new Promotion()
-           {
-               Name = "PromotionTotalLook",
-               Description = "PromotionTotalLook"
-           },
-              new Promotion()
-           {
-               Name = "Promotion3x1Fidelity",
-               Description = "Promotion3x1Fidelity"
-           }
-
-        };
         private readonly Product productSample1 = new Product()
         {
             Name = "name sample 1",
@@ -68,10 +44,7 @@ namespace UnitTest.DomainTest
         [TestInitialize]
         public void Init()
         {
-            purchaseSample = new Purchase
-            {
-                Promotions = promotions
-            };
+            purchaseSample = new Purchase();
         }
 
         [TestMethod]

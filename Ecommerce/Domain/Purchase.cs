@@ -7,10 +7,13 @@ namespace Domain
         private List<Product> _cart = new List<Product>();
         private DateTime _date;
 
-        public User User { get; set; }
+        public Purchase()
+        {
+            _date = DateTime.Now;
+        }
+        public Guid BuyerId { get; set; }
 
-        public Promotion CurrentPromotion { get; set; }
-        public List<Promotion> Promotions { get; set; }
+        public string CurrentPromotion { get; set; }
         public List<Product> Cart
         {
             get => _cart;
@@ -24,25 +27,12 @@ namespace Domain
         public DateTime Date
         {
             get => _date;
-            set
-            {
-                ValidateDate(value);
-                _date = value;
-            }
         }
         public void DropPromotion()
         {
             CurrentPromotion = null;
         }
 
-        private void ValidateDate(DateTime value)
-        {
-            if (value.CompareTo(DateTime.Now) > 0)
-            {
-                throw new DomainException("Purchase Date must be before the current date");
-            }
-            _date = value;
-        }
 
         private static void ValidateCart(List<Product> value)
         {
