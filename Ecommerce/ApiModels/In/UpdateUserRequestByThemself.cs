@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace ApiModels.In
 {
-    public class UpdateUserRequest
+    public class UpdateUserRequestByThemself
     {
         public string Name { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
-        public List<string> Roles { get; set; }
 
         public User ToEntity()
         {
@@ -21,7 +20,6 @@ namespace ApiModels.In
                 Name = Name,
                 Password = Password,
                 Address = Address,
-                Roles = Roles
             };
         }
     }

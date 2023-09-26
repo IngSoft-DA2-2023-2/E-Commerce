@@ -64,10 +64,24 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpPut("admin/{id}")]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,Guid id)
+        {
+            var user = received.ToEntity();
+            user.Guid = id;
+
+            var resultLogic = _userLogic.UpdateUser(user);
+            var result = new UserResponse(resultLogic);
+
+            return Ok(result);
+        }
+
         [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUser([FromBody] UpdateUserRequest received,Guid id)
+        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByAdmin received,Guid id)
         {
             var user = received.ToEntity();
             user.Guid = id;

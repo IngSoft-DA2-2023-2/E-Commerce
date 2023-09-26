@@ -231,7 +231,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
         [TestMethod]
         public void UpdateUser()
         {
-            UpdateUserRequest received = new UpdateUserRequest()
+            UpdateUserRequestByAdmin received = new UpdateUserRequestByAdmin()
             {
                 Name = "nameSample",
                 Address = "address sample",
@@ -256,7 +256,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.UpdateUser(received,guid);
+            var result = userController.UpdateUserByAdmin(received,guid);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
