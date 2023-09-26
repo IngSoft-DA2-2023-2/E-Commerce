@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace ApiModels.Out
 {
-    public class CreateUserResponse
+    public class UserResponse
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -12,7 +12,7 @@ namespace ApiModels.Out
         public Guid Guid { get; set; }
         public string Password { get; set; }
 
-        public CreateUserResponse(User user)
+        public UserResponse(User user)
         {
             Name = user.Name;
             Email = user.Email;

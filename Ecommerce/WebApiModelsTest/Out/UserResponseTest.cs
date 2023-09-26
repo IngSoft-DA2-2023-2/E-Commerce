@@ -31,7 +31,7 @@ namespace WebApiModelsTest.Out
                 Password = passwordSample
             };
 
-            CreateUserResponse response = new CreateUserResponse(user);
+            UserResponse response = new UserResponse(user);
 
             Assert.AreEqual(user.Name, response.Name);
             Assert.AreEqual(user.Address, response.Address);

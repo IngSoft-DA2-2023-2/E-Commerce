@@ -23,9 +23,9 @@ namespace WebApi.Controllers
         public IActionResult GetUsers(Guid? id)
         {
             if(id == null)
-                return Ok(_userLogic.GetAllUsers(null).Select(u => new CreateUserResponse(u)).ToList());
+                return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
 
-            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new CreateUserResponse(u)).ToList());
+            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         {
             var user = received.ToEntity();
             var resultLogic = _userLogic.AddUserByThemself(user);
-            var result = new CreateUserResponse(resultLogic);
+            var result = new UserResponse(resultLogic);
 
             return CreatedAtAction(nameof(RegistrationByAdmin), result);
         }
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         {
             var user = received.ToEntity();
             var resultLogic = _userLogic.AddUserByAdmin(user);
-            var result = new CreateUserResponse(resultLogic);
+            var result = new UserResponse(resultLogic);
 
             return CreatedAtAction(nameof(RegistrationByAdmin), result);
         }
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
             var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
             
             var resultLogic = _userLogic.DeleteUser(user);
-            var result = new CreateUserResponse(resultLogic);
+            var result = new UserResponse(resultLogic);
 
             return Ok(result);
         }
@@ -73,7 +73,7 @@ namespace WebApi.Controllers
             user.Guid = id;
 
             var resultLogic = _userLogic.UpdateUser(user);
-            var result = new CreateUserResponse(resultLogic);
+            var result = new UserResponse(resultLogic);
 
             return Ok(result);
         }
