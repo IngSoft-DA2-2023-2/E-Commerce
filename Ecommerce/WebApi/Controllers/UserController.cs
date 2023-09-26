@@ -72,7 +72,7 @@ namespace WebApi.Controllers
             var user = received.ToEntity();
             user.Guid = id;
 
-            var resultLogic = _userLogic.UpdateUser(user);
+            var resultLogic = _userLogic.UpdateUserByAdmin(user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);
@@ -81,12 +81,12 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByAdmin received,Guid id)
+        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received,Guid id)
         {
             var user = received.ToEntity();
             user.Guid = id;
 
-            var resultLogic = _userLogic.UpdateUser(user);
+            var resultLogic = _userLogic.UpdateUserByAdmin(user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);

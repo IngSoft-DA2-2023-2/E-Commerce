@@ -265,7 +265,7 @@ namespace BusinessLogicTest
 
             var userLogic = new UserLogic(repo.Object);
 
-            var result = userLogic.UpdateUser(modifications);
+            var result = userLogic.UpdateUserByAdmin(modifications);
 
             repo.VerifyAll();
             Assert.AreEqual(result.Name, modifications.Name);
@@ -287,7 +287,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(new List<User>());
             var userLogic = new UserLogic(repo.Object);
             
-            userLogic.UpdateUser(user);
+            userLogic.UpdateUserByAdmin(user);
         }
 
         [TestMethod]
@@ -304,7 +304,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException());
             var userLogic = new UserLogic(repo.Object);
 
-            userLogic.UpdateUser(user);
+            userLogic.UpdateUserByAdmin(user);
         }
 
         [TestMethod]

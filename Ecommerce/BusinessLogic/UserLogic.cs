@@ -70,7 +70,7 @@ namespace BusinessLogic
         }
 
 
-        public User UpdateUser(User updated)
+        public User UpdateUserByAdmin(User updated)
         {
             try
             {
