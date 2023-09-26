@@ -68,18 +68,18 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPut("admin/{id}")]
+        [HttpPut("admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,Guid id)
+        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,[FromQuery]Guid id)
         {
-            var user = UserRequestByAdminToEntity(received);
-            user.Guid = id;
+              var user = UserRequestByAdminToEntity(received);
+              user.Guid = id;
 
-            var resultLogic = _userLogic.UpdateUserByAdmin(user);
-            var result = new UserResponse(resultLogic);
+              var resultLogic = _userLogic.UpdateUserByAdmin(user);
+              var result = new UserResponse(resultLogic);
 
-            return Ok(result);
+              return Ok(result);
         }
 
         private User UserRequestByAdminToEntity(UpdateUserRequestByAdmin received)
@@ -92,12 +92,12 @@ namespace WebApi.Controllers
             return ret;
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received,Guid id)
+        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received,[FromQuery]Guid id)
         {
-            var user = UpdateUserRequestByThemselfToEntity(received);
+            var user = UpdateUserRequestByThemselfToEntity(received,id);
 
 
             var resultLogic = _userLogic.UpdateUserByThemself(user);
@@ -106,10 +106,10 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received)
+        private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received,Guid id)
         {
             User ret = new User();
-
+            ret.Guid=id;
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Password is not null) ret.Password = received.Password;
             if (received.Address is not null) ret.Address = received.Address;
