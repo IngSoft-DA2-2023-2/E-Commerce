@@ -15,7 +15,7 @@ namespace BusinessLogic
             this._userRepository = userRepository;
         }
 
-        public User AddUser(User user)
+        public User AddUserByAdmin(User user)
         {
             try
             {
@@ -31,6 +31,24 @@ namespace BusinessLogic
                 throw new LogicException(e);
             }
 
+        }
+
+        public User AddUserByThemself(User user)
+        {    
+            try
+            {
+                if (_userRepository.GetAllUsers(u => u.Email == user.Email).Any())
+                {
+                    throw new LogicException("Existing user with that email");
+                }
+                user.Roles = new List<string> { "buyer" };
+                user.Guid = Guid.NewGuid();
+                return _userRepository.CreateUser(user);
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
 
         public IEnumerable<User> GetAllUsers(Func<User,bool>? predicate)

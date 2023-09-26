@@ -23,23 +23,32 @@ namespace WebApi.Controllers
         public IActionResult GetUsers(Guid? id)
         {
             if(id == null)
-                return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
+                return Ok(_userLogic.GetAllUsers(null).Select(u => new CreateUserResponse(u)).ToList());
 
-            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
+            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new CreateUserResponse(u)).ToList());
         }
 
-
         [HttpPost]
-        [AnnotatedCustomExceptionFilter]
-        [AuthenticationFilter]
-        public IActionResult CreateUser([FromBody] CreateUserRequest received)
+        public IActionResult SelfRegistration([FromBody] CreateUserByThemselfRequest received)
         {
             var user = received.ToEntity();
-            var resultLogic = _userLogic.AddUser(user);
-            var result = new UserResponse(resultLogic);
+            var resultLogic = _userLogic.AddUserByThemself(user);
+            var result = new CreateUserResponse(resultLogic);
 
-            return CreatedAtAction(nameof(CreateUser), result);
+            return CreatedAtAction(nameof(RegistrationByAdmin), result);
+        }
 
+        [HttpPost]
+        [Route("admin")]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult RegistrationByAdmin([FromBody] CreateUserByAdminRequest received)
+        {
+            var user = received.ToEntity();
+            var resultLogic = _userLogic.AddUserByAdmin(user);
+            var result = new CreateUserResponse(resultLogic);
+
+            return CreatedAtAction(nameof(RegistrationByAdmin), result);
         }
 
         [HttpDelete("{id}")]
@@ -50,7 +59,7 @@ namespace WebApi.Controllers
             var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
             
             var resultLogic = _userLogic.DeleteUser(user);
-            var result = new UserResponse(resultLogic);
+            var result = new CreateUserResponse(resultLogic);
 
             return Ok(result);
         }
@@ -64,7 +73,7 @@ namespace WebApi.Controllers
             user.Guid = id;
 
             var resultLogic = _userLogic.UpdateUser(user);
-            var result = new UserResponse(resultLogic);
+            var result = new CreateUserResponse(resultLogic);
 
             return Ok(result);
         }

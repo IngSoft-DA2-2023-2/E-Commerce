@@ -32,7 +32,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
             var userLogic = new UserLogic(repo.Object);
 
-            var result = userLogic.AddUser(expected);
+            var result = userLogic.AddUserByAdmin(expected);
 
             repo.VerifyAll();
 
@@ -61,7 +61,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> {expected});
             var userLogic = new UserLogic(repo.Object);
 
-            var result = userLogic.AddUser(expected);
+            var result = userLogic.AddUserByAdmin(expected);
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { });
             var userLogic = new UserLogic(repo.Object);
 
-            var result = userLogic.AddUser(expected);
+            var result = userLogic.AddUserByAdmin(expected);
         }
 
 

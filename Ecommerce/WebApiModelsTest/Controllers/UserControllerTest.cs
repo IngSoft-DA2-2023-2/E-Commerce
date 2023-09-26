@@ -26,7 +26,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 },
             };
 
-            var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
+            var expectedMappedResult = expected.Select(u => new CreateUserResponse(u)).ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
             var userController = new UserController(logic.Object);
@@ -36,7 +36,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
-            List<UserResponse> resultValue = resultObject.Value as List<UserResponse>;
+            List<CreateUserResponse> resultValue = resultObject.Value as List<CreateUserResponse>;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
 
@@ -62,7 +62,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 },
             };
 
-            var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
+            var expectedMappedResult = expected.Select(u => new CreateUserResponse(u)).ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(expected);
             var userController = new UserController(logic.Object);
@@ -72,7 +72,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
-            List<UserResponse> resultValue = resultObject.Value as List<UserResponse>;
+            List<CreateUserResponse> resultValue = resultObject.Value as List<CreateUserResponse>;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
 
@@ -98,7 +98,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
-            List<UserResponse> resultValue = resultObject.Value as List<UserResponse>;
+            List<CreateUserResponse> resultValue = resultObject.Value as List<CreateUserResponse>;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
             Assert.AreEqual(resultValue.Count, 0);
@@ -106,9 +106,9 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
 
         [TestMethod]
-        public void CreateUser()
+        public void CreateUserByAdmin()
         {
-            CreateUserRequest received = new CreateUserRequest()
+            CreateUserByAdminRequest received = new CreateUserByAdminRequest()
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
@@ -126,17 +126,17 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Password = "password sample",
             };
 
-            var expectedMappedResult = new UserResponse(expected);
+            var expectedMappedResult = new CreateUserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.AddUser(It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.AddUserByAdmin(It.IsAny<User>())).Returns(expected);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateUser", "User", new { id = 5 }, expectedMappedResult);
 
-            var result = userController.CreateUser(received);
+            var result = userController.RegistrationByAdmin(received);
 
             logic.VerifyAll();
             CreatedAtActionResult resultObject = result as CreatedAtActionResult;
-            UserResponse resultValue = resultObject.Value as UserResponse;
+            CreateUserResponse resultValue = resultObject.Value as CreateUserResponse;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
 
@@ -146,10 +146,51 @@ namespace UnitTest.WebApiModelsTest.Controllers
         }
 
         [TestMethod]
+        public void CreateUserByThemself()
+        {
+            CreateUserByThemselfRequest received = new CreateUserByThemselfRequest()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Address = "address sample",
+                Password = "password sample",
+            };
+
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Address = "address sample",
+                Password = "password sample",
+            };
+
+            var expectedMappedResult = new CreateUserResponse(expected);
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.AddUserByThemself(It.IsAny<User>())).Returns(expected);
+            var userController = new UserController(logic.Object);
+            var expectedObjectResult = new CreatedAtActionResult("CreateUser", "User", new { id = 5 }, expectedMappedResult);
+
+            var result = userController.SelfRegistration(received);
+
+            logic.VerifyAll();
+            CreatedAtActionResult resultObject = result as CreatedAtActionResult;
+            CreateUserResponse resultValue = resultObject.Value as CreateUserResponse;
+
+            Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+
+            Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
+            Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
+            Assert.AreEqual(resultValue.Email, expectedMappedResult.Email);
+        }
+
+
+
+
+        [TestMethod]
         public void DeleteUser()
         {
             Guid guid = Guid.NewGuid();
-            CreateUserRequest received = new CreateUserRequest()
+            CreateUserByAdminRequest received = new CreateUserByAdminRequest()
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
@@ -167,7 +208,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
             Guid = guid,
             };
 
-            var expectedMappedResult = new UserResponse(expected);
+            var expectedMappedResult = new CreateUserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>?>())).Returns(new List<User> { expected });
             logic.Setup(logic => logic.DeleteUser(It.IsAny<User>())).Returns(expected);
@@ -178,7 +219,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
-            UserResponse resultValue = resultObject.Value as UserResponse;
+            CreateUserResponse resultValue = resultObject.Value as CreateUserResponse;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
 
@@ -209,7 +250,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
                 Password = "password sample",
             };
 
-            var expectedMappedResult = new UserResponse(expected);
+            var expectedMappedResult = new CreateUserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(expected);
             var userController = new UserController(logic.Object);
@@ -219,7 +260,7 @@ namespace UnitTest.WebApiModelsTest.Controllers
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
-            UserResponse resultValue = resultObject.Value as UserResponse;
+            CreateUserResponse resultValue = resultObject.Value as CreateUserResponse;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
 
