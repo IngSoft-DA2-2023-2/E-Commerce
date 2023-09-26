@@ -229,13 +229,15 @@ namespace UnitTest.WebApiModelsTest.Controllers
         }
 
         [TestMethod]
-        public void UpdateUser()
+        public void UpdateUserByAdmin()
         {
             UpdateUserRequestByAdmin received = new UpdateUserRequestByAdmin()
             {
                 Name = "nameSample",
                 Address = "address sample",
                 Password = "password sample",
+                Email = "a@a.com",
+                Roles = new List<string>(),
 
             };
 

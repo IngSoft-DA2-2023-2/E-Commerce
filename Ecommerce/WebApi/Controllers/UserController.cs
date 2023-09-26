@@ -1,8 +1,10 @@
 ﻿using ApiModels;
 using ApiModels.In;
 using ApiModels.Out;
+using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Sockets;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -69,13 +71,24 @@ namespace WebApi.Controllers
         [AuthenticationFilter]
         public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,Guid id)
         {
-            var user = received.ToEntity();
+            var user = UserRequestByAdminToEntity(received);
             user.Guid = id;
 
             var resultLogic = _userLogic.UpdateUserByAdmin(user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);
+        }
+
+        private User UserRequestByAdminToEntity(UpdateUserRequestByAdmin received)
+        {
+            User ret = new User();
+            if (received.Name is not null) ret.Name = received.Name;
+            if (received.Address is not null) ret.Address = received.Address;
+            if (received.Roles is not null) ret.Roles = received.Roles;
+            if (received.Email is not null) ret.Email = received.Email;
+            if (received.Password is not null) ret.Password = received.Password;
+            return ret;
         }
 
         [HttpPut("{id}")]
@@ -86,7 +99,7 @@ namespace WebApi.Controllers
             var user = received.ToEntity();
             user.Guid = id;
 
-            var resultLogic = _userLogic.UpdateUserByAdmin(user);
+            var resultLogic = _userLogic.UpdateUserByThemself(user);
             var result = new UserResponse(resultLogic);
 
             return Ok(result);

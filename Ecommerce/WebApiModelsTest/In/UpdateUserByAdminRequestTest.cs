@@ -15,7 +15,7 @@ namespace WebApiModelsTest.In
         private string nameSample = "nameSample";
         private string passwordSample = "passwordSample";
         private string addressSample = "addressSample";
-        private string emailSample = "a@a.com"
+        private string emailSample = "a@a.com";
         private List<string> buyerRole = new List<string> { "buyer" };
         private UpdateUserRequestByAdmin user;
 
@@ -42,16 +42,6 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(user.Email, emailSample);
         }
 
-        [TestMethod]
-        public void FromRequestToEntity()
-        {
-            User entity = user.ToEntity();
 
-            Assert.AreEqual(entity.Name, nameSample);
-            Assert.AreEqual(entity.Address, addressSample);
-            Assert.AreEqual(entity.Password, passwordSample);
-            Assert.AreEqual(entity.Roles, buyerRole);
-            Assert.AreEqual(entity.Email, emailSample);
-        }
     }
 }

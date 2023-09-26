@@ -241,7 +241,7 @@ namespace BusinessLogicTest
         }
 
         [TestMethod]
-        public void UpdateUser()
+        public void UpdateUserByAdmin()
         {
 
             User modifications = new User()
@@ -249,6 +249,8 @@ namespace BusinessLogicTest
                 Name = "Juancito",
                 Address = "aaa2",
                 Password= "12345",
+                Email= "a@a.com",
+                Roles = new List<string> { }
             };
 
             User outdated = new User()
@@ -271,11 +273,13 @@ namespace BusinessLogicTest
             Assert.AreEqual(result.Name, modifications.Name);
             Assert.AreEqual(result.Address, modifications.Address);
             Assert.AreEqual(result.Password, modifications.Password);
+            Assert.AreEqual(result.Email, modifications.Email);
+            Assert.AreEqual(result.Roles.Count, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LogicException))]
-        public void UpdateUserThrowsLogicException()
+        public void UpdateUserByAdminThrowsLogicException()
         {
             User user = new User()
             {
@@ -292,7 +296,24 @@ namespace BusinessLogicTest
 
         [TestMethod]
         [ExpectedException(typeof(LogicException))]
-        public void UpdateUserReceivesDataAccessExceptionAndThrowsLogicException()
+        public void UpdateUserByUserThrowsLogicException()
+        {
+            User user = new User()
+            {
+                Name = "Juancito",
+                Address = "aaa2",
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
+            var userLogic = new UserLogic(repo.Object);
+
+            userLogic.UpdateUserByThemself(user);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void UpdateUserByAdminHandlesDataAccessExceptionAndThrowsLogicException()
         {
             User user = new User()
             {
@@ -305,6 +326,23 @@ namespace BusinessLogicTest
             var userLogic = new UserLogic(repo.Object);
 
             userLogic.UpdateUserByAdmin(user);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void UpdateUserByThemselfHandlesDataAccessExceptionAndThrowsLogicException()
+        {
+            User user = new User()
+            {
+                Name = "Juancito",
+                Address = "aaa2",
+            };
+
+            Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException());
+            var userLogic = new UserLogic(repo.Object);
+
+            userLogic.UpdateUserByThemself(user);
         }
 
         [TestMethod]

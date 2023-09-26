@@ -81,8 +81,30 @@ namespace BusinessLogic
                     if (updated.Password != null) outdated.Password = updated.Password;
                     if (outdated.Roles != null ) outdated.Roles = updated.Roles;
                     if (updated.Name != null) outdated.Name = updated.Name;
+                    if(updated.Email != null) outdated.Email = updated.Email;
                 
               return _userRepository.UpdateUser(outdated);
+
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+        }
+
+        public User UpdateUserByThemself(User updated)
+        {
+            try
+            {
+                var outdated = _userRepository.GetAllUsers(u => u.Guid == updated.Guid).FirstOrDefault();
+                if (outdated == null) throw new LogicException("User not found");
+
+                if (updated.Address != null) outdated.Address = updated.Address;
+                if (updated.Password != null) outdated.Password = updated.Password;
+                if (updated.Name != null) outdated.Name = updated.Name;
+                if (updated.Email != null) outdated.Email = updated.Email;
+
+                return _userRepository.UpdateUser(outdated);
 
             }
             catch (DataAccessException e)
