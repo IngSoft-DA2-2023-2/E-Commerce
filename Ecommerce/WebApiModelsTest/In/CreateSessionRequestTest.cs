@@ -15,9 +15,11 @@ namespace WebApiModelsTest.In
         [TestMethod]
         public void AssignsProperties()
         {
-            CreateSessionRequest req = new CreateSessionRequest();
-            req.Email = emailSample;
-            req.Password = passwordSample;
+            CreateSessionRequest req = new CreateSessionRequest
+            {
+                Email = emailSample,
+                Password = passwordSample
+            };
 
             Assert.AreEqual(req.Email, emailSample);
             Assert.AreEqual(req.Password, passwordSample);
