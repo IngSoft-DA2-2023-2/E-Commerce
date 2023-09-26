@@ -1,9 +1,18 @@
-﻿using LogicInterface;
+﻿using ApiModels;
+using ApiModels.In;
+using ApiModels.Out;
+using Domain;
+using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
+using WebApi.Models.In;
+using WebApi.Models.Out;
 
 namespace WebApi.Controllers
 {
-    public class PurchaseController
+    [Route("api/products")]
+    [ApiController]
+    public class PurchaseController :ControllerBase
     {
         private IPurchaseLogic _purchaseLogic;
 
@@ -12,9 +21,6 @@ namespace WebApi.Controllers
             _purchaseLogic = purchaseLogic;
         }
 
-        public OkObjectResult CreatePurchase(object purchaseRequest)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

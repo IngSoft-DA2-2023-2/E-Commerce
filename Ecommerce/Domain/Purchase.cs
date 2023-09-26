@@ -4,8 +4,10 @@ namespace Domain
 {
     public class Purchase
     {
+       
         private List<Product> _cart = new List<Product>();
         private DateTime _date;
+        public Guid Id { get; set; }
 
         public Purchase()
         {
