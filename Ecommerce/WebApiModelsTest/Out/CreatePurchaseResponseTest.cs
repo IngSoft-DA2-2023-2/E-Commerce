@@ -39,7 +39,7 @@ namespace WebApiModelsTest.Out
                 Cart = products
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
-            Assert.AreEqual(Id, createPurchaseResponse.Id);
+            Assert.AreEqual(purchase.Id, createPurchaseResponse.Id);
         }
         [TestMethod]
         public void GivenProductResponseReturnsBuyerGuid()
@@ -51,7 +51,19 @@ namespace WebApiModelsTest.Out
                 Cart = products
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
-            Assert.AreEqual(BuyerId, createPurchaseResponse.BuyerId);
+            Assert.AreEqual(purchase.BuyerId, createPurchaseResponse.BuyerId);
+        }
+        [TestMethod]
+        public void GivenProductResponseReturnsProductCorrectly()
+        {
+            purchase = new Purchase()
+            {
+                Id = Id,
+                BuyerId = BuyerId,
+                Cart = products
+            };
+            createPurchaseResponse = new CreatePurchaseResponse(purchase);
+            Assert.AreEqual(purchase.Cart.First().Name, createPurchaseResponse.Cart.First().Name);
         }
 
 
