@@ -45,5 +45,16 @@ namespace DataAccessTest
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Purchase {purchase.Id} already exists."));
         }
+        [TestMethod]
+        public void GetAllTheBuyersPurchases()
+        {
+            Guid buyer = Guid.NewGuid();
+            Purchase purchase = new Purchase() { Id = Guid.NewGuid(),BuyerId = buyer };
+            var purchaseContext = new Mock<ECommerceContext>();
+            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
+            IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
+            var expectedReturn = purchaseRepository.GetPurchases(buyer);
+            Assert.AreEqual(expectedReturn.First(), purchase);
+        }
     }
 }

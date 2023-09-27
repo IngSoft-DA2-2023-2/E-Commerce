@@ -26,7 +26,8 @@ namespace DataAccess.Repository
 
         public IEnumerable<Purchase> GetPurchases(Guid? id)
         {
-            throw new NotImplementedException();
+          return _eCommerceContext.Purchases.Where(p => p.BuyerId == id).ToList();
+            
         }
     }
 }
