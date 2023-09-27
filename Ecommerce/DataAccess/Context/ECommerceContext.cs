@@ -11,6 +11,7 @@ namespace DataAccess.Context
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         
 
         public ECommerceContext() { }
