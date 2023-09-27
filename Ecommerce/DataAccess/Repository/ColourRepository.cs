@@ -13,6 +13,8 @@ namespace DataAccess.Repository
 
         public bool CheckForColour(string colourName)
         {
+            var colour = _context.Colours.FirstOrDefault(c => c.Name == colourName);
+            if (colour is null) return false;
             return true;
         }
     }

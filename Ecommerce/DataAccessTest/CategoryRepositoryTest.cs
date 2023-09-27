@@ -23,7 +23,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenNonExistingCategoryNameReturnsTrue()
+        public void GivenNonExistingCategoryNameReturnsFalse()
         {
             string categoryName = "category";
             var categoryContext = new Mock<ECommerceContext>();

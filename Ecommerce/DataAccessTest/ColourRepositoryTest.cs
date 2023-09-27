@@ -21,5 +21,15 @@ namespace DataAccessTest
             var expectedReturn = colourRepository.CheckForColour(colourName);
             Assert.IsTrue(expectedReturn);
         }
+        [TestMethod]
+        public void GivenNonExistingColourNameReturnsFalse()
+        {
+            string colourName = "colour";
+            var colourContext = new Mock<ECommerceContext>();
+            colourContext.Setup(ctx => ctx.Colours).ReturnsDbSet(new List<Colour>() { });
+            IColourRepository colourRepository = new ColourRepository(colourContext.Object);
+            var expectedReturn = colourRepository.CheckForColour(colourName);
+            Assert.IsFalse(expectedReturn);
+        }
     }
 }
