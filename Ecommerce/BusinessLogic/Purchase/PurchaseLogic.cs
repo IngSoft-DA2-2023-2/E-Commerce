@@ -6,42 +6,31 @@ namespace BusinessLogic.PurchaseLogic
 {
     public class PurchaseLogic : IPurchaseLogic
     {
-        private readonly IPromotionLogic promotionLogic;
+        private readonly IPurchaseLogic _purchaseLogic;
 
-        public PurchaseLogic(IPromotionLogic promotionLogic)
+        public PurchaseLogic(IPurchaseLogic promotionLogic)
         {
-            this.promotionLogic = promotionLogic;
+            _purchaseLogic = promotionLogic;
         }
+
         public void AssignsBestPromotion(Purchase purchase)
         {
-            if (!IsEligibleForPromotions(purchase)) throw new LogicException("Not eligible for promotions");
-            Promotion best = null;
-            int maxDiscount = 0;
-            foreach (var promo in purchase.Promotions)
-            {
-                var currentPromo = promotionLogic.GetPromotionable(promo);
-                if (currentPromo.IsApplicable(purchase.Cart))
-                {
-                    int currentDiscount = currentPromo.CalculateDiscount(purchase.Cart);
-                    if (currentDiscount > maxDiscount)
-                    {
-                        best = promo;
-                        maxDiscount = currentDiscount;
-                    }
-                }
-            }
+            throw new NotImplementedException();
+        }
 
-            purchase.CurrentPromotion = best;
+        public Purchase CreatePurchase(Purchase purchase)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Purchase> GetPurchase()
+        {
+            throw new NotImplementedException();
         }
 
         public bool IsEligibleForPromotions(Purchase purchase)
         {
-            return purchase.Promotions.Any(promo =>
-            {
-                var promoLogic = promotionLogic.GetPromotionable(promo);
-                return promoLogic.IsApplicable(purchase.Cart);
-
-            });
+            throw new NotImplementedException();
         }
     }
 }

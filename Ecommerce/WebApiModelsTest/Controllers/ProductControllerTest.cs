@@ -1,14 +1,10 @@
 ﻿using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
 using WebApi.Controllers;
 using WebApi.Models.In;
 using WebApi.Models.Out;
-using System.Drawing;
 using WebApiTest.Exceptions;
 
 namespace UnitTest.WebApiModelsTest.Controller

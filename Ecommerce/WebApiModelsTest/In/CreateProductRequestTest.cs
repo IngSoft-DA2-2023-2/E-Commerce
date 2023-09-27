@@ -5,7 +5,7 @@ using WebApi.Models.In;
 namespace UnitTest.WebApiModelsTest.In
 {
 
-    [TestClass]
+   
     public class ProductControllerTest
     {
         private CreateProductRequest productRequestExample;

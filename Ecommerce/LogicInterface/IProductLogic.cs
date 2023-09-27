@@ -5,11 +5,10 @@ namespace LogicInterface
 {
     public interface IProductLogic
     {
-        Product AddProduct(Product newProduct);
-        Product GetProductById(Guid id);
+        public Product AddProduct(Product newProduct);
+        public Product GetProductById(Guid id);
         public List<Product> GetProducts(string? name,  string? brandName, string? categoryName);
-
-        Product UpdateProduct(Product newProduct);
+        public Product UpdateProduct(Product newProduct);
 
 
     }
