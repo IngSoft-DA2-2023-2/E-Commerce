@@ -12,7 +12,50 @@ namespace WebApiModelsTest.Controllers
     [TestClass]
     public class PurchaseControllerTest
     {
-        
+        [TestMethod]
+        public void CreateNewPurchase()
+        {
+            List<string> color = new List<string>() { "Red", "Blue" };
+            Guid id = Guid.NewGuid();
+            Guid buyer = Guid.NewGuid();
+            List <CreateProductRequest> cart = new List<CreateProductRequest>()
+            {
+                new CreateProductRequest()
+                {
+                    Name = "name",
+                    Description = "description",
+                }
+            };
+            List<Product> products = new List<Product>()
+            {
+                new Product()
+                {
+                    Name = "name",
+                    Description = "description",
+
+                }
+            };
+            CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
+            {
+                Buyer = buyer,
+                Cart = cart
+            };
+            Purchase purchase = new Purchase()
+            {
+                Id = id,
+                BuyerId = buyer,
+                Cart = products
+            };
+            Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
+            mock.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
+                  purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
+            PurchaseController purchaseController = new PurchaseController(mock.Object);
+            var result = purchaseController.CreatePurchase(purchaseRequest) as OkObjectResult;
+            Assert.IsNotNull(result);
+            var response = result.Value as CreatePurchaseResponse;
+            Assert.AreEqual(purchaseRequest.Buyer, response.BuyerId);
+            Assert.AreEqual(purchaseRequest.Cart.First().Name, response.Cart.First().Name);   
+        }
     }
 }
 

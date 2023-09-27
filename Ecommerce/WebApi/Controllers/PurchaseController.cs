@@ -21,6 +21,15 @@ namespace WebApi.Controllers
             _purchaseLogic = purchaseLogic;
         }
 
-       
+        [HttpPost]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult CreatePurchase([FromBody] CreatePurchaseRequest purchase)
+        {
+            var newpurchase = purchase.ToEntity();
+            Purchase savedPurchase = _purchaseLogic.CreatePurchase(newpurchase);
+            var response = new CreatePurchaseResponse(savedPurchase);
+            return Ok(response);
+        }
     }
 }

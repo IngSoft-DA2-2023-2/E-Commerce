@@ -5,7 +5,7 @@ namespace ApiModels.In
 {
     public class CreatePurchaseRequest
     {
-        public Guid Id { get; set; }
+        public Guid Buyer { get; set; }
         public List<CreateProductRequest> Cart { get; set; } 
 
         public Purchase ToEntity()
@@ -15,7 +15,7 @@ namespace ApiModels.In
             {
                 products.Add(createProductRequest.ToEntity());
             }
-            return new Purchase() { Cart = products, BuyerId = Id};
+            return new Purchase() { Cart = products, BuyerId = Buyer};
         }
     }
 }

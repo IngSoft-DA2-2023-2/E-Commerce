@@ -31,8 +31,8 @@ namespace WebApiModelsTest.In
         [TestMethod]
         public void GivenPurchaseRequestReturnsBuyerId()
         {
-            purchaseRequest.Id = guid;
-            Assert.AreEqual(purchaseRequest.Id, guid);
+            purchaseRequest.Buyer = guid;
+            Assert.AreEqual(purchaseRequest.Buyer, guid);
         }
 
     }
