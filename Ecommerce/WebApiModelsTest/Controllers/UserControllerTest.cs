@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebApi.Controllers;
 
-namespace UnitTest.WebApiModelsTest.Controllers
+namespace WebApiModelsTest.Controller
 {
     [TestClass]
     public class UserControllerTest

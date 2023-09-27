@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicTest
+namespace BusinessLogicTest.PromotionsTest
 {
     [TestClass]
     public class PromotionContextTest
@@ -50,7 +50,7 @@ namespace BusinessLogicTest
                     Name = "product1",
                     Description ="product1",
                     Category = "Category",
-                },     
+                },
             };
             Assert.IsFalse(promotion.IsEligibleForPromotions(cart));
         }
@@ -82,7 +82,7 @@ namespace BusinessLogicTest
                     Category = "Category",
                 }
             };
-            Assert.AreEqual("Fidelity",promotion.GetBestPromotion(cart));
+            Assert.AreEqual("Fidelity", promotion.GetBestPromotion(cart));
         }
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]

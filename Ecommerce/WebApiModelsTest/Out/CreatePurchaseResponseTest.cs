@@ -1,7 +1,7 @@
-﻿using Domain;
-using WebApi.Models.Out;
+﻿using ApiModels.Out;
+using Domain;
 
-namespace UnitTest.WebApiModelsTest.Out
+namespace WebApiModelsTest.Out
 {
 
     [TestClass]

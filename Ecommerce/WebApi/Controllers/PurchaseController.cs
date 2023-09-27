@@ -1,13 +1,9 @@
-﻿using ApiModels;
-using ApiModels.In;
+﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using WebApi.Filters;
-using WebApi.Models.In;
-using WebApi.Models.Out;
 
 namespace WebApi.Controllers
 {
