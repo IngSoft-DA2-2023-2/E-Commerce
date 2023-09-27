@@ -23,19 +23,24 @@ namespace BusinessLogic
 
         public Session LogIn(string email, string password)
         {
-            IEnumerable<User> correctCredentials = _userRepository.GetAllUsers(u => 
-                                                                          u.Email == email 
-                                                                          && u.Password == password
-                                                                          );
-            if (!correctCredentials.Any()) throw new LogicException("Incorrect credentials");
+            User user = _userRepository.GetAllUsers(u =>
+                                                    u.Email == email
+                                                    && u.Password == password
+                                                    ).FirstOrDefault();
 
-            Session session = new Session
+            if (user is null) throw new LogicException("Incorrect credentials");
+
+            Session? sessionForUser = _sessionRepository.GetSessions(s => s.UserId == user.Guid).FirstOrDefault();
+
+            if (sessionForUser is not null) return sessionForUser;
+
+            Session newSession = new Session
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = correctCredentials.First().Guid
+                UserId = user.Guid
             };
 
-            return _sessionRepository.CreateSession(session);
+            return _sessionRepository.CreateSession(newSession);
         }
     }
 }

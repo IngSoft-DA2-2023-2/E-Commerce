@@ -10,5 +10,6 @@ namespace DataAccessInterface
     public interface ISessionRepository
     {
         Session CreateSession(Session session);
+        IEnumerable<Session> GetSessions(Func<Session, bool> pred);
     }
 }
