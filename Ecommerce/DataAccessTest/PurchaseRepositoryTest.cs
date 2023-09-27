@@ -56,5 +56,15 @@ namespace DataAccessTest
             var expectedReturn = purchaseRepository.GetPurchases(buyer);
             Assert.AreEqual(expectedReturn.First(), purchase);
         }
+        [TestMethod]
+        public void GetAllPurchases()
+        {
+            Purchase purchase = new Purchase() { Id = Guid.NewGuid()};
+            var purchaseContext = new Mock<ECommerceContext>();
+            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
+            IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
+            var expectedReturn = purchaseRepository.GetPurchases(null);
+            Assert.AreEqual(expectedReturn.First(), purchase);
+        }
     }
 }

@@ -26,6 +26,10 @@ namespace DataAccess.Repository
 
         public IEnumerable<Purchase> GetPurchases(Guid? id)
         {
+            if(id is null)
+            {
+                return _eCommerceContext.Purchases.ToList();
+            }
           return _eCommerceContext.Purchases.Where(p => p.BuyerId == id).ToList();
             
         }
