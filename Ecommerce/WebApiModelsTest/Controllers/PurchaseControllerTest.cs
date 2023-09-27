@@ -56,6 +56,32 @@ namespace UnitTest.WebApiModelsTest.Controller
             Assert.AreEqual(purchaseRequest.Buyer, response.BuyerId);
             Assert.AreEqual(purchaseRequest.Cart.First().Name, response.Cart.First().Name);   
         }
+
+        [TestMethod]
+        public void GetAllPurchaseOk()
+        {
+            Guid buyerId = Guid.NewGuid();
+            List<Purchase> purchases = new List<Purchase>();
+            purchases.Add(new Purchase()
+            {
+                Id = Guid.NewGuid(),
+                BuyerId = buyerId,
+                Cart = new List<Product>()
+                {
+                    new Product()
+                    {
+                        Name = "product1",
+                        Description = "description1"
+                    }
+                }
+            });
+            Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
+            mock.Setup(p => p.GetPurchase()).Returns(purchases);
+            PurchaseController productController = new PurchaseController(mock.Object);
+            var result = productController.GetAllPurchases() as OkObjectResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(purchases, result.Value);
+        }
     }
 }
 

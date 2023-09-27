@@ -4,6 +4,7 @@ using ApiModels.Out;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using WebApi.Filters;
 using WebApi.Models.In;
 using WebApi.Models.Out;
@@ -30,6 +31,14 @@ namespace WebApi.Controllers
             Purchase savedPurchase = _purchaseLogic.CreatePurchase(newpurchase);
             var response = new CreatePurchaseResponse(savedPurchase);
             return Ok(response);
+        }
+
+        [HttpPost]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult GetAllPurchases()
+        {
+            return Ok(_purchaseLogic.GetPurchase());
         }
     }
 }

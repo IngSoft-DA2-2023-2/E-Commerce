@@ -23,6 +23,11 @@ namespace BusinessLogic.PurchaseLogic
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Purchase> GetPurchase()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsEligibleForPromotions(Purchase purchase)
         {
             throw new NotImplementedException();
