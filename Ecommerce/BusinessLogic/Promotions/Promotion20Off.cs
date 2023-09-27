@@ -7,8 +7,10 @@ namespace BusinessLogic.Promotions
 {
     public class Promotion20Off : IPromotionable
     {
+
         private const float _twentyPercent = 0.2f;
         private const int _minCartSize = 2;
+        public string Name { get; } = "PercentageOff";
 
         public bool IsApplicable(List<Product> cart)
         {

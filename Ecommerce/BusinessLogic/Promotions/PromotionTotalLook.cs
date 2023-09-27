@@ -8,6 +8,7 @@ namespace BusinessLogic.Promotions
     {
         private const int MinimumSameColorProducts = 3;
         private const float DiscountPercentage = 0.5f;
+        public string Name { get; } = "TotalLook";
 
         public bool IsApplicable(List<Product> cart)
         {
