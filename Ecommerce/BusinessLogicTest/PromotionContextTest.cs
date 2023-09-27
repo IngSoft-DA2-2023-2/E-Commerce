@@ -38,5 +38,20 @@ namespace BusinessLogicTest
             };
             Assert.IsTrue(promotion.IsEligibleForPromotions(cart));
         }
+        [TestMethod]
+        public void GivenNonPromotionableCartReturnsFalse()
+        {
+            PromotionContext promotion = new PromotionContext();
+            List<Product> cart = new List<Product>()
+            {
+                new Product()
+                {
+                    Name = "product1",
+                    Description ="product1",
+                    Category = "Category",
+                },     
+            };
+            Assert.IsFalse(promotion.IsEligibleForPromotions(cart));
+        }
     }
 }
