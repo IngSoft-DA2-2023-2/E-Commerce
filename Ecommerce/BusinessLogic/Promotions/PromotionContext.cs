@@ -31,6 +31,7 @@ namespace BusinessLogic.Promotions
         }
         public string GetBestPromotion(List<Product> cart)
         {
+            if (!IsEligibleForPromotions(cart)) throw new LogicException("Not Eligible for promotions");
             string best = "";
             int maxDiscount = 0;
             foreach (IPromotionable promotion in _promotions)

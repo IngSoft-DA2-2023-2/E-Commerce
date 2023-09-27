@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Promotions;
 using Domain;
+using LogicInterface.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +83,22 @@ namespace BusinessLogicTest
                 }
             };
             Assert.AreEqual("Fidelity",promotion.GetBestPromotion(cart));
+        }
+        [TestMethod]
+        [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
+        public void GivenNonPromotionableCartThrowsException()
+        {
+            PromotionContext promotion = new PromotionContext();
+            List<Product> cart = new List<Product>()
+            {
+                new Product()
+                {
+                    Name = "product1",
+                    Description ="product1",
+                    Category = "Category",
+                },
+            };
+            promotion.GetBestPromotion(cart);
         }
     }
 }
