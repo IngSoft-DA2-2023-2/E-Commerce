@@ -14,6 +14,10 @@ namespace DataAccess.Repository
         public bool CheckForBrand(string brandName)
         {
             var product = _context.Brands.FirstOrDefault(b => b.Name.Equals(brandName));
+            if (product is null)
+            {
+                return false;
+            }
             return true;
         }
     }

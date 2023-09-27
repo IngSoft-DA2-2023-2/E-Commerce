@@ -27,6 +27,16 @@ namespace DataAccessTest
             var expectedReturn = brandRepository.CheckForBrand(brandName);
             Assert.IsTrue(expectedReturn);
         }
-        
+
+        [TestMethod]
+        public void GivenExistingBrandNameReturnsFalse()
+        {
+            string brandName = "brand";
+            var brandContext = new Mock<ECommerceContext>();
+            brandContext.Setup(ctx => ctx.Brands).ReturnsDbSet(new List<Brand>() { });
+            IBrandRepository brandRepository = new BrandRepository(brandContext.Object);
+            var expectedReturn = brandRepository.CheckForBrand(brandName);
+            Assert.IsFalse(expectedReturn);
+        }
     }
 }
