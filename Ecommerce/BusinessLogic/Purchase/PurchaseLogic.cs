@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using DataAccessInterface;
+using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 
@@ -6,21 +7,23 @@ namespace BusinessLogic.PurchaseLogic
 {
     public class PurchaseLogic : IPurchaseLogic
     {
-        private readonly IPurchaseLogic _purchaseLogic;
+        private readonly IPurchaseRepository _purchaseRepository;
 
-        public PurchaseLogic(IPurchaseLogic promotionLogic)
+        public PurchaseLogic(IPurchaseRepository purchaseRepository)
         {
-            _purchaseLogic = promotionLogic;
+            _purchaseRepository = purchaseRepository;
         }
 
-        public void AssignsBestPromotion(Purchase purchase)
+        private void AssignsBestPromotion(Purchase purchase)
         {
             throw new NotImplementedException();
         }
 
         public Purchase CreatePurchase(Purchase purchase)
         {
-            throw new NotImplementedException();
+            Guid guid = Guid.NewGuid();
+            purchase.Id = guid;
+            return _purchaseRepository.CreatePurchase(purchase);
         }
 
         public IEnumerable<Purchase> GetPurchase()
@@ -28,7 +31,7 @@ namespace BusinessLogic.PurchaseLogic
             throw new NotImplementedException();
         }
 
-        public bool IsEligibleForPromotions(Purchase purchase)
+        private bool IsEligibleForPromotions(Purchase purchase)
         {
             throw new NotImplementedException();
         }
