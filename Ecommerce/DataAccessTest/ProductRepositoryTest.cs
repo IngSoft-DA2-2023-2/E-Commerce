@@ -5,12 +5,14 @@ using DataAccessInterface;
 using Domain;
 using Moq;
 using Moq.EntityFrameworkCore;
+using Domain.ProductParts;
 
 namespace DataAccessTest
 {
     [TestClass]
     public class ProductRepositoryTest
     {
+
         [TestMethod]
         public void CreateProductOk()
         {
@@ -47,7 +49,12 @@ namespace DataAccessTest
             Product product = new Product() { Name = "Sample", Id = new Guid() };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
-            var expectedReturn = new Product() { Name = "Sample", Id = product.Id, Color=new List<string> { "Green"} };
+            var expectedReturn = new Product()
+            {
+                Name = "Sample",
+                Id = product.Id,
+                Color = new List<Colour> { new Colour() { Name = "Green" } }
+            };
 
 
             IProductRepository productRepository = new ProductRepository(productContext.Object);
@@ -61,7 +68,12 @@ namespace DataAccessTest
             Product product = new Product() { Name = "Sample", Id = new Guid() };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
-            var expectedReturn = new Product() { Name = "Sample", Id = new Guid(), Color = new List<string> { "Green" } };
+            var expectedReturn = new Product()
+            {
+                Name = "Sample",
+                Id = new Guid(),
+                Color = new List<Colour> { new Colour() { Name = "Green" } }
+            };
         }
 
         [TestMethod]

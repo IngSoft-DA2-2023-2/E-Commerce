@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Promotions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -12,30 +13,37 @@ namespace BusinessLogicTest.PromotionsTest
     [TestClass]
     public class PromotionContextTest
     {
+        Product product1;
+        Product product2;
+        Category category;
+        [TestInitialize]
+        public void Init()
+        {
+            category = new Category() { Name = "category" };
+            product1 = new Product()
+            {
+                Name = "product1",
+                Description = "product1",
+                Category = category,
+                Price = 10,
+            };
+            product2 = new Product()
+            {
+                Name = "product2",
+                Description = "product2",
+                Category = category,
+                Price = 4,
+            };
+        }
         [TestMethod]
         public void GivenPromotionableCartReturnsTrue()
         {
             PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
-                new Product()
-                {
-                    Name = "product1",
-                    Description ="product1",
-                    Category = "Category",
-                },
-                new Product()
-                {
-                    Name = "product2",
-                    Description ="product2",
-                    Category = "Category",
-                },
-                new Product()
-                {
-                    Name = "product3",
-                    Description ="product3",
-                    Category = "Category",
-                }
+                product1,
+                product2,
+                
             };
             Assert.IsTrue(promotion.IsEligibleForPromotions(cart));
         }
@@ -45,12 +53,7 @@ namespace BusinessLogicTest.PromotionsTest
             PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
-                new Product()
-                {
-                    Name = "product1",
-                    Description ="product1",
-                    Category = "Category",
-                },
+                product1
             };
             Assert.IsFalse(promotion.IsEligibleForPromotions(cart));
         }
@@ -60,29 +63,10 @@ namespace BusinessLogicTest.PromotionsTest
             PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
-                new Product()
-                {
-                    Name = "product1",
-                    Price = 10,
-                    Description ="product1",
-                    Category = "Category",
-                },
-                new Product()
-                {
-                    Name = "product2",
-                    Price = 5,
-                    Description ="product2",
-                    Category = "Category",
-                },
-                new Product()
-                {
-                    Name = "product3",
-                    Price = 8,
-                    Description ="product3",
-                    Category = "Category",
-                }
+                product1,
+                product2,
             };
-            Assert.AreEqual("Fidelity", promotion.GetBestPromotion(cart));
+            Assert.AreEqual("PercentageOff", promotion.GetBestPromotion(cart));
         }
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
@@ -90,14 +74,7 @@ namespace BusinessLogicTest.PromotionsTest
         {
             PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
-            {
-                new Product()
-                {
-                    Name = "product1",
-                    Description ="product1",
-                    Category = "Category",
-                },
-            };
+            { product1 };
             promotion.GetBestPromotion(cart);
         }
     }

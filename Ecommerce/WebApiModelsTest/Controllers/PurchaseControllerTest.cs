@@ -1,6 +1,7 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -24,6 +25,10 @@ namespace WebApiModelsTest.Controller
                 {
                     Name = "name",
                     Description = "description",
+                    Brand = "brand",
+                    Category = "category",
+                    Color = color,
+
                 }
             };
             List<Product> products = new List<Product>()
@@ -32,7 +37,13 @@ namespace WebApiModelsTest.Controller
                 {
                     Name = "name",
                     Description = "description",
-
+                    Brand = new Brand{ Name = "brand"},
+                    Category = new Category{ Name = "category"},
+                    Color = new List<Colour>()
+                    {
+                        new Colour(){Name = "Red"},
+                        new Colour(){Name = "Blue"}
+                    },
                 }
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()

@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using Domain.ProductParts;
 
 namespace Domain
 {
@@ -8,9 +9,9 @@ namespace Domain
         private int _price;
         private string _description;
         public Guid Id { get; set; }
-        public string Brand { get; set; }
-        public string Category { get; set; }
-        public List<string> Color { get; set; } = new List<string>();
+        public Brand Brand { get; set; }
+        public Category Category { get; set; }
+        public List<Colour> Color { get; set; } = new List<Colour>();
 
         public string Name
         {

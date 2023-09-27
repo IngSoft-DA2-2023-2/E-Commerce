@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 
@@ -12,7 +13,7 @@ namespace BusinessLogic.Promotions
 
         public bool IsApplicable(List<Product> cart)
         {
-            List<string> colorsInCart = GetDistinctColorsInCart(cart);
+            List<Colour> colorsInCart = GetDistinctColorsInCart(cart);
 
             return colorsInCart.Any(color => GetProductsOfColor(cart, color).Count >= MinimumSameColorProducts);
         }
@@ -24,10 +25,10 @@ namespace BusinessLogic.Promotions
                 throw new LogicException("Not applicable promotion");
             }
 
-            List<string> colorsInCart = GetDistinctColorsInCart(cart);
+            List<Colour> colorsInCart = GetDistinctColorsInCart(cart);
 
             int maxPrice = 0;
-            foreach (string color in colorsInCart)
+            foreach (Colour color in colorsInCart)
             {
                 List<Product> productsOfSpecificColor = GetProductsOfColor(cart, color);
 
@@ -41,9 +42,9 @@ namespace BusinessLogic.Promotions
             return (int)(maxPrice * DiscountPercentage);
         }
 
-        private static List<string> GetDistinctColorsInCart(List<Product> products)
+        private static List<Colour> GetDistinctColorsInCart(List<Product> products)
         {
-            List<string> colorList = new();
+            List<Colour> colorList = new();
 
             foreach (Product product in products)
             {
@@ -53,7 +54,7 @@ namespace BusinessLogic.Promotions
             return colorList.Distinct().ToList();
         }
 
-        private static List<Product> GetProductsOfColor(List<Product> cart, string color)
+        private static List<Product> GetProductsOfColor(List<Product> cart, Colour color)
         {
             return cart.Where(product => product.Color.Contains(color)).ToList();
         }
