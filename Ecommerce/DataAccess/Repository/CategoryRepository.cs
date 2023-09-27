@@ -14,6 +14,10 @@ namespace DataAccess.Repository
         public bool CheckForCategory(string categoryName)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
+            if(category is null)
+            {
+                return false;
+            }
             return true;
         }
     }

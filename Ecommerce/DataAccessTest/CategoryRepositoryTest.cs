@@ -22,5 +22,16 @@ namespace DataAccessTest
             Assert.IsTrue(expectedReturn);
         }
 
+        [TestMethod]
+        public void GivenNonExistingCategoryNameReturnsTrue()
+        {
+            string categoryName = "category";
+            var categoryContext = new Mock<ECommerceContext>();
+            categoryContext.Setup(ctx => ctx.Categories).ReturnsDbSet(new List<Category>() { });
+            ICategoryRepository categoryRepository = new CategoryRepository(categoryContext.Object);
+            var expectedReturn = categoryRepository.CheckForCategory(categoryName);
+            Assert.IsFalse(expectedReturn);
+        }
+
     }
 }

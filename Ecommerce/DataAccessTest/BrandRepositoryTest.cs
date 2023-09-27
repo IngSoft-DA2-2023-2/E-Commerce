@@ -29,7 +29,7 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenExistingBrandNameReturnsFalse()
+        public void GivenNonExistingBrandNameReturnsFalse()
         {
             string brandName = "brand";
             var brandContext = new Mock<ECommerceContext>();
