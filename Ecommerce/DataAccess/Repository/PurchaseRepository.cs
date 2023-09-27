@@ -26,6 +26,10 @@ namespace DataAccess.Repository
 
         public IEnumerable<Purchase> GetPurchases(Guid? id)
         {
+            if(_eCommerceContext.Purchases.ToList().Count()== 0)
+            {
+                throw new DataAccessException("List is null");
+            }
             if(id is null)
             {
                 return _eCommerceContext.Purchases.ToList();
