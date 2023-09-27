@@ -10,11 +10,11 @@ using WebApi.Models.Out;
 
 namespace WebApi.Controllers
 {
-    [Route("api/products")]
+    [Route("api/Purchases")]
     [ApiController]
     public class PurchaseController :ControllerBase
     {
-        private IPurchaseLogic _purchaseLogic;
+        private readonly IPurchaseLogic _purchaseLogic;
 
         public PurchaseController(IPurchaseLogic purchaseLogic)
         {

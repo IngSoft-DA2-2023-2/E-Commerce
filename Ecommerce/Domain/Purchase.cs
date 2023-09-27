@@ -7,6 +7,10 @@ namespace Domain
        
         private List<Product> _cart = new List<Product>();
         private DateTime _date;
+        public DateTime Date
+        {
+            get => _date;
+        }
         public Guid Id { get; set; }
 
         public Purchase()
@@ -26,10 +30,7 @@ namespace Domain
             }
         }
 
-        public DateTime Date
-        {
-            get => _date;
-        }
+
         public void DropPromotion()
         {
             CurrentPromotion = null;

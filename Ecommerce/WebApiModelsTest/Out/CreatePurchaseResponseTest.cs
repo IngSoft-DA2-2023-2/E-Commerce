@@ -13,6 +13,7 @@ namespace WebApiModelsTest.Out
     {
         public Guid Id = Guid.NewGuid();
         public Guid BuyerId = Guid.NewGuid();
+        public string promotion = "Promotion20Off";
         public CreatePurchaseResponse createPurchaseResponse;
         Purchase purchase;
         List<Product> products;
@@ -36,7 +37,9 @@ namespace WebApiModelsTest.Out
             {
                 Id = Id,
                 BuyerId = BuyerId,
-                Cart = products
+                Cart = products,
+                CurrentPromotion = promotion,
+                
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Id, createPurchaseResponse.Id);
@@ -48,7 +51,8 @@ namespace WebApiModelsTest.Out
             {
                 Id = Id,
                 BuyerId = BuyerId,
-                Cart = products
+                Cart = products,
+                CurrentPromotion = promotion,
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.BuyerId, createPurchaseResponse.BuyerId);
@@ -60,11 +64,26 @@ namespace WebApiModelsTest.Out
             {
                 Id = Id,
                 BuyerId = BuyerId,
-                Cart = products
+                Cart = products,
+                CurrentPromotion = promotion,
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Cart.First().Name, createPurchaseResponse.Cart.First().Name);
         }
+        [TestMethod]
+        public void GivenProductResponseReturnsCurrentPromotion()
+        {
+            purchase = new Purchase()
+            {
+                Id = Id,
+                BuyerId = BuyerId,
+                Cart = products,
+                CurrentPromotion = promotion,
+            };
+            createPurchaseResponse = new CreatePurchaseResponse(purchase);
+            Assert.AreEqual(purchase.CurrentPromotion, createPurchaseResponse.SelectedPromotion);
+        }
+        
 
 
 
