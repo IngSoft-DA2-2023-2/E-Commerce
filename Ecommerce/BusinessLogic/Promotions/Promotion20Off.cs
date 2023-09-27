@@ -35,6 +35,10 @@ namespace BusinessLogic.Promotions
 
             return (int)(_twentyPercent * maxPrice);
         }
+        public override string ToString()
+        {
+            return Name;
+        }
 
 
     }

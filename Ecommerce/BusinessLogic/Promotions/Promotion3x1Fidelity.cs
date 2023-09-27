@@ -38,5 +38,9 @@ namespace BusinessLogic.Promotions
 
             return currentDiscount;
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

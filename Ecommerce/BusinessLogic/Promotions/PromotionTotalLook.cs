@@ -57,5 +57,9 @@ namespace BusinessLogic.Promotions
         {
             return cart.Where(product => product.Color.Contains(color)).ToList();
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

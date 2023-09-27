@@ -33,5 +33,9 @@ namespace BusinessLogic.Promotions
 
             return discount;
         }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

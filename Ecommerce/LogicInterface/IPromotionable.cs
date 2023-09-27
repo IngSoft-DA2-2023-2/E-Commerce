@@ -7,5 +7,6 @@ namespace LogicInterface
         bool IsApplicable(List<Product> purchase);
 
         int CalculateDiscount(List<Product> purchase);
+        public string ToString();
     }
 }

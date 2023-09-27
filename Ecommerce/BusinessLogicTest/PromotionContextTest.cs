@@ -53,5 +53,35 @@ namespace BusinessLogicTest
             };
             Assert.IsFalse(promotion.IsEligibleForPromotions(cart));
         }
+        [TestMethod]
+        public void GivenPromotionableCartReturnsBestPromotion()
+        {
+            PromotionContext promotion = new PromotionContext();
+            List<Product> cart = new List<Product>()
+            {
+                new Product()
+                {
+                    Name = "product1",
+                    Price = 10,
+                    Description ="product1",
+                    Category = "Category",
+                },
+                new Product()
+                {
+                    Name = "product2",
+                    Price = 5,
+                    Description ="product2",
+                    Category = "Category",
+                },
+                new Product()
+                {
+                    Name = "product3",
+                    Price = 8,
+                    Description ="product3",
+                    Category = "Category",
+                }
+            };
+            Assert.AreEqual("Fidelity",promotion.GetBestPromotion(cart));
+        }
     }
 }
