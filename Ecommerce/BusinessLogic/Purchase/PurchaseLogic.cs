@@ -26,9 +26,9 @@ namespace BusinessLogic.PurchaseLogic
             return _purchaseRepository.CreatePurchase(purchase);
         }
 
-        public IEnumerable<Purchase> GetPurchase()
+        public IEnumerable<Purchase> GetPurchases(Guid? id)
         {
-            throw new NotImplementedException();
+            return _purchaseRepository.GetPurchases(id);
         }
 
         private bool IsEligibleForPromotions(Purchase purchase)
