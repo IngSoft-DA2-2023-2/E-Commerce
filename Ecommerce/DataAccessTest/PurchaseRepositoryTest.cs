@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repository;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using Moq;
 using Moq.EntityFrameworkCore;
@@ -24,6 +25,25 @@ namespace DataAccessTest
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
             var expectedReturn = purchaseRepository.CreatePurchase(purchase);
             Assert.AreEqual(expectedReturn, purchase);
+        }
+        [TestMethod]
+        public void CreateAlreadyExistingPurchase()
+        {
+            Purchase purchase = new Purchase() { Id = Guid.NewGuid() };
+            var purchaseContext = new Mock<ECommerceContext>();
+            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase});
+            IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
+            Exception catchedException = null;
+            try
+            {
+                purchaseRepository.CreatePurchase(purchase);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
+            Assert.IsTrue(catchedException.Message.Equals($"Purchase {purchase.Id} already exists."));
         }
     }
 }
