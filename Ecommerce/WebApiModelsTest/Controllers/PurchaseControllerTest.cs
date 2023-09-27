@@ -76,7 +76,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 }
             });
             Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
-            mock.Setup(p => p.GetPurchase()).Returns(purchases);
+            mock.Setup(p => p.GetPurchases(null)).Returns(purchases);
             PurchaseController productController = new PurchaseController(mock.Object);
             var result = productController.GetAllPurchases() as OkObjectResult;
             Assert.IsNotNull(result);

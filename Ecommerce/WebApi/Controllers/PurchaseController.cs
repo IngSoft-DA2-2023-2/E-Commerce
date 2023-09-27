@@ -38,7 +38,7 @@ namespace WebApi.Controllers
         [AuthenticationFilter]
         public IActionResult GetAllPurchases()
         {
-            return Ok(_purchaseLogic.GetPurchase());
+            return Ok(_purchaseLogic.GetPurchases(null));
         }
     }
 }

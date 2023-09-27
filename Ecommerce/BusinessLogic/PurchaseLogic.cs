@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Promotions;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
@@ -19,15 +20,21 @@ namespace BusinessLogic
 
         private void AssignsBestPromotion(Purchase purchase)
         {
-            throw new NotImplementedException();
+            purchase.CurrentPromotion = _promotionContext.GetBestPromotion(purchase.Cart);
         }
 
         public Purchase CreatePurchase(Purchase purchase)
         {
-            Guid guid = Guid.NewGuid();
-            purchase.Id = guid;
-            if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
-            return _purchaseRepository.CreatePurchase(purchase);
+            try{
+                Guid guid = Guid.NewGuid();
+                purchase.Id = guid;
+                if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
+                return _purchaseRepository.CreatePurchase(purchase);
+            }catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+            
         }
 
         public IEnumerable<Purchase> GetPurchases(Guid? id)
