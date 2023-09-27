@@ -12,6 +12,7 @@ namespace DataAccess.Context
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Colour> Colours { get; set; }
         
 
         public ECommerceContext() { }
