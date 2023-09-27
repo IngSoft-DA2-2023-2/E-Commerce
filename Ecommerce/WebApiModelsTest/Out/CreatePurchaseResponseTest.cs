@@ -1,13 +1,9 @@
 ﻿using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Models.Out;
 
-namespace WebApiModelsTest.Out
+namespace UnitTest.WebApiModelsTest.Out
 {
+
     [TestClass]
     public class CreatePurchaseResponseTest
     {
@@ -83,8 +79,20 @@ namespace WebApiModelsTest.Out
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.CurrentPromotion, createPurchaseResponse.SelectedPromotion);
         }
-        
 
+        [TestMethod]
+        public void GivenProductResponseReturnsPurchaseDateTime()
+        {
+            purchase = new Purchase()
+            {
+                Id = Id,
+                BuyerId = BuyerId,
+                Cart = products,
+                CurrentPromotion = promotion,
+            };
+            createPurchaseResponse = new CreatePurchaseResponse(purchase);
+            Assert.AreEqual(purchase.Date, createPurchaseResponse.PurchaseTime);
+        }
 
 
 

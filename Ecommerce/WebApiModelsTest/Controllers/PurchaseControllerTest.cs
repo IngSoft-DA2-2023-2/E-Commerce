@@ -1,5 +1,4 @@
-﻿using ApiModels.In;
-using Domain;
+﻿using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -7,9 +6,10 @@ using WebApi.Controllers;
 using WebApi.Models.In;
 using WebApi.Models.Out;
 
-namespace WebApiModelsTest.Controllers
-{
-    [TestClass]
+namespace UnitTest.WebApiModelsTest.Controller 
+{ 
+
+   [TestClass]
     public class PurchaseControllerTest
     {
         [TestMethod]
