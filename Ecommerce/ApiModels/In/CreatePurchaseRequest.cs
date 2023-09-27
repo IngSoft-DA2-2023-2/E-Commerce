@@ -1,7 +1,6 @@
 ﻿using Domain;
-using WebApi.Models.In;
 
-namespace WebApi.Models.In
+namespace ApiModels.In
 {
     public class CreatePurchaseRequest
     {

@@ -1,9 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using WebApi.Models.Out;
+﻿using ApiModels.Out;
 
-namespace UnitTest.WebApiModelsTest.Out
+namespace WebApiModelsTest.Out
 {
 
     [TestClass]

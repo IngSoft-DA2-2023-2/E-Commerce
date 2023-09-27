@@ -1,22 +1,20 @@
-﻿using DataAccessInterface;
+﻿using BusinessLogic.Promotions;
+using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
     public class ProductLogic : IProductLogic
     {
        private IProductRepository _productRepository;
+        private PromotionContext _promotionContext;
         public ProductLogic(IProductRepository productRepository) 
         {
-            _productRepository = productRepository;  
+            _productRepository = productRepository; 
+            _promotionContext = new PromotionContext();
         }
         public Product AddProduct(Product newProduct)
         {

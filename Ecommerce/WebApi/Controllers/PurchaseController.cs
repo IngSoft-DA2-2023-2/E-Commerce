@@ -1,13 +1,9 @@
-﻿using ApiModels;
-using ApiModels.In;
+﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using WebApi.Filters;
-using WebApi.Models.In;
-using WebApi.Models.Out;
 
 namespace WebApi.Controllers
 {
@@ -38,7 +34,7 @@ namespace WebApi.Controllers
         [AuthenticationFilter]
         public IActionResult GetAllPurchases()
         {
-            return Ok(_purchaseLogic.GetPurchase());
+            return Ok(_purchaseLogic.GetPurchases(null));
         }
     }
 }

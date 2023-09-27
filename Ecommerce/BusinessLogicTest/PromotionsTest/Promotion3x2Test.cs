@@ -5,7 +5,7 @@ using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace BusinessLogicTest
+namespace BusinessLogicTest.PromotionsTest
 {
     [TestClass]
     public class Promotion3x2Test

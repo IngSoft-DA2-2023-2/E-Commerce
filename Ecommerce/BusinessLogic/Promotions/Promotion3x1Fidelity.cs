@@ -8,6 +8,7 @@ namespace BusinessLogic.Promotions
     {
         private const int _minQuantity = 3;
         private const int _numberOfProductsToTake = 2;
+        public string Name { get; } = "Fidelity";
 
         public bool IsApplicable(List<Product> cart)
         {
@@ -36,6 +37,10 @@ namespace BusinessLogic.Promotions
             }
 
             return currentDiscount;
+        }
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

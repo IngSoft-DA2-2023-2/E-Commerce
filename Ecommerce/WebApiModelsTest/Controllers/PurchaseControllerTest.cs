@@ -1,15 +1,15 @@
-﻿using Domain;
+﻿using ApiModels.In;
+using ApiModels.Out;
+using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebApi.Controllers;
-using WebApi.Models.In;
-using WebApi.Models.Out;
 
-namespace UnitTest.WebApiModelsTest.Controller 
-{ 
+namespace WebApiModelsTest.Controller
+{
 
-   [TestClass]
+    [TestClass]
     public class PurchaseControllerTest
     {
         [TestMethod]
@@ -76,7 +76,7 @@ namespace UnitTest.WebApiModelsTest.Controller
                 }
             });
             Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
-            mock.Setup(p => p.GetPurchase()).Returns(purchases);
+            mock.Setup(p => p.GetPurchases(null)).Returns(purchases);
             PurchaseController productController = new PurchaseController(mock.Object);
             var result = productController.GetAllPurchases() as OkObjectResult;
             Assert.IsNotNull(result);

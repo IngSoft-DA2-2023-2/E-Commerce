@@ -1,7 +1,6 @@
 ﻿using ApiModels.In;
-using WebApi.Models.In;
 
-namespace UnitTest.WebApiModelsTest.In
+namespace WebApiModelsTest.In
 {
     [TestClass]
     public class CreatePurchaseRquestTest

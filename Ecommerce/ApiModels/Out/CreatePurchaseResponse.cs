@@ -1,7 +1,7 @@
 ﻿using Domain;
 
 
-namespace WebApi.Models.Out
+namespace ApiModels.Out
 {
     public class CreatePurchaseResponse
     {

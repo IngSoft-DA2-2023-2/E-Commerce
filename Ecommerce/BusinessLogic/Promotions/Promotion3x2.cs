@@ -7,6 +7,7 @@ namespace BusinessLogic.Promotions
     public class Promotion3x2 : IPromotionable
     {
         private const int _minQuantity = 3;
+        public string Name { get; } = "BuyTwoGetOneFree";
 
         public bool IsApplicable(List<Product> cart)
         {
@@ -31,6 +32,10 @@ namespace BusinessLogic.Promotions
             }
 
             return discount;
+        }
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }
