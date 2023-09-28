@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 
 namespace DataAccess.Repository
 {
@@ -14,7 +15,7 @@ namespace DataAccess.Repository
         public bool CheckForCategory(string categoryName)
         {
             var category = _context.Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
-            if(category is null)return false;
+            if(category is null)throw new DataAccessException ("Category does not exists");
             return true;
         }
     }

@@ -28,19 +28,5 @@ namespace BusinessLogicTest
             repository.VerifyAll();
             Assert.IsTrue(result);
         }
-        [TestMethod]
-        public void GivenNonExistingColourReturnsFalse()
-        {
-            Colour expected = new()
-            {
-                Name = "Colour"
-            };
-            Mock<IColourRepository> repository = new Mock<IColourRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.CheckForColour("Colour")).Returns(false);
-            var colourLogic = new ColourLogic(repository.Object);
-            var result = colourLogic.CheckForColour(expected);
-            repository.VerifyAll();
-            Assert.IsFalse(result);
-        }
     }
 }

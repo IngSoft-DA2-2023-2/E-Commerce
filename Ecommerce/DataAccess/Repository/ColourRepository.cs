@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 
 namespace DataAccess.Repository
 {
@@ -14,7 +15,7 @@ namespace DataAccess.Repository
         public bool CheckForColour(string colourName)
         {
             var colour = _context.Colours.FirstOrDefault(c => c.Name == colourName);
-            if (colour is null) return false;
+            if (colour is null) throw new DataAccessException ("Colour does not exists");
             return true;
         }
     }

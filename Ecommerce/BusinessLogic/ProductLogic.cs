@@ -23,6 +23,7 @@ namespace BusinessLogic
 
                 Guid guid = Guid.NewGuid();
                 newProduct.Id = guid;
+                
                 return _productRepository.CreateProduct(newProduct);
             }
             catch

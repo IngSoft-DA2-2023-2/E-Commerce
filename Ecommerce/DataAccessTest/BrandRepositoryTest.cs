@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repository;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using Domain.ProductParts;
 using Moq;
@@ -29,14 +30,25 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GivenNonExistingBrandNameReturnsFalse()
+        public void GivenNonExistingBrandNameThrowsException()
         {
             string brandName = "brand";
             var brandContext = new Mock<ECommerceContext>();
             brandContext.Setup(ctx => ctx.Brands).ReturnsDbSet(new List<Brand>() { });
             IBrandRepository brandRepository = new BrandRepository(brandContext.Object);
-            var expectedReturn = brandRepository.CheckForBrand(brandName);
-            Assert.IsFalse(expectedReturn);
+            Exception catchedException = null;
+            try
+            {
+                brandRepository.CheckForBrand(brandName);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
+            Assert.IsTrue(catchedException.Message.Equals("Brand does not exists"));
+           
+           
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
+using LogicInterface.Exceptions;
+using System.Drawing;
 
 namespace BusinessLogic
 {
@@ -14,7 +17,15 @@ namespace BusinessLogic
 
         public bool CheckForCategory(Category category)
         {
-            return _context.CheckForCategory(category.Name);
+            try
+            {
+                _context.CheckForCategory(category.Name);
+                return true;
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
     }
 }

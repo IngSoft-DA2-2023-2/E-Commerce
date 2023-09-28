@@ -29,20 +29,5 @@ namespace BusinessLogicTest
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
-        public void GivenNonExistingCategoryReturnsFalse()
-        {
-            Category expected = new()
-            {
-                Name = "Category"
-            };
-
-            Mock<ICategoryRepository> repository = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.CheckForCategory("Category")).Returns(false);
-            var categoryLogic = new CategoryLogic(repository.Object);
-            var result = categoryLogic.CheckForCategory(expected);
-            repository.VerifyAll();
-            Assert.IsFalse(result);
-        }
     }
 }
