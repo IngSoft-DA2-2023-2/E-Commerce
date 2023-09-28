@@ -32,7 +32,7 @@ namespace WebApiModelsTest.Controller
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetUsers(null);
+            var result = userController.GetUsers();
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -68,7 +68,7 @@ namespace WebApiModelsTest.Controller
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetUsers(null);
+            var result = userController.GetUsers();
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -94,7 +94,7 @@ namespace WebApiModelsTest.Controller
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetUsers(Guid.NewGuid());
+            var result = userController.GetUsersById(Guid.NewGuid());
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;

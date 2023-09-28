@@ -24,12 +24,19 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult GetUsers(Guid? id)
+        public IActionResult GetUsersById([FromRoute] Guid id)
         {
-            if(id == null)
+            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
+        }
+
+        [HttpGet]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult GetUsers()
+        {
+  
                 return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
 
-            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
         }
 
         [HttpPost]
