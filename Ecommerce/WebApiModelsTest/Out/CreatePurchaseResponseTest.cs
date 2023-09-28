@@ -1,5 +1,6 @@
 ﻿using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 
 namespace WebApiModelsTest.Out
 {
@@ -22,7 +23,15 @@ namespace WebApiModelsTest.Out
                 new Product()
                 {
                     Name = "Test",
+                    Brand = new Brand(){ Name = "brand"},
+                    Category = new Category(){Name = "category"},
+                    Color = new List<Colour>()
+                    {
+                        new Colour(){Name = "color"},
+                    } 
+
                 }
+
             };
         }
 
@@ -47,6 +56,7 @@ namespace WebApiModelsTest.Out
             {
                 Id = Id,
                 BuyerId = BuyerId,
+                
                 Cart = products,
                 CurrentPromotion = promotion,
             };

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.ProductParts;
 
 namespace ApiModels.In
 {
@@ -13,7 +14,17 @@ namespace ApiModels.In
         public List<string> Color { get; set; }
         public Product ToEntity(Guid id)
         {
-            return new Product {Id = id, Name = Name, Description = Description, Price = Price, Brand = Brand, Category = Category, Color = Color };
+            List<Colour> colours = new List<Colour>();
+            foreach (string color in Color) colours.Add(new Colour() { Name = color });
+            return new Product
+            {
+                Id = id,
+                Name = Name,
+                Description = Description,
+                Price = Price,
+                Brand = new Brand() { Name = Brand},
+                Category = new Category(){ Name = Category},
+                Color = colours };
         }
     }
 }

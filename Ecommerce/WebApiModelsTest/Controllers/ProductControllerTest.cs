@@ -1,6 +1,7 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -13,23 +14,65 @@ namespace WebApiModelsTest.Controller
     [TestClass]
     public class ProductControllerTest
     {
+        List<string> stringColor;
+        List<Colour> color;
+        CreateProductRequest productRequest;
+        Product product;
+        Product secondProduct;
 
         [TestInitialize]
         public void Init()
         {
+            stringColor = new List<string>() { "Red", "Blue" };
+            color = new List<Colour>()
+            {
+                new Colour()
+                {
+                    Name ="Red"
+                },
+                new Colour()
+                {
+                    Name="Blue"
+                }
+            };
 
+             productRequest = new CreateProductRequest()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = stringColor,
+                Price = 100
+            };
+             product = new Product()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = new Category() { Name = "Category1" },
+                Brand = new Brand() { Name = "Brand1" },
+                Color = color,
+                Price = 100
+            };
+            secondProduct = new Product()
+            {
+                Name = "Name2",
+                Description = "Description2",
+                Category = new Category() { Name = "Category2" },
+                Brand = new Brand() { Name = "Brand2" },
+                Color = color,
+                Price = 100
+            };
         }
 
         [TestMethod]
         public void GetAllProductsOk()
         {
-            List<Product> products = new List<Product>();
-            products.Add(new Product() { 
-                Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
-            products.Add(new Product() { 
-                Name = "Name2", Description = "Description2", Category = "Category2", Brand = "Brand2", Color = { "Red", "Blue " }, Price = 200 });
-            products.Add(new Product() { 
-                Name = "Name3", Description = "Description3", Category = "Category3", Brand = "Brand3", Color = { "Red", "Blue " }, Price = 300 });
+            List<Product> products = new List<Product>
+            {
+                product,
+                secondProduct
+            };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
@@ -70,10 +113,11 @@ namespace WebApiModelsTest.Controller
         public void GetAllProductsWithNameOk()
         {
             const string exceptedName = "Name1";
-            List<Product> products = new List<Product>();
-            products.Add(new Product() { Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
-            products.Add(new Product() { Name = "Name2", Description = "Description2", Category = "Category2", Brand = "Brand2", Color = { "Red", "Blue " }, Price = 200 });
-            products.Add(new Product() { Name = "Name3", Description = "Description3", Category = "Category3", Brand = "Brand3", Color = { "Red", "Blue " }, Price = 300 });
+            List<Product> products = new List<Product>
+            {
+                product,
+                secondProduct
+            };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == exceptedName),
                 It.Is<string?>(brandName => brandName == null),
@@ -88,10 +132,12 @@ namespace WebApiModelsTest.Controller
         public void GetAllProductsWithBrandNameOk()
         {
             const string exceptedBrandName = "Brand1";
-            List<Product> products = new List<Product>();
-            products.Add(new Product() { Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
-            products.Add(new Product() { Name = "Name2", Description = "Description2", Category = "Category2", Brand = "Brand2", Color = { "Red", "Blue " }, Price = 200 });
-            products.Add(new Product() { Name = "Name3", Description = "Description3", Category = "Category3", Brand = "Brand3", Color = { "Red", "Blue " }, Price = 300 });
+            List<Product> products = new List<Product>
+            {
+                product,
+                secondProduct
+            };
+            
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
@@ -106,10 +152,11 @@ namespace WebApiModelsTest.Controller
         public void GetAllProductsWithCategoryNameOk()
         {
             const string exceptedCategoryName = "Category1";
-            List<Product> products = new List<Product>();
-            products.Add(new Product() { Name = "Name1", Description = "Description1", Category = "Category1", Brand = "Brand1", Color = { "Red", "Blue" }, Price = 100 });
-            products.Add(new Product() { Name = "Name2", Description = "Description2", Category = "Category2", Brand = "Brand2", Color = { "Red", "Blue " }, Price = 200 });
-            products.Add(new Product() { Name = "Name3", Description = "Description3", Category = "Category3", Brand = "Brand3", Color = { "Red", "Blue " }, Price = 300 });
+            List<Product> products = new List<Product>()
+            {
+                product,
+                secondProduct
+            };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
@@ -123,32 +170,15 @@ namespace WebApiModelsTest.Controller
 
         [TestMethod]
         public void CreateNewProduct()
-        {
-            List<string> color = new List<string>() { "Red", "Blue" };
-            CreateProductRequest productRequest = new CreateProductRequest()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = color,
-                Price = 100
-            };
-            Product product = new Product()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = color,
-                Price = 100
-            };
+        {  
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.AddProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
+            mock.Setup(p => p.AddProduct(It.Is<Product>(product => 
+              product.Name == productRequest.Name &&
               product.Description == productRequest.Description &&
-               product.Category == productRequest.Category &&
-                product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
-                 product.Price == productRequest.Price))).Returns(product);
+              product.Category.Name == productRequest.Category &&
+              product.Brand.Name == productRequest.Brand && 
+              product.Color.First().Name == productRequest.Color.First() &&
+              product.Price == productRequest.Price))).Returns(product);
             ProductController productController = new ProductController(mock.Object);
             var result = productController.CreateProduct(productRequest) as OkObjectResult;          
             Assert.IsNotNull(result);
@@ -157,38 +187,22 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(productRequest.Description, response.Description);
             Assert.AreEqual(productRequest.Category, response.Category);
             Assert.AreEqual(productRequest.Brand, response.Brand);
-            Assert.AreEqual(productRequest.Color, response.Colors);
+            Assert.AreEqual(productRequest.Color.First(), response.Colors.First());
             Assert.AreEqual(productRequest.Price, response.Price);
         }
 
         [TestMethod]
         public void CreateNewProductInternalServerError()
         {
-            CreateProductRequest productRequest = new CreateProductRequest()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = new List<string>() { "Red", "Blue" },
-                Price = 100
-            };
-            Product product = new Product()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = new List<string>() { "Red", "Blue" },
-                Price = 100
-            };
             Guid guid = Guid.NewGuid();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.AddProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
-                         product.Description == productRequest.Description &&
-                                       product.Category == productRequest.Category &&
-                                                      product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
-                                                                      product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
+            mock.Setup(p => p.AddProduct(It.Is<Product>(product => 
+            product.Name == productRequest.Name &&
+            product.Description == productRequest.Description &&
+            product.Category.Name == productRequest.Category &&
+            product.Brand.Name == productRequest.Brand &&
+            product.Color.First().Name == productRequest.Color.First() &&
+            product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
             Assert.ThrowsException<TestException>(() => productController.CreateProduct(productRequest));
         }
@@ -207,22 +221,14 @@ namespace WebApiModelsTest.Controller
                 Color = color,
                 Price = 100
             };
-            Product product = new Product()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = color,
-                Price = 100
-            };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
-                         product.Description == productRequest.Description &&
-                                       product.Category == productRequest.Category &&
-                                                      product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
-                                                                      product.Price == productRequest.Price))).Returns(product);
-            ProductController productController = new ProductController(mock.Object);
+            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
+            product.Name == productRequest.Name &&
+            product.Description == productRequest.Description &&
+            product.Category.Name == productRequest.Category &&
+            product.Brand.Name == productRequest.Brand &&
+            product.Color.First().Name == productRequest.Color.First() &&
+            product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(mock.Object);
             Guid id = new Guid();
             var result = productController.UpdateProduct(id,productRequest) as OkObjectResult;
             Assert.IsNotNull(result);
@@ -231,7 +237,7 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(productRequest.Description, response.Description);
             Assert.AreEqual(productRequest.Category, response.Category);
             Assert.AreEqual(productRequest.Brand, response.Brand);
-            Assert.AreEqual(productRequest.Color, response.Colors);
+            Assert.AreEqual(productRequest.Color.First(), response.Colors.First());
             Assert.AreEqual(productRequest.Price, response.Price);
         }
 
@@ -247,21 +253,14 @@ namespace WebApiModelsTest.Controller
                 Color = new List<string>() { "Red", "Blue" },
                 Price = 100
             };
-            Product product = new Product()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = new List<string>() { "Red", "Blue" },
-                Price = 100
-            };
             Guid guid = Guid.NewGuid();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product => product.Name == productRequest.Name &&
+            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
+            product.Name == productRequest.Name &&
             product.Description == productRequest.Description &&
-            product.Category == productRequest.Category &&
-            product.Brand == productRequest.Brand && product.Color == productRequest.Color &&
+            product.Category.Name == productRequest.Category &&
+            product.Brand.Name == productRequest.Brand &&
+            product.Color.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
             
@@ -272,15 +271,6 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void GetProductByIdOk()
         {
-            Product product = new Product()
-            {
-                Name = "Name1",
-                Description = "Description1",
-                Category = "Category1",
-                Brand = "Brand1",
-                Color = new List<string>() { "Red", "Blue" },
-                Price = 100
-            };
             Guid guid = Guid.NewGuid();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProductById(It.Is<Guid>(id => id == guid))).Returns(product);

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.ProductParts;
 
 namespace ApiModels.Out
 {
@@ -17,13 +18,18 @@ namespace ApiModels.Out
         }
         public UpdateProductResponse(Product product)
         {
+            List<string> colors = new List<string>();
+            foreach( Colour color in product.Color)
+            {
+                colors.Add(color.Name);
+            }
             Id = product.Id;
             Name = product.Name;
             Price = product.Price;
             Description = product.Description;
-            Brand = product.Brand;
-            Category = product.Category;
-            Colors = product.Color;
+            Brand = product.Brand.Name;
+            Category = product.Category.Name;
+            Colors = colors;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessInterface;
+using Domain.ProductParts;
 
 namespace BusinessLogicTest
 {
@@ -20,14 +21,26 @@ namespace BusinessLogicTest
         {
             Product expected = new()
             {
-                Name = "ProductSample"
+                Name = "ProductSample",
+                Brand = new Brand() { Name = "Brand"},
+                Category = new Category() { Name = "Category"},
+                Color = new List<Colour>() { new Colour() { Name = "Colour"} }
             };
 
-            Mock<IProductRepository> repository = new Mock<IProductRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.CreateProduct(It.IsAny<Product>())).Returns(expected);
-            var productLogic = new ProductLogic(repository.Object);
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            Mock<IBrandRepository> brandRepo = new Mock<IBrandRepository>(MockBehavior.Strict);
+            Mock<ICategoryRepository> categoryRepo = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            Mock<IColourRepository> colourRepo = new Mock<IColourRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.CreateProduct(It.IsAny<Product>())).Returns(expected);
+            brandRepo.Setup(bLogic => bLogic.CheckForBrand("Brand")).Returns(true);
+            categoryRepo.Setup(CaLogic => CaLogic.CheckForCategory("Category")).Returns(true);
+            colourRepo.Setup(CoLogic => CoLogic.CheckForColour("Colour")).Returns(true);
+            var productLogic = new ProductLogic(productRepo.Object,brandRepo.Object,categoryRepo.Object,colourRepo.Object);
             var result = productLogic.AddProduct(expected);
-            repository.VerifyAll();
+            productRepo.VerifyAll();
+            brandRepo.VerifyAll();
+            categoryRepo.VerifyAll();
+            colourRepo.VerifyAll();
             Assert.AreEqual(result.Name,expected.Name);
         }
 
@@ -36,14 +49,26 @@ namespace BusinessLogicTest
         {
             Product expected = new()
             {
-                Name = "ProductSample"
+                Name = "ProductSample",
+                Brand = new Brand() { Name = "Brand" },
+                Category = new Category() { Name = "Category" },
+                Color = new List<Colour>() { new Colour() { Name = "Colour" } }
             };
 
-            Mock<IProductRepository> repository = new Mock<IProductRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.UpdateProduct(It.IsAny<Product>())).Returns(expected);
-            var productLogic = new ProductLogic(repository.Object);
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            Mock<IBrandRepository> brandRepo = new Mock<IBrandRepository>(MockBehavior.Strict);
+            Mock<ICategoryRepository> categoryRepo = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            Mock<IColourRepository> colourRepo = new Mock<IColourRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.UpdateProduct(It.IsAny<Product>())).Returns(expected);
+            brandRepo.Setup(bLogic => bLogic.CheckForBrand("Brand")).Returns(true);
+            categoryRepo.Setup(CaLogic => CaLogic.CheckForCategory("Category")).Returns(true);
+            colourRepo.Setup(CoLogic => CoLogic.CheckForColour("Colour")).Returns(true);
+            var productLogic = new ProductLogic(productRepo.Object, brandRepo.Object, categoryRepo.Object, colourRepo.Object);
             var result = productLogic.UpdateProduct(expected);
-            repository.VerifyAll();
+            productRepo.VerifyAll();
+            brandRepo.VerifyAll();
+            categoryRepo.VerifyAll();
+            colourRepo.VerifyAll();
             Assert.AreEqual(result.Name, expected.Name);
         }
     }

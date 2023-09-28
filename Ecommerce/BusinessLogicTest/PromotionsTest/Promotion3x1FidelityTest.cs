@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Promotions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,10 +22,10 @@ namespace BusinessLogicTest.PromotionsTest
         private const int _five = 5;
         private const int _six = 6;
 
-        private const string _brandSample1 = "brand sample";
-        private const string _brandSample2 = "brand sample 2";
-        private const string _brandSample3 = "brand sample 3";
-        private const string _brandSample4 = "brand sample 4";
+        private Brand _brandSample1 =  new Brand() { Name = "brand sample" };
+        private Brand _brandSample2 = new Brand() { Name = "brand sample 2" };
+        private Brand _brandSample3 = new Brand() { Name = "brand sample 3" };
+        private Brand _brandSample4 = new Brand() { Name = "brand sample 4" };
 
         private const int _discount2 = 2;
         private const int _discount3 = 3;
@@ -39,7 +40,9 @@ namespace BusinessLogicTest.PromotionsTest
         [TestMethod]
         public void GivenOneItemReturnsDiscountIsNotApplicable()
         {
-            List<Product> cart = new List<Product>() { new Product() { Brand = _brandSample1, Price = _one } };
+            List<Product> cart = new List<Product>() { new Product()
+            { Brand = _brandSample1,
+              Price = _one } };
 
             Assert.IsFalse(_promo.IsApplicable(cart));
         }

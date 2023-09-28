@@ -1,9 +1,8 @@
 ﻿using BusinessLogic.Promotions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -11,9 +10,9 @@ namespace BusinessLogicTest.PromotionsTest
     public class Promotion3x2Test
     {
         private IPromotionable _promo3x2;
-        private const string _categorySample1 = "category sample 1";
-        private const string _categorySample2 = "category sample 2";
-        private const string _categorySample3 = "category sample 3";
+        private Category _categorySample1 = new Category() { Name = "category sample 1" };
+        private Category _categorySample2 = new Category() { Name = "category sample 2" };
+        private Category _categorySample3 = new Category() { Name = "category sample 3" };
 
         private const int _one = 1;
         private const int _two = 2;
