@@ -12,28 +12,32 @@ namespace BusinessLogicTest
         private readonly Guid userGuid = Guid.NewGuid();
         private readonly string emailSample = "test@test.com";
         private readonly string passwordSample = "passwordSample";
+        private User userSample;
 
-        [TestMethod]
-        public void CreateNewSession()
+        [TestInitialize]
+        public void Init()
         {
-
-            User user = new User()
+             userSample = new User()
             {
                 Email = emailSample,
                 Password = passwordSample,
                 Guid = userGuid,
             };
+        }
+        [TestMethod]
+        public void CreateNewSession()
+        {
 
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = userGuid,
+                User = userSample,
             };
 
             Mock<IUserRepository> repoUser = new Mock<IUserRepository>(MockBehavior.Strict);
             Mock<ISessionRepository> repoSession = new Mock<ISessionRepository>(MockBehavior.Strict);
 
-            repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
+            repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
             repoSession.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
             repoSession.Setup(logic => logic.GetSessions(It.IsAny<Func<Session,bool>>())).Returns(new List<Session>());
 
@@ -45,7 +49,8 @@ namespace BusinessLogicTest
             repoUser.VerifyAll();
             repoSession.VerifyAll();
 
-            Assert.AreEqual(result.UserId, userGuid);
+            Assert.AreEqual(result.User, userSample);
+            Assert.AreEqual(result.User.Guid, userGuid);
             Assert.AreEqual(result.SessionToken, session.SessionToken);
         }
 
@@ -53,23 +58,16 @@ namespace BusinessLogicTest
         public void CreateSessionReturnsExistingOne()
         {
 
-            User user = new User()
-            {
-                Email = emailSample,
-                Password = passwordSample,
-                Guid = userGuid,
-            };
-
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = userGuid,
+                User = userSample,
             };
 
             Mock<IUserRepository> repoUser = new Mock<IUserRepository>(MockBehavior.Strict);
             Mock<ISessionRepository> repoSession = new Mock<ISessionRepository>(MockBehavior.Strict);
 
-            repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
+            repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
             repoSession.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session});
 
             var sessionLogic = new SessionLogic(repoUser.Object, repoSession.Object);
@@ -79,7 +77,8 @@ namespace BusinessLogicTest
             repoUser.VerifyAll();
             repoSession.VerifyAll();
 
-            Assert.AreEqual(result.UserId, userGuid);
+            Assert.AreEqual(result.User, userSample);
+            Assert.AreEqual(result.User.Guid, userGuid);
             Assert.AreEqual(result.SessionToken, session.SessionToken);
         }
 
@@ -98,7 +97,7 @@ namespace BusinessLogicTest
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = userGuid,
+                User = userSample,
             };
 
             Mock<IUserRepository> repoUser = new Mock<IUserRepository>(MockBehavior.Strict);
@@ -118,7 +117,7 @@ namespace BusinessLogicTest
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = userGuid,
+                User = userSample,
             };
 
             Mock<ISessionRepository> repo = new Mock<ISessionRepository>(MockBehavior.Strict);
@@ -132,7 +131,8 @@ namespace BusinessLogicTest
 
             repo.VerifyAll();
 
-            Assert.AreEqual(result.UserId, userGuid);
+            Assert.AreEqual(result.User, userSample);
+            Assert.AreEqual(result.User.Guid, userGuid);
         }
 
         [TestMethod]
@@ -143,7 +143,7 @@ namespace BusinessLogicTest
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = userGuid,
+                User = userSample,
             };
 
             Mock<ISessionRepository> repo = new Mock<ISessionRepository>(MockBehavior.Strict);
