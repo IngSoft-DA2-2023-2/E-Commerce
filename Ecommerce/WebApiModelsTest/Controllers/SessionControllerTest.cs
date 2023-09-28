@@ -1,17 +1,14 @@
-﻿using ApiModels.In;
+﻿using ApiModels;
+using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using LogicInterface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Controllers;
 
-namespace WebApiModelsTest.Controllers
+namespace WebApiModelsTest.Controller
 {
     [TestClass]
     public class SessionControllerTest
@@ -27,7 +24,7 @@ namespace WebApiModelsTest.Controllers
 
             Guid guid = Guid.NewGuid();
             Session session = new Session() { SessionToken = guid };
-            var expectedMappedResult = new CreateSessionResponse(session);
+            var expectedMappedResult = new SessionResponse(session);
 
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.LogIn(It.IsAny<string>(),It.IsAny<string>())).Returns(session);
@@ -38,9 +35,37 @@ namespace WebApiModelsTest.Controllers
 
             logic.VerifyAll();
             CreatedAtActionResult resultObject = result as CreatedAtActionResult;
-            CreateSessionResponse resultValue = resultObject.Value as CreateSessionResponse;
+            SessionResponse resultValue = resultObject.Value as SessionResponse;
 
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
+            Assert.AreEqual(guid, resultValue.Token);
+        }
+
+        [TestMethod]
+        public void DeleteSession()
+        {
+            Guid guid = Guid.NewGuid();
+
+            DeleteSessionRequest received = new DeleteSessionRequest()
+            {
+                Token = guid,
+            };
+
+            Session session = new Session() { SessionToken = guid };
+            var expectedMappedResult = new SessionResponse(session);
+
+            Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.LogOut(It.IsAny<Guid>())).Returns(session);
+            var sessionController = new SessionController(logic.Object);
+            var expectedObjectResult = new CreatedAtActionResult("CreateSession", "Session", new { id = 5 }, expectedMappedResult);
+
+            var result = sessionController.LogOut(received);
+
+            logic.VerifyAll();
+            OkObjectResult resultObject = result as OkObjectResult;
+            SessionResponse resultValue = resultObject.Value as SessionResponse;
+
+            Assert.AreEqual(resultObject.StatusCode, StatusCodes.Status200OK);
             Assert.AreEqual(guid, resultValue.Token);
         }
     }

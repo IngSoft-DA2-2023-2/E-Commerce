@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using WebApi.Models.In;
+﻿using ApiModels.In;
 
-namespace UnitTest.WebApiModelsTest.In
+namespace WebApiModelsTest.In
 {
 
-    [TestClass]
+
     public class ProductControllerTest
     {
         private CreateProductRequest productRequestExample;
