@@ -24,6 +24,13 @@ namespace DataAccess.Repository
             return session;
         }
 
+        public Session DeleteSession(Session session)
+        {
+           _eCommerceContext.Sessions.Remove(session);
+           _eCommerceContext.SaveChanges();
+           return session;
+        }
+
         public IEnumerable<Session> GetSessions(Func<Session, bool> pred)
         {
             return _eCommerceContext.Sessions.Where(s => pred(s)).ToList();

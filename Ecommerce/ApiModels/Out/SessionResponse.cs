@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ApiModels.Out
 {
-    public class CreateSessionResponse
+    public class SessionResponse
     {
-        public CreateSessionResponse() { }
-        public CreateSessionResponse(Session session)
+        public SessionResponse() { }
+        public SessionResponse(Session session)
         {
             Token = session.SessionToken;
         }

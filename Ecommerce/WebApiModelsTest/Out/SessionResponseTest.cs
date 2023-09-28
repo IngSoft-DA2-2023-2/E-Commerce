@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace WebApiModelsTest.Out
 {
     [TestClass]
-    public class CreateSessionResponseTest
+    public class SessionResponseTest
     {
         [TestMethod]
         public void AssignsAllValues()
         { 
             Guid guid = Guid.NewGuid();
-            CreateSessionResponse response = new CreateSessionResponse();
+            SessionResponse response = new SessionResponse();
             response.Token = guid;
 
             Assert.AreEqual(guid,response.Token);
