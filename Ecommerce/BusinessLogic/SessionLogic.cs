@@ -42,5 +42,10 @@ namespace BusinessLogic
 
             return _sessionRepository.CreateSession(newSession);
         }
+
+        public Session LogOut(Guid token)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

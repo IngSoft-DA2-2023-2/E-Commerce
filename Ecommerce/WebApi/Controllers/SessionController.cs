@@ -1,4 +1,5 @@
-﻿using ApiModels.In;
+﻿using ApiModels;
+using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using LogicInterface;
@@ -20,9 +21,19 @@ namespace WebApi.Controllers
         public IActionResult LogIn([FromBody] CreateSessionRequest received)
         {
             Session session = _sessionLogic.LogIn(received.Email, received.Password);
-            var result = new CreateSessionResponse(session);
+            var result = new SessionResponse(session);
 
             return CreatedAtAction(nameof(result), result);
         }
+
+        [HttpPost]
+        public IActionResult LogOut([FromBody] DeleteSessionRequest request)
+        {
+            Session session = _sessionLogic.LogOut(request.Token);
+            var result = new SessionResponse(session);
+
+            return Ok(result);
+        }
     }
 }
+

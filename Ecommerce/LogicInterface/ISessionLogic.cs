@@ -10,5 +10,6 @@ namespace LogicInterface
     public interface ISessionLogic
     {
         Session LogIn(string email, string password);
+        Session LogOut(Guid token);
     }
 }
