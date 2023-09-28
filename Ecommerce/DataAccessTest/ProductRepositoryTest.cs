@@ -86,6 +86,16 @@ namespace DataAccessTest
             var response = productRepository.GetProductById(product.Id);
             Assert.AreEqual(response, product);
         }
+        [TestMethod]
+        public void GetFilteredProductByName()
+        {
+            Product product = new Product() { Name = "Sample", Id = new Guid() };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetProductByName(product.Name);
+            Assert.AreEqual(response.First().Name, product.Name);
+        }
 
     }
 }

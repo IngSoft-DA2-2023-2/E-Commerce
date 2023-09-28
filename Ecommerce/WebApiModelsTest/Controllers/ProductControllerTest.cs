@@ -92,7 +92,6 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(categoryName => categoryName == null))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
             Assert.ThrowsException<TestException>(() => productController.GetAllProductsByFilters());
-
         }
 
         [TestMethod]

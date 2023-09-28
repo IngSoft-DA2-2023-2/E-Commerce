@@ -11,14 +11,12 @@ namespace BusinessLogic
     public class ProductLogic : IProductLogic
     {
        private IProductRepository _productRepository;
-       private PromotionContext _promotionContext;
        private BrandLogic _brandLogic;
        private CategoryLogic _categoryLogic;
        private ColourLogic _colourLogic;
         public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository) 
         {
             _productRepository = productRepository; 
-            _promotionContext = new PromotionContext();
             _brandLogic = new BrandLogic(brandRepository);
             _categoryLogic = new CategoryLogic(categoryRepository);
             _colourLogic = new ColourLogic(colourRepository);

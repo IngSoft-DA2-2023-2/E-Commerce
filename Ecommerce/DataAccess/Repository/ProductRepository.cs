@@ -39,6 +39,19 @@ namespace DataAccess.Repository
             }
         }
 
+        public IEnumerable<Product> GetProductByName(string name)
+        {
+            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p=> p.Name ==name).ToList();
+            if (selectedProducts is null)
+            {
+                throw new DataAccessException($"Product {name} does not exist.");
+            }
+            else
+            {
+                return selectedProducts;
+            }
+        }
+
         public Product UpdateProduct(Product newProduct)
         {
             if(_eCommerceContext.Products.First(p=> p.Id.Equals(newProduct.Id)) is null)
