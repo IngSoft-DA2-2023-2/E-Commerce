@@ -15,7 +15,7 @@ namespace BusinessLogicTest
     public class BrandLogicTest
     {
         [TestMethod]
-        public void GivenExistingColorReturnsTrue()
+        public void GivenExistingBrandReturnsTrue()
         {
             Brand expected = new()
             {
@@ -31,7 +31,7 @@ namespace BusinessLogicTest
         }
 
         [TestMethod]
-        public void GivenNonExistingColorReturnsFalse()
+        public void GivenNonExistingBrandReturnsFalse()
         {
             Brand expected = new()
             {
