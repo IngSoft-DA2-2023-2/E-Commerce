@@ -21,6 +21,8 @@ namespace WebApi.Filters
                     StatusCode = 500
                 };
             }
+            
+
         }
     }
 }

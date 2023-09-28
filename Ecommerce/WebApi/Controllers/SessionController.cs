@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(result), result);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult LogOut([FromBody] DeleteSessionRequest request)
