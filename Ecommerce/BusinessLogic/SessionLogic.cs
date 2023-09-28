@@ -27,14 +27,14 @@ namespace BusinessLogic
 
             if (user is null) throw new LogicException("Incorrect credentials");
 
-            Session? sessionForUser = _sessionRepository.GetSessions(s => s.UserId == user.Guid).FirstOrDefault();
+            Session? sessionForUser = _sessionRepository.GetSessions(s => s.User.Equals(user)).FirstOrDefault();
 
             if (sessionForUser is not null) return sessionForUser;
 
             Session newSession = new Session
             {
                 SessionToken = Guid.NewGuid(),
-                UserId = user.Guid
+                User = user,
             };
 
             return _sessionRepository.CreateSession(newSession);

@@ -10,7 +10,7 @@ namespace Domain
     public class Session
     {
         public Guid SessionToken { get; set; }
-        public Guid UserId { get; set; }
+        public User User { get; set; }
 
     }
 }
