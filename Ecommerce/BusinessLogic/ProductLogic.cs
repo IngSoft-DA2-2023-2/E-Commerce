@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 
@@ -10,20 +11,27 @@ namespace BusinessLogic
     public class ProductLogic : IProductLogic
     {
        private IProductRepository _productRepository;
-        private PromotionContext _promotionContext;
-        public ProductLogic(IProductRepository productRepository) 
+       private PromotionContext _promotionContext;
+       private BrandLogic _brandLogic;
+       private CategoryLogic _categoryLogic;
+       private ColourLogic _colourLogic;
+        public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository) 
         {
             _productRepository = productRepository; 
             _promotionContext = new PromotionContext();
+            _brandLogic = new BrandLogic(brandRepository);
+            _categoryLogic = new CategoryLogic(categoryRepository);
+            _colourLogic = new ColourLogic(colourRepository);
         }
         public Product AddProduct(Product newProduct)
         {
             try
             {
-
                 Guid guid = Guid.NewGuid();
                 newProduct.Id = guid;
-                
+                _brandLogic.CheckBrand(newProduct.Brand);
+                _categoryLogic.CheckForCategory(newProduct.Category);
+                foreach (Colour colour in newProduct.Color) _colourLogic.CheckForColour(colour);
                 return _productRepository.CreateProduct(newProduct);
             }
             catch
@@ -54,6 +62,9 @@ namespace BusinessLogic
         {
             try
             {
+                _brandLogic.CheckBrand(newProduct.Brand);
+                _categoryLogic.CheckForCategory(newProduct.Category);
+                foreach (Colour colour in newProduct.Color) _colourLogic.CheckForColour(colour);
                 return _productRepository.UpdateProduct(newProduct);
 
             }

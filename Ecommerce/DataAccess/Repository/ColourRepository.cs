@@ -15,7 +15,7 @@ namespace DataAccess.Repository
         public bool CheckForColour(string colourName)
         {
             var colour = _context.Colours.FirstOrDefault(c => c.Name == colourName);
-            if (colour is null) throw new DataAccessException ("Colour does not exists");
+            if (colour is null) throw new DataAccessException ($"Colour {colourName} does not exists");
             return true;
         }
     }

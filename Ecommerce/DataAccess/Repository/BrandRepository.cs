@@ -15,7 +15,7 @@ namespace DataAccess.Repository
         public bool CheckForBrand(string brandName)
         {
             var brand = _context.Brands.FirstOrDefault(b => b.Name.Equals(brandName));
-            if (brand is null) throw new DataAccessException("Brand does not exists");
+            if (brand is null) throw new DataAccessException($"Brand {brandName} does not exists");
             return true;
         }
     }

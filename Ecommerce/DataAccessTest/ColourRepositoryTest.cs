@@ -39,7 +39,7 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.IsTrue(catchedException.Message.Equals("Colour does not exists"));
+            Assert.IsTrue(catchedException.Message.Equals($"Colour {colourName} does not exists"));
         }
     }
 }

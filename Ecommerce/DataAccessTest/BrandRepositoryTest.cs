@@ -46,7 +46,7 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.IsTrue(catchedException.Message.Equals("Brand does not exists"));
+            Assert.IsTrue(catchedException.Message.Equals($"Brand {brandName} does not exists"));
            
            
         }
