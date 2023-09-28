@@ -23,10 +23,7 @@ namespace BusinessLogic
 
         public Session LogIn(string email, string password)
         {
-            User user = _userRepository.GetAllUsers(u =>
-                                                    u.Email == email
-                                                    && u.Password == password
-                                                    ).FirstOrDefault();
+            User user = _userRepository.GetAllUsers(u =>u.Email == email  && u.Password == password).FirstOrDefault();
 
             if (user is null) throw new LogicException("Incorrect credentials");
 
@@ -45,7 +42,13 @@ namespace BusinessLogic
 
         public Session LogOut(Guid token)
         {
-            throw new NotImplementedException();
+            Session? session = _sessionRepository.GetSessions(s=>s.SessionToken == token).FirstOrDefault();
+
+            if (session is null) throw new LogicException("Invalid token");
+
+            _sessionRepository.DeleteSession(session);
+
+            return session;
         }
     }
 }

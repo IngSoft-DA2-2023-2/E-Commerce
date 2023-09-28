@@ -3,12 +3,6 @@ using DataAccessInterface;
 using Domain;
 using LogicInterface.Exceptions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicTest
 {
@@ -115,6 +109,50 @@ namespace BusinessLogicTest
             var sessionLogic = new SessionLogic(repoUser.Object, repoSession.Object);
 
             var result = sessionLogic.LogIn(emailSample, passwordSample);
+        }
+
+        [TestMethod]
+        public void DeleteExistingSession()
+        {
+
+            Session session = new Session()
+            {
+                SessionToken = Guid.NewGuid(),
+                UserId = userGuid,
+            };
+
+            Mock<ISessionRepository> repo = new Mock<ISessionRepository>(MockBehavior.Strict);
+
+            repo.Setup(logic => logic.DeleteSession(It.IsAny<Session>())).Returns(session);
+            repo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session,bool>>())).Returns(new List<Session> { session});
+
+            var sessionLogic = new SessionLogic(null,repo.Object);
+
+            var result = sessionLogic.LogOut(userGuid);
+
+            repo.VerifyAll();
+
+            Assert.AreEqual(result.UserId, userGuid);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void DeleteNonExistingSessionThrowsException()
+        {
+
+            Session session = new Session()
+            {
+                SessionToken = Guid.NewGuid(),
+                UserId = userGuid,
+            };
+
+            Mock<ISessionRepository> repo = new Mock<ISessionRepository>(MockBehavior.Strict);
+
+            repo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session>());
+
+            var sessionLogic = new SessionLogic(null, repo.Object);
+
+            var result = sessionLogic.LogOut(userGuid);
         }
     }
 }
