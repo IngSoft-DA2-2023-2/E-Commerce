@@ -23,8 +23,8 @@ namespace BusinessLogicTest
 
             Mock<ICategoryRepository> repository = new Mock<ICategoryRepository>(MockBehavior.Strict);
             repository.Setup(logic => logic.CheckForCategory("Category")).Returns(true);
-            var brandLogic = new BusinessLogic.CategoryLogic(repository.Object);
-            var result = brandLogic.CheckForCategory(expected);
+            var categoryLogic = new CategoryLogic(repository.Object);
+            var result = categoryLogic.CheckForCategory(expected);
             repository.VerifyAll();
             Assert.IsTrue(result);
         }
@@ -39,8 +39,8 @@ namespace BusinessLogicTest
 
             Mock<ICategoryRepository> repository = new Mock<ICategoryRepository>(MockBehavior.Strict);
             repository.Setup(logic => logic.CheckForCategory("Category")).Returns(false);
-            var brandLogic = new BusinessLogic.CategoryLogic(repository.Object);
-            var result = brandLogic.CheckForCategory(expected);
+            var categoryLogic = new CategoryLogic(repository.Object);
+            var result = categoryLogic.CheckForCategory(expected);
             repository.VerifyAll();
             Assert.IsFalse(result);
         }
