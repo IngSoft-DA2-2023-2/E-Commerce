@@ -55,11 +55,12 @@ namespace DataAccessTest
         [TestMethod]
         public void DeleteUser()
         {
-
+            Guid id = Guid.NewGuid();
             User deletingUser = new User
             {
                 Name = "TestUser",
-                Email = "test@example.com"
+                Email = "test@example.com",
+                Guid = id
             };
 
             var userContext = new Mock<ECommerceContext>();
@@ -69,7 +70,8 @@ namespace DataAccessTest
                 new User 
                     {
                         Name = "TestUser",
-                        Email="test@example.com"
+                        Email="test@example.com",
+                        Guid = id
                     }
                 }
                 );
@@ -77,7 +79,7 @@ namespace DataAccessTest
             userContext.Setup(c => c.SaveChanges());
 
             IUserRepository userRepository = new UserRepository(userContext.Object);
-            var expectedReturn = userRepository.DeleteUser(deletingUser);
+            var expectedReturn = userRepository.DeleteUser(deletingUser.Guid);
             Assert.AreEqual(expectedReturn.Name, deletingUser.Name);
             Assert.AreEqual(expectedReturn.Email, deletingUser.Email);
         }
@@ -90,7 +92,8 @@ namespace DataAccessTest
             User deletingUser = new User
             {
                 Name = "TestUser",
-                Email = "test@example.com"
+                Email = "test@example.com",
+                Guid = Guid.NewGuid()
             };
 
             var userContext = new Mock<ECommerceContext>();
@@ -99,7 +102,7 @@ namespace DataAccessTest
             userContext.Setup(c => c.SaveChanges());
 
             IUserRepository userRepository = new UserRepository(userContext.Object);
-            var expectedReturn = userRepository.DeleteUser(deletingUser);
+            var expectedReturn = userRepository.DeleteUser(deletingUser.Guid);
         }
 
         [TestMethod]

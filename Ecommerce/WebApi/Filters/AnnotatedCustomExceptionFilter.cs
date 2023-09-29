@@ -14,9 +14,16 @@ namespace WebApi.Filters
                     StatusCode = 400
                 };
             }
-            else if (context.Exception is Exception)
+            else if (context.Exception is UnauthorizedAccessException)
             {
-                context.Result = new ObjectResult(new { ErrorMessage = $"Something went wrong. See: {context.Exception.Message}" })
+                context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
+                {
+                    StatusCode = 403
+                };
+            }
+            else
+            {
+                context.Result = new ObjectResult(new { ErrorMessage = "Something went wrong." })
                 {
                     StatusCode = 500
                 };

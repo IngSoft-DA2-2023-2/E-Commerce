@@ -25,14 +25,17 @@ namespace WebApiModelsTest.Controller
                     Roles=new List<string>{"buyer"},
                 },
             };
+            var token = "testToken";
+
 
             var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetUsers();
+            var result = userController.GetUsers(token);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -62,13 +65,16 @@ namespace WebApiModelsTest.Controller
                 },
             };
 
+            var token = "testToken";
+
             var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(expected);
+            logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetUsers();
+            var result = userController.GetUsers(token);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -87,14 +93,15 @@ namespace WebApiModelsTest.Controller
         public void GetNonExistingUserByIdReturnsEmptyList()
         {
             IEnumerable<User> expected = new List<User>() { };
-
+            var token = "testToken";
             var expectedMappedResult = expected.ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
             logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
             var userController = new UserController(logic.Object);
             OkObjectResult expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.GetUsersById(Guid.NewGuid());
+            var result = userController.GetUsersById(Guid.NewGuid(), token);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -125,14 +132,16 @@ namespace WebApiModelsTest.Controller
                 Address = "address sample",
                 Password = "password sample",
             };
+            var token = "testToken";
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.AddUserByAdmin(It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateUser", "User", new { id = 5 }, expectedMappedResult);
 
-            var result = userController.RegistrationByAdmin(received);
+            var result = userController.RegistrationByAdmin(received, token);
 
             logic.VerifyAll();
             CreatedAtActionResult resultObject = result as CreatedAtActionResult;
@@ -195,24 +204,25 @@ namespace WebApiModelsTest.Controller
                 Password = "password sample",
             };
 
-        User expected = new User()
-        {
-            Name = "nameSample",
-            Email = "email@sample.com",
-            Roles = new List<string> { "role sample" },
-            Address = "address sample",
-            Password = "password sample",
-            Guid = guid,
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<string> { "role sample" },
+                Address = "address sample",
+                Password = "password sample",
+                Guid = guid,
             };
+            var token = "testToken";
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>?>())).Returns(new List<User> { expected });
-            logic.Setup(logic => logic.DeleteUser(It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Returns(expected);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.DeleteUser(guid);
+            var result = userController.DeleteUser(guid, token);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -247,14 +257,16 @@ namespace WebApiModelsTest.Controller
                 Address = "address sample",
                 Password = "password sample",
             };
+            var token = "testToken";
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.UpdateUserByAdmin(It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.UpdateUserByAdmin(received,guid);
+            var result = userController.UpdateUserByAdmin(received, guid, token);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
@@ -288,15 +300,17 @@ namespace WebApiModelsTest.Controller
                 Password = "password sample",
                 Guid = guid
             };
+            var token = "testToken";
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.UpdateUserByThemself(It.IsAny<User>())).Returns(expected);
+            logic.Setup(logic => logic.UpdateUserByThemself(It.Is<User>(u => u.Guid == guid))).Returns(expected);
+            logic.Setup(logic => logic.GetUserIdFromToken(It.Is<string>(s => s == token))).Returns(guid);
 
             var userController = new UserController(logic.Object);
             var expectedObjectResult = new OkObjectResult(expectedMappedResult);
 
-            var result = userController.UpdateUserByThemself(received,guid);
+            var result = userController.UpdateUserByThemself(received, token);
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;
