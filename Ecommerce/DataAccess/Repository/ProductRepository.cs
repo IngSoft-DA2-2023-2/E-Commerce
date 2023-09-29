@@ -26,6 +26,19 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
+        public IEnumerable<Product> GetProductByBrand(string brand)
+        {
+            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Brand.Name == brand).ToList();
+            if (selectedProducts.Count() == 0)
+            {
+                throw new DataAccessException($"Product brand {brand} does not exist.");
+            }
+            else
+            {
+                return selectedProducts;
+            }
+        }
+
         public Product GetProductById(Guid id)
         {
             var product = _eCommerceContext.Products.FirstOrDefault(p => p.Id.Equals(id));

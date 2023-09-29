@@ -115,6 +115,19 @@ namespace DataAccessTest
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Product {product.Name} does not exist."));
         }
+        [TestMethod]
+        public void GetFilteredProductByBrand()
+        {
+            Product product = new Product() {
+                Name = "Sample",
+                Brand =new Brand() {Name= "brand" },
+                Id = new Guid() };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetProductByBrand("brand");
+            Assert.AreEqual(response.First().Brand.Name, "brand");
+        }
 
     }
 }
