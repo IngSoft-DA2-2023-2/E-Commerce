@@ -24,17 +24,23 @@ namespace DataAccess.Repository
 
         }
 
-        public IEnumerable<Purchase> GetPurchases(Guid? id)
+        public IEnumerable<Purchase> GetAllPurchases()
+        {
+            IEnumerable<Purchase> purchases = null;
+            purchases = _eCommerceContext.Purchases.ToList();
+            if (purchases.Count() == 0)
+            {
+                throw new DataAccessException("List is null");
+            }
+            return purchases;
+        }
+
+        public IEnumerable<Purchase> GetPurchase(Guid id)
         {
            IEnumerable<Purchase> purchases = null;
-            if(id is null)
-            {
-                purchases=  _eCommerceContext.Purchases.ToList();
-            }
-            else
-            {
-                purchases = _eCommerceContext.Purchases.Where(p => p.BuyerId == id).ToList();
-            }
+            
+            purchases = _eCommerceContext.Purchases.Where(p => p.BuyerId == id).ToList();
+            
             if (purchases.Count()== 0)
             {
                 throw new DataAccessException("List is null");
@@ -42,5 +48,6 @@ namespace DataAccess.Repository
             return purchases;
 
         }
+
     }
 }

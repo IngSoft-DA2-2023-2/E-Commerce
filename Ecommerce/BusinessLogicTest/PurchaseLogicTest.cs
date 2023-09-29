@@ -47,9 +47,9 @@ namespace BusinessLogicTest
             };
             List<Purchase> purchaseList = new List<Purchase>() { purchase };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.GetPurchases(null)).Returns(purchaseList);
+            repository.Setup(logic => logic.GetAllPurchases()).Returns(purchaseList);
             var purchaseLogic = new PurchaseLogic(repository.Object);
-            var result = purchaseLogic.GetPurchases(null);
+            var result = purchaseLogic.GetAllPurchases();
             repository.VerifyAll();
             Assert.AreEqual(result.First(), purchase);
         }

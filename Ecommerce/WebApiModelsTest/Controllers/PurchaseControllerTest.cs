@@ -143,7 +143,7 @@ namespace WebApiModelsTest.Controller
 
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.GetPurchases(buyerId)).Returns(purchases);
+            purchaseLogic.Setup(p => p.GetPurchase(buyerId)).Returns(purchases);
             PurchaseController productController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sessionLogic.Object);
             var result = productController.GetAllPurchases(guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);

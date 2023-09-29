@@ -53,7 +53,7 @@ namespace DataAccessTest
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
-            var expectedReturn = purchaseRepository.GetPurchases(buyer);
+            var expectedReturn = purchaseRepository.GetPurchase(buyer);
             Assert.AreEqual(expectedReturn.First(), purchase);
         }
         [TestMethod]
@@ -63,7 +63,7 @@ namespace DataAccessTest
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
-            var expectedReturn = purchaseRepository.GetPurchases(null);
+            var expectedReturn = purchaseRepository.GetAllPurchases();
             Assert.AreEqual(expectedReturn.First(), purchase);
         }
         [TestMethod]
@@ -75,7 +75,7 @@ namespace DataAccessTest
             Exception catchedException = null;
             try
             {
-                purchaseRepository.GetPurchases(null);
+                purchaseRepository.GetAllPurchases();
             }
             catch (Exception ex)
             {

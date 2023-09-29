@@ -42,7 +42,7 @@ namespace WebApi.Controllers
            
         }
 
-        [HttpPost]
+        [HttpGet]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult GetAllPurchases([FromHeader] string Authorization)
@@ -51,8 +51,12 @@ namespace WebApi.Controllers
             var tokenUserPurchase = _userLogic.GetUserIdFromToken(userHeader);
             if (_userLogic.IsBuyer(userHeader) && (_sessionLogic.GetTokenFromUserId(tokenUserPurchase)).ToString().Equals(userHeader))
             {
-                return Ok(_purchaseLogic.GetPurchases(tokenUserPurchase));
-            }else
+                return Ok(_purchaseLogic.GetPurchase(tokenUserPurchase));
+            }else if(_userLogic.IsAdmin(userHeader))
+            {
+                return Ok(_purchaseLogic.GetAllPurchases());
+            }
+            else
             {
                 throw new UnauthorizedAccessException();
             }

@@ -37,14 +37,19 @@ namespace BusinessLogic
             
         }
 
-        public IEnumerable<Purchase> GetPurchases(Guid? id)
+        public IEnumerable<Purchase> GetPurchase(Guid id)
         {
-            return _purchaseRepository.GetPurchases(id);
+            return _purchaseRepository.GetPurchase(id);
         }
 
         private bool IsEligibleForPromotions(Purchase purchase)
         {
            return _promotionContext.IsEligibleForPromotions(purchase.Cart);   
+        }
+
+        public IEnumerable<Purchase> GetAllPurchases()
+        {
+           return _purchaseRepository.GetAllPurchases();
         }
     }
 }
