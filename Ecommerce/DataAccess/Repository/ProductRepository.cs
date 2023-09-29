@@ -42,7 +42,7 @@ namespace DataAccess.Repository
         public IEnumerable<Product> GetProductByName(string name)
         {
             IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p=> p.Name ==name).ToList();
-            if (selectedProducts is null)
+            if (selectedProducts.Count() ==0)
             {
                 throw new DataAccessException($"Product {name} does not exist.");
             }
