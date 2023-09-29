@@ -9,7 +9,9 @@ namespace LogicInterface
 {
     public interface ISessionLogic
     {
-        Session LogIn(string email, string password);
-        Session LogOut(Guid token);
+        public Session LogIn(string email, string password);
+        public Session LogOut(Guid token);
+
+        public Guid GetTokenFromUserId(Guid userId);
     }
 }

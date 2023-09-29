@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using WebApi.Controllers;
 
 namespace WebApi.Filters
 {
-    public class AuthenticationFilter : Attribute, IActionFilter
+    public class AuthenticationFilter : ActionFilterAttribute, IActionFilter
     {
-        public void OnActionExecuted(ActionExecutedContext context)
-        {
-           
-        }
 
-        public void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             string header = context.HttpContext.Request.Headers["Authorization"];
             if (header is null)

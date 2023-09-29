@@ -10,8 +10,10 @@ namespace BusinessLogic
     public class UserLogic : IUserLogic
     {
         private readonly IUserRepository _userRepository;
-        public UserLogic(IUserRepository userRepository)
+        private readonly ISessionRepository _sessionRepository;
+        public UserLogic(IUserRepository userRepository, ISessionRepository sessionRepository)
         {
+            this._sessionRepository = sessionRepository;
             this._userRepository = userRepository;
         }
 
@@ -112,11 +114,11 @@ namespace BusinessLogic
             }
         }
 
-        public User DeleteUser(User user)
+        public User DeleteUser(Guid userId)
         {
             try
             {
-                return _userRepository.DeleteUser(user);
+                return _userRepository.DeleteUser(userId);
             }
             catch (DataAccessException e)
             {
@@ -127,6 +129,27 @@ namespace BusinessLogic
         private Func<User, bool> GetUserByGuid(Guid? guid)
         {
             return (User u) => guid == null || u.Guid == guid;
+        }
+
+        public bool IsAdmin(string token)
+        {
+            Guid tokenGuid = Guid.Parse(token);
+           return _sessionRepository.GetSessions(s => s.SessionToken == tokenGuid).FirstOrDefault().User.Roles.Contains("admin");
+        }
+
+        public Guid GetUserIdFromToken(string userHeader)
+        {
+            Guid tokenGuid = Guid.Parse(userHeader);
+            return _sessionRepository.GetSessions(s => s.SessionToken == tokenGuid).FirstOrDefault().User.Guid;
+
+        }
+
+
+
+        public bool IsBuyer(string token)
+        {
+            Guid tokenGuid = Guid.Parse(token);
+            return _sessionRepository.GetSessions(s => s.SessionToken == tokenGuid).FirstOrDefault().User.Roles.Contains("buyer");
         }
     }
 }

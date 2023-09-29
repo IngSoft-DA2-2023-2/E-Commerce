@@ -13,9 +13,11 @@ namespace WebApi.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ISessionLogic _sessionLogic;
-        public SessionController(ISessionLogic logic)
+        private readonly IUserLogic _userLogic;
+        public SessionController(ISessionLogic logic, IUserLogic userLogic)
         {
             _sessionLogic = logic;
+            _userLogic = userLogic;
         }
 
         [HttpPost]
@@ -29,15 +31,27 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(result), result);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult LogOut([FromBody] DeleteSessionRequest request)
+        public IActionResult LogOut([FromBody] DeleteSessionRequest request, [FromHeader] string Authorization)
         {
-            Session session = _sessionLogic.LogOut(request.Token);
-            var result = new SessionResponse(session);
+            var userHeader = Authorization;
+            var token = request.Token.ToString();
+            if (token.Equals(userHeader))
+            {
+                var id = _userLogic.GetUserIdFromToken(userHeader);
+                Session session = _sessionLogic.LogOut(request.Token);
+                var result = new SessionResponse(session);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+
         }
     }
 }

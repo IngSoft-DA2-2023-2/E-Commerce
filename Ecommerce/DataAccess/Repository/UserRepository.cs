@@ -24,9 +24,9 @@ namespace DataAccess.Repository
             throw new DataAccessException($"User with email {user.Email} already exists.");
         }
 
-        public User DeleteUser(User user)
+        public User DeleteUser(Guid user)
         {
-            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Email == user.Email);
+            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Guid == user);
 
             if (existingUser != null)
             {

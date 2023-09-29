@@ -3,6 +3,7 @@ using ApiModels.Out;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -12,10 +13,12 @@ namespace WebApi.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductLogic productLogic;
+        private readonly IUserLogic userLogic;
 
-        public ProductController(IProductLogic productLogic)
+        public ProductController(IProductLogic productLogic, IUserLogic userLogic)
         {
             this.productLogic = productLogic;
+            this.userLogic = userLogic;
         }
 
         [HttpGet]
@@ -36,26 +39,42 @@ namespace WebApi.Controllers
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult CreateProduct([FromBody] CreateProductRequest product)
+        public IActionResult CreateProduct([FromBody] CreateProductRequest product, [FromHeader] string Authorization)
         {
-            var newProduct = product.ToEntity();
-            Product savedProduct = productLogic.AddProduct(newProduct);
-            var response = new CreateProductResponse(savedProduct);
-            return Ok(response);
+            var userHeader = Authorization;
+            if (userLogic.IsAdmin(userHeader))
+            {
+                var newProduct = product.ToEntity();
+                Product savedProduct = productLogic.AddProduct(newProduct);
+                var response = new CreateProductResponse(savedProduct);
+                return Ok(response);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
 
         }
 
         [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product)
+        public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product, [FromHeader] string Authorization)
         {
-            var newProduct = product.ToEntity(id);
-            var savedProduct = productLogic.UpdateProduct(newProduct);
-            var response = new UpdateProductResponse(savedProduct);
-            
-            return Ok(response);
+            var userHeader = Authorization;
+            if (userLogic.IsAdmin(userHeader))
+            {
+                var newProduct = product.ToEntity(id);
+                var savedProduct = productLogic.UpdateProduct(newProduct);
+                var response = new UpdateProductResponse(savedProduct);
 
+                return Ok(response);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
 
         }
     }

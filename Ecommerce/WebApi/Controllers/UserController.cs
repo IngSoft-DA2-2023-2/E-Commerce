@@ -3,7 +3,9 @@ using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using System.Net;
 using System.Net.Sockets;
 using System.Xml.Linq;
@@ -13,10 +15,10 @@ namespace WebApi.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private readonly IUserLogic _userLogic;
-        public UserController(IUserLogic logic)
+        public UserController(IUserLogic logic): base()
         {
             _userLogic = logic;
         }
@@ -24,66 +26,127 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult GetUsers(Guid? id)
+        public IActionResult GetUsersById([FromRoute] Guid id, [FromHeader] string Authorization)
         {
-            if(id == null)
-                return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
 
-            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
+            var userHeader = Authorization;
+            if (_userLogic.IsAdmin(userHeader))
+            {
+                return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+
+        }
+
+        [HttpGet]
+        [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
+        public IActionResult GetUsers([FromHeader] string Authorization)
+        {
+            var userHeader = Authorization;
+            if (_userLogic.IsAdmin(userHeader))
+            {
+                return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+
         }
 
         [HttpPost]
         public IActionResult SelfRegistration([FromBody] CreateUserByThemselfRequest received)
         {
+            
+
             var user = received.ToEntity();
             var resultLogic = _userLogic.AddUserByThemself(user);
             var result = new UserResponse(resultLogic);
 
             return CreatedAtAction(nameof(RegistrationByAdmin), result);
+
+
+
         }
 
         [HttpPost]
         [Route("admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult RegistrationByAdmin([FromBody] CreateUserByAdminRequest received)
+        public IActionResult RegistrationByAdmin([FromBody] CreateUserByAdminRequest received, [FromHeader] string Authorization)
         {
-            var user = received.ToEntity();
-            var resultLogic = _userLogic.AddUserByAdmin(user);
-            var result = new UserResponse(resultLogic);
+            var userHeader = Authorization;
 
-            return CreatedAtAction(nameof(RegistrationByAdmin), result);
+            if (_userLogic.IsAdmin(userHeader))
+            {
+                var user = received.ToEntity();
+                var resultLogic = _userLogic.AddUserByAdmin(user);
+                var result = new UserResponse(resultLogic);
+
+                return CreatedAtAction(nameof(RegistrationByAdmin), result);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+
+            
         }
 
         [HttpDelete("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult DeleteUser(Guid id)
+        public IActionResult DeleteUser([FromRoute] Guid id, [FromHeader] string Authorization)
         {
-            var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
-            
-            var resultLogic = _userLogic.DeleteUser(user);
-            var result = new UserResponse(resultLogic);
+            var userHeader = Authorization;
+            if (_userLogic.IsAdmin(userHeader))
+            {
+                var resultLogic = _userLogic.DeleteUser(id);
+                var result = new UserResponse(resultLogic);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            
         }
 
         [HttpPut("admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,[FromQuery]Guid id)
+        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received, [FromQuery] Guid id, [FromHeader] string Authorization)
         {
-              var user = UserRequestByAdminToEntity(received);
-              user.Guid = id;
+            var userHeader = Authorization;
+            if (_userLogic.IsAdmin(userHeader))
+            {
+                var user = UserRequestByAdminToEntity(received);
+                user.Guid = id;
 
-              var resultLogic = _userLogic.UpdateUserByAdmin(user);
-              var result = new UserResponse(resultLogic);
+                var resultLogic = _userLogic.UpdateUserByAdmin(user);
+                var result = new UserResponse(resultLogic);
 
-              return Ok(result);
+                return Ok(result);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+            
         }
 
         private User UserRequestByAdminToEntity(UpdateUserRequestByAdmin received)
         {
+
             User ret = new User();
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Address is not null) ret.Address = received.Address;
@@ -95,21 +158,28 @@ namespace WebApi.Controllers
         [HttpPut]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received,[FromQuery]Guid id)
+        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received, [FromHeader] string Authorization)
         {
-            var user = UpdateUserRequestByThemselfToEntity(received,id);
+            var userHeader = Authorization;
+           
+                var id = _userLogic.GetUserIdFromToken(userHeader);
+
+                var user = UpdateUserRequestByThemselfToEntity(received, id);
 
 
-            var resultLogic = _userLogic.UpdateUserByThemself(user);
-            var result = new UserResponse(resultLogic);
+                var resultLogic = _userLogic.UpdateUserByThemself(user);
+                var result = new UserResponse(resultLogic);
 
-            return Ok(result);
+                return Ok(result);
+            
+            
         }
 
-        private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received,Guid id)
+        private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received, Guid id)
         {
+
             User ret = new User();
-            ret.Guid=id;
+            ret.Guid = id;
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Password is not null) ret.Password = received.Password;
             if (received.Address is not null) ret.Address = received.Address;

@@ -19,16 +19,36 @@ namespace WebApiModelsTest.Controller
             CreateSessionRequest received = new CreateSessionRequest()
             {
                 Email = "email@sample.com",
-                Password = "password",              
+                Password = "password",
             };
 
             Guid guid = Guid.NewGuid();
             Session session = new Session() { SessionToken = guid };
             var expectedMappedResult = new SessionResponse(session);
 
+            IEnumerable<User> expected = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"buyer"},
+                },
+            };
+            var token = "testToken";
+
+
+            var userExpectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
+
+
+
+
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.LogIn(It.IsAny<string>(),It.IsAny<string>())).Returns(session);
-            var sessionController = new SessionController(logic.Object);
+            logic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
+            var sessionController = new SessionController(logic.Object, userLogic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateSession", "Session", new { id = 5 }, expectedMappedResult);
 
             var result = sessionController.LogIn(received);
@@ -51,15 +71,31 @@ namespace WebApiModelsTest.Controller
                 Token = guid,
             };
 
-            Session session = new Session() { SessionToken = guid };
+
+            IEnumerable<User> expected = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Guid= Guid.NewGuid(),
+                    Roles =new List<string>{"buyer"},
+                },
+            };
+            Session session = new Session() { SessionToken = guid, User = expected.First() };
             var expectedMappedResult = new SessionResponse(session);
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(expected.First().Guid);
+
 
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.LogOut(It.IsAny<Guid>())).Returns(session);
-            var sessionController = new SessionController(logic.Object);
-            var expectedObjectResult = new CreatedAtActionResult("CreateSession", "Session", new { id = 5 }, expectedMappedResult);
+            var sessionController = new SessionController(logic.Object, userLogic.Object);
 
-            var result = sessionController.LogOut(received);
+            var result = sessionController.LogOut(received, guid.ToString());
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;

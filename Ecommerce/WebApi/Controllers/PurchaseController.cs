@@ -12,29 +12,50 @@ namespace WebApi.Controllers
     public class PurchaseController :ControllerBase
     {
         private readonly IPurchaseLogic _purchaseLogic;
+        private readonly IUserLogic _userLogic;
+        private readonly ISessionLogic _sessionLogic;
 
-        public PurchaseController(IPurchaseLogic purchaseLogic)
+        public PurchaseController(IPurchaseLogic purchaseLogic, IUserLogic userLogic, ISessionLogic sessionLogic)
         {
             _purchaseLogic = purchaseLogic;
+            _userLogic = userLogic;
+            _sessionLogic = sessionLogic;
         }
 
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult CreatePurchase([FromBody] CreatePurchaseRequest purchase)
+        public IActionResult CreatePurchase([FromBody] CreatePurchaseRequest purchase, [FromHeader] string Authorization)
         {
-            var newpurchase = purchase.ToEntity();
-            Purchase savedPurchase = _purchaseLogic.CreatePurchase(newpurchase);
-            var response = new CreatePurchaseResponse(savedPurchase);
-            return Ok(response);
+            var userHeader = Authorization;
+            if (_userLogic.IsBuyer(userHeader))
+            {
+                var newpurchase = purchase.ToEntity();
+                Purchase savedPurchase = _purchaseLogic.CreatePurchase(newpurchase);
+                var response = new CreatePurchaseResponse(savedPurchase);
+                return Ok(response);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+           
         }
 
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult GetAllPurchases()
+        public IActionResult GetAllPurchases([FromHeader] string Authorization)
         {
-            return Ok(_purchaseLogic.GetPurchases(null));
+            var userHeader = Authorization;
+            var tokenUserPurchase = _userLogic.GetUserIdFromToken(userHeader);
+            if (_userLogic.IsBuyer(userHeader) && (_sessionLogic.GetTokenFromUserId(tokenUserPurchase)).ToString().Equals(userHeader))
+            {
+                return Ok(_purchaseLogic.GetPurchases(tokenUserPurchase));
+            }else
+            {
+                throw new UnauthorizedAccessException();
+            }
         }
     }
 }
