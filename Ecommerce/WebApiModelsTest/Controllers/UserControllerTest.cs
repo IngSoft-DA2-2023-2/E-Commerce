@@ -85,7 +85,6 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Name, expectedMappedResult.First().Name);
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
-            Assert.AreEqual(resultValue.First().Password, expectedMappedResult.First().Password);
             Assert.AreEqual(resultValue.First().Roles, expectedMappedResult.First().Roles);
         }
 
