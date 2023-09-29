@@ -33,7 +33,7 @@ namespace DataAccess.Repository
             }
             else
             {
-                purchases = _eCommerceContext.Purchases.Where(p => p.User == id).ToList();
+                purchases = _eCommerceContext.Purchases.Where(p => p.UserId == id).ToList();
             }
             if (purchases.Count()== 0)
             {

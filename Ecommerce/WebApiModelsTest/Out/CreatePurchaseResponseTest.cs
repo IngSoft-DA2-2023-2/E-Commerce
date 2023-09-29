@@ -38,7 +38,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                User = BuyerId,
+                UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
                 
@@ -52,13 +52,13 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                User = BuyerId,
+                UserId = BuyerId,
                 
                 Cart = products,
                 CurrentPromotion = promotion,
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
-            Assert.AreEqual(purchase.User, createPurchaseResponse.BuyerId);
+            Assert.AreEqual(purchase.UserId, createPurchaseResponse.BuyerId);
         }
         [TestMethod]
         public void GivenProductResponseReturnsProductCorrectly()
@@ -66,7 +66,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                User = BuyerId,
+                UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
             };
@@ -79,7 +79,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                User = BuyerId,
+                UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
             };
@@ -93,7 +93,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                User = BuyerId,
+                UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
             };
