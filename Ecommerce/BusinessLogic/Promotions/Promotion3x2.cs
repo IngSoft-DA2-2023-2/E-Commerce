@@ -19,7 +19,7 @@ namespace BusinessLogic.Promotions
         {
             if (!IsApplicable(cart)) throw new LogicException("Not applicable promotion");
 
-            var discount = 0;
+            decimal discount = 0;
 
             foreach (var group in cart.GroupBy(product => product.Category))
             {
@@ -31,7 +31,7 @@ namespace BusinessLogic.Promotions
                 }
             }
 
-            return discount;
+            return (int)Decimal.Round(discount);
         }
         public override string ToString()
         {

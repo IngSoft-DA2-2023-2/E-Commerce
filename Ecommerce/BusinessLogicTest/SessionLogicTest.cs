@@ -57,7 +57,6 @@ namespace BusinessLogicTest
         [ExpectedException(typeof(LogicException))]
         public void CreateSessionWithInvalidCredentialsThrowsLogicalException()
         {
-
             User user = new User()
             {
                 Email = emailSample,
