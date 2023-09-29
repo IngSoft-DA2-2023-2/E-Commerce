@@ -5,6 +5,7 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System;
 using WebApi.Controllers;
 using WebApiTest.Exceptions;
 
@@ -36,7 +37,7 @@ namespace WebApiModelsTest.Controller
                 }
             };
 
-             productRequest = new CreateProductRequest()
+            productRequest = new CreateProductRequest()
             {
                 Name = "Name1",
                 Description = "Description1",
@@ -45,7 +46,7 @@ namespace WebApiModelsTest.Controller
                 Color = stringColor,
                 Price = 100
             };
-             product = new Product()
+            product = new Product()
             {
                 Name = "Name1",
                 Description = "Description1",
@@ -73,11 +74,30 @@ namespace WebApiModelsTest.Controller
                 product,
                 secondProduct
             };
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
-            ProductController productController = new ProductController(mock.Object);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters() as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
@@ -86,11 +106,29 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void GetAllProductsInternalServerError()
         {
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Throws(new TestException("This is a test exception"));
-            ProductController productController = new ProductController(mock.Object);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Assert.ThrowsException<TestException>(() => productController.GetAllProductsByFilters());
 
         }
@@ -98,12 +136,30 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void GetAllProductsEmpty()
         {
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
             List<Product> products = new List<Product>();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
-            ProductController productController = new ProductController(mock.Object);
+            ProductController productController = new ProductController(mock.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters() as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
@@ -118,11 +174,29 @@ namespace WebApiModelsTest.Controller
                 product,
                 secondProduct
             };
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == exceptedName),
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == exceptedName),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
-            ProductController productController = new ProductController(mock.Object);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters(name: exceptedName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
@@ -137,12 +211,30 @@ namespace WebApiModelsTest.Controller
                 product,
                 secondProduct
             };
-            
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
-            ProductController productController = new ProductController(mock.Object);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters(brandName: exceptedBrandName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
@@ -157,11 +249,30 @@ namespace WebApiModelsTest.Controller
                 product,
                 secondProduct
             };
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
-            ProductController productController = new ProductController(mock.Object);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters(categoryName: exceptedCategoryName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
@@ -170,17 +281,35 @@ namespace WebApiModelsTest.Controller
 
         [TestMethod]
         public void CreateNewProduct()
-        {  
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.AddProduct(It.Is<Product>(product => 
+        {
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = guid
+                },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.AddProduct(It.Is<Product>(product =>
               product.Name == productRequest.Name &&
               product.Description == productRequest.Description &&
               product.Category.Name == productRequest.Category &&
-              product.Brand.Name == productRequest.Brand && 
+              product.Brand.Name == productRequest.Brand &&
               product.Color.First().Name == productRequest.Color.First() &&
               product.Price == productRequest.Price))).Returns(product);
-            ProductController productController = new ProductController(mock.Object);
-            var result = productController.CreateProduct(productRequest) as OkObjectResult;          
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            var result = productController.CreateProduct(productRequest, token) as OkObjectResult;
             Assert.IsNotNull(result);
             var response = result.Value as CreateProductResponse;
             Assert.AreEqual(productRequest.Name, response.Name);
@@ -191,20 +320,41 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(productRequest.Price, response.Price);
         }
 
+       
+
+
         [TestMethod]
         public void CreateNewProductInternalServerError()
         {
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = Guid.NewGuid()
+                    },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
+
+
             Guid guid = Guid.NewGuid();
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.AddProduct(It.Is<Product>(product => 
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.AddProduct(It.Is<Product>(product =>
             product.Name == productRequest.Name &&
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
             product.Color.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
-            ProductController productController = new ProductController(mock.Object);
-            Assert.ThrowsException<TestException>(() => productController.CreateProduct(productRequest));
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            Assert.ThrowsException<TestException>(() => productController.CreateProduct(productRequest, token));
         }
 
 
@@ -221,16 +371,33 @@ namespace WebApiModelsTest.Controller
                 Color = color,
                 Price = 100
             };
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = Guid.NewGuid()
+                    },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
             product.Name == productRequest.Name &&
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
             product.Color.First().Name == productRequest.Color.First() &&
-            product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(mock.Object);
+            product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Guid id = new Guid();
-            var result = productController.UpdateProduct(id,productRequest) as OkObjectResult;
+            var result = productController.UpdateProduct(id, productRequest, token) as OkObjectResult;
             Assert.IsNotNull(result);
             var response = result.Value as UpdateProductResponse;
             Assert.AreEqual(productRequest.Name, response.Name);
@@ -253,28 +420,63 @@ namespace WebApiModelsTest.Controller
                 Color = new List<string>() { "Red", "Blue" },
                 Price = 100
             };
+
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = Guid.NewGuid()
+                    },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
+
             Guid guid = Guid.NewGuid();
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
             product.Name == productRequest.Name &&
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
             product.Color.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
-            ProductController productController = new ProductController(mock.Object);
-            
-            Assert.ThrowsException<TestException>(() => productController.UpdateProduct(guid, productRequest));
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+
+            Assert.ThrowsException<TestException>(() => productController.UpdateProduct(guid, productRequest, token));
 
         }
 
         [TestMethod]
         public void GetProductByIdOk()
         {
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = Guid.NewGuid()
+                    },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
+
             Guid guid = Guid.NewGuid();
-            Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProductById(It.Is<Guid>(id => id == guid))).Returns(product);
-            ProductController productController = new ProductController(mock.Object);
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.GetProductById(It.Is<Guid>(id => id == guid))).Returns(product);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetProductById(guid) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(product, result.Value);
