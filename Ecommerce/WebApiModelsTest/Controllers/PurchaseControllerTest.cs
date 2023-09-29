@@ -150,7 +150,86 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(purchases, result.Value);
         }
 
-        
+        [TestMethod]
+        public void CreateNewPurchaseUnauthorized()
+        {
+            List<string> color = new List<string>() { "Red", "Blue" };
+            Guid id = Guid.NewGuid();
+            Guid buyer = Guid.NewGuid();
+            List<CreateProductRequest> cart = new List<CreateProductRequest>()
+            {
+                new CreateProductRequest()
+                {
+                    Name = "name",
+                    Description = "description",
+                    Brand = "brand",
+                    Category = "category",
+                    Color = color,
+
+                }
+            };
+            List<Product> products = new List<Product>()
+            {
+                new Product()
+                {
+                    Name = "name",
+                    Description = "description",
+                    Brand = new Brand{ Name = "brand"},
+                    Category = new Category{ Name = "category"},
+                    Color = new List<Colour>()
+                    {
+                        new Colour(){Name = "Red"},
+                        new Colour(){Name = "Blue"}
+                    },
+                }
+            };
+            CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
+            {
+                Buyer = buyer,
+                Cart = cart
+            };
+            Purchase purchase = new Purchase()
+            {
+                Id = id,
+                BuyerId = buyer,
+                Cart = products
+            };
+
+
+
+
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"admin"},
+                    Guid = buyer
+                },
+            };
+
+            Guid guid = Guid.NewGuid();
+            Session session = new Session() { SessionToken = guid, User = listUsers.First() };
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(false);
+
+
+            Mock<ISessionLogic> sesionLogic = new Mock<ISessionLogic>(MockBehavior.Strict);
+            sesionLogic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
+
+            Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
+                  purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
+            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sesionLogic.Object);
+            Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.CreatePurchase(purchaseRequest, guid.ToString()));
+
+        }
+
     }
 }
 
