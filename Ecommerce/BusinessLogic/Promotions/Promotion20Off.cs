@@ -8,7 +8,7 @@ namespace BusinessLogic.Promotions
     public class Promotion20Off : IPromotionable
     {
 
-        private const float _twentyPercent = 0.2f;
+        private const decimal _twentyPercent = 0.2m;
         private const int _minCartSize = 2;
         public string Name { get; } = "PercentageOff";
 
@@ -24,7 +24,7 @@ namespace BusinessLogic.Promotions
                 throw new LogicException("Not applicable promotion");
             }
 
-            int maxPrice = 0;
+            decimal maxPrice = 0;
             foreach (Product item in cart)
             {
                 if (item.Price > maxPrice)
@@ -33,7 +33,7 @@ namespace BusinessLogic.Promotions
                 }
             }
 
-            return (int)(_twentyPercent * maxPrice);
+            return (int)Decimal.Round(_twentyPercent * maxPrice);
         }
         public override string ToString()
         {

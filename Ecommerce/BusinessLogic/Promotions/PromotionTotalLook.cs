@@ -8,7 +8,7 @@ namespace BusinessLogic.Promotions
     public class PromotionTotalLook : IPromotionable
     {
         private const int MinimumSameColorProducts = 3;
-        private const float DiscountPercentage = 0.5f;
+        private const decimal DiscountPercentage = 0.5m;
         public string Name { get; } = "TotalLook";
 
         public bool IsApplicable(List<Product> cart)
@@ -27,7 +27,7 @@ namespace BusinessLogic.Promotions
 
             List<Colour> colorsInCart = GetDistinctColorsInCart(cart);
 
-            int maxPrice = 0;
+            decimal maxPrice = 0;
             foreach (Colour color in colorsInCart)
             {
                 List<Product> productsOfSpecificColor = GetProductsOfColor(cart, color);

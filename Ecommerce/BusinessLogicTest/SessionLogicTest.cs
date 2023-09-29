@@ -24,10 +24,10 @@ namespace BusinessLogicTest
                 Guid = userGuid,
             };
         }
+
         [TestMethod]
         public void CreateNewSession()
         {
-
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
@@ -39,8 +39,6 @@ namespace BusinessLogicTest
 
             repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
             repoSession.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
-            repoSession.Setup(logic => logic.GetSessions(It.IsAny<Func<Session,bool>>())).Returns(new List<Session>());
-
 
             var sessionLogic = new SessionLogic(repoUser.Object,repoSession.Object);
 
@@ -54,39 +52,11 @@ namespace BusinessLogicTest
             Assert.AreEqual(result.SessionToken, session.SessionToken);
         }
 
-        [TestMethod]
-        public void CreateSessionReturnsExistingOne()
-        {
-
-            Session session = new Session()
-            {
-                SessionToken = Guid.NewGuid(),
-                User = userSample,
-            };
-
-            Mock<IUserRepository> repoUser = new Mock<IUserRepository>(MockBehavior.Strict);
-            Mock<ISessionRepository> repoSession = new Mock<ISessionRepository>(MockBehavior.Strict);
-
-            repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
-            repoSession.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session});
-
-            var sessionLogic = new SessionLogic(repoUser.Object, repoSession.Object);
-
-            var result = sessionLogic.LogIn(emailSample, passwordSample);
-
-            repoUser.VerifyAll();
-            repoSession.VerifyAll();
-
-            Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
-            Assert.AreEqual(result.SessionToken, session.SessionToken);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(LogicException))]
         public void CreateSessionWithInvalidCredentialsThrowsLogicalException()
         {
-
             User user = new User()
             {
                 Email = emailSample,
