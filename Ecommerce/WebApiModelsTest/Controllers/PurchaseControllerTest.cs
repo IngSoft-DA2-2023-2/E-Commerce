@@ -39,11 +39,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = new Brand{ Name = "brand"},
                     Category = new Category{ Name = "category"},
-                    Color = new List<Colour>()
-                    {
-                        new Colour(){Name = "Red"},
-                        new Colour(){Name = "Blue"}
-                    },
+                    Colors = new List < Colour > () { new Colour() { Name = "Red" }, new Colour() { Name = "Red" } }
                 }
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
@@ -54,11 +50,11 @@ namespace WebApiModelsTest.Controller
             Purchase purchase = new Purchase()
             {
                 Id = id,
-                BuyerId = buyer,
+                User = buyer,
                 Cart = products
             };
             Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
-            mock.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
+            mock.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.User == purchaseRequest.Buyer &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(mock.Object);
             var result = purchaseController.CreatePurchase(purchaseRequest) as OkObjectResult;
@@ -76,7 +72,7 @@ namespace WebApiModelsTest.Controller
             purchases.Add(new Purchase()
             {
                 Id = Guid.NewGuid(),
-                BuyerId = buyerId,
+                User = buyerId,
                 Cart = new List<Product>()
                 {
                     new Product()

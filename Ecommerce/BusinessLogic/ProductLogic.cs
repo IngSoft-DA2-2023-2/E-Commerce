@@ -5,6 +5,7 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using System.Linq;
 
 namespace BusinessLogic
 {
@@ -29,7 +30,7 @@ namespace BusinessLogic
                 newProduct.Id = guid;
                 _brandLogic.CheckBrand(newProduct.Brand);
                 _categoryLogic.CheckForCategory(newProduct.Category);
-                foreach (Colour colour in newProduct.Color) _colourLogic.CheckForColour(colour);
+                foreach (Colour colour in newProduct.Colors) _colourLogic.CheckForColour(colour);
                 return _productRepository.CreateProduct(newProduct);
             }
             catch
@@ -51,9 +52,10 @@ namespace BusinessLogic
             }
         }
 
-        public List<Product> GetProducts(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> GetProducts(string? name, string? brandName, string? categoryName)
         {
             throw new NotImplementedException();
+          
         }
 
         public Product UpdateProduct(Product newProduct)
@@ -62,7 +64,7 @@ namespace BusinessLogic
             {
                 _brandLogic.CheckBrand(newProduct.Brand);
                 _categoryLogic.CheckForCategory(newProduct.Category);
-                foreach (Colour colour in newProduct.Color) _colourLogic.CheckForColour(colour);
+                foreach (Colour colour in newProduct.Colors) _colourLogic.CheckForColour(colour);
                 return _productRepository.UpdateProduct(newProduct);
 
             }

@@ -17,10 +17,10 @@ namespace Domain
         {
             _date = DateTime.Now;
         }
-        public Guid BuyerId { get; set; }
+        public Guid User { get; set; }
 
         public string CurrentPromotion { get; set; }
-        public List<Product> Cart
+        public virtual List<Product> Cart
         {
             get => _cart;
             set

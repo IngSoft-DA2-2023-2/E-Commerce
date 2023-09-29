@@ -21,7 +21,7 @@ namespace BusinessLogicTest
             {
                 Email = emailSample,
                 Password = passwordSample,
-                Guid = userGuid,
+                Id = userGuid,
             };
         }
         [TestMethod]
@@ -30,7 +30,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -50,8 +50,8 @@ namespace BusinessLogicTest
             repoSession.VerifyAll();
 
             Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
-            Assert.AreEqual(result.SessionToken, session.SessionToken);
+            Assert.AreEqual(result.User.Id, userGuid);
+            Assert.AreEqual(result.Id, session.Id);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -78,8 +78,8 @@ namespace BusinessLogicTest
             repoSession.VerifyAll();
 
             Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
-            Assert.AreEqual(result.SessionToken, session.SessionToken);
+            Assert.AreEqual(result.User.Id, userGuid);
+            Assert.AreEqual(result.Id, session.Id);
         }
 
         [TestMethod]
@@ -91,12 +91,12 @@ namespace BusinessLogicTest
             {
                 Email = emailSample,
                 Password = passwordSample,
-                Guid = userGuid,
+                Id = userGuid,
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -116,7 +116,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -132,7 +132,7 @@ namespace BusinessLogicTest
             repo.VerifyAll();
 
             Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
+            Assert.AreEqual(result.User.Id, userGuid);
         }
 
         [TestMethod]
@@ -142,7 +142,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 

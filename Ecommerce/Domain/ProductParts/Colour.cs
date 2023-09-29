@@ -2,11 +2,12 @@
 {
     public class Colour
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public bool Equals(Colour other)
+        public override bool Equals(Object? other)
         {
-            return Name == other.Name;
+            return Name == ((Colour)other).Name;
         }
     }
 }

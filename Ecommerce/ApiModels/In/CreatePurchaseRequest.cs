@@ -14,7 +14,7 @@ namespace ApiModels.In
             {
                 products.Add(createProductRequest.ToEntity());
             }
-            return new Purchase() { Cart = products, BuyerId = Buyer};
+            return new Purchase() { Cart = products, User = Buyer};
         }
     }
 }

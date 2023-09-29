@@ -12,7 +12,7 @@ namespace ApiModels.Out
         public SessionResponse() { }
         public SessionResponse(Session session)
         {
-            Token = session.SessionToken;
+            Token = session.Id;
         }
 
         public Guid Token { get; set; }

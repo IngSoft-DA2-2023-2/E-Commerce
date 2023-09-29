@@ -1,12 +1,15 @@
-﻿namespace Domain.ProductParts
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.ProductParts
 {
     public class Brand
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         
-        public bool Equals(Brand other)
+        public bool Equals(object? other)
         {
-            return Name == other.Name;  
+            return Name == ((Brand)other).Name;  
         }
     }
 }

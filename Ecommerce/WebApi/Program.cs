@@ -1,3 +1,5 @@
+using ServiceFactory;
+
 namespace WebApi
 {
     public class Program
@@ -14,6 +16,8 @@ namespace WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddServices();
+            builder.Services.AddConnectionString(builder.Configuration.GetConnectionString("Ecommerce"));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

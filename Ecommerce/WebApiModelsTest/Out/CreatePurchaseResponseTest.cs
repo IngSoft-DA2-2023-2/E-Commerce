@@ -19,16 +19,13 @@ namespace WebApiModelsTest.Out
         public void Init()
         {
             products = new List<Product>()
-            { 
+            {
                 new Product()
                 {
                     Name = "Test",
                     Brand = new Brand(){ Name = "brand"},
                     Category = new Category(){Name = "category"},
-                    Color = new List<Colour>()
-                    {
-                        new Colour(){Name = "color"},
-                    } 
+                    Colors =new List < Colour > () { new Colour() { Name = "Colour" } }
 
                 }
 
@@ -41,7 +38,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                BuyerId = BuyerId,
+                User = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
                 
@@ -55,13 +52,13 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                BuyerId = BuyerId,
+                User = BuyerId,
                 
                 Cart = products,
                 CurrentPromotion = promotion,
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
-            Assert.AreEqual(purchase.BuyerId, createPurchaseResponse.BuyerId);
+            Assert.AreEqual(purchase.User, createPurchaseResponse.BuyerId);
         }
         [TestMethod]
         public void GivenProductResponseReturnsProductCorrectly()
@@ -69,7 +66,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                BuyerId = BuyerId,
+                User = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
             };
@@ -82,7 +79,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                BuyerId = BuyerId,
+                User = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
             };
@@ -96,7 +93,7 @@ namespace WebApiModelsTest.Out
             purchase = new Purchase()
             {
                 Id = Id,
-                BuyerId = BuyerId,
+                User = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
             };

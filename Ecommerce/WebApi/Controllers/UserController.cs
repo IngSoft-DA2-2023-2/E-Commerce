@@ -2,6 +2,7 @@
 using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -29,7 +30,7 @@ namespace WebApi.Controllers
             if(id == null)
                 return Ok(_userLogic.GetAllUsers(null).Select(u => new UserResponse(u)).ToList());
 
-            return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
+            return Ok(_userLogic.GetAllUsers(c => c.Id == id).Select(u => new UserResponse(u)).ToList());
         }
 
         [HttpPost]
@@ -60,7 +61,7 @@ namespace WebApi.Controllers
         [AuthenticationFilter]
         public IActionResult DeleteUser(Guid id)
         {
-            var user = _userLogic.GetAllUsers(u=>u.Guid == id).FirstOrDefault();
+            var user = _userLogic.GetAllUsers(u=>u.Id == id).FirstOrDefault();
             
             var resultLogic = _userLogic.DeleteUser(user);
             var result = new UserResponse(resultLogic);
@@ -74,7 +75,7 @@ namespace WebApi.Controllers
         public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received,[FromQuery]Guid id)
         {
               var user = UserRequestByAdminToEntity(received);
-              user.Guid = id;
+              user.Id = id;
 
               var resultLogic = _userLogic.UpdateUserByAdmin(user);
               var result = new UserResponse(resultLogic);
@@ -87,7 +88,10 @@ namespace WebApi.Controllers
             User ret = new User();
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Address is not null) ret.Address = received.Address;
-            if (received.Roles is not null) ret.Roles = received.Roles;
+            if (received.Roles is not null)
+            {
+               foreach(string receivedRol in received.Roles) ret.Roles.Add(new StringWrapper() { Info = receivedRol });
+            }
             if (received.Password is not null) ret.Password = received.Password;
             return ret;
         }
@@ -109,7 +113,7 @@ namespace WebApi.Controllers
         private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received,Guid id)
         {
             User ret = new User();
-            ret.Guid=id;
+            ret.Id=id;
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Password is not null) ret.Password = received.Password;
             if (received.Address is not null) ret.Address = received.Address;

@@ -44,11 +44,11 @@ namespace BusinessLogic.Promotions
 
         private static List<Colour> GetDistinctColorsInCart(List<Product> products)
         {
-            List<Colour> colorList = new();
+             List<Colour> colorList = new();
 
             foreach (Product product in products)
             {
-                colorList.AddRange(product.Color.Where(color => !colorList.Contains(color)));
+                colorList.AddRange(product.Colors.Where(color => !colorList.Contains(color)));
             }
 
             return colorList.Distinct().ToList();
@@ -56,7 +56,7 @@ namespace BusinessLogic.Promotions
 
         private static List<Product> GetProductsOfColor(List<Product> cart, Colour color)
         {
-            return cart.Where(product => product.Color.Contains(color)).ToList();
+            return cart.Where(product => product.Colors.Contains(color)).ToList();
         }
         public override string ToString()
         {

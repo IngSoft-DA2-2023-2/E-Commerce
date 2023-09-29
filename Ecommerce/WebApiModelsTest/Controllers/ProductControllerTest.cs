@@ -4,6 +4,7 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Moq;
 using WebApi.Controllers;
 using WebApiTest.Exceptions;
@@ -24,17 +25,7 @@ namespace WebApiModelsTest.Controller
         public void Init()
         {
             stringColor = new List<string>() { "Red", "Blue" };
-            color = new List<Colour>()
-            {
-                new Colour()
-                {
-                    Name ="Red"
-                },
-                new Colour()
-                {
-                    Name="Blue"
-                }
-            };
+            color = new List<Colour>() { new Colour() { Name = "Red"}, new Colour() { Name = "Blue" } };
 
              productRequest = new CreateProductRequest()
             {
@@ -51,7 +42,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description1",
                 Category = new Category() { Name = "Category1" },
                 Brand = new Brand() { Name = "Brand1" },
-                Color = color,
+                Colors = color,
                 Price = 100
             };
             secondProduct = new Product()
@@ -60,7 +51,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description2",
                 Category = new Category() { Name = "Category2" },
                 Brand = new Brand() { Name = "Brand2" },
-                Color = color,
+                Colors = color,
                 Price = 100
             };
         }
@@ -176,7 +167,7 @@ namespace WebApiModelsTest.Controller
               product.Description == productRequest.Description &&
               product.Category.Name == productRequest.Category &&
               product.Brand.Name == productRequest.Brand && 
-              product.Color.First().Name == productRequest.Color.First() &&
+              product.Colors.First().Name == productRequest.Color.First() &&
               product.Price == productRequest.Price))).Returns(product);
             ProductController productController = new ProductController(mock.Object);
             var result = productController.CreateProduct(productRequest) as OkObjectResult;          
@@ -200,7 +191,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
             Assert.ThrowsException<TestException>(() => productController.CreateProduct(productRequest));
@@ -226,7 +217,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(mock.Object);
             Guid id = new Guid();
             var result = productController.UpdateProduct(id,productRequest) as OkObjectResult;
@@ -259,7 +250,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
             

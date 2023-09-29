@@ -13,7 +13,7 @@ namespace ApiModels.Out
         public CreatePurchaseResponse(Purchase savedPurchase)
         {
             Id = savedPurchase.Id;
-            BuyerId = savedPurchase.BuyerId;
+            BuyerId = savedPurchase.User;
             PurchaseTime = savedPurchase.Date;
             SelectedPromotion = savedPurchase.CurrentPromotion; 
             foreach(Product p in savedPurchase.Cart)

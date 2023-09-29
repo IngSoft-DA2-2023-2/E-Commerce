@@ -20,7 +20,7 @@ namespace DataAccessTest
         {
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = new User(),
             };
             var userContext = new Mock<ECommerceContext>();
@@ -36,7 +36,7 @@ namespace DataAccessTest
         [TestMethod]
         public void GetAllSessions()
         {
-            Session sessionSample = new Session { SessionToken = Guid.NewGuid() , User = new User() };
+            Session sessionSample = new Session { Id = Guid.NewGuid() , User = new User() };
 
             var sessionContext = new Mock<ECommerceContext>();
             sessionContext.Setup(c => c.Sessions).ReturnsDbSet(new List<Session> { sessionSample });
@@ -53,7 +53,7 @@ namespace DataAccessTest
         {
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = new User()
             };
             var userContext = new Mock<ECommerceContext>();

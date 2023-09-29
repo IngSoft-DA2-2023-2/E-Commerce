@@ -49,7 +49,7 @@ namespace DataAccessTest
         public void GetAllTheBuyersPurchases()
         {
             Guid buyer = Guid.NewGuid();
-            Purchase purchase = new Purchase() { Id = Guid.NewGuid(),BuyerId = buyer };
+            Purchase purchase = new Purchase() { Id = Guid.NewGuid(),User = buyer };
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);

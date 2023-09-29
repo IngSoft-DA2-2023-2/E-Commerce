@@ -9,9 +9,9 @@ namespace Domain
         private int _price;
         private string _description;
         public Guid Id { get; set; }
-        public Brand Brand { get; set; }
-        public Category Category { get; set; }
-        public List<Colour> Color { get; set; } = new List<Colour>();
+        public virtual Brand Brand { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual List<Colour> Colors { get; set; } = new List<Colour>();
 
         public string Name
         {

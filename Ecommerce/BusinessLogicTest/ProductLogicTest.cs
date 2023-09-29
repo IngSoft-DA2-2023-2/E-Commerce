@@ -24,7 +24,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample",
                 Brand = new Brand() { Name = "Brand"},
                 Category = new Category() { Name = "Category"},
-                Color = new List<Colour>() { new Colour() { Name = "Colour"} }
+                Colors = new List<Colour>() {new Colour() {Name = "Colour" } }
             };
 
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
@@ -52,7 +52,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample",
                 Brand = new Brand() { Name = "Brand" },
                 Category = new Category() { Name = "Category" },
-                Color = new List<Colour>() { new Colour() { Name = "Colour" } }
+                Colors = new List<Colour> { new Colour {Name= "Colour" } }
             };
 
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
