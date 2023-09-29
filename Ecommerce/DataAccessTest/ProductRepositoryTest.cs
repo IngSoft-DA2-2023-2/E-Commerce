@@ -167,6 +167,30 @@ namespace DataAccessTest
             var response = productRepository.GetProductByCategory("category");
             Assert.AreEqual(response.First().Category.Name, "category");
         }
+        [TestMethod]
+        public void GetExceptionAfterFilteringProductsByCategory()
+        {
+            Product product = new Product()
+            {
+                Name = "Sample",
+                Category = new Category() { Name = "category" },
+                Id = new Guid()
+            };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            Exception catchedException = null;
+            try
+            {
+                productRepository.GetProductByCategory("category");
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
+            Assert.IsTrue(catchedException.Message.Equals("Product category category does not exist."));
+        }
 
     }
 }
