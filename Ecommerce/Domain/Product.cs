@@ -52,6 +52,10 @@ namespace Domain
             }
 
         }
+        public override bool Equals(object? obj)
+        {
+            return Id.Equals(((Product)obj).Id);
+        }
 
 
     }

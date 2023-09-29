@@ -65,7 +65,7 @@ namespace WebApiModelsTest.Controller
                 secondProduct
             };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
@@ -78,7 +78,7 @@ namespace WebApiModelsTest.Controller
         public void GetAllProductsInternalServerError()
         {
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(mock.Object);
@@ -90,7 +90,7 @@ namespace WebApiModelsTest.Controller
         {
             List<Product> products = new List<Product>();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
@@ -109,7 +109,7 @@ namespace WebApiModelsTest.Controller
                 secondProduct
             };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == exceptedName),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == exceptedName),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
@@ -129,7 +129,7 @@ namespace WebApiModelsTest.Controller
             };
             
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object);
@@ -148,7 +148,7 @@ namespace WebApiModelsTest.Controller
                 secondProduct
             };
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
             ProductController productController = new ProductController(mock.Object);

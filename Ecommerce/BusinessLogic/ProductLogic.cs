@@ -52,10 +52,29 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<Product> GetProducts(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> FilterUnionProduct(string? name, string? brandName, string? categoryName)
         {
-            throw new NotImplementedException();
-          
+            try
+            {
+                IEnumerable<Product> products = new List<Product>();
+                if (name is not null) products = _productRepository.GetProductByName(name);
+                if (brandName is not null)
+                {
+                    IEnumerable<Product> brandFilter = _productRepository.GetProductByBrand(brandName);
+                    products = products.Union(brandFilter);
+                }
+                if (brandName is not null)
+                {
+                    IEnumerable<Product> categoryFilter = _productRepository.GetProductByCategory(categoryName);
+                    products = products.Union(categoryFilter);
+                }
+                return products.Distinct();
+            }catch(DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+            
+
         }
 
         public Product UpdateProduct(Product newProduct)

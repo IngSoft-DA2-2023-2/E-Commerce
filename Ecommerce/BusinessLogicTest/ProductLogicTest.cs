@@ -1,13 +1,6 @@
 ﻿using Domain;
-using LogicInterface;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using BusinessLogic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccessInterface;
 using Domain.ProductParts;
 
@@ -70,6 +63,45 @@ namespace BusinessLogicTest
             categoryRepo.VerifyAll();
             colourRepo.VerifyAll();
             Assert.AreEqual(result.Name, expected.Name);
+        }
+
+        [TestMethod]
+        public void FilterProductUnionOk()
+        {
+            Guid id= Guid.NewGuid();
+            Product expected1 = new()
+            {
+                Id= id,
+                Name = "ProductSample1",
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colors = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+            Product expected2 = new()
+            {
+                Id = id,
+                Name = "ProductSample2",
+                Brand = new Brand() { Name = "Brand2" },
+                Category = new Category() { Name = "Category2" },
+                Colors = new List<Colour>() { new Colour() { Name = "Colour2" } }
+            };
+            Product expected3 = new()
+            {
+                Id = id,
+                Name = "ProductSample3",
+                Brand = new Brand() { Name = "Brand3" },
+                Category = new Category() { Name = "Category3" },
+                Colors = new List<Colour>() { new Colour() { Name = "Colour3" } }
+            };
+            IEnumerable<Product> list = new List<Product>() { expected1,expected2, expected3 };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.GetProductByName("ProductSample1")).Returns(new List<Product>() { expected1});
+            productRepo.Setup(pLogic => pLogic.GetProductByBrand("Brand2")).Returns(new List<Product>() { expected2 });
+            productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category3")).Returns(new List<Product>() { expected3 });
+            var productLogic = new ProductLogic(productRepo.Object,null, null, null);
+            var result = productLogic.FilterUnionProduct("ProductSample1", "Brand2", "Category3");
+            productRepo.VerifyAll();
+            Assert.IsTrue(result.All(x=> list.Contains(x)));
         }
     }
 }
