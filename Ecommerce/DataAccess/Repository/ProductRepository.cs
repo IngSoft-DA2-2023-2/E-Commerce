@@ -2,6 +2,7 @@
 using DataAccessInterface.Exceptions;
 using DataAccessInterface;
 using Domain;
+using Domain.ProductParts;
 
 namespace DataAccess.Repository
 {
@@ -29,9 +30,22 @@ namespace DataAccess.Repository
         public IEnumerable<Product> GetProductByBrand(string brand)
         {
             IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Brand.Name == brand).ToList();
-            if (selectedProducts.Count() == 0)
+            if (!selectedProducts.Any())
             {
                 throw new DataAccessException($"Product brand {brand} does not exist.");
+            }
+            else
+            {
+                return selectedProducts;
+            }
+        }
+
+        public IEnumerable<Product> GetProductByCategory(string category)
+        {
+            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Category.Name == category).ToList();
+            if (!selectedProducts.Any())
+            {
+                throw new DataAccessException($"Product category {category} does not exist.");
             }
             else
             {
@@ -55,7 +69,7 @@ namespace DataAccess.Repository
         public IEnumerable<Product> GetProductByName(string name)
         {
             IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p=> p.Name ==name).ToList();
-            if (selectedProducts.Count() ==0)
+            if (!selectedProducts.Any())
             {
                 throw new DataAccessException($"Product {name} does not exist.");
             }

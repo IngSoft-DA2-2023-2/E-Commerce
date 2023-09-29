@@ -152,6 +152,21 @@ namespace DataAccessTest
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals("Product brand brand does not exist."));
         }
+        [TestMethod]
+        public void GetFilteredProductByCategory()
+        {
+            Product product = new Product()
+            {
+                Name = "Sample",
+                Category = new Category() { Name = "category" },
+                Id = new Guid()
+            };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetProductByCategory("category");
+            Assert.AreEqual(response.First().Category.Name, "category");
+        }
 
     }
 }
