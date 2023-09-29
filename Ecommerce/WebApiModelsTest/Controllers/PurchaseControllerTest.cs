@@ -76,7 +76,6 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { SessionToken = guid, User = listUsers.First()};
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
@@ -84,13 +83,10 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
 
-            Mock<ISessionLogic> sesionLogic = new Mock<ISessionLogic>(MockBehavior.Strict);
-            sesionLogic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
-
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
             purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
-            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sesionLogic.Object);
+            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             var result = purchaseController.CreatePurchase(purchaseRequest, guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);
             var response = result.Value as CreatePurchaseResponse;
@@ -130,22 +126,18 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { SessionToken = guid, User = listUsers.First() };
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
             userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
-            Mock<ISessionLogic> sessionLogic = new Mock<ISessionLogic>(MockBehavior.Strict);
-            sessionLogic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
-            sessionLogic.Setup(logic => logic.GetTokenFromUserId(It.Is<Guid>(s=> s.Equals(buyerId)))).Returns(guid);
-
+            
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
             purchaseLogic.Setup(p => p.GetPurchase(buyerId)).Returns(purchases);
-            PurchaseController productController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sessionLogic.Object);
-            var result = productController.GetAllPurchases(guid.ToString()) as OkObjectResult;
+            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
+            var result = purchaseController.GetAllPurchases(guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(purchases, result.Value);
         }
@@ -211,7 +203,6 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { SessionToken = guid, User = listUsers.First() };
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
@@ -219,14 +210,61 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(false);
 
 
-            Mock<ISessionLogic> sesionLogic = new Mock<ISessionLogic>(MockBehavior.Strict);
-            sesionLogic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
-
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
             purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
-            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sesionLogic.Object);
+            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.CreatePurchase(purchaseRequest, guid.ToString()));
+
+        }
+
+        [TestMethod]
+        public void GetAllPurchaseUnauthorized()
+        {
+            Guid buyerId = Guid.NewGuid();
+            List<Purchase> purchases = new List<Purchase>();
+            purchases.Add(new Purchase()
+            {
+                Id = Guid.NewGuid(),
+                BuyerId = buyerId,
+                Cart = new List<Product>()
+                {
+                    new Product()
+                    {
+                        Name = "product1",
+                        Description = "description1"
+                    }
+                }
+            });
+
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"buyer"},
+                    Guid = buyerId
+                },
+            };
+
+            Guid guid = Guid.NewGuid();
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == buyerId.ToString()))).Returns(false);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == buyerId.ToString()))).Returns(false);
+
+
+            Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
+
+            purchaseLogic.Setup(p => p.GetPurchase(buyerId)).Returns(purchases);
+            purchaseLogic.Setup(p => p.GetAllPurchases()).Returns(purchases);
+
+            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
+            Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.GetAllPurchases(buyerId.ToString()));
 
         }
 

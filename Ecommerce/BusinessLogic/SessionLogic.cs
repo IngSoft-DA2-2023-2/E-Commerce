@@ -21,10 +21,6 @@ namespace BusinessLogic
             _sessionRepository = sessionRepository;
         }
 
-        public Guid GetTokenFromUserId(Guid userId)
-        {
-           return _sessionRepository.GetSessions(s => s.User.Guid == userId).FirstOrDefault().SessionToken;
-        }
 
         public Session LogIn(string email, string password)
         {

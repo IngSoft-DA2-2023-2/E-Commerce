@@ -12,6 +12,5 @@ namespace LogicInterface
         public Session LogIn(string email, string password);
         public Session LogOut(Guid token);
 
-        public Guid GetTokenFromUserId(Guid userId);
     }
 }
