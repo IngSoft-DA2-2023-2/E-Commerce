@@ -1,8 +1,8 @@
-﻿using Domain;
-using Moq;
-using BusinessLogic;
+﻿using BusinessLogic;
 using DataAccessInterface;
+using Domain;
 using Domain.ProductParts;
+using Moq;
 
 namespace BusinessLogicTest
 {
@@ -103,5 +103,30 @@ namespace BusinessLogicTest
             productRepo.VerifyAll();
             Assert.IsTrue(result.All(x=> list.Contains(x)));
         }
+
+        [TestMethod]
+        public void FilterProductIntersectionOk()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colors = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+            
+            IEnumerable<Product> list = new List<Product>() { expected };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.GetProductByName("ProductSample1")).Returns(new List<Product>() { expected });
+            productRepo.Setup(pLogic => pLogic.GetProductByBrand("Brand2")).Returns(new List<Product>() { expected });
+            productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category3")).Returns(new List<Product>() { expected });
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            var result = productLogic.FilterUnionProduct("ProductSample1", "Brand2", "Category3");
+            productRepo.VerifyAll();
+            Assert.AreEqual(expected,result.First());
+        }
+
     }
 }

@@ -92,5 +92,35 @@ namespace BusinessLogic
                 throw new LogicException(e);
             }
         }
+
+        public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName)
+        {
+            IEnumerable<Product> products = null;
+            try
+            {
+                
+                if (name is not null)
+                {
+                    products = _productRepository.GetProductByName(name);
+                    products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
+                    products = products.Intersect(_productRepository.GetProductByBrand(brandName));
+                }
+                else if(brandName is not null)
+                {
+                    products = _productRepository.GetProductByCategory(brandName);
+                    products = products.Intersect(_productRepository.GetProductByBrand(categoryName));
+                }
+                else
+                {
+                    products = _productRepository.GetProductByBrand(categoryName);
+                }
+            }
+            catch(DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+            if (products.Any()) throw new LogicException("there is no product with those conditions");
+            return products;
+        }
     }
 }
