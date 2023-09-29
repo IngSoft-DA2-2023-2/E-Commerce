@@ -143,5 +143,13 @@ namespace BusinessLogic
             return _sessionRepository.GetSessions(s => s.SessionToken == tokenGuid).FirstOrDefault().User.Guid;
 
         }
+
+
+
+        public bool IsBuyer(string token)
+        {
+            Guid tokenGuid = Guid.Parse(token);
+            return _sessionRepository.GetSessions(s => s.SessionToken == tokenGuid).FirstOrDefault().User.Roles.Contains("buyer");
+        }
     }
 }

@@ -5,6 +5,8 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Newtonsoft.Json.Linq;
+using System;
 using WebApi.Controllers;
 
 namespace WebApiModelsTest.Controller
@@ -57,11 +59,39 @@ namespace WebApiModelsTest.Controller
                 BuyerId = buyer,
                 Cart = products
             };
-            Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
-            mock.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
+
+
+           
+
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"buyer"},
+                    Guid = buyer
+                },
+            };
+
+            Guid guid = Guid.NewGuid();
+            Session session = new Session() { SessionToken = guid, User = listUsers.First()};
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+
+            Mock<ISessionLogic> sesionLogic = new Mock<ISessionLogic>(MockBehavior.Strict);
+            sesionLogic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
+
+            Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
-            PurchaseController purchaseController = new PurchaseController(mock.Object);
-            var result = purchaseController.CreatePurchase(purchaseRequest) as OkObjectResult;
+            PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sesionLogic.Object);
+            var result = purchaseController.CreatePurchase(purchaseRequest, guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);
             var response = result.Value as CreatePurchaseResponse;
             Assert.AreEqual(purchaseRequest.Buyer, response.BuyerId);
@@ -86,13 +116,41 @@ namespace WebApiModelsTest.Controller
                     }
                 }
             });
-            Mock<IPurchaseLogic> mock = new Mock<IPurchaseLogic>();
-            mock.Setup(p => p.GetPurchases(null)).Returns(purchases);
-            PurchaseController productController = new PurchaseController(mock.Object);
-            var result = productController.GetAllPurchases() as OkObjectResult;
+
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<string>{"buyer"},
+                    Guid = buyerId
+                },
+            };
+
+            Guid guid = Guid.NewGuid();
+            Session session = new Session() { SessionToken = guid, User = listUsers.First() };
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<ISessionLogic> sessionLogic = new Mock<ISessionLogic>(MockBehavior.Strict);
+            sessionLogic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
+            sessionLogic.Setup(logic => logic.GetTokenFromUserId(It.Is<Guid>(s=> s.Equals(buyerId)))).Returns(guid);
+
+
+            Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
+            purchaseLogic.Setup(p => p.GetPurchases(buyerId)).Returns(purchases);
+            PurchaseController productController = new PurchaseController(purchaseLogic.Object, userLogic.Object, sessionLogic.Object);
+            var result = productController.GetAllPurchases(guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(purchases, result.Value);
         }
+
+        
     }
 }
 

@@ -5,6 +5,8 @@ namespace LogicInterface
     public interface IUserLogic
     {
         public bool IsAdmin(string token);
+
+        public bool IsBuyer(string token);
         public IEnumerable<User> GetAllUsers(Func<User,bool>? predicate);
         public User AddUserByAdmin(User user);
         public User AddUserByThemself(User user);
