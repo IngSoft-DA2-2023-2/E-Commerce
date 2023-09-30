@@ -1,6 +1,8 @@
-﻿using DataAccess.Context;
+﻿using BusinessLogic;
+using DataAccess.Context;
 using DataAccess.Repository;
 using DataAccessInterface;
+using LogicInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 namespace ServiceFactory
@@ -16,6 +18,11 @@ namespace ServiceFactory
             serviceCollection.AddScoped<IColourRepository, ColourRepository>();
             serviceCollection.AddScoped<IProductRepository, ProductRepository>();
             serviceCollection.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
+            serviceCollection.AddScoped<IUserLogic, UserLogic>();
+            serviceCollection.AddScoped<IProductLogic,ProductLogic>();
+            serviceCollection.AddScoped<IPurchaseLogic, PurchaseLogic>();
+            serviceCollection.AddScoped<ISessionLogic, SessionLogic>();
         }
         public static void AddConnectionString(this IServiceCollection serviceCollection, string connectionString)
         {
