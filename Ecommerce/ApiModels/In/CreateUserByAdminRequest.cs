@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.ProductParts;
 
 namespace ApiModels.In
 {
@@ -8,7 +9,7 @@ namespace ApiModels.In
         public string Email { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
-        public List<string> Roles { get; set; }
+        public List<StringWrapper> Roles { get; set; }
 
         public User ToEntity()
         {

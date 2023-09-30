@@ -38,9 +38,20 @@ namespace DataAccess.Repository
         public IEnumerable<Purchase> GetPurchase(Guid id)
         {
            IEnumerable<Purchase> purchases = null;
+<<<<<<< HEAD
             
             purchases = _eCommerceContext.Purchases.Where(p => p.BuyerId == id).ToList();
             
+=======
+            if(id is null)
+            {
+                purchases=  _eCommerceContext.Purchases.ToList();
+            }
+            else
+            {
+                purchases = _eCommerceContext.Purchases.Where(p => p.UserId == id).ToList();
+            }
+>>>>>>> origin
             if (purchases.Count()== 0)
             {
                 throw new DataAccessException("List is null");

@@ -4,6 +4,7 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Moq;
 using System;
 using WebApi.Controllers;
@@ -25,17 +26,7 @@ namespace WebApiModelsTest.Controller
         public void Init()
         {
             stringColor = new List<string>() { "Red", "Blue" };
-            color = new List<Colour>()
-            {
-                new Colour()
-                {
-                    Name ="Red"
-                },
-                new Colour()
-                {
-                    Name="Blue"
-                }
-            };
+            color = new List<Colour>() { new Colour() { Name = "Red"}, new Colour() { Name = "Blue" } };
 
             productRequest = new CreateProductRequest()
             {
@@ -52,7 +43,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description1",
                 Category = new Category() { Name = "Category1" },
                 Brand = new Brand() { Name = "Brand1" },
-                Color = color,
+                Colors = color,
                 Price = 100
             };
             secondProduct = new Product()
@@ -61,7 +52,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description2",
                 Category = new Category() { Name = "Category2" },
                 Brand = new Brand() { Name = "Brand2" },
-                Color = color,
+                Colors = color,
                 Price = 100
             };
         }
@@ -83,8 +74,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List<StringWrapper>(){new StringWrapper(){Info="admin"} },
+                    Id = guid
                 },
             };
 
@@ -94,7 +85,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
@@ -114,8 +105,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List < StringWrapper > (){ new StringWrapper(){Info="admin"} },
+                    Id = guid
                 },
             };
 
@@ -125,12 +116,11 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Assert.ThrowsException<TestException>(() => productController.GetAllProductsByFilters());
-
         }
 
         [TestMethod]
@@ -144,8 +134,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List<StringWrapper>{new StringWrapper() { Info = "admin" } },
+                    Id = guid
                 },
             };
 
@@ -156,7 +146,7 @@ namespace WebApiModelsTest.Controller
 
             List<Product> products = new List<Product>();
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
-            mock.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object, userLogic.Object);
@@ -182,8 +172,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List<StringWrapper>{new StringWrapper() { Info = "admin" } },
+                    Id = guid
                 },
             };
 
@@ -193,7 +183,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == exceptedName),
+            productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == exceptedName),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
@@ -220,8 +210,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List<StringWrapper>{new StringWrapper() { Info = "admin" } },
+                    Id = guid
                 },
             };
 
@@ -231,7 +221,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
@@ -258,8 +248,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List<StringWrapper>{ new StringWrapper() { Info = "admin" } },
+                    Id = guid
                 },
             };
 
@@ -269,7 +259,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.GetProducts(It.Is<string?>(name => name == null),
+            productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
@@ -290,8 +280,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = guid
+                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "admin" } },
+                    Id = guid
                 },
             };
 
@@ -306,7 +296,7 @@ namespace WebApiModelsTest.Controller
               product.Description == productRequest.Description &&
               product.Category.Name == productRequest.Category &&
               product.Brand.Name == productRequest.Brand &&
-              product.Color.First().Name == productRequest.Color.First() &&
+              product.Colors.First().Name == productRequest.Color.First() &&
               product.Price == productRequest.Price))).Returns(product);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.CreateProduct(productRequest, token) as OkObjectResult;
@@ -333,8 +323,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = Guid.NewGuid()
+                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "admin" } },
+                    Id = Guid.NewGuid()
                     },
             };
 
@@ -351,7 +341,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Assert.ThrowsException<TestException>(() => productController.CreateProduct(productRequest, token));
@@ -378,8 +368,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = Guid.NewGuid()
+                    Roles=new List<StringWrapper>{ new StringWrapper() { Info = "admin" } },
+                    Id = Guid.NewGuid()
                     },
             };
 
@@ -394,7 +384,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Guid id = new Guid();
             var result = productController.UpdateProduct(id, productRequest, token) as OkObjectResult;
@@ -428,8 +418,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = Guid.NewGuid()
+                    Roles=new List<StringWrapper>{ new StringWrapper() { Info = "admin" } },
+                    Id = Guid.NewGuid()
                     },
             };
 
@@ -445,7 +435,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
 
@@ -463,8 +453,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = Guid.NewGuid()
+                    Roles=new List<StringWrapper>{new StringWrapper() { Info = "admin" } },
+                    Id = Guid.NewGuid()
                     },
             };
 

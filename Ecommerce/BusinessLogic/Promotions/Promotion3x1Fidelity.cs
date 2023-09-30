@@ -1,6 +1,7 @@
 ﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using System.Linq.Expressions;
 
 namespace BusinessLogic.Promotions
 {
@@ -23,7 +24,7 @@ namespace BusinessLogic.Promotions
                 throw new LogicException("Not applicable promotion");
             }
 
-            int currentDiscount = 0;
+            decimal currentDiscount = 0;
 
             foreach (var group in cart.GroupBy(product => product.Brand))
             {
@@ -36,7 +37,7 @@ namespace BusinessLogic.Promotions
                 }
             }
 
-            return currentDiscount;
+            return (int)Math.Round(currentDiscount);
         }
         public override string ToString()
         {

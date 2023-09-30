@@ -2,6 +2,7 @@
 using DataAccessInterface.Exceptions;
 using DataAccessInterface;
 using Domain;
+using Domain.ProductParts;
 
 namespace DataAccess.Repository
 {
@@ -26,6 +27,32 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
+        public IEnumerable<Product> GetProductByBrand(string brand)
+        {
+            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Brand.Name == brand).ToList();
+            if (!selectedProducts.Any())
+            {
+                throw new DataAccessException($"Product brand {brand} does not exist.");
+            }
+            else
+            {
+                return selectedProducts;
+            }
+        }
+
+        public IEnumerable<Product> GetProductByCategory(string category)
+        {
+            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Category.Name == category).ToList();
+            if (!selectedProducts.Any())
+            {
+                throw new DataAccessException($"Product category {category} does not exist.");
+            }
+            else
+            {
+                return selectedProducts;
+            }
+        }
+
         public Product GetProductById(Guid id)
         {
             var product = _eCommerceContext.Products.FirstOrDefault(p => p.Id.Equals(id));
@@ -36,6 +63,19 @@ namespace DataAccess.Repository
             else
             {
                 return product;
+            }
+        }
+
+        public IEnumerable<Product> GetProductByName(string name)
+        {
+            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p=> p.Name ==name).ToList();
+            if (!selectedProducts.Any())
+            {
+                throw new DataAccessException($"Product {name} does not exist.");
+            }
+            else
+            {
+                return selectedProducts;
             }
         }
 

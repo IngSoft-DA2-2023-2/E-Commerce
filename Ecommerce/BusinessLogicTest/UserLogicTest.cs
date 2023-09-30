@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
+using Castle.Components.DictionaryAdapter;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -24,12 +26,12 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
             
@@ -62,12 +64,12 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -88,7 +90,7 @@ namespace BusinessLogicTest
             Assert.AreEqual(result.Address, expected.Address);
             Assert.AreEqual(result.Password, expected.Password);
             Assert.AreEqual(result.Roles.Count, 1);
-            Assert.AreEqual(result.Roles[0], "buyer");
+            Assert.AreEqual(result.Roles.First().Info, "buyer");
         }
 
         [TestMethod]
@@ -101,12 +103,12 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -132,11 +134,11 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -161,13 +163,13 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
  
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -192,13 +194,13 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
 
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -224,13 +226,13 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List<string> { "buyer" },
+               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },   
                },
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected.First(),
             };
 
@@ -262,12 +264,12 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List<string> { "buyer" },
+               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
                },
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected.First(),
             };
 
@@ -300,12 +302,12 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List<string> { "buyer" },
+               Roles = new List < StringWrapper > ()
                },
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected.First(),
             };
 
@@ -328,7 +330,7 @@ namespace BusinessLogicTest
                 Address = "aaa2",
                 Password= "12345",
                 Email= "a@a.com",
-                Roles = new List<string> { }
+                Roles = new List<StringWrapper>(),
             };
 
             User outdated = new User()
@@ -337,12 +339,12 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa2",
                 Password = "123456",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = modifications,
             };
 
@@ -376,7 +378,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -409,7 +411,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = modifications,
             };
 
@@ -440,7 +442,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -464,7 +466,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -488,7 +490,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -512,11 +514,11 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = toDelete,
             };
 
@@ -526,7 +528,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Returns(deleted);
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            var result = userLogic.DeleteUser(toDelete.Guid);
+            var result = userLogic.DeleteUser(toDelete.Id);
 
             userRepo.VerifyAll();
             Assert.AreEqual(result.Email, toDelete.Email);
@@ -542,13 +544,13 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
-                User = user,
+                Id = Guid.NewGuid(),
+                User = user,              
             };
 
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
@@ -557,7 +559,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Throws(new DataAccessException());
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
-           userLogic.DeleteUser(user.Guid);
+           userLogic.DeleteUser(user.Id);
         }
 
         [TestMethod]
@@ -569,12 +571,12 @@ namespace BusinessLogicTest
                 Email = "juan@gmail.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "admin" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "admin" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -586,7 +588,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            Assert.AreEqual(userLogic.IsAdmin(session.SessionToken.ToString()), true);
+            Assert.IsTrue(userLogic.IsAdmin(session.Id.ToString()));
         }
 
         [TestMethod]
@@ -598,12 +600,12 @@ namespace BusinessLogicTest
                 Email = "juan@gmail.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "user" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "user" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -615,7 +617,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            Assert.AreEqual(userLogic.IsAdmin(session.SessionToken.ToString()), false);
+            Assert.AreEqual(userLogic.IsAdmin(session.Id.ToString()), false);
         }
 
         [TestMethod]
@@ -627,12 +629,12 @@ namespace BusinessLogicTest
                 Email = "juan@gmail.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "user" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "user" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -644,7 +646,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            Assert.AreEqual(userLogic.GetUserIdFromToken(session.SessionToken.ToString()), user.Guid);
+            Assert.AreEqual(userLogic.GetUserIdFromToken(session.Id.ToString()), user.Id);
         }
 
     }

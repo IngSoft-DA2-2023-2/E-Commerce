@@ -2,10 +2,11 @@
 {
     public class Category
     {
+       public Guid Id { get; set; }
        public string Name { get; set; }
-        public bool Equals(Category other)
+        public bool Equals(object? other)
         {
-            return Name == other.Name;
+            return Name == ((Category)other).Name;
         }
     }
 }

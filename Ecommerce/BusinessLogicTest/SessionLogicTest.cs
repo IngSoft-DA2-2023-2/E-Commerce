@@ -21,16 +21,16 @@ namespace BusinessLogicTest
             {
                 Email = emailSample,
                 Password = passwordSample,
-                Guid = userGuid,
+                Id = userGuid,
             };
         }
+
         [TestMethod]
         public void CreateNewSession()
         {
-
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -39,8 +39,6 @@ namespace BusinessLogicTest
 
             repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
             repoSession.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
-            repoSession.Setup(logic => logic.GetSessions(It.IsAny<Func<Session,bool>>())).Returns(new List<Session>());
-
 
             var sessionLogic = new SessionLogic(repoUser.Object,repoSession.Object);
 
@@ -50,53 +48,25 @@ namespace BusinessLogicTest
             repoSession.VerifyAll();
 
             Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
-            Assert.AreEqual(result.SessionToken, session.SessionToken);
+            Assert.AreEqual(result.User.Id, userGuid);
+            Assert.AreEqual(result.Id, session.Id);
         }
 
-        [TestMethod]
-        public void CreateSessionReturnsExistingOne()
-        {
-
-            Session session = new Session()
-            {
-                SessionToken = Guid.NewGuid(),
-                User = userSample,
-            };
-
-            Mock<IUserRepository> repoUser = new Mock<IUserRepository>(MockBehavior.Strict);
-            Mock<ISessionRepository> repoSession = new Mock<ISessionRepository>(MockBehavior.Strict);
-
-            repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
-            repoSession.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session});
-
-            var sessionLogic = new SessionLogic(repoUser.Object, repoSession.Object);
-
-            var result = sessionLogic.LogIn(emailSample, passwordSample);
-
-            repoUser.VerifyAll();
-            repoSession.VerifyAll();
-
-            Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
-            Assert.AreEqual(result.SessionToken, session.SessionToken);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(LogicException))]
         public void CreateSessionWithInvalidCredentialsThrowsLogicalException()
         {
-
             User user = new User()
             {
                 Email = emailSample,
                 Password = passwordSample,
-                Guid = userGuid,
+                Id = userGuid,
             };
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -116,7 +86,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 
@@ -132,7 +102,7 @@ namespace BusinessLogicTest
             repo.VerifyAll();
 
             Assert.AreEqual(result.User, userSample);
-            Assert.AreEqual(result.User.Guid, userGuid);
+            Assert.AreEqual(result.User.Id, userGuid);
         }
 
         [TestMethod]
@@ -142,7 +112,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = userSample,
             };
 

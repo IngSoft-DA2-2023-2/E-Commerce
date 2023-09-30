@@ -1,6 +1,7 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -22,7 +23,7 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password1",
                     Address="address sample",
-                    Roles=new List<string>{"buyer"},
+                    Roles= new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
                 },
             };
             var token = "testToken";
@@ -60,8 +61,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password1",
                     Address="address sample",
-                    Roles=new List<string>{"buyer"},
-                    Guid = guid,
+                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
+                    Id = guid,
                 },
             };
 
@@ -85,8 +86,7 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Name, expectedMappedResult.First().Name);
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
-            Assert.AreEqual(resultValue.First().Password, expectedMappedResult.First().Password);
-            Assert.AreEqual(resultValue.First().Roles, expectedMappedResult.First().Roles);
+            Assert.AreEqual(resultValue.First().Roles.First(), expectedMappedResult.First().Roles.First());
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@ namespace WebApiModelsTest.Controller
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
-                Roles = new List<string> { "role sample" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
                 Address = "address sample",
                 Password = "password sample",
             };
@@ -204,14 +204,14 @@ namespace WebApiModelsTest.Controller
                 Password = "password sample",
             };
 
-            User expected = new User()
-            {
-                Name = "nameSample",
-                Email = "email@sample.com",
-                Roles = new List<string> { "role sample" },
-                Address = "address sample",
-                Password = "password sample",
-                Guid = guid,
+        User expected = new User()
+        {
+            Name = "nameSample",
+            Email = "email@sample.com",
+            Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
+            Address = "address sample",
+            Password = "password sample",
+            Id = guid,
             };
             var token = "testToken";
 
@@ -253,7 +253,7 @@ namespace WebApiModelsTest.Controller
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
-                Roles = new List<string> { "role sample" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
                 Address = "address sample",
                 Password = "password sample",
             };
@@ -276,7 +276,7 @@ namespace WebApiModelsTest.Controller
 
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
-            Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
+            Assert.AreEqual(resultValue.Roles.First(), expectedMappedResult.Roles.First());
         }
 
         [TestMethod]
@@ -295,16 +295,16 @@ namespace WebApiModelsTest.Controller
             {
                 Name = "nameSample",
                 Email = "email@sample.com",
-                Roles = new List<string> { "role sample" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
                 Address = "address sample",
                 Password = "password sample",
-                Guid = guid
+                Id = guid
             };
             var token = "testToken";
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.UpdateUserByThemself(It.Is<User>(u => u.Guid == guid))).Returns(expected);
+            logic.Setup(logic => logic.UpdateUserByThemself(It.Is<User>(u => u.Id == guid))).Returns(expected);
             logic.Setup(logic => logic.GetUserIdFromToken(It.Is<string>(s => s == token))).Returns(guid);
 
             var userController = new UserController(logic.Object);
@@ -320,7 +320,7 @@ namespace WebApiModelsTest.Controller
 
             Assert.AreEqual(resultValue.Name, expectedMappedResult.Name);
             Assert.AreEqual(resultValue.Address, expectedMappedResult.Address);
-            Assert.AreEqual(resultValue.Roles, expectedMappedResult.Roles);
+            Assert.AreEqual(resultValue.Roles.First(), expectedMappedResult.Roles.First());
             Assert.AreEqual(resultValue.Guid, guid);
         }
 

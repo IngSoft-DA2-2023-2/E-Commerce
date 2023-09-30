@@ -1,10 +1,11 @@
 ﻿using Domain.Exceptions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
     public class Purchase
     {
-       
+
         private List<Product> _cart = new List<Product>();
         private DateTime _date;
         public DateTime Date
@@ -17,7 +18,8 @@ namespace Domain
         {
             _date = DateTime.Now;
         }
-        public Guid BuyerId { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
 
         public string CurrentPromotion { get; set; }
         public List<Product> Cart

@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         public IActionResult GetAllProductsByFilters([FromQuery] string? name = null,
             [FromQuery] string? brandName = null, [FromQuery] string? categoryName = null)
         {
-            return Ok(productLogic.GetProducts(name, brandName, categoryName));
+            return Ok(productLogic.FilterUnionProduct(name, brandName, categoryName));
         }
 
         [HttpGet("{id}")]

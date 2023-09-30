@@ -16,10 +16,7 @@ namespace BusinessLogicTest
         [TestMethod]
         public void GivenExistingColourReturnsTrue()
         {
-            Colour expected = new()
-            {
-                Name = "Colour"
-            };
+            Colour expected = new Colour() { Name = "Colour" };
 
             Mock<IColourRepository> repository = new Mock<IColourRepository>(MockBehavior.Strict);
             repository.Setup(logic => logic.CheckForColour("Colour")).Returns(true);

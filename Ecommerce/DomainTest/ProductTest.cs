@@ -67,23 +67,25 @@ namespace UnitTest.DomainTest
         [TestMethod]
         public void GivenSingleColoredProductReturnsItsColor()
         {
-            productSample.Color = new List<Colour>(){
-                new Colour(){ Name= _colorSample }
+            productSample.Colors = new List<Colour>()
+            {
+                new Colour() {Name = _colorSample},
             };
-            Assert.AreEqual(1, productSample.Color.Count);
-            Assert.AreEqual(_colorSample, productSample.Color[0].Name);
+            Assert.AreEqual(1, productSample.Colors.Count());
+            Assert.AreEqual(_colorSample, productSample.Colors.First().Name);
         }
 
         [TestMethod]
         public void GivenMultipleColoredProductReturnsTheColors()
         {
-            productSample.Color = new List<Colour>(){
-                new Colour(){ Name= _colorSample },
-                new Colour(){Name = _anotherColorSample}
+            productSample.Colors = new List<Colour>()
+            {
+                new Colour() {Name = _colorSample},
+                new Colour() {Name = _anotherColorSample}
             };
-            Assert.AreEqual(2, productSample.Color.Count);
-            Assert.AreEqual(_colorSample, productSample.Color[0].Name);
-            Assert.AreEqual(_anotherColorSample, productSample.Color[1].Name);
+            Assert.AreEqual(2, productSample.Colors.Count);
+            Assert.AreEqual(_colorSample, productSample.Colors[0].Name);
+            Assert.AreEqual(_anotherColorSample, productSample.Colors[1].Name);
         }
 
         [TestMethod]

@@ -26,7 +26,7 @@ namespace DataAccess.Repository
 
         public User DeleteUser(Guid user)
         {
-            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Guid == user);
+            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Id == user);
 
             if (existingUser != null)
             {

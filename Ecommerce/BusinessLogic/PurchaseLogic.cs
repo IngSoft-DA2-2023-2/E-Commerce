@@ -33,8 +33,7 @@ namespace BusinessLogic
             }catch (DataAccessException e)
             {
                 throw new LogicException(e);
-            }
-            
+            }           
         }
 
         public IEnumerable<Purchase> GetPurchase(Guid id)
