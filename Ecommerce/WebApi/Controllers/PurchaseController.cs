@@ -13,13 +13,11 @@ namespace WebApi.Controllers
     {
         private readonly IPurchaseLogic _purchaseLogic;
         private readonly IUserLogic _userLogic;
-        private readonly ISessionLogic _sessionLogic;
 
-        public PurchaseController(IPurchaseLogic purchaseLogic, IUserLogic userLogic, ISessionLogic sessionLogic)
+        public PurchaseController(IPurchaseLogic purchaseLogic, IUserLogic userLogic)
         {
             _purchaseLogic = purchaseLogic;
             _userLogic = userLogic;
-            _sessionLogic = sessionLogic;
         }
 
         [HttpPost]
@@ -42,17 +40,21 @@ namespace WebApi.Controllers
            
         }
 
-        [HttpPost]
+        [HttpGet]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult GetAllPurchases([FromHeader] string Authorization)
         {
             var userHeader = Authorization;
-            var tokenUserPurchase = _userLogic.GetUserIdFromToken(userHeader);
-            if (_userLogic.IsBuyer(userHeader) && (_sessionLogic.GetTokenFromUserId(tokenUserPurchase)).ToString().Equals(userHeader))
+            if (_userLogic.IsBuyer(userHeader))
             {
-                return Ok(_purchaseLogic.GetPurchases(tokenUserPurchase));
-            }else
+                var tokenUserPurchase = _userLogic.GetUserIdFromToken(userHeader);
+                return Ok(_purchaseLogic.GetPurchase(tokenUserPurchase));
+            }else if(_userLogic.IsAdmin(userHeader))
+            {
+                return Ok(_purchaseLogic.GetAllPurchases());
+            }
+            else
             {
                 throw new UnauthorizedAccessException();
             }

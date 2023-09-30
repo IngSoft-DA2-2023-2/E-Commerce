@@ -472,6 +472,84 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(product, result.Value);
         }
 
+        [TestMethod]
+        public void UpdateProductUnauthorized()
+        {
+
+            List<string> color = new List<string>() { "Red", "Blue" };
+            UpdateProductRequest productRequest = new UpdateProductRequest()
+            {
+                Name = "Name1",
+                Description = "Description1",
+                Category = "Category1",
+                Brand = "Brand1",
+                Color = color,
+                Price = 100
+            };
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
+                    Id = new Guid()
+                    },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(false);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.UpdateProduct(It.Is<Product>(product =>
+            product.Name == productRequest.Name &&
+            product.Description == productRequest.Description &&
+            product.Category.Name == productRequest.Category &&
+            product.Brand.Name == productRequest.Brand &&
+            product.Colors.First().Name == productRequest.Color.First() &&
+            product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            Guid id = new Guid();
+            Assert.ThrowsException<UnauthorizedAccessException>(() => productController.UpdateProduct(id, productRequest, token));
+        }
+
+        [TestMethod]
+        public void CreateProductUnauthorized()
+        {
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
+                    Id = guid
+                },
+            };
+
+            string token = "tokenSample";
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(false);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.AddProduct(It.Is<Product>(product =>
+              product.Name == productRequest.Name &&
+              product.Description == productRequest.Description &&
+              product.Category.Name == productRequest.Category &&
+              product.Brand.Name == productRequest.Brand &&
+              product.Colors.First().Name == productRequest.Color.First() &&
+              product.Price == productRequest.Price))).Returns(product);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            Assert.ThrowsException<UnauthorizedAccessException>(() => productController.CreateProduct(productRequest, token));
+
+        }
+
+
 
 
 
