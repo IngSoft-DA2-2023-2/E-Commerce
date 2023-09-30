@@ -72,10 +72,6 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-<<<<<<< HEAD
-=======
-            Session session = new Session() { Id = guid, User = listUsers.First()};
->>>>>>> origin
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
@@ -126,10 +122,7 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-<<<<<<< HEAD
-=======
             Session session = new Session() { Id = guid, User = listUsers.First() };
->>>>>>> origin
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
@@ -172,7 +165,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = new Brand{ Name = "brand"},
                     Category = new Category{ Name = "category"},
-                    Color = new List<Colour>()
+                    Colors = new List<Colour>()
                     {
                         new Colour(){Name = "Red"},
                         new Colour(){Name = "Blue"}
@@ -187,7 +180,7 @@ namespace WebApiModelsTest.Controller
             Purchase purchase = new Purchase()
             {
                 Id = id,
-                BuyerId = buyer,
+                UserId = buyer,
                 Cart = products
             };
 
@@ -201,8 +194,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"admin"},
-                    Guid = buyer
+                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
+                    Id = buyer
                 },
             };
 
@@ -210,12 +203,12 @@ namespace WebApiModelsTest.Controller
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
-            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(false);
 
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.BuyerId == purchaseRequest.Buyer &&
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.Id == purchaseRequest.Buyer &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.CreatePurchase(purchaseRequest, guid.ToString()));
@@ -230,7 +223,8 @@ namespace WebApiModelsTest.Controller
             purchases.Add(new Purchase()
             {
                 Id = Guid.NewGuid(),
-                BuyerId = buyerId,
+
+                UserId = buyerId,
                 Cart = new List<Product>()
                 {
                     new Product()
@@ -248,8 +242,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"buyer"},
-                    Guid = buyerId
+                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
+                    Id = buyerId
                 },
             };
 
@@ -257,7 +251,7 @@ namespace WebApiModelsTest.Controller
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
-            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Guid);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == buyerId.ToString()))).Returns(false);
             userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == buyerId.ToString()))).Returns(false);
 

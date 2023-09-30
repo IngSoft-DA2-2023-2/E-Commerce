@@ -31,7 +31,7 @@ namespace DataAccessTest
         {
             Purchase purchase = new Purchase() { Id = Guid.NewGuid() };
             var purchaseContext = new Mock<ECommerceContext>();
-            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase});
+            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
             Exception catchedException = null;
             try
@@ -49,7 +49,21 @@ namespace DataAccessTest
         public void GetAllTheBuyersPurchases()
         {
             Guid buyer = Guid.NewGuid();
-            Purchase purchase = new Purchase() { Id = Guid.NewGuid(),UserId = buyer };
+            Purchase purchase = new Purchase()
+            {
+                Id = Guid.NewGuid(),
+                UserId = buyer,
+                Cart = new List<Product>
+                {
+                    new Product 
+                    {
+                        Name="producto",
+                        Id =Guid.NewGuid(),
+                        Price = 100,
+                        Description = "descripcion",
+                    }
+                }
+            };
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
@@ -59,7 +73,7 @@ namespace DataAccessTest
         [TestMethod]
         public void GetAllPurchases()
         {
-            Purchase purchase = new Purchase() { Id = Guid.NewGuid()};
+            Purchase purchase = new Purchase() { Id = Guid.NewGuid() };
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
@@ -70,7 +84,7 @@ namespace DataAccessTest
         public void ThrowExceptionWhenNullList()
         {
             var purchaseContext = new Mock<ECommerceContext>();
-            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() {});
+            purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
             Exception catchedException = null;
             try

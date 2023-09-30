@@ -493,8 +493,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"buyer"},
-                    Guid = Guid.NewGuid()
+                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
+                    Id = new Guid()
                     },
             };
 
@@ -509,7 +509,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Color.First().Name == productRequest.Color.First() &&
+            product.Colors.First().Name == productRequest.Color.First() &&
             product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Guid id = new Guid();
             Assert.ThrowsException<UnauthorizedAccessException>(() => productController.UpdateProduct(id, productRequest, token));
@@ -526,8 +526,8 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"buyer"},
-                    Guid = guid
+                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
+                    Id = guid
                 },
             };
 
@@ -542,7 +542,7 @@ namespace WebApiModelsTest.Controller
               product.Description == productRequest.Description &&
               product.Category.Name == productRequest.Category &&
               product.Brand.Name == productRequest.Brand &&
-              product.Color.First().Name == productRequest.Color.First() &&
+              product.Colors.First().Name == productRequest.Color.First() &&
               product.Price == productRequest.Price))).Returns(product);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Assert.ThrowsException<UnauthorizedAccessException>(() => productController.CreateProduct(productRequest, token));
