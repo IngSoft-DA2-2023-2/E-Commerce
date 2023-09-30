@@ -23,10 +23,12 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [AnnotatedCustomExceptionFilter]
-        public IActionResult GetAllProductsByFilters([FromQuery] string? name = null,
-            [FromQuery] string? brandName = null, [FromQuery] string? categoryName = null)
+        public IActionResult GetAllProductsByFilters([FromQuery]string? operation,[FromQuery] string? name = null,
+            [FromQuery] string? brandName = null, [FromQuery] string? categoryName = null )
         {
-            return Ok(productLogic.FilterUnionProduct(name, brandName, categoryName));
+            if(operation=="or")return Ok(productLogic.FilterUnionProduct(name, brandName, categoryName));
+            if (operation == "and") return Ok(productLogic.FilterIntersectionProduct(name, brandName, categoryName));
+            return BadRequest();
         }
 
         [HttpGet("{id}")]
