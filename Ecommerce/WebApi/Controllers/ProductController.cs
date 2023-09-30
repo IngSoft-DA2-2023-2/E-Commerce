@@ -28,6 +28,7 @@ namespace WebApi.Controllers
         {
             if(operation=="or")return Ok(productLogic.FilterUnionProduct(name, brandName, categoryName));
             if (operation == "and") return Ok(productLogic.FilterIntersectionProduct(name, brandName, categoryName));
+            return BadRequest();
         }
 
         [HttpGet("{id}")]

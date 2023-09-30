@@ -3,6 +3,7 @@ using ApiModels.Out;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Moq;
@@ -274,6 +275,18 @@ namespace WebApiModelsTest.Controller
         }
 
         [TestMethod]
+        public void GetProductsWithNullOperatorReturnsBadRequest()
+        {
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            var result = productController.GetAllProductsByFilters(null, null, null, null) as BadRequestResult;
+
+            Assert.AreEqual(result.StatusCode, StatusCodes.Status400BadRequest);
+        }
+
+        [TestMethod]
         public void CreateNewProduct()
         {
             Guid guid = Guid.NewGuid();
@@ -313,9 +326,6 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(productRequest.Color.First(), response.Colors.First());
             Assert.AreEqual(productRequest.Price, response.Price);
         }
-
-       
-
 
         [TestMethod]
         public void CreateNewProductInternalServerError()
@@ -552,10 +562,5 @@ namespace WebApiModelsTest.Controller
             Assert.ThrowsException<UnauthorizedAccessException>(() => productController.CreateProduct(productRequest, token));
 
         }
-
-
-
-
-
     }
 }
