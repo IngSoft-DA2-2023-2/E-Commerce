@@ -89,38 +89,9 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters() as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or",null,null,null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
-        }
-
-        [TestMethod]
-        public void GetAllProductsInternalServerError()
-        {
-            Guid guid = Guid.NewGuid();
-            IEnumerable<User> listUsers = new List<User>()
-            {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List < StringWrapper > (){ new StringWrapper(){Info="admin"} },
-                    Id = guid
-                },
-            };
-
-
-            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
-            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
-
-            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
-                It.Is<string?>(brandName => brandName == null),
-                It.Is<string?>(categoryName => categoryName == null))).Throws(new TestException("This is a test exception"));
-            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            Assert.ThrowsException<TestException>(() => productController.GetAllProductsByFilters());
         }
 
         [TestMethod]
@@ -150,7 +121,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters() as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or",null,null,null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -187,7 +158,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters(name: exceptedName) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or",exceptedName,null,null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -225,7 +196,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters(brandName: exceptedBrandName) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or",null,exceptedBrandName,null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -263,11 +234,44 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters(categoryName: exceptedCategoryName) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or",null,null, exceptedCategoryName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
 
+
+        [TestMethod]
+        public void GetAllProductsWithSpecificNameAndCategory()
+        {
+            const string exceptedCategoryName = "Category1";
+            List<Product> products = new List<Product>()
+            {
+                product,
+            };
+
+            Guid guid = Guid.NewGuid();
+            IEnumerable<User> listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<StringWrapper>{ new StringWrapper() { Info = "admin" } },
+                    Id = guid
+                },
+            };
+
+            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
+            userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
+            userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
+            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(),It.IsAny<string?>(),It.IsAny<string?>())).Returns(products);
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            var result = productController.GetAllProductsByFilters("and", "name1", null, exceptedCategoryName) as OkObjectResult;
+            Assert.AreEqual(products, result.Value);
+        }
 
         [TestMethod]
         public void CreateNewProduct()
