@@ -23,7 +23,7 @@ namespace BusinessLogic
 
         public Guid GetTokenFromUserId(Guid userId)
         {
-           return _sessionRepository.GetSessions(s => s.User.Guid == userId).FirstOrDefault().SessionToken;
+           return _sessionRepository.GetSessions(s => s.User.Id == userId).FirstOrDefault().Id;
         }
 
         public Session LogIn(string email, string password)

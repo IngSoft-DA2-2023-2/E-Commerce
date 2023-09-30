@@ -2,6 +2,7 @@
 using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Roles=new List<string>{"buyer"},
+                    Roles=new List<StringWrapper>(),
                 },
             };
             var token = "testToken";
@@ -79,16 +80,16 @@ namespace WebApiModelsTest.Controller
                     Name="name1",
                     Password="password",
                     Address="address sample",
-                    Guid= Guid.NewGuid(),
-                    Roles =new List<string>{"buyer"},
+                    Id= Guid.NewGuid(),
+                    Roles = new List<StringWrapper>()
                 },
             };
-            Session session = new Session() { SessionToken = guid, User = expected.First() };
+            Session session = new Session() { Id = guid, User = expected.First() };
             var expectedMappedResult = new SessionResponse(session);
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
-            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(expected.First().Guid);
+            userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(expected.First().Id);
 
 
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);

@@ -86,7 +86,7 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Name, expectedMappedResult.First().Name);
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
-            Assert.AreEqual(resultValue.First().Roles, expectedMappedResult.First().Roles);
+            Assert.AreEqual(resultValue.First().Roles.First(), expectedMappedResult.First().Roles.First());
         }
 
         [TestMethod]
@@ -304,7 +304,7 @@ namespace WebApiModelsTest.Controller
 
             var expectedMappedResult = new UserResponse(expected);
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
-            logic.Setup(logic => logic.UpdateUserByThemself(It.Is<User>(u => u.Guid == guid))).Returns(expected);
+            logic.Setup(logic => logic.UpdateUserByThemself(It.Is<User>(u => u.Id == guid))).Returns(expected);
             logic.Setup(logic => logic.GetUserIdFromToken(It.Is<string>(s => s == token))).Returns(guid);
 
             var userController = new UserController(logic.Object);

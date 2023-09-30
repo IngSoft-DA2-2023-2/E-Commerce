@@ -19,8 +19,8 @@ namespace ApiModels.Out
             Name = user.Name;
             Email = user.Email;
             Address = user.Address;
-            Roles = user.Roles;
-            Guid = user.Guid;
+            Roles = role;
+            Guid = user.Id;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace WebApi.Controllers
             var userHeader = Authorization;
             if (_userLogic.IsAdmin(userHeader))
             {
-                return Ok(_userLogic.GetAllUsers(c => c.Guid == id).Select(u => new UserResponse(u)).ToList());
+                return Ok(_userLogic.GetAllUsers(c => c.Id == id).Select(u => new UserResponse(u)).ToList());
             }
             else
             {
@@ -131,7 +131,7 @@ namespace WebApi.Controllers
             if (_userLogic.IsAdmin(userHeader))
             {
                 var user = UserRequestByAdminToEntity(received);
-                user.Guid = id;
+                user.Id = id;
 
                 var resultLogic = _userLogic.UpdateUserByAdmin(user);
                 var result = new UserResponse(resultLogic);
@@ -183,7 +183,7 @@ namespace WebApi.Controllers
         {
 
             User ret = new User();
-            ret.Guid = id;
+            ret.Id = id;
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Password is not null) ret.Password = received.Password;
             if (received.Address is not null) ret.Address = received.Address;

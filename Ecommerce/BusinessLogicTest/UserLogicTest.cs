@@ -31,7 +31,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
             
@@ -69,7 +69,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -108,7 +108,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -138,7 +138,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -169,7 +169,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -200,7 +200,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected,
             };
 
@@ -232,7 +232,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected.First(),
             };
 
@@ -269,7 +269,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected.First(),
             };
 
@@ -307,7 +307,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = expected.First(),
             };
 
@@ -344,7 +344,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = modifications,
             };
 
@@ -378,7 +378,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -411,7 +411,7 @@ namespace BusinessLogicTest
 
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = modifications,
             };
 
@@ -442,7 +442,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -466,7 +466,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -490,7 +490,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -518,7 +518,7 @@ namespace BusinessLogicTest
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = toDelete,
             };
 
@@ -528,7 +528,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Returns(deleted);
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            var result = userLogic.DeleteUser(toDelete.Guid);
+            var result = userLogic.DeleteUser(toDelete.Id);
 
             userRepo.VerifyAll();
             Assert.AreEqual(result.Email, toDelete.Email);
@@ -545,11 +545,11 @@ namespace BusinessLogicTest
                 Address = "aaa",
                 Password = "12345",
                 Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-                Guid = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,              
             };
 
@@ -559,7 +559,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Throws(new DataAccessException());
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
-           userLogic.DeleteUser(user.Guid);
+           userLogic.DeleteUser(user.Id);
         }
 
         [TestMethod]
@@ -571,12 +571,12 @@ namespace BusinessLogicTest
                 Email = "juan@gmail.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "admin" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "admin" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -588,7 +588,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            Assert.AreEqual(userLogic.IsAdmin(session.SessionToken.ToString()), true);
+            Assert.IsTrue(userLogic.IsAdmin(session.Id.ToString()));
         }
 
         [TestMethod]
@@ -600,12 +600,12 @@ namespace BusinessLogicTest
                 Email = "juan@gmail.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "user" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "user" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -617,7 +617,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            Assert.AreEqual(userLogic.IsAdmin(session.SessionToken.ToString()), false);
+            Assert.AreEqual(userLogic.IsAdmin(session.Id.ToString()), false);
         }
 
         [TestMethod]
@@ -629,12 +629,12 @@ namespace BusinessLogicTest
                 Email = "juan@gmail.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "user" },
-                Guid = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "user" } },
+                Id = Guid.NewGuid(),
             };
             Session session = new Session()
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -646,7 +646,7 @@ namespace BusinessLogicTest
             userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
-            Assert.AreEqual(userLogic.GetUserIdFromToken(session.SessionToken.ToString()), user.Guid);
+            Assert.AreEqual(userLogic.GetUserIdFromToken(session.Id.ToString()), user.Id);
         }
 
     }
