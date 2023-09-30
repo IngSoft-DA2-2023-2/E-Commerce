@@ -15,7 +15,7 @@ namespace ApiModels.In
         public Product ToEntity(Guid id)
         {
             List<Colour> colours = new List<Colour>();
-            foreach (string color in Color) colours.Add(new Colour() { Name = color });
+            foreach (string color in Color) colours.Add(new Colour() { Name = color});
             return new Product
             {
                 Id = id,
@@ -24,7 +24,7 @@ namespace ApiModels.In
                 Price = Price,
                 Brand = new Brand() { Name = Brand},
                 Category = new Category(){ Name = Category},
-                Color = colours };
+                Colors = colours };
         }
     }
 }

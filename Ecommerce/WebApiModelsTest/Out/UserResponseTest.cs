@@ -26,7 +26,7 @@ namespace WebApiModelsTest.Out
             {
                 Name = nameSample,
                 Address = addressSample,
-                Guid = guidSample,
+                Id = guidSample,
                 Email = emailSample,
                 Password = passwordSample
             };
@@ -35,7 +35,7 @@ namespace WebApiModelsTest.Out
 
             Assert.AreEqual(user.Name, response.Name);
             Assert.AreEqual(user.Address, response.Address);
-            Assert.AreEqual(user.Guid, response.Guid);
+            Assert.AreEqual(user.Id, response.Guid);
             Assert.AreEqual(user.Email, response.Email);
         }
     }

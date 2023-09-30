@@ -1,6 +1,7 @@
 ﻿using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using System.Xml.XPath;
@@ -25,7 +26,7 @@ namespace BusinessLogic
                 {
                     throw new LogicException("Existing user with that email");
                 }
-                user.Guid = Guid.NewGuid();
+                user.Id = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
             }
              catch(DataAccessException e)
@@ -43,8 +44,8 @@ namespace BusinessLogic
                 {
                     throw new LogicException("Existing user with that email");
                 }
-                user.Roles = new List<string> { "buyer" };
-                user.Guid = Guid.NewGuid();
+                user.Roles = new List<StringWrapper> {new StringWrapper(){Info= "buyer" } };
+                user.Id = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
             }
             catch (DataAccessException e)
@@ -76,7 +77,7 @@ namespace BusinessLogic
         {
             try
             {
-                var outdated = _userRepository.GetAllUsers(u => u.Guid == updated.Guid).FirstOrDefault();
+                var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                     if (outdated == null) throw new LogicException("User not found");
                 
                     if (updated.Address != null) outdated.Address = updated.Address;
@@ -98,7 +99,7 @@ namespace BusinessLogic
         {
             try
             {
-                var outdated = _userRepository.GetAllUsers(u => u.Guid == updated.Guid).FirstOrDefault();
+                var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                 if (outdated == null) throw new LogicException("User not found");
 
                 if (updated.Address != null) outdated.Address = updated.Address;
@@ -128,7 +129,7 @@ namespace BusinessLogic
 
         private Func<User, bool> GetUserByGuid(Guid? guid)
         {
-            return (User u) => guid == null || u.Guid == guid;
+            return (User u) => guid == null || u.Id == guid;
         }
 
         public bool IsAdmin(string token)

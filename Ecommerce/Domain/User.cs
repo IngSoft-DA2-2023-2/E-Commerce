@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using Domain.ProductParts;
 using Utilities;
 
 namespace Domain
@@ -13,7 +14,7 @@ namespace Domain
         protected string _password;
         protected string _email;
 
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
         public string Email
         {
             get { return _email; }
@@ -43,7 +44,7 @@ namespace Domain
         }
         public string Address { get; set; }
 
-        public List<string> Roles { get; set; } = new List<string>();
+        public virtual List<StringWrapper> Roles { get; set; } = new();
 
         private static void ValidateEmail(string value)
         {

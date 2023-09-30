@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.Exceptions;
+using Domain.ProductParts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -14,7 +15,7 @@ namespace UnitTest.DomainTest
         private const string _userSampleEmail = "user@Sample.com";
         private const string _userSamplePassword = "userPassword";
         private const string _userSampleAddress = "user street";
-        private readonly List<string> _userSampleRoles = new() { "role sample 1" };
+        private readonly List<StringWrapper> _userSampleRoles = new() { new StringWrapper() { Info ="role sample 1" } };
         private readonly string _nameRoleSample = "role sample 2";
         private const string _thisNameIsTooLong = "thisPasswordIsIncorrectEvenThoughItOnlyCointainsLetters";
         private const string _thisNameIsTooShort = "a";
@@ -109,10 +110,10 @@ namespace UnitTest.DomainTest
         [TestMethod]
         public void GivenRoleAddsItToCurrentOnes()
         {
-            userSample.Roles.Add(_nameRoleSample);
+            userSample.Roles.Add(new StringWrapper(){Info= _nameRoleSample});
 
             Assert.IsTrue(_userSampleRoles.Count == 1);
-            Assert.AreEqual(_nameRoleSample, userSample.Roles[0]);
+            Assert.AreEqual(_nameRoleSample, userSample.Roles.First().Info);
         }
     }
 }

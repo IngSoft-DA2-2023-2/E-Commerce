@@ -2,6 +2,7 @@
 using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -150,7 +151,10 @@ namespace WebApi.Controllers
             User ret = new User();
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Address is not null) ret.Address = received.Address;
-            if (received.Roles is not null) ret.Roles = received.Roles;
+            if (received.Roles is not null)
+            {
+               foreach(string receivedRol in received.Roles) ret.Roles.Add(new StringWrapper() { Info = receivedRol });
+            }
             if (received.Password is not null) ret.Password = received.Password;
             return ret;
         }

@@ -23,7 +23,7 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { SessionToken = guid };
+            Session session = new Session() { Id = guid };
             var expectedMappedResult = new SessionResponse(session);
 
             IEnumerable<User> expected = new List<User>()

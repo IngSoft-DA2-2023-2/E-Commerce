@@ -41,11 +41,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = new Brand{ Name = "brand"},
                     Category = new Category{ Name = "category"},
-                    Color = new List<Colour>()
-                    {
-                        new Colour(){Name = "Red"},
-                        new Colour(){Name = "Blue"}
-                    },
+                    Colors = new List < Colour > () { new Colour() { Name = "Red" }, new Colour() { Name = "Red" } }
                 }
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
@@ -56,7 +52,7 @@ namespace WebApiModelsTest.Controller
             Purchase purchase = new Purchase()
             {
                 Id = id,
-                BuyerId = buyer,
+                UserId = buyer,
                 Cart = products
             };
 
@@ -106,7 +102,7 @@ namespace WebApiModelsTest.Controller
             purchases.Add(new Purchase()
             {
                 Id = Guid.NewGuid(),
-                BuyerId = buyerId,
+                UserId = buyerId,
                 Cart = new List<Product>()
                 {
                     new Product()

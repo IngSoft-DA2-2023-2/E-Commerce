@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
+using Castle.Components.DictionaryAdapter;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -24,7 +26,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
@@ -62,7 +64,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
@@ -88,7 +90,7 @@ namespace BusinessLogicTest
             Assert.AreEqual(result.Address, expected.Address);
             Assert.AreEqual(result.Password, expected.Password);
             Assert.AreEqual(result.Roles.Count, 1);
-            Assert.AreEqual(result.Roles[0], "buyer");
+            Assert.AreEqual(result.Roles.First().Info, "buyer");
         }
 
         [TestMethod]
@@ -101,7 +103,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
@@ -132,7 +134,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
             Session session = new Session()
             {
@@ -161,7 +163,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
  
             };
 
@@ -192,7 +194,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
 
             };
 
@@ -224,7 +226,7 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List<string> { "buyer" },
+               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },   
                },
             };
 
@@ -262,7 +264,7 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List<string> { "buyer" },
+               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
                },
             };
             Session session = new Session()
@@ -300,7 +302,7 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List<string> { "buyer" },
+               Roles = new List < StringWrapper > ()
                },
             };
             Session session = new Session()
@@ -328,7 +330,7 @@ namespace BusinessLogicTest
                 Address = "aaa2",
                 Password= "12345",
                 Email= "a@a.com",
-                Roles = new List<string> { }
+                Roles = new List<StringWrapper>(),
             };
 
             User outdated = new User()
@@ -337,7 +339,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa2",
                 Password = "123456",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
             Session session = new Session()
@@ -512,7 +514,7 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
             Session session = new Session()
             {
@@ -542,13 +544,13 @@ namespace BusinessLogicTest
                 Email = "a@a.com",
                 Address = "aaa",
                 Password = "12345",
-                Roles = new List<string> { "buyer" },
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
                 Guid = Guid.NewGuid(),
             };
             Session session = new Session()
             {
                 SessionToken = Guid.NewGuid(),
-                User = user,
+                User = user,              
             };
 
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);

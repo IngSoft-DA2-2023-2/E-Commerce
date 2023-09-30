@@ -34,7 +34,7 @@ namespace BusinessLogic
 
             Session newSession = new Session
             {
-                SessionToken = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 User = user,
             };
 
@@ -43,7 +43,7 @@ namespace BusinessLogic
 
         public Session LogOut(Guid token)
         {
-            Session? session = _sessionRepository.GetSessions(s=>s.SessionToken == token).FirstOrDefault();
+            Session? session = _sessionRepository.GetSessions(s=>s.Id == token).FirstOrDefault();
 
             if (session is null) throw new LogicException("Invalid token");
 

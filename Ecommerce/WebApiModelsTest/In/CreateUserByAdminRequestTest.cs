@@ -1,5 +1,6 @@
 ﻿using ApiModels.In;
 using Domain;
+using Domain.ProductParts;
 
 namespace WebApiModelsTest.In
 {
@@ -10,7 +11,7 @@ namespace WebApiModelsTest.In
         private string addressSample = "address sample";
         private string emailSample = "email@sample.com";
         private string passwordSample = "passwordSample";
-        private List<string> roles = new List<string>();
+        private List<StringWrapper> roles = new();
         private CreateUserByAdminRequest request;
 
 
@@ -36,7 +37,7 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(request.Address, addressSample);
             Assert.AreEqual(request.Email, emailSample);
             Assert.AreEqual(request.Password, passwordSample);
-            Assert.IsTrue(request.Roles.Count == 0);
+            Assert.AreEqual(request.Roles.Count, 0);
         }
 
         [TestMethod]
@@ -48,7 +49,7 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(entity.Address, addressSample);
             Assert.AreEqual(entity.Email, emailSample);
             Assert.AreEqual(entity.Password, passwordSample);
-            Assert.IsTrue(entity.Roles.Count == 0);
+            Assert.AreEqual(entity.Roles.Count, 0);
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.ProductParts;
 using System.Globalization;
 
 namespace ApiModels.Out
@@ -13,6 +14,8 @@ namespace ApiModels.Out
 
         public UserResponse(User user)
         {
+            List<string> role = new List<string>();
+            foreach (StringWrapper stringW in user.Roles) role.Add(stringW.Info);
             Name = user.Name;
             Email = user.Email;
             Address = user.Address;
