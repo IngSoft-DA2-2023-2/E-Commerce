@@ -27,12 +27,5 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(purchaseRequest.Cart.First().Name, products.First().Name);
         }
 
-        [TestMethod]
-        public void GivenPurchaseRequestReturnsBuyerId()
-        {
-            purchaseRequest.Buyer = guid;
-            Assert.AreEqual(purchaseRequest.Buyer, guid);
-        }
-
     }
 }

@@ -46,7 +46,6 @@ namespace WebApiModelsTest.Controller
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
             {
-                Buyer = buyer,
                 Cart = cart
             };
             Purchase purchase = new Purchase()
@@ -80,13 +79,13 @@ namespace WebApiModelsTest.Controller
 
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.Buyer &&
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.ToEntity(buyer).UserId &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             var result = purchaseController.CreatePurchase(purchaseRequest, guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);
             var response = result.Value as CreatePurchaseResponse;
-            Assert.AreEqual(purchaseRequest.Buyer, response.BuyerId);
+            Assert.AreEqual(purchaseRequest.ToEntity(buyer).UserId, response.BuyerId);
             Assert.AreEqual(purchaseRequest.Cart.First().Name, response.Cart.First().Name);   
         }
 
@@ -174,7 +173,6 @@ namespace WebApiModelsTest.Controller
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
             {
-                Buyer = buyer,
                 Cart = cart
             };
             Purchase purchase = new Purchase()
@@ -208,7 +206,7 @@ namespace WebApiModelsTest.Controller
 
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.Id == purchaseRequest.Buyer &&
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.Id == purchaseRequest.ToEntity(buyer).UserId &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.CreatePurchase(purchaseRequest, guid.ToString()));

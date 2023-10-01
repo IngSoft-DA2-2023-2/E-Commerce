@@ -28,7 +28,8 @@ namespace WebApi.Controllers
             var userHeader = Authorization;
             if (_userLogic.IsBuyer(userHeader))
             {
-                var newpurchase = purchase.ToEntity();
+                var userId = _userLogic.GetUserIdFromToken(userHeader);
+                var newpurchase = purchase.ToEntity(userId);
                 Purchase savedPurchase = _purchaseLogic.CreatePurchase(newpurchase);
                 var response = new CreatePurchaseResponse(savedPurchase);
                 return Ok(response);
