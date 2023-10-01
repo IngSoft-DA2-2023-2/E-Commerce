@@ -18,7 +18,7 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void CreateNewPurchase()
         {
-            List<string> color = new List<string>() { "Red", "Blue" };
+            List<string> colour = new List<string>() { "Red", "Blue" };
             Guid id = Guid.NewGuid();
             Guid buyer = Guid.NewGuid();
             List <CreateProductRequest> cart = new List<CreateProductRequest>()
@@ -29,7 +29,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = "brand",
                     Category = "category",
-                    Color = color,
+                    Colour = colour,
 
                 }
             };
@@ -41,7 +41,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = new Brand{ Name = "brand"},
                     Category = new Category{ Name = "category"},
-                    Colors = new List < Colour > () { new Colour() { Name = "Red" }, new Colour() { Name = "Red" } }
+                    Colours = new List < Colour > () { new Colour() { Name = "Red" }, new Colour() { Name = "Red" } }
                 }
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
@@ -142,7 +142,7 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void CreateNewPurchaseUnauthorized()
         {
-            List<string> color = new List<string>() { "Red", "Blue" };
+            List<string> colour = new List<string>() { "Red", "Blue" };
             Guid id = Guid.NewGuid();
             Guid buyer = Guid.NewGuid();
             List<CreateProductRequest> cart = new List<CreateProductRequest>()
@@ -153,7 +153,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = "brand",
                     Category = "category",
-                    Color = color,
+                    Colour = colour,
 
                 }
             };
@@ -165,7 +165,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = new Brand{ Name = "brand"},
                     Category = new Category{ Name = "category"},
-                    Colors = new List<Colour>()
+                    Colours = new List<Colour>()
                     {
                         new Colour(){Name = "Red"},
                         new Colour(){Name = "Blue"}

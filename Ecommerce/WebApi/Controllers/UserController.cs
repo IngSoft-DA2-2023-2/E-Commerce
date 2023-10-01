@@ -125,7 +125,7 @@ namespace WebApi.Controllers
         [HttpPut("admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received, [FromQuery] Guid id, [FromHeader] string Authorization)
+        public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received, [FromRoute] Guid id, [FromHeader] string Authorization)
         {
             var userHeader = Authorization;
             if (_userLogic.IsAdmin(userHeader))
@@ -145,7 +145,7 @@ namespace WebApi.Controllers
             
         }
 
-        private User UserRequestByAdminToEntity(UpdateUserRequestByAdmin received)
+        private User UserRequestByAdminToEntity([FromBody] UpdateUserRequestByAdmin received)
         {
 
             User ret = new User();
@@ -179,7 +179,7 @@ namespace WebApi.Controllers
             
         }
 
-        private User UpdateUserRequestByThemselfToEntity(UpdateUserRequestByThemself received, Guid id)
+        private User UpdateUserRequestByThemselfToEntity([FromBody] UpdateUserRequestByThemself received, [FromRoute] Guid id)
         {
 
             User ret = new User();

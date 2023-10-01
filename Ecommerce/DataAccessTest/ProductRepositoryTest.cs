@@ -53,7 +53,7 @@ namespace DataAccessTest
             {
                 Name = "Sample",
                 Id = product.Id,
-                Colors = new List<Colour>() { new Colour() { Name = "Green" } }
+                Colours = new List<Colour>() { new Colour() { Name = "Green" } }
             };
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var result = productRepository.UpdateProduct(expectedReturn);
@@ -71,7 +71,7 @@ namespace DataAccessTest
             {
                 Name = "Sample",
                 Id = new Guid(),
-                Colors = new List<Colour>() { new Colour() { Name = "Green" } }
+                Colours = new List<Colour>() { new Colour() { Name = "Green" } }
             };
         }
 

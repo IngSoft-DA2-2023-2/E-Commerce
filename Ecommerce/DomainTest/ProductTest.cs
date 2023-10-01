@@ -13,8 +13,8 @@ namespace UnitTest.DomainTest
         private const string _descriptionSample = "description sample";
         private const string _brandSample = "brand sample";
         private const string _categorySample = "category sample";
-        private const string _colorSample = "color sample";
-        private const string _anotherColorSample = "another color sample";
+        private const string _colourSample = "colour sample";
+        private const string _anotherColourSample = "another colour sample";
         private Product productSample;
         private const int _negativePriceSample = -10;
 
@@ -65,27 +65,27 @@ namespace UnitTest.DomainTest
         }
 
         [TestMethod]
-        public void GivenSingleColoredProductReturnsItsColor()
+        public void GivenSingleColoredProductReturnsItsColour()
         {
-            productSample.Colors = new List<Colour>()
+            productSample.Colours = new List<Colour>()
             {
-                new Colour() {Name = _colorSample},
+                new Colour() {Name = _colourSample},
             };
-            Assert.AreEqual(1, productSample.Colors.Count());
-            Assert.AreEqual(_colorSample, productSample.Colors.First().Name);
+            Assert.AreEqual(1, productSample.Colours.Count());
+            Assert.AreEqual(_colourSample, productSample.Colours.First().Name);
         }
 
         [TestMethod]
-        public void GivenMultipleColoredProductReturnsTheColors()
+        public void GivenMultipleColoredProductReturnsTheColours()
         {
-            productSample.Colors = new List<Colour>()
+            productSample.Colours = new List<Colour>()
             {
-                new Colour() {Name = _colorSample},
-                new Colour() {Name = _anotherColorSample}
+                new Colour() {Name = _colourSample},
+                new Colour() {Name = _anotherColourSample}
             };
-            Assert.AreEqual(2, productSample.Colors.Count);
-            Assert.AreEqual(_colorSample, productSample.Colors[0].Name);
-            Assert.AreEqual(_anotherColorSample, productSample.Colors[1].Name);
+            Assert.AreEqual(2, productSample.Colours.Count);
+            Assert.AreEqual(_colourSample, productSample.Colours[0].Name);
+            Assert.AreEqual(_anotherColourSample, productSample.Colours[1].Name);
         }
 
         [TestMethod]

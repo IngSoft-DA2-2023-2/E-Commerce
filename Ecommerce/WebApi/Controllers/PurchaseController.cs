@@ -7,7 +7,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
-    [Route("api/Purchases")]
+    [Route("api/purchases")]
     [ApiController]
     public class PurchaseController :ControllerBase
     {

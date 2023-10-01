@@ -121,6 +121,7 @@ namespace WebApiModelsTest.Controller
                 Email = "email@sample.com",
                 Address = "address sample",
                 Password = "password sample",
+                Roles = new List<string>() { "role sample"},
 
             };
 
