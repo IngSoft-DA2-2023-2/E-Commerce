@@ -12,7 +12,7 @@ namespace WebApiModelsTest.Out
         private const string _descriptionSample = "description sample";
         private const string _brandSample = "brand sample";
         private const string _categorySample = "category sample";
-        private readonly List<string> _colorsSample = new List<string> { "Red", "Blue" };
+        private readonly List<string> _coloursSample = new List<string> { "Red", "Blue" };
         private readonly Guid _guidSample = new Guid();
 
 
@@ -66,10 +66,10 @@ namespace WebApiModelsTest.Out
         }
 
         [TestMethod]
-        public void GivenProductResponseReturnsItsColor()
+        public void GivenProductResponseReturnsItsColour()
         {
-            productResponseExample.Colors = _colorsSample;
-            Assert.AreEqual(_colorsSample, productResponseExample.Colors);
+            productResponseExample.Colours = _coloursSample;
+            Assert.AreEqual(_coloursSample, productResponseExample.Colours);
         }
     }
 }

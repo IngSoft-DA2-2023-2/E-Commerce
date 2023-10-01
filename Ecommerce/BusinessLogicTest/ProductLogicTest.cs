@@ -17,7 +17,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample",
                 Brand = new Brand() { Name = "Brand"},
                 Category = new Category() { Name = "Category"},
-                Colors = new List<Colour>() {new Colour() {Name = "Colour" } }
+                Colours = new List<Colour>() {new Colour() {Name = "Colour" } }
             };
 
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
@@ -45,7 +45,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample",
                 Brand = new Brand() { Name = "Brand" },
                 Category = new Category() { Name = "Category" },
-                Colors = new List<Colour> { new Colour {Name= "Colour" } }
+                Colours = new List<Colour> { new Colour {Name= "Colour" } }
             };
 
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
@@ -75,7 +75,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample1",
                 Brand = new Brand() { Name = "Brand1" },
                 Category = new Category() { Name = "Category1" },
-                Colors = new List<Colour>() { new Colour() { Name = "Colour1" } }
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
             };
             Product expected2 = new()
             {
@@ -83,7 +83,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample2",
                 Brand = new Brand() { Name = "Brand2" },
                 Category = new Category() { Name = "Category2" },
-                Colors = new List<Colour>() { new Colour() { Name = "Colour2" } }
+                Colours = new List<Colour>() { new Colour() { Name = "Colour2" } }
             };
             Product expected3 = new()
             {
@@ -91,7 +91,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample3",
                 Brand = new Brand() { Name = "Brand3" },
                 Category = new Category() { Name = "Category3" },
-                Colors = new List<Colour>() { new Colour() { Name = "Colour3" } }
+                Colours = new List<Colour>() { new Colour() { Name = "Colour3" } }
             };
             IEnumerable<Product> list = new List<Product>() { expected1,expected2, expected3 };
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
@@ -114,7 +114,7 @@ namespace BusinessLogicTest
                 Name = "ProductSample1",
                 Brand = new Brand() { Name = "Brand1" },
                 Category = new Category() { Name = "Category1" },
-                Colors = new List<Colour>() { new Colour() { Name = "Colour1" } }
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
             };
             
             IEnumerable<Product> list = new List<Product>() { expected };

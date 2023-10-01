@@ -11,17 +11,17 @@ namespace ApiModels.Out
         public string Description { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }
-        public List<string> Colors { get; set; }
+        public List<string> Colours { get; set; }
 
         public UpdateProductResponse()
         {
         }
         public UpdateProductResponse(Product product)
         {
-            List<string> colors = new List<string>();
-            foreach( Colour color in product.Colors)
+            List<string> colours = new List<string>();
+            foreach( Colour colour in product.Colours)
             {
-                colors.Add(color.Name);
+                colours.Add(colour.Name);
             }
             Id = product.Id;
             Name = product.Name;
@@ -29,7 +29,7 @@ namespace ApiModels.Out
             Description = product.Description;
             Brand = product.Brand.Name;
             Category = product.Category.Name;
-            Colors = colors;
+            Colours = colours;
         }
     }
 }

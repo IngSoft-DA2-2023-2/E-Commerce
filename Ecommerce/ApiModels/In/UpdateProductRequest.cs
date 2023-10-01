@@ -11,11 +11,11 @@ namespace ApiModels.In
         public string Brand { get; set; }
         public string Category { get; set; }
 
-        public List<string> Color { get; set; }
+        public List<string> Colour { get; set; }
         public Product ToEntity(Guid id)
         {
             List<Colour> colours = new List<Colour>();
-            foreach (string color in Color) colours.Add(new Colour() { Name = color});
+            foreach (string colour in Colour) colours.Add(new Colour() { Name = colour});
             return new Product
             {
                 Id = id,
@@ -24,7 +24,7 @@ namespace ApiModels.In
                 Price = Price,
                 Brand = new Brand() { Name = Brand},
                 Category = new Category(){ Name = Category},
-                Colors = colours };
+                Colours = colours };
         }
     }
 }

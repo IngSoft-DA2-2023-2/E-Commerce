@@ -11,7 +11,7 @@ namespace Domain
         public Guid Id { get; set; }
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
-        public virtual List<Colour> Colors { get; set; } = new List<Colour>();
+        public virtual List<Colour> Colours { get; set; } = new List<Colour>();
 
         public string Name
         {

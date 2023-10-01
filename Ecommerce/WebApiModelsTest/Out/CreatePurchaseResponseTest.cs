@@ -25,7 +25,7 @@ namespace WebApiModelsTest.Out
                     Name = "Test",
                     Brand = new Brand(){ Name = "brand"},
                     Category = new Category(){Name = "category"},
-                    Colors =new List < Colour > () { new Colour() { Name = "Colour" } }
+                    Colours =new List < Colour > () { new Colour() { Name = "Colour" } }
 
                 }
 

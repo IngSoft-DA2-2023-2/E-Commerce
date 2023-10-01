@@ -55,11 +55,11 @@ namespace BusinessLogicTest.PromotionsTest
         }
 
         [TestMethod]
-        public void Given3ItemOfSameColorPurchaseReturnsPromotionIsApplicable()
+        public void Given3ItemOfSameColourPurchaseReturnsPromotionIsApplicable()
         {
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name= _red},new Colour() { Name=_blue} } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _blue } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _blue }, new Colour() { Name = _green } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name= _red},new Colour() { Name=_blue} } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue }, new Colour() { Name = _green } } });
 
             _purchaseSample.Cart = _cartSample;
 
@@ -67,22 +67,22 @@ namespace BusinessLogicTest.PromotionsTest
         }
 
         [TestMethod]
-        public void Given3ItemOfDifferentColorsPurchaseReturnsPromotionIsNotApplicable()
+        public void Given3ItemOfDifferentColoursPurchaseReturnsPromotionIsNotApplicable()
         {
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _blue } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _green }} });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _green }} });
             _purchaseSample.Cart = _cartSample;
             Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
         [TestMethod]
-        public void Given4ItemOfSameColorsPurchaseReturnsPromotionIsApplicable()
+        public void Given4ItemOfSameColoursPurchaseReturnsPromotionIsApplicable()
         {
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name =    _green } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name =    _green } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } } });
 
             _purchaseSample.Cart = _cartSample;
 
@@ -93,8 +93,8 @@ namespace BusinessLogicTest.PromotionsTest
         [ExpectedException(typeof(LogicException), "Not applicable promotion")]
         public void GivenNonApplicablePromotionThrowsBackEndException()
         {
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } } });
 
             _purchaseSample.Cart = _cartSample;
 
@@ -105,9 +105,9 @@ namespace BusinessLogicTest.PromotionsTest
         public void GivenApplicablePromotionReturnsDiscount()
         {
 
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, }, Price = _hundred });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red } }, Price = _fifty });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red } }, Price = _seventy });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, }, Price = _hundred });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } }, Price = _fifty });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } }, Price = _seventy });
 
             _purchaseSample.Cart = _cartSample;
 
@@ -116,10 +116,10 @@ namespace BusinessLogicTest.PromotionsTest
 
         public void GivenTwoPossibleApplicationReturnsHigherDiscount()
         {
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } }, Price = _hundred });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _blue } }, Price = _twoHundred });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red } }, Price = _fifty });
-            _cartSample.Add(new Product() { Colors = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } }, Price = _seventy });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } }, Price = _hundred });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue } }, Price = _twoHundred });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } }, Price = _fifty });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } }, Price = _seventy });
 
             _purchaseSample.Cart = _cartSample;
 

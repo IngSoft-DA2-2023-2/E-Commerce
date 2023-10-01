@@ -7,15 +7,15 @@ namespace BusinessLogic.Promotions
 {
     public class PromotionTotalLook : IPromotionable
     {
-        private const int MinimumSameColorProducts = 3;
+        private const int MinimumSameColourProducts = 3;
         private const decimal DiscountPercentage = 0.5m;
         public string Name { get; } = "TotalLook";
 
         public bool IsApplicable(List<Product> cart)
         {
-            List<Colour> colorsInCart = GetDistinctColorsInCart(cart);
+            List<Colour> coloursInCart = GetDistinctColoursInCart(cart);
 
-            return colorsInCart.Any(color => GetProductsOfColor(cart, color).Count >= MinimumSameColorProducts);
+            return coloursInCart.Any(colour => GetProductsOfColour(cart, colour).Count >= MinimumSameColourProducts);
         }
 
         public int CalculateDiscount(List<Product> cart)
@@ -25,38 +25,38 @@ namespace BusinessLogic.Promotions
                 throw new LogicException("Not applicable promotion");
             }
 
-            List<Colour> colorsInCart = GetDistinctColorsInCart(cart);
+            List<Colour> coloursInCart = GetDistinctColoursInCart(cart);
 
             decimal maxPrice = 0;
-            foreach (Colour color in colorsInCart)
+            foreach (Colour colour in coloursInCart)
             {
-                List<Product> productsOfSpecificColor = GetProductsOfColor(cart, color);
+                List<Product> productsOfSpecificColour = GetProductsOfColour(cart, colour);
 
-                if (productsOfSpecificColor.Count >= MinimumSameColorProducts)
+                if (productsOfSpecificColour.Count >= MinimumSameColourProducts)
                 {
-                    int colorMaxPrice = productsOfSpecificColor.Max(product => product.Price);
-                    maxPrice = Math.Max(maxPrice, colorMaxPrice);
+                    int colourMaxPrice = productsOfSpecificColour.Max(product => product.Price);
+                    maxPrice = Math.Max(maxPrice, colourMaxPrice);
                 }
             }
 
             return (int)(maxPrice * DiscountPercentage);
         }
 
-        private static List<Colour> GetDistinctColorsInCart(List<Product> products)
+        private static List<Colour> GetDistinctColoursInCart(List<Product> products)
         {
-             List<Colour> colorList = new();
+             List<Colour> colourList = new();
 
             foreach (Product product in products)
             {
-                colorList.AddRange(product.Colors.Where(color => !colorList.Contains(color)));
+                colourList.AddRange(product.Colours.Where(colour => !colourList.Contains(colour)));
             }
 
-            return colorList.Distinct().ToList();
+            return colourList.Distinct().ToList();
         }
 
-        private static List<Product> GetProductsOfColor(List<Product> cart, Colour color)
+        private static List<Product> GetProductsOfColour(List<Product> cart, Colour colour)
         {
-            return cart.Where(product => product.Colors.Contains(color)).ToList();
+            return cart.Where(product => product.Colours.Contains(colour)).ToList();
         }
         public override string ToString()
         {
