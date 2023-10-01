@@ -11,7 +11,7 @@ namespace WebApiModelsTest.In
         private string addressSample = "address sample";
         private string emailSample = "email@sample.com";
         private string passwordSample = "passwordSample";
-        private List<StringWrapper> roles = new();
+        private List<string> roles = new();
         private CreateUserByAdminRequest request;
 
 
