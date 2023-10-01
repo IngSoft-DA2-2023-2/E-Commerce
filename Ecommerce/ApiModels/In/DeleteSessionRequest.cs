@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiModels
+namespace ApiModels.In
 {
     public class DeleteSessionRequest
     {
-        public Guid Token {  get; set; }
+        public Guid Token { get; set; }
     }
 }
