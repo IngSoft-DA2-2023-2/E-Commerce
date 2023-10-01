@@ -1,5 +1,4 @@
-﻿using ApiModels;
-using ApiModels.In;
+﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using Domain.ProductParts;

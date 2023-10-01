@@ -3,7 +3,7 @@
 namespace WebApiModelsTest.In
 {
     [TestClass]
-    public class CreatePurchaseRquestTest
+    public class CreatePurchaseRequestTest
     {
         private CreatePurchaseRequest purchaseRequest;
         Guid guid = Guid.NewGuid();
