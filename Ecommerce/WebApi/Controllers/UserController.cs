@@ -71,7 +71,7 @@ namespace WebApi.Controllers
             var resultLogic = _userLogic.AddUserByThemself(user);
             var result = new UserResponse(resultLogic);
 
-            return CreatedAtAction(nameof(RegistrationByAdmin), result);
+            return CreatedAtAction(nameof(SelfRegistration), result);
 
 
 

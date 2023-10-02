@@ -26,7 +26,7 @@ namespace WebApi.Controllers
             Session session = _sessionLogic.LogIn(received.Email, received.Password);
             var result = new SessionResponse(session);
 
-            return CreatedAtAction(nameof(result), result);
+            return CreatedAtAction(nameof(LogIn), result);
         }
 
         [HttpDelete]
