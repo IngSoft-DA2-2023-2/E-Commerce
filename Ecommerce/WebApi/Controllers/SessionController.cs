@@ -21,7 +21,6 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
-        [AuthenticationFilter]
         public IActionResult LogIn([FromBody] CreateSessionRequest received)
         {
             Session session = _sessionLogic.LogIn(received.Email, received.Password);

@@ -62,6 +62,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [AnnotatedCustomExceptionFilter]
         public IActionResult SelfRegistration([FromBody] CreateUserByThemselfRequest received)
         {
             
@@ -144,6 +145,7 @@ namespace WebApi.Controllers
             }
             
         }
+
 
         private User UserRequestByAdminToEntity([FromBody] UpdateUserRequestByAdmin received)
         {
