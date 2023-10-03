@@ -33,7 +33,7 @@ namespace DataAccess.Repository
 
         public IEnumerable<Session> GetSessions(Func<Session, bool> pred)
         {
-            return _eCommerceContext.Sessions.Where(s => pred(s)).ToList();
+            return _eCommerceContext.Sessions.Where(pred).ToList();
         }
     }
 }
