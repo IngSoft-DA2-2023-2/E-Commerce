@@ -80,7 +80,7 @@ namespace BusinessLogic
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                 if (outdated == null) throw new LogicException("User not found");
 
-                return _userRepository.UpdateUser(outdated);
+                return _userRepository.UpdateUser(updated);
             }
             catch (DataAccessException e)
             {
@@ -95,7 +95,7 @@ namespace BusinessLogic
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                 if (outdated == null) throw new LogicException("User not found");
 
-                return _userRepository.UpdateUser(outdated);
+                return _userRepository.UpdateUser(updated);
             }
             catch (DataAccessException e)
             {

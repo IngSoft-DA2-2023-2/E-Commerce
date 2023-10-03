@@ -72,7 +72,7 @@ namespace DataAccess.Repository
                 if (updatedUser.Roles is not null) user.Roles = updatedUser.Roles;
 
                 _eCommerceContext.SaveChanges();
-                return updatedUser;
+                return user;
             }
         }
     }

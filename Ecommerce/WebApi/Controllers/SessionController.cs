@@ -31,23 +31,14 @@ namespace WebApi.Controllers
 
         [HttpDelete]
         [AnnotatedCustomExceptionFilter]
-        [AuthenticationFilter]
-        public IActionResult LogOut([FromBody] DeleteSessionRequest request, [FromHeader] string Authorization)
+        public IActionResult LogOut([FromHeader] string Authorization)
         {
-            var userHeader = Authorization;
-            var token = request.Token.ToString();
-            if (token.Equals(userHeader))
-            {
-                var id = _userLogic.GetUserIdFromToken(userHeader);
-                Session session = _sessionLogic.LogOut(request.Token);
-                var result = new SessionResponse(session);
+            Guid tokenUser = Guid.Parse(Authorization);
+            Session session = _sessionLogic.LogOut(tokenUser);
+            var result = new SessionResponse(session);
 
-                return Ok(result);
-            }
-            else
-            {
-                throw new UnauthorizedAccessException();
-            }
+            return Ok(result);
+
 
 
         }
