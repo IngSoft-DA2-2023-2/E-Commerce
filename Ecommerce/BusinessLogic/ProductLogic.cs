@@ -98,28 +98,45 @@ namespace BusinessLogic
             IEnumerable<Product> products = null;
             try
             {
-                
                 if (name is not null)
                 {
                     products = _productRepository.GetProductByName(name);
-                    products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
-                    products = products.Intersect(_productRepository.GetProductByBrand(brandName));
+
                 }
-                else if(brandName is not null)
+                if (brandName is not null)
                 {
-                    products = _productRepository.GetProductByCategory(brandName);
-                    products = products.Intersect(_productRepository.GetProductByBrand(categoryName));
+                    if(name is not null)
+                    {
+                        products = products.Intersect(_productRepository.GetProductByBrand(brandName));
+
+                    }
+                    else
+                    {
+                        products = _productRepository.GetProductByBrand(brandName);
+
+                    }
+
                 }
-                else
+                if (categoryName is not null)
                 {
-                    products = _productRepository.GetProductByBrand(categoryName);
+                    if(brandName is not null)
+                    {
+                        products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
+
+                    }
+                    else
+                    {
+                        products = _productRepository.GetProductByCategory(categoryName);
+
+                    }
+
                 }
             }
             catch(DataAccessException e)
             {
                 throw new LogicException(e);
             }
-            if (products.Any()) throw new LogicException("there is no product with those conditions");
+            if (products.Count() <= 0) throw new LogicException("there is no product with those conditions");
             return products;
         }
     }
