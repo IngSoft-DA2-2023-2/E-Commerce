@@ -3,6 +3,7 @@ using DataAccessInterface.Exceptions;
 using DataAccessInterface;
 using Domain;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
 {

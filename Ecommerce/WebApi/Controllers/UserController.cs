@@ -123,7 +123,7 @@ namespace WebApi.Controllers
             
         }
 
-        [HttpPut("admin")]
+        [HttpPut("admin/{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received, [FromRoute] Guid id, [FromHeader] string Authorization)

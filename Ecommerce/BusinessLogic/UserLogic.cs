@@ -134,8 +134,21 @@ namespace BusinessLogic
 
         public bool IsAdmin(string token)
         {
-            Guid tokenGuid = Guid.Parse(token);
-           return _sessionRepository.GetSessions(s => s.Id == tokenGuid).FirstOrDefault().User.Roles.Contains(new StringWrapper() { Info = "admin" });
+            try
+            {
+                Guid tokenGuid = Guid.Parse(token);
+                var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
+                if (sessions.Count() == 0) return false;
+                return sessions.FirstOrDefault().
+                User.Roles.
+                Contains(new StringWrapper() { Info = "admin" });
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+            catch { return false; }
+          
         }
 
         public Guid GetUserIdFromToken(string userHeader)
@@ -149,8 +162,19 @@ namespace BusinessLogic
 
         public bool IsBuyer(string token)
         {
-            Guid tokenGuid = Guid.Parse(token);
-            return _sessionRepository.GetSessions(s => s.Id == tokenGuid).FirstOrDefault().User.Roles.Contains(new StringWrapper() { Info = "buyer" });
+            try
+            {
+                Guid tokenGuid = Guid.Parse(token);
+                var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
+                if (sessions.Count() == 0) return false;
+                return sessions.FirstOrDefault().
+                     User.Roles.
+                     Contains(new StringWrapper() { Info = "buyer" });
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
     }
 }

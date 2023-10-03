@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,11 @@ namespace DataAccess.Repository
 
         public IEnumerable<Session> GetSessions(Func<Session, bool> pred)
         {
-            return _eCommerceContext.Sessions.Where(pred).ToList();
+            return _eCommerceContext.Sessions.
+                Include(s => s.User).
+                ThenInclude(u => u.Roles).
+                Where(pred).
+                ToList();
         }
     }
 }
