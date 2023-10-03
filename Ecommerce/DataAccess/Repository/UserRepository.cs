@@ -27,10 +27,18 @@ namespace DataAccess.Repository
 
         public User DeleteUser(Guid user)
         {
-            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Id == user);
+            var existingUser = _eCommerceContext.Users.Include(u => u.Roles).FirstOrDefault(u => u.Id == user);
+          
 
             if (existingUser != null)
             {
+                var rolId = existingUser.Roles;
+                while(rolId.Count > 0)
+                {
+                    var rol = _eCommerceContext.StringListWrappers.FirstOrDefault(r => r.Id == rolId[0].Id);
+                    _eCommerceContext.StringListWrappers.Remove(rol);
+                    _eCommerceContext.SaveChanges();
+                }
                 _eCommerceContext.Users.Remove(existingUser);
                 _eCommerceContext.SaveChanges();
                 return existingUser;
