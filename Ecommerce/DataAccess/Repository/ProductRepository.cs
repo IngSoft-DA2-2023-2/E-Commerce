@@ -111,7 +111,7 @@ namespace DataAccess.Repository
                 Where(p => p.Id == newProduct.Id).First();
             if (product is null)
             {
-                throw new DataAccessException($"Product {newProduct.Name} does not exist.");
+                throw new DataAccessException($"Product does not exist.");
             }
             else
             {

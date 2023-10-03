@@ -81,7 +81,6 @@ namespace BusinessLogic
                 if (outdated == null) throw new LogicException("User not found");
 
                 return _userRepository.UpdateUser(outdated);
-
             }
             catch (DataAccessException e)
             {
@@ -96,12 +95,7 @@ namespace BusinessLogic
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                 if (outdated == null) throw new LogicException("User not found");
 
-                if (updated.Address != null) outdated.Address = updated.Address;
-                if (updated.Password != null) outdated.Password = updated.Password;
-                if (updated.Name != null) outdated.Name = updated.Name;
-
                 return _userRepository.UpdateUser(outdated);
-
             }
             catch (DataAccessException e)
             {

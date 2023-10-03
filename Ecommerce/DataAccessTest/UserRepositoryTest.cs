@@ -141,8 +141,10 @@ namespace DataAccessTest
         [TestMethod]
         public void UpdateAllUserProperties()
         {
+            Guid id = Guid.NewGuid();
             User existingUser = new User
             {
+                Id = id,
                 Name = "oldName",
                 Email = "test@example.com",
                 Address = "old street",
@@ -151,6 +153,7 @@ namespace DataAccessTest
 
             User updatedUser = new User
             {
+                Id = id,
                 Name = "newName",
                 Email = "test@example.com",
                 Address = "new street",
@@ -173,11 +176,13 @@ namespace DataAccessTest
         [TestMethod]
         public void UpdateUserName()
         {
+            Guid id = Guid.NewGuid();
             User existingUser = new User
             {
                 Name = "oldName",
                 Email = "test@example.com",
                 Address = "old address",
+                Id = id
             };
 
             User updatedUser = new User
@@ -185,10 +190,11 @@ namespace DataAccessTest
                 Email = "test@example.com",
                 Address = "new street",
                 Password = "new password",
+                Id = id
             };
 
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { updatedUser });
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { existingUser });
 
             IUserRepository userRepository = new UserRepository(userContext.Object);
 
@@ -203,14 +209,22 @@ namespace DataAccessTest
         [ExpectedException(typeof(DataAccessException))]
         public void UpdateNonExistingUserThrowsException()
         {
+            Guid idUserExample = Guid.NewGuid();
+            Guid idUpdate = Guid.NewGuid();
+            User example = new User()
+            {
+                Id = idUserExample,
+                Name = "ExampleUser"
+            };
             User existingUser = new User
             {
+                Id = idUpdate,
                 Name = "oldName",
                 Email = "test@example.com",
             };
 
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> {});
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { example });
 
             IUserRepository userRepository = new UserRepository(userContext.Object);
 

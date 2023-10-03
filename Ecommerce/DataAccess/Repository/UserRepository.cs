@@ -54,14 +54,26 @@ namespace DataAccess.Repository
 
         public User UpdateUser(User updatedUser)
         {
-            var existingUser = _eCommerceContext.Users.FirstOrDefault(u => u.Email == updatedUser.Email);
-            if (existingUser != null)
-            {
-                _eCommerceContext.Update(existingUser);
+            var user = _eCommerceContext.Users.
+                Include(u => u.Roles).
+                Where(u=> u.Id == updatedUser.Id).
+                FirstOrDefault();
 
-                return _eCommerceContext.Users.FirstOrDefault(u => u.Email == updatedUser.Email);
+            if (user is null)
+            {
+                throw new DataAccessException($"User does not exist.");
             }
-            throw new DataAccessException("No user found");
+            else
+            {
+                if(updatedUser.Name is not null) user.Name = updatedUser.Name;
+                if (updatedUser.Address is not null) user.Address = updatedUser.Address;
+                if (updatedUser.Email is not null) user.Email = updatedUser.Email;
+                if (updatedUser.Password is not null) user.Password = updatedUser.Password;
+                if (updatedUser.Roles is not null) user.Roles = updatedUser.Roles;
+
+                _eCommerceContext.SaveChanges();
+                return updatedUser;
+            }
         }
     }
 }
