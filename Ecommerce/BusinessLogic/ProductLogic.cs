@@ -11,13 +11,13 @@ namespace BusinessLogic
 {
     public class ProductLogic : IProductLogic
     {
-       private IProductRepository _productRepository;
-       private BrandLogic _brandLogic;
-       private CategoryLogic _categoryLogic;
-       private ColourLogic _colourLogic;
-        public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository) 
+        private IProductRepository _productRepository;
+        private BrandLogic _brandLogic;
+        private CategoryLogic _categoryLogic;
+        private ColourLogic _colourLogic;
+        public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository)
         {
-            _productRepository = productRepository; 
+            _productRepository = productRepository;
             _brandLogic = new BrandLogic(brandRepository);
             _categoryLogic = new CategoryLogic(categoryRepository);
             _colourLogic = new ColourLogic(colourRepository);
@@ -63,17 +63,18 @@ namespace BusinessLogic
                     IEnumerable<Product> brandFilter = _productRepository.GetProductByBrand(brandName);
                     products = products.Union(brandFilter);
                 }
-                if (brandName is not null)
+                if (categoryName is not null)
                 {
                     IEnumerable<Product> categoryFilter = _productRepository.GetProductByCategory(categoryName);
                     products = products.Union(categoryFilter);
                 }
                 return products.Distinct();
-            }catch(DataAccessException e)
+            }
+            catch (DataAccessException e)
             {
                 throw new LogicException(e);
             }
-            
+
 
         }
 
@@ -103,36 +104,31 @@ namespace BusinessLogic
                     products = _productRepository.GetProductByName(name);
 
                 }
-                if (brandName is not null)
+
+                if (brandName is not null && name is not null)
                 {
-                    if(name is not null)
-                    {
-                        products = products.Intersect(_productRepository.GetProductByBrand(brandName));
-
-                    }
-                    else
-                    {
-                        products = _productRepository.GetProductByBrand(brandName);
-
-                    }
+                    products = products.Intersect(_productRepository.GetProductByBrand(brandName));
 
                 }
-                if (categoryName is not null)
+                else if (brandName is not null)
                 {
-                    if(brandName is not null)
-                    {
-                        products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
+                    products = _productRepository.GetProductByBrand(brandName);
 
-                    }
-                    else
-                    {
-                        products = _productRepository.GetProductByCategory(categoryName);
+                }
 
-                    }
+                if (categoryName is not null && (brandName is not null || name is not null))
+                {
+
+                    products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
+
+                }
+                else if (categoryName is not null)
+                {
+                    products = _productRepository.GetProductByCategory(categoryName);
 
                 }
             }
-            catch(DataAccessException e)
+            catch (DataAccessException e)
             {
                 throw new LogicException(e);
             }
