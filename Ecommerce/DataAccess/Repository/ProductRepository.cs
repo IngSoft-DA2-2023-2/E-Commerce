@@ -105,14 +105,24 @@ namespace DataAccess.Repository
 
         public Product UpdateProduct(Product newProduct)
         {
-            if(_eCommerceContext.Products.First(p=> p.Id.Equals(newProduct.Id)) is null)
+            var product = _eCommerceContext.Products.Include(p => p.Brand).
+                Include(p => p.Category).
+                Include(p => p.Colours).
+                Where(p => p.Id == newProduct.Id).First();
+            if (product is null)
             {
                 throw new DataAccessException($"Product {newProduct.Name} does not exist.");
             }
             else
             {
-                _eCommerceContext.Products.Update(newProduct);
-                _eCommerceContext.SaveChanges();
+                if(newProduct.Name != null) product.Name = newProduct.Name;
+                if (newProduct.Description != null) product.Description = newProduct.Description;
+                if(newProduct.Price != null) product.Price = newProduct.Price;
+                if(newProduct.Brand != null) product.Brand = newProduct.Brand;
+                if (newProduct.Category != null) product.Category = newProduct.Category;
+                if (newProduct.Colours != null) product.Colours = newProduct.Colours;
+
+                  _eCommerceContext.SaveChanges();
                 return newProduct;
             }
         }

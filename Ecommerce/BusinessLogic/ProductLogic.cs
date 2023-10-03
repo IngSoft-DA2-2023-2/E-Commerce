@@ -22,24 +22,7 @@ namespace BusinessLogic
             _categoryLogic = new CategoryLogic(categoryRepository);
             _colourLogic = new ColourLogic(colourRepository);
         }
-        public Product AddProduct(Product newProduct)
-        {
-            try
-            {
-                Guid guid = Guid.NewGuid();
-                newProduct.Id = guid;
-                _brandLogic.CheckBrand(newProduct.Brand);
-                _categoryLogic.CheckForCategory(newProduct.Category);
-                foreach (Colour colour in newProduct.Colours) _colourLogic.CheckForColour(colour);
-                return _productRepository.CreateProduct(newProduct);
-            }
-            catch
-            (DataAccessException e)
-            {
-                throw new LogicException(e);
-            }
-        }
-
+      
         public Product GetProductById(Guid id)
         {
             try
@@ -77,6 +60,25 @@ namespace BusinessLogic
 
 
         }
+
+        public Product AddProduct(Product newProduct)
+        {
+            try
+            {
+                Guid guid = Guid.NewGuid();
+                newProduct.Id = guid;
+                _brandLogic.CheckBrand(newProduct.Brand);
+                _categoryLogic.CheckForCategory(newProduct.Category);
+                foreach (Colour colour in newProduct.Colours) _colourLogic.CheckForColour(colour);
+                return _productRepository.CreateProduct(newProduct);
+            }
+            catch
+            (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+        }
+
 
         public Product UpdateProduct(Product newProduct)
         {
