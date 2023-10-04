@@ -29,7 +29,6 @@ namespace WebApi.Controllers
         [AuthenticationFilter]
         public IActionResult GetUsersById([FromRoute] Guid id, [FromHeader] string Authorization)
         {
-
             var userHeader = Authorization;
             if (_userLogic.IsAdmin(userHeader))
             {
@@ -39,8 +38,6 @@ namespace WebApi.Controllers
             {
                 throw new UnauthorizedAccessException();
             }
-
-
         }
 
         [HttpGet]
@@ -57,23 +54,17 @@ namespace WebApi.Controllers
             {
                 throw new UnauthorizedAccessException();
             }
-
-
         }
 
         [HttpPost]
+        [AnnotatedCustomExceptionFilter]
         public IActionResult SelfRegistration([FromBody] CreateUserByThemselfRequest received)
         {
-            
-
             var user = received.ToEntity();
             var resultLogic = _userLogic.AddUserByThemself(user);
             var result = new UserResponse(resultLogic);
 
-            return CreatedAtAction(nameof(RegistrationByAdmin), result);
-
-
-
+            return CreatedAtAction(nameof(SelfRegistration), result);
         }
 
         [HttpPost]
@@ -95,13 +86,10 @@ namespace WebApi.Controllers
             else
             {
                 throw new UnauthorizedAccessException();
-            }
-
-
-            
+            }      
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult DeleteUser([FromRoute] Guid id, [FromHeader] string Authorization)
@@ -117,12 +105,10 @@ namespace WebApi.Controllers
             else
             {
                 throw new UnauthorizedAccessException();
-            }
-
-            
+            }         
         }
 
-        [HttpPut("admin")]
+        [HttpPut("{id}/admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
         public IActionResult UpdateUserByAdmin([FromBody] UpdateUserRequestByAdmin received, [FromRoute] Guid id, [FromHeader] string Authorization)
@@ -141,13 +127,11 @@ namespace WebApi.Controllers
             else
             {
                 throw new UnauthorizedAccessException();
-            }
-            
+            }          
         }
 
         private User UserRequestByAdminToEntity([FromBody] UpdateUserRequestByAdmin received)
         {
-
             User ret = new User();
             if (received.Name is not null) ret.Name = received.Name;
             if (received.Address is not null) ret.Address = received.Address;
@@ -170,18 +154,14 @@ namespace WebApi.Controllers
 
                 var user = UpdateUserRequestByThemselfToEntity(received, id);
 
-
                 var resultLogic = _userLogic.UpdateUserByThemself(user);
                 var result = new UserResponse(resultLogic);
 
-                return Ok(result);
-            
-            
+                return Ok(result);                  
         }
 
         private User UpdateUserRequestByThemselfToEntity([FromBody] UpdateUserRequestByThemself received, [FromRoute] Guid id)
         {
-
             User ret = new User();
             ret.Id = id;
             if (received.Name is not null) ret.Name = received.Name;

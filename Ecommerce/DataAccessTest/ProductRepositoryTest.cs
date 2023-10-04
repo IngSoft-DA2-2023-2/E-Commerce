@@ -40,22 +40,35 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.AreEqual(catchedException?.Message,"Product Sample already exists.");
+            Assert.AreEqual(catchedException?.Message, "Product Sample already exists.");
         }
 
         [TestMethod]
         public void UpdateProductOk()
         {
-            Product product = new Product() { Name = "Sample", Id = new Guid() };
-            var productContext = new Mock<ECommerceContext>();
-            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
-            var expectedReturn = new Product()
+            Guid id = Guid.NewGuid();
+            Product product = new Product()
             {
                 Name = "Sample",
-                Id = product.Id,
+                Id = id,
+                Brand = new Brand() { Name = "Brand" },
+                Category = new Category() { Name = "Category" },
+                Colours = new List<Colour>() { new Colour() { Name = "Red" } }
+            };
+
+            var listProducts = new List<Product>() { product };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(listProducts);
+         
+            Product expectedReturn = new Product()
+            {
+                Name = "Sample2",
+                Id = id,
+                Brand = new Brand() { Name = "Brand2" },
+                Category = new Category() { Name = "Category2" },
                 Colours = new List<Colour>() { new Colour() { Name = "Green" } }
             };
-            IProductRepository productRepository = new ProductRepository(productContext.Object);
+             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var result = productRepository.UpdateProduct(expectedReturn);
             Assert.AreEqual(expectedReturn, result);
         }
@@ -112,7 +125,7 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.AreEqual(catchedException?.Message,$"Product {product.Name} does not exist.");
+            Assert.AreEqual(catchedException?.Message, $"Product {product.Name} does not exist.");
         }
         [TestMethod]
         public void GetFilteredProductByBrand()
@@ -168,6 +181,27 @@ namespace DataAccessTest
             var response = productRepository.GetProductByCategory("category");
             Assert.AreEqual(response.First().Category.Name, "category");
         }
-  
+
+        [TestMethod]
+        public void GetAllProducts()
+        {
+            Product product = new Product()
+            {
+                Name = "Sample",
+                Brand = new Brand() { Name = "brand" },
+                Id = Guid.NewGuid()
+            };
+            var products = new List<Product>() { product };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(products);
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetAllProducts();
+            Assert.AreEqual(response.Count(), products.Count());
+            for(int i = 0; i < response.Count(); i++)
+            {
+                Assert.AreEqual(response.ElementAt(i), products.ElementAt(i));
+            }
+        }
+
     }
 }

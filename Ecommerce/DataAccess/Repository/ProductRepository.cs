@@ -3,6 +3,8 @@ using DataAccessInterface.Exceptions;
 using DataAccessInterface;
 using Domain;
 using Domain.ProductParts;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace DataAccess.Repository
 {
@@ -27,9 +29,23 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
+        public IEnumerable<Product> GetAllProducts()
+        {
+           return  _eCommerceContext.Products.
+               Include(p => p.Brand).
+               Include(p => p.Category).
+               Include(p => p.Colours).ToList();
+        }
+
         public IEnumerable<Product> GetProductByBrand(string brand)
         {
-            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Brand.Name == brand).ToList();
+
+            var selectedProducts = _eCommerceContext.Products.
+                Include(p => p.Brand).
+                Include(p => p.Category).
+                Include(p => p.Colours).
+                Where(p => p.Brand.Name == brand).
+                ToList();
             if (!selectedProducts.Any())
             {
                 throw new DataAccessException($"Product brand {brand} does not exist.");
@@ -42,7 +58,13 @@ namespace DataAccess.Repository
 
         public IEnumerable<Product> GetProductByCategory(string category)
         {
-            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p => p.Category.Name == category).ToList();
+            var selectedProducts = _eCommerceContext.Products.
+                Include(p => p.Brand).
+                Include(p => p.Category).
+                Include(p => p.Colours).
+                Where(p => p.Category.Name == category).
+                ToList();
+
             if (!selectedProducts.Any())
             {
                 throw new DataAccessException($"Product category {category} does not exist.");
@@ -55,7 +77,12 @@ namespace DataAccess.Repository
 
         public Product GetProductById(Guid id)
         {
-            var product = _eCommerceContext.Products.FirstOrDefault(p => p.Id.Equals(id));
+
+            var product = _eCommerceContext.Products.
+               Include(p => p.Brand).
+               Include(p => p.Category).
+               Include(p => p.Colours).
+               Where(p => p.Id == id).FirstOrDefault();
             if (product is null)
             {
                 throw new DataAccessException($"Product with id {id} does not exist.");
@@ -68,7 +95,12 @@ namespace DataAccess.Repository
 
         public IEnumerable<Product> GetProductByName(string name)
         {
-            IEnumerable<Product> selectedProducts = _eCommerceContext.Products.Where(p=> p.Name ==name).ToList();
+            var selectedProducts = _eCommerceContext.Products.
+                Include(p => p.Brand).
+                Include(p => p.Category).
+                Include(p => p.Colours).
+                Where(p => p.Name == name).
+                ToList();
             if (!selectedProducts.Any())
             {
                 throw new DataAccessException($"Product {name} does not exist.");
@@ -81,14 +113,24 @@ namespace DataAccess.Repository
 
         public Product UpdateProduct(Product newProduct)
         {
-            if(_eCommerceContext.Products.First(p=> p.Id.Equals(newProduct.Id)) is null)
+            var product = _eCommerceContext.Products.Include(p => p.Brand).
+                Include(p => p.Category).
+                Include(p => p.Colours).
+                Where(p => p.Id == newProduct.Id).First();
+            if (product is null)
             {
-                throw new DataAccessException($"Product {newProduct.Name} does not exist.");
+                throw new DataAccessException($"Product does not exist.");
             }
             else
             {
-                _eCommerceContext.Products.Update(newProduct);
-                _eCommerceContext.SaveChanges();
+                if(newProduct.Name != null) product.Name = newProduct.Name;
+                if (newProduct.Description != null) product.Description = newProduct.Description;
+                if(newProduct.Price != null) product.Price = newProduct.Price;
+                if(newProduct.Brand != null) product.Brand = newProduct.Brand;
+                if (newProduct.Category != null) product.Category = newProduct.Category;
+                if (newProduct.Colours != null) product.Colours = newProduct.Colours;
+
+                  _eCommerceContext.SaveChanges();
                 return newProduct;
             }
         }

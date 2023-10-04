@@ -22,14 +22,14 @@ namespace BusinessLogic
         {
             try
             {
-                if (_userRepository.GetAllUsers(u=>u.Email == user.Email).Any())
+                if (_userRepository.GetAllUsers(u => u.Email == user.Email).Any())
                 {
                     throw new LogicException("Existing user with that email");
                 }
                 user.Id = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
             }
-             catch(DataAccessException e)
+            catch (DataAccessException e)
             {
                 throw new LogicException(e);
             }
@@ -37,14 +37,14 @@ namespace BusinessLogic
         }
 
         public User AddUserByThemself(User user)
-        {    
+        {
             try
             {
                 if (_userRepository.GetAllUsers(u => u.Email == user.Email).Any())
                 {
                     throw new LogicException("Existing user with that email");
                 }
-                user.Roles = new List<StringWrapper> {new StringWrapper(){Info= "buyer" } };
+                user.Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } };
                 user.Id = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
             }
@@ -54,7 +54,7 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<User> GetAllUsers(Func<User,bool>? predicate)
+        public IEnumerable<User> GetAllUsers(Func<User, bool>? predicate)
         {
             try
             {
@@ -78,16 +78,9 @@ namespace BusinessLogic
             try
             {
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
-                    if (outdated == null) throw new LogicException("User not found");
-                
-                    if (updated.Address != null) outdated.Address = updated.Address;
-                    if (updated.Password != null) outdated.Password = updated.Password;
-                    if (outdated.Roles != null ) outdated.Roles = updated.Roles;
-                    if (updated.Name != null) outdated.Name = updated.Name;
-                    if(updated.Email != null) outdated.Email = updated.Email;
-                
-              return _userRepository.UpdateUser(outdated);
+                if (outdated == null) throw new LogicException("User not found");
 
+                return _userRepository.UpdateUser(updated);
             }
             catch (DataAccessException e)
             {
@@ -102,12 +95,7 @@ namespace BusinessLogic
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                 if (outdated == null) throw new LogicException("User not found");
 
-                if (updated.Address != null) outdated.Address = updated.Address;
-                if (updated.Password != null) outdated.Password = updated.Password;
-                if (updated.Name != null) outdated.Name = updated.Name;
-
-                return _userRepository.UpdateUser(outdated);
-
+                return _userRepository.UpdateUser(updated);
             }
             catch (DataAccessException e)
             {
@@ -134,8 +122,21 @@ namespace BusinessLogic
 
         public bool IsAdmin(string token)
         {
-            Guid tokenGuid = Guid.Parse(token);
-           return _sessionRepository.GetSessions(s => s.Id == tokenGuid).FirstOrDefault().User.Roles.Contains(new StringWrapper() { Info = "admin" });
+            try
+            {
+                Guid tokenGuid = Guid.Parse(token);
+                var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
+                if (sessions.Count() == 0) return false;
+                return sessions.FirstOrDefault().
+                User.Roles.
+                Contains(new StringWrapper() { Info = "admin" });
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+            catch { return false; }
+
         }
 
         public Guid GetUserIdFromToken(string userHeader)
@@ -149,8 +150,19 @@ namespace BusinessLogic
 
         public bool IsBuyer(string token)
         {
-            Guid tokenGuid = Guid.Parse(token);
-            return _sessionRepository.GetSessions(s => s.Id == tokenGuid).FirstOrDefault().User.Roles.Contains(new StringWrapper() { Info = "buyer" });
+            try
+            {
+                Guid tokenGuid = Guid.Parse(token);
+                var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
+                if (sessions.Count() == 0) return false;
+                return sessions.FirstOrDefault().
+                     User.Roles.
+                     Contains(new StringWrapper() { Info = "buyer" });
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
     }
 }

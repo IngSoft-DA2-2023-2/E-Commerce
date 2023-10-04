@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using LogicInterface.Exceptions;
+using Domain.Exceptions;
+
 namespace WebApi.Filters
 {
     public class AnnotatedCustomExceptionFilter : ExceptionFilterAttribute
@@ -11,21 +13,28 @@ namespace WebApi.Filters
             {
                 context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
                 {
-                    StatusCode = 400
+                    StatusCode = StatusCodes.Status400BadRequest,
                 };
             }
             else if (context.Exception is UnauthorizedAccessException)
             {
                 context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
                 {
-                    StatusCode = 403
+                    StatusCode = StatusCodes.Status403Forbidden,
                 };
             }
-            else
+            else if (context.Exception is DomainException)
             {
+                context.Result = new ObjectResult(new { ErrorMessage = context.Exception.Message })
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                };
+            }
+            else {
+
                 context.Result = new ObjectResult(new { ErrorMessage = "Something went wrong." })
                 {
-                    StatusCode = 500
+                    StatusCode = StatusCodes.Status500InternalServerError,
                 };
             }
             

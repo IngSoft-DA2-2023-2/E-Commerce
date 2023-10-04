@@ -66,10 +66,7 @@ namespace WebApiModelsTest.Controller
         {
             Guid guid = Guid.NewGuid();
 
-            DeleteSessionRequest received = new DeleteSessionRequest()
-            {
-                Token = guid,
-            };
+           
 
 
             IEnumerable<User> expected = new List<User>()
@@ -95,7 +92,7 @@ namespace WebApiModelsTest.Controller
             logic.Setup(logic => logic.LogOut(It.IsAny<Guid>())).Returns(session);
             var sessionController = new SessionController(logic.Object, userLogic.Object);
 
-            var result = sessionController.LogOut(received, guid.ToString());
+            var result = sessionController.LogOut(guid.ToString());
 
             logic.VerifyAll();
             OkObjectResult resultObject = result as OkObjectResult;

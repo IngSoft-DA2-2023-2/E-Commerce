@@ -21,7 +21,7 @@ namespace Domain
         public Guid UserId { get; set; }
         public User User { get; set; }
 
-        public string CurrentPromotion { get; set; }
+        public string? CurrentPromotion { get; set; }
         public List<Product> Cart
         {
             get => _cart;
