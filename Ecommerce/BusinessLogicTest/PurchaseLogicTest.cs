@@ -1,6 +1,7 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
 using Domain;
+using LogicInterface;
 using Moq;
 
 namespace BusinessLogicTest
@@ -24,8 +25,10 @@ namespace BusinessLogicTest
                 }
             };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);
+            Mock<IProductLogic> pLogic = new Mock<IProductLogic>();
             repository.Setup(logic => logic.CreatePurchase(It.IsAny<Purchase>())).Returns(purchase);
-            var purchaseLogic = new PurchaseLogic(repository.Object);
+            pLogic.Setup(l => l.CheckProduct(It.IsAny<Product>())).Returns(true);
+            var purchaseLogic = new PurchaseLogic(repository.Object, pLogic.Object);
             var result = purchaseLogic.CreatePurchase(purchase);
             repository.VerifyAll();
             Assert.AreEqual(result.Cart.First().Name, purchase.Cart.First().Name);
@@ -48,7 +51,7 @@ namespace BusinessLogicTest
             List<Purchase> purchaseList = new List<Purchase>() { purchase };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);
             repository.Setup(logic => logic.GetAllPurchases()).Returns(purchaseList);
-            var purchaseLogic = new PurchaseLogic(repository.Object);
+            var purchaseLogic = new PurchaseLogic(repository.Object, null);
             var result = purchaseLogic.GetAllPurchases();
             repository.VerifyAll();
             Assert.AreEqual(result.First(), purchase);

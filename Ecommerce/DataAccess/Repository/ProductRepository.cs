@@ -5,6 +5,8 @@ using Domain;
 using Domain.ProductParts;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
+using System.Security.Principal;
+using System.Collections.Generic;
 
 namespace DataAccess.Repository
 {
@@ -20,7 +22,10 @@ namespace DataAccess.Repository
 
         public Product CreateProduct(Product product)
         {
-            if (_eCommerceContext.Products.FirstOrDefault(p => p.Name.Equals(product.Name)) is null)
+            var productos = _eCommerceContext.Products.
+                Where(p => (p.Name.Equals(product.Name)))
+                .FirstOrDefault();
+            if (productos is null)
             {
                 _eCommerceContext.Products.Add(product);
                 _eCommerceContext.SaveChanges();
@@ -31,11 +36,25 @@ namespace DataAccess.Repository
 
         public IEnumerable<Product> GetAllProducts()
         {
-           return  _eCommerceContext.Products.
-               Include(p => p.Brand).
-               Include(p => p.Category).
-               Include(p => p.Colours).ToList();
+            var products = _eCommerceContext.Products.
+                 Include(p => p.Brand).
+                 Include(p => p.Category).
+                 Include(p => p.Colours).ToList();
+
+            var productsReturn = new List<Product>();
+            foreach (Product product in products)
+            {
+                if(!(productsReturn.Contains(product)))
+                {
+                    productsReturn.Add(product);
+                }
+            }
+
+            return productsReturn;
         }
+     
+
+        
 
         public IEnumerable<Product> GetProductByBrand(string brand)
         {
@@ -52,7 +71,16 @@ namespace DataAccess.Repository
             }
             else
             {
-                return selectedProducts;
+                var productsReturn = new List<Product>();
+                foreach (Product product in selectedProducts)
+                {
+                    if (!(productsReturn.Contains(product)))
+                    {
+                        productsReturn.Add(product);
+                    }
+                }
+
+                return productsReturn;
             }
         }
 
@@ -71,7 +99,16 @@ namespace DataAccess.Repository
             }
             else
             {
-                return selectedProducts;
+                var productsReturn = new List<Product>();
+                foreach (Product product in selectedProducts)
+                {
+                    if (!(productsReturn.Contains(product)))
+                    {
+                        productsReturn.Add(product);
+                    }
+                }
+
+                return productsReturn;
             }
         }
 
@@ -107,7 +144,16 @@ namespace DataAccess.Repository
             }
             else
             {
-                return selectedProducts;
+                var productsReturn = new List<Product>();
+                foreach (Product product in selectedProducts)
+                {
+                    if (!(productsReturn.Contains(product)))
+                    {
+                        productsReturn.Add(product);
+                    }
+                }
+
+                return productsReturn;
             }
         }
 

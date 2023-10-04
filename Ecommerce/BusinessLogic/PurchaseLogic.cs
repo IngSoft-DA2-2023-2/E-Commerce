@@ -11,11 +11,13 @@ namespace BusinessLogic
     {
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly PromotionContext _promotionContext;
+        private readonly IProductLogic _productLogic;
 
-        public PurchaseLogic(IPurchaseRepository purchaseRepository)
+        public PurchaseLogic(IPurchaseRepository purchaseRepository, IProductLogic productLogic)
         {
             _purchaseRepository = purchaseRepository;
             _promotionContext = new PromotionContext();
+            _productLogic = productLogic;
         }
 
         private void AssignsBestPromotion(Purchase purchase)
@@ -29,6 +31,7 @@ namespace BusinessLogic
             try{
                 Guid guid = Guid.NewGuid();
                 purchase.Id = guid;
+                foreach(Product p in purchase.Cart) _productLogic.CheckProduct(p);
                 purchase.Total = _promotionContext.CalculateTotalWithoutPromotion(purchase.Cart);
                 if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
                 return _purchaseRepository.CreatePurchase(purchase);
