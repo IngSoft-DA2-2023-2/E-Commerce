@@ -43,5 +43,26 @@ namespace BusinessLogic.Promotions
             }
             return best;
         }
+
+        public int CalculateTotalWithPromotion(List<Product> cart)
+        {
+            int prices = 0;
+            foreach (Product product in cart) prices += product.Price;
+
+            if (!IsEligibleForPromotions(cart)) throw new LogicException("Not Eligible for promotions");
+            int maxDiscount = 0;
+            foreach (IPromotionable promotion in _promotions)
+            {
+                if (promotion.IsApplicable(cart))
+                {
+                    int currentDiscount = promotion.CalculateDiscount(cart);
+                    if (currentDiscount > maxDiscount)
+                    {
+                        maxDiscount = currentDiscount;
+                    }
+                }
+            }
+            return prices-maxDiscount;
+        }
     }
 }

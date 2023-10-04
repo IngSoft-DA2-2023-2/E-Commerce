@@ -21,6 +21,7 @@ namespace BusinessLogic
         private void AssignsBestPromotion(Purchase purchase)
         {
             purchase.CurrentPromotion = _promotionContext.GetBestPromotion(purchase.Cart);
+            purchase.Total = _promotionContext.CalculateTotalWithPromotion(purchase.Cart);
         }
 
         public Purchase CreatePurchase(Purchase purchase)

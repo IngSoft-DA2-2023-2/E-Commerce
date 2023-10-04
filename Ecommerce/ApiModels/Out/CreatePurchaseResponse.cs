@@ -9,6 +9,8 @@ namespace ApiModels.Out
         public Guid BuyerId { get; set; }
         public DateTime PurchaseTime { get; set; }
         public string SelectedPromotion { get; set; }
+        public int Total { get; set; }
+
         public List<CreateProductResponse> Cart { get; set; } = new List<CreateProductResponse>();
         public CreatePurchaseResponse(Purchase savedPurchase)
         {
@@ -20,6 +22,7 @@ namespace ApiModels.Out
             {
                 Cart.Add(new CreateProductResponse(p));
             }
+            Total = savedPurchase.Total;
         }
     }
 }
