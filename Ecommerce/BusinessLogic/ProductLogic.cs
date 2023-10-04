@@ -5,6 +5,7 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BusinessLogic
@@ -40,7 +41,20 @@ namespace BusinessLogic
             try
             {
                 IEnumerable<Product> products = new List<Product>();
-                if (name is null && brandName is null && categoryName is null) return _productRepository.GetAllProducts();
+                if (name is null && brandName is null && categoryName is null)
+                {
+                    IEnumerable<Product> productsRepo= _productRepository.GetAllProducts();
+                    IEnumerable <Product> productsLogic = new List<Product>();
+                    foreach (var item in productsRepo)
+                    {
+                        if (!(productsLogic.Contains(item)))
+                        {
+                            productsLogic.Append(item);
+                        }
+                    }
+
+                    return productsLogic;
+                }
                 if (name is not null) products = _productRepository.GetProductByName(name);
                 if (brandName is not null)
                 {

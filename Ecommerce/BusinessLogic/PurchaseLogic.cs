@@ -31,7 +31,9 @@ namespace BusinessLogic
                 purchase.Id = guid;
                 purchase.Total = _promotionContext.CalculateTotalWithoutPromotion(purchase.Cart);
                 if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
+                
                 return _purchaseRepository.CreatePurchase(purchase);
+
             }catch (DataAccessException e)
             {
                 throw new LogicException(e);

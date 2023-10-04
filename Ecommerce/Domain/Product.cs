@@ -54,7 +54,12 @@ namespace Domain
         }
         public override bool Equals(object? obj)
         {
-            return Id.Equals(((Product)obj).Id);
+            return ((Name.Equals(((Product)obj).Name)) &&
+                (Description.Equals(((Product)obj).Description)) &&
+                (Price.Equals(((Product)obj).Price)) &&
+                (Brand.Name.Equals(((Product)obj).Brand.Name)) &&
+                (Category.Name.Equals(((Product)obj).Category.Name)));
+            
         }
 
 
