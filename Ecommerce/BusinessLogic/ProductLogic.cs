@@ -40,6 +40,7 @@ namespace BusinessLogic
             try
             {
                 IEnumerable<Product> products = new List<Product>();
+                if (name is null && brandName is null && categoryName is null) return _productRepository.GetAllProducts();
                 if (name is not null) products = _productRepository.GetProductByName(name);
                 if (brandName is not null)
                 {

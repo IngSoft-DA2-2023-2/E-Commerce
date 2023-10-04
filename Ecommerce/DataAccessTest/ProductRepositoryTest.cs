@@ -182,5 +182,26 @@ namespace DataAccessTest
             Assert.AreEqual(response.First().Category.Name, "category");
         }
 
+        [TestMethod]
+        public void GetAllProducts()
+        {
+            Product product = new Product()
+            {
+                Name = "Sample",
+                Brand = new Brand() { Name = "brand" },
+                Id = Guid.NewGuid()
+            };
+            var products = new List<Product>() { product };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(products);
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetAllProducts();
+            Assert.AreEqual(response.Count(), products.Count());
+            for(int i = 0; i < response.Count(); i++)
+            {
+                Assert.AreEqual(response.ElementAt(i), products.ElementAt(i));
+            }
+        }
+
     }
 }

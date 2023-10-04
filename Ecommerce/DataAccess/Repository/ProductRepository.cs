@@ -29,6 +29,14 @@ namespace DataAccess.Repository
             throw new DataAccessException($"Product {product.Name} already exists.");
         }
 
+        public IEnumerable<Product> GetAllProducts()
+        {
+           return  _eCommerceContext.Products.
+               Include(p => p.Brand).
+               Include(p => p.Category).
+               Include(p => p.Colours).ToList();
+        }
+
         public IEnumerable<Product> GetProductByBrand(string brand)
         {
 
