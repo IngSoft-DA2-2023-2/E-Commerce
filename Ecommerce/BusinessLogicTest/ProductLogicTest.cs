@@ -132,6 +132,30 @@ namespace BusinessLogicTest
             productRepo.VerifyAll();
             Assert.AreEqual(expected,result.First());
         }
+        [TestMethod]
+        public void GivenExistingProductReturnsTrue()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Description = "Description",
+                Price = 10,
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+
+            IEnumerable<Product> list = new List<Product>() { expected };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.GetAllProducts()).Returns(new List<Product>() { expected });
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            bool result = productLogic.CheckProduct(expected);
+            productRepo.VerifyAll();
+            Assert.IsTrue(result);
+
+        }
 
     }
 }

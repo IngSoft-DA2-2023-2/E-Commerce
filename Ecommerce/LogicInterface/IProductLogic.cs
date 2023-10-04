@@ -10,6 +10,7 @@ namespace LogicInterface
         public IEnumerable<Product> FilterUnionProduct(string? name,  string? brandName, string? categoryName);
         public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName);
         public Product UpdateProduct(Product newProduct);
+        public bool CheckProduct(Product product);
 
 
     }

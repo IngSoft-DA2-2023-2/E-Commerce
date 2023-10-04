@@ -138,5 +138,16 @@ namespace BusinessLogic
             if (products.Count() <= 0) throw new LogicException("there is no product with those conditions");
             return products;
         }
+
+        public bool CheckProduct(Product expected)
+        {
+            IEnumerable<Product> products = _productRepository.GetAllProducts();
+            foreach (Product product in products)
+            {
+                if(product.Equals(expected)) return true;
+            }
+            return false;
+
+        }
     }
 }
