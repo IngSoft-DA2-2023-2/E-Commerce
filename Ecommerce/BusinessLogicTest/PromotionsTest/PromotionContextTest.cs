@@ -68,6 +68,18 @@ namespace BusinessLogicTest.PromotionsTest
             };
             Assert.AreEqual("PercentageOff", promotion.GetBestPromotion(cart));
         }
+
+        [TestMethod]
+        public void GivenPromotionableCartReturnsTotalWithBestPromotionApplied()
+        {
+            PromotionContext promotion = new PromotionContext();
+            List<Product> cart = new List<Product>()
+            {
+                product1,
+                product2,
+            };
+            Assert.AreEqual(12, promotion.CalculateTotalWithPromotion(cart)) ;
+        }
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
         public void GivenNonPromotionableCartThrowsException()

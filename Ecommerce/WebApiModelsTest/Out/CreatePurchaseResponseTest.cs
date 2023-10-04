@@ -8,12 +8,13 @@ namespace WebApiModelsTest.Out
     [TestClass]
     public class CreatePurchaseResponseTest
     {
-        public Guid Id = Guid.NewGuid();
-        public Guid BuyerId = Guid.NewGuid();
-        public string promotion = "Promotion20Off";
-        public CreatePurchaseResponse createPurchaseResponse;
-        Purchase purchase;
-        List<Product> products;
+        private Guid Id = Guid.NewGuid();
+        private Guid BuyerId = Guid.NewGuid();
+        private string promotion = "Promotion20Off";
+        private CreatePurchaseResponse createPurchaseResponse;
+        private int total = 20;
+        private Purchase purchase;
+        private List<Product> products;
 
         [TestInitialize]
         public void Init()
@@ -25,10 +26,8 @@ namespace WebApiModelsTest.Out
                     Name = "Test",
                     Brand = new Brand(){ Name = "brand"},
                     Category = new Category(){Name = "category"},
-                    Colours =new List < Colour > () { new Colour() { Name = "Colour" } }
-
-                }
-
+                    Colours =new List < Colour > () { new Colour() { Name = "Colour" } },
+                    }
             };
         }
 
@@ -101,6 +100,17 @@ namespace WebApiModelsTest.Out
             Assert.AreEqual(purchase.Date, createPurchaseResponse.PurchaseTime);
         }
 
+
+        [TestMethod]
+        public void GivenProductResponseReturnsTotal()
+        {
+            purchase = new Purchase()
+            {
+                Total = total
+            };
+            createPurchaseResponse = new CreatePurchaseResponse(purchase);
+            Assert.AreEqual(purchase.Total, createPurchaseResponse.Total);
+        }
 
 
 
