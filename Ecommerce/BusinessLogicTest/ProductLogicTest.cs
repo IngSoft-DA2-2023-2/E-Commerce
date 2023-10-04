@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using Domain.ProductParts;
+using LogicInterface.Exceptions;
 using Moq;
 
 namespace BusinessLogicTest
@@ -154,6 +156,37 @@ namespace BusinessLogicTest
             bool result = productLogic.CheckProduct(expected);
             productRepo.VerifyAll();
             Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void GivenNonExistingProductThrowsException()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Description = "Description",
+                Price = 10,
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+
+            IEnumerable<Product> list = new List<Product>() { expected };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.GetAllProducts()).Returns(new List<Product>() {  });
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            Exception catchedException = null;
+            try
+            {
+                productLogic.CheckProduct(expected);
+            }
+            catch(Exception ex) 
+            {
+                catchedException = ex;
+            }
+            Assert.IsInstanceOfType(catchedException, typeof(LogicException));
+            Assert.AreEqual(catchedException?.Message, "Product Does not exists.");
 
         }
 

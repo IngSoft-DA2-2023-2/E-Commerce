@@ -146,7 +146,7 @@ namespace BusinessLogic
             {
                 if(product.Equals(expected)) return true;
             }
-            return false;
+            throw new LogicException("Product Does not exists.");
 
         }
     }
