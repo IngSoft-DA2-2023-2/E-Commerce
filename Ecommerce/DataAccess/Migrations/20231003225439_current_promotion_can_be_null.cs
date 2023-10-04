@@ -23,7 +23,7 @@ namespace DataAccess.Migrations
                 name: "CurrentPromotion",
                 table: "Purchases",
                 type: "nvarchar(max)",
-                nullable: true,
+                nullable: false,
                 defaultValue: "",
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
