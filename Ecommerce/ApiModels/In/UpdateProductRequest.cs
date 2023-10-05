@@ -15,16 +15,17 @@ namespace ApiModels.In
         public Product ToEntity(Guid id)
         {
             List<Colour> colours = new List<Colour>();
-            foreach (string colour in Colour) colours.Add(new Colour() { Name = colour});
+            foreach (string colour in Colour) colours.Add(new Colour() { Name = colour });
             return new Product
             {
                 Id = id,
                 Name = Name,
                 Description = Description,
                 Price = Price,
-                Brand = new Brand() { Name = Brand},
-                Category = new Category(){ Name = Category},
-                Colours = colours };
+                Brand = new Brand() { Name = Brand },
+                Category = new Category() { Name = Category },
+                Colours = colours
+            };
         }
     }
 }

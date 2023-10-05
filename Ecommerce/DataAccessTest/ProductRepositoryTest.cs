@@ -1,14 +1,16 @@
 using DataAccess.Context;
-using DataAccessInterface.Exceptions;
 using DataAccess.Repository;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using Moq;
 using Moq.EntityFrameworkCore;
-using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ProductRepositoryTest
     {
@@ -59,7 +61,7 @@ namespace DataAccessTest
             var listProducts = new List<Product>() { product };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(listProducts);
-         
+
             Product expectedReturn = new Product()
             {
                 Name = "Sample2",
@@ -68,7 +70,7 @@ namespace DataAccessTest
                 Category = new Category() { Name = "Category2" },
                 Colours = new List<Colour>() { new Colour() { Name = "Green" } }
             };
-             IProductRepository productRepository = new ProductRepository(productContext.Object);
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
             var result = productRepository.UpdateProduct(expectedReturn);
             Assert.AreEqual(expectedReturn, result);
         }
@@ -97,6 +99,25 @@ namespace DataAccessTest
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetProductById(product.Id);
             Assert.AreEqual(response, product);
+        }
+        [TestMethod]
+        public void ThrowExceptionTryingToGetProductById()
+        {
+            Product product = new Product() { Name = "Sample", Id = Guid.NewGuid() };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            Exception catchedException = null;
+            try
+            {
+                productRepository.GetProductById(product.Id);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
+            Assert.AreEqual(catchedException?.Message, $"Product with id {product.Id} does not exist.");
         }
         [TestMethod]
         public void GetFilteredProductByName()
@@ -181,6 +202,25 @@ namespace DataAccessTest
             var response = productRepository.GetProductByCategory("category");
             Assert.AreEqual(response.First().Category.Name, "category");
         }
+        [TestMethod]
+        public void ThrowExceptionTryingToGetProductByCategory()
+        {
+            Product product = new Product() { Name = "Sample",Category= new Category() { Name = "category" }, Id = Guid.NewGuid() };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            Exception catchedException = null;
+            try
+            {
+                productRepository.GetProductByCategory(product.Category.Name);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
+            Assert.AreEqual(catchedException?.Message, "Product category category does not exist.");
+        }
 
         [TestMethod]
         public void GetAllProducts()
@@ -197,7 +237,7 @@ namespace DataAccessTest
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetAllProducts();
             Assert.AreEqual(response.Count(), products.Count());
-            for(int i = 0; i < response.Count(); i++)
+            for (int i = 0; i < response.Count(); i++)
             {
                 Assert.AreEqual(response.ElementAt(i), products.ElementAt(i));
             }

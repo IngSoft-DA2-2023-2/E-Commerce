@@ -1,14 +1,15 @@
 ﻿using DataAccess.Context;
-using DataAccessInterface.Exceptions;
 using DataAccess.Repository;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UserRepositoryTest
     {
@@ -45,7 +46,7 @@ namespace DataAccessTest
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
-            userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException());
+            userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException($"User with email test@example.com already exists."));
             userContext.Setup(c => c.SaveChanges());
 
             IUserRepository userRepository = new UserRepository(userContext.Object);
@@ -67,7 +68,7 @@ namespace DataAccessTest
             userContext.Setup(c => c.Users).ReturnsDbSet(
                 new List<User>
                 {
-                new User 
+                new User
                     {
                         Name = "TestUser",
                         Email="test@example.com",
@@ -162,7 +163,7 @@ namespace DataAccessTest
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { updatedUser });
-            
+
             IUserRepository userRepository = new UserRepository(userContext.Object);
 
             var updatedResult = userRepository.UpdateUser(updatedUser);

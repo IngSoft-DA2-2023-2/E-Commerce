@@ -1,9 +1,10 @@
 ﻿using ApiModels.In;
 using Domain;
-using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.In
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CreateUserByAdminRequestTest
     {
@@ -41,7 +42,8 @@ namespace WebApiModelsTest.In
         }
 
         [TestMethod]
-        public void UserRequestToUserEntity() {
+        public void UserRequestToUserEntity()
+        {
 
             User entity = request.ToEntity();
 

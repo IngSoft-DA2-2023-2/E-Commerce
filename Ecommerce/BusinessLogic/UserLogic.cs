@@ -4,7 +4,6 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Xml.XPath;
 
 namespace BusinessLogic
 {
@@ -115,10 +114,6 @@ namespace BusinessLogic
             }
         }
 
-        private Func<User, bool> GetUserByGuid(Guid? guid)
-        {
-            return (User u) => guid == null || u.Id == guid;
-        }
 
         public bool IsAdmin(string token)
         {
@@ -126,7 +121,7 @@ namespace BusinessLogic
             {
                 Guid tokenGuid = Guid.Parse(token);
                 var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
-                if (sessions.Count() == 0) return false;
+                if (!sessions.Any()) return false;
                 return sessions.FirstOrDefault().
                 User.Roles.
                 Contains(new StringWrapper() { Info = "admin" });
@@ -135,7 +130,6 @@ namespace BusinessLogic
             {
                 throw new LogicException(e);
             }
-            catch { return false; }
 
         }
 
@@ -154,7 +148,7 @@ namespace BusinessLogic
             {
                 Guid tokenGuid = Guid.Parse(token);
                 var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
-                if (sessions.Count() == 0) return false;
+                if (!sessions.Any()) return false;
                 return sessions.FirstOrDefault().
                      User.Roles.
                      Contains(new StringWrapper() { Info = "buyer" });

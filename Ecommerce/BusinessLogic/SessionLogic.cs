@@ -2,11 +2,6 @@
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
@@ -24,7 +19,7 @@ namespace BusinessLogic
 
         public Session LogIn(string email, string password)
         {
-            User user = _userRepository.GetAllUsers(u =>u.Email == email  && u.Password == password).FirstOrDefault();
+            User user = _userRepository.GetAllUsers(u => u.Email == email && u.Password == password).FirstOrDefault();
 
             if (user is null) throw new LogicException("Incorrect credentials");
 
@@ -39,7 +34,7 @@ namespace BusinessLogic
 
         public Session LogOut(Guid token)
         {
-            Session? session = _sessionRepository.GetSessions(s=>s.Id == token).FirstOrDefault();
+            Session? session = _sessionRepository.GetSessions(s => s.Id == token).FirstOrDefault();
 
             if (session is null) throw new LogicException("Invalid token");
 

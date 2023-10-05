@@ -1,10 +1,11 @@
 ﻿using Domain;
 using Domain.Exceptions;
 using Domain.ProductParts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UnitTest.DomainTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ProductTest
     {
@@ -51,7 +52,7 @@ namespace UnitTest.DomainTest
         [TestMethod]
         public void GivenProductReturnsItsBrand()
         {
-            productSample.Brand = new Brand() {Name = _brandSample};
+            productSample.Brand = new Brand() { Name = _brandSample };
 
             Assert.AreEqual(_brandSample, productSample.Brand.Name);
         }
@@ -59,7 +60,7 @@ namespace UnitTest.DomainTest
         [TestMethod]
         public void GivenProductReturnsItsCategory()
         {
-            productSample.Category =new Category() {Name= _categorySample };
+            productSample.Category = new Category() { Name = _categorySample };
 
             Assert.AreEqual(_categorySample, productSample.Category.Name);
         }

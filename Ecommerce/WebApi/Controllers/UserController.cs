@@ -1,15 +1,9 @@
-﻿using ApiModels;
-using ApiModels.In;
+﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface;
-using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IIS.Core;
-using System.Net;
-using System.Net.Sockets;
-using System.Xml.Linq;
 using WebApi.Filters;
 
 namespace WebApi.Controllers
@@ -19,7 +13,7 @@ namespace WebApi.Controllers
     public class UserController : Controller
     {
         private readonly IUserLogic _userLogic;
-        public UserController(IUserLogic logic): base()
+        public UserController(IUserLogic logic) : base()
         {
             _userLogic = logic;
         }
@@ -86,7 +80,7 @@ namespace WebApi.Controllers
             else
             {
                 throw new UnauthorizedAccessException();
-            }      
+            }
         }
 
         [HttpDelete("{id}/admin")]
@@ -105,7 +99,7 @@ namespace WebApi.Controllers
             else
             {
                 throw new UnauthorizedAccessException();
-            }         
+            }
         }
 
         [HttpPut("{id}/admin")]
@@ -127,7 +121,7 @@ namespace WebApi.Controllers
             else
             {
                 throw new UnauthorizedAccessException();
-            }          
+            }
         }
 
         private User UserRequestByAdminToEntity([FromBody] UpdateUserRequestByAdmin received)
@@ -137,7 +131,7 @@ namespace WebApi.Controllers
             if (received.Address is not null) ret.Address = received.Address;
             if (received.Roles is not null)
             {
-               foreach(string receivedRol in received.Roles) ret.Roles.Add(new StringWrapper() { Info = receivedRol });
+                foreach (string receivedRol in received.Roles) ret.Roles.Add(new StringWrapper() { Info = receivedRol });
             }
             if (received.Password is not null) ret.Password = received.Password;
             return ret;
@@ -149,15 +143,15 @@ namespace WebApi.Controllers
         public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received, [FromHeader] string Authorization)
         {
             var userHeader = Authorization;
-           
-                var id = _userLogic.GetUserIdFromToken(userHeader);
 
-                var user = UpdateUserRequestByThemselfToEntity(received, id);
+            var id = _userLogic.GetUserIdFromToken(userHeader);
 
-                var resultLogic = _userLogic.UpdateUserByThemself(user);
-                var result = new UserResponse(resultLogic);
+            var user = UpdateUserRequestByThemselfToEntity(received, id);
 
-                return Ok(result);                  
+            var resultLogic = _userLogic.UpdateUserByThemself(user);
+            var result = new UserResponse(resultLogic);
+
+            return Ok(result);
         }
 
         private User UpdateUserRequestByThemselfToEntity([FromBody] UpdateUserRequestByThemself received, [FromRoute] Guid id)

@@ -1,15 +1,14 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
+using LogicInterface.Exceptions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CategoryLogicTest
     {
@@ -27,6 +26,29 @@ namespace BusinessLogicTest
             var result = categoryLogic.CheckForCategory(expected);
             repository.VerifyAll();
             Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void GivennonExistingCategoryThrowsException()
+        {
+            Category expected = new()
+            {
+                Name = "Category"
+            };
+
+            Mock<ICategoryRepository> repository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            repository.Setup(logic => logic.CheckForCategory("Category")).Throws(new DataAccessException("Category Category does not exists"));
+            var categoryLogic = new CategoryLogic(repository.Object);
+            Exception catchedException = null;
+            try
+            {
+                categoryLogic.CheckForCategory(expected);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(LogicException));
+            Assert.IsTrue(catchedException?.Message.Equals("Category Category does not exists"));
         }
 
     }

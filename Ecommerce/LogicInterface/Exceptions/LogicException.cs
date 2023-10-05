@@ -2,7 +2,6 @@
 {
     public class LogicException : Exception
     {
-        public LogicException() { }
 
         public LogicException(Exception innerException) : base(innerException.Message, innerException) { }
 

@@ -1,9 +1,11 @@
 ﻿using Domain;
 using Domain.ProductParts;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccess.Context
 {
+    [ExcludeFromCodeCoverage]
     public class ECommerceContext : DbContext
     {
         public virtual DbSet<Product> Products { get; set; }
@@ -14,7 +16,7 @@ namespace DataAccess.Context
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Colour> Colours { get; set; }
         public virtual DbSet<StringWrapper> StringListWrappers { get; set; }
-        
+
 
         public ECommerceContext() { }
 

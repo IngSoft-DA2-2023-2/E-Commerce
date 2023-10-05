@@ -3,9 +3,11 @@ using DataAccessInterface;
 using Domain;
 using LogicInterface.Exceptions;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class SessionLogicTest
     {
@@ -17,7 +19,7 @@ namespace BusinessLogicTest
         [TestInitialize]
         public void Init()
         {
-             userSample = new User()
+            userSample = new User()
             {
                 Email = emailSample,
                 Password = passwordSample,
@@ -40,7 +42,7 @@ namespace BusinessLogicTest
             repoUser.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { userSample });
             repoSession.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
-            var sessionLogic = new SessionLogic(repoUser.Object,repoSession.Object);
+            var sessionLogic = new SessionLogic(repoUser.Object, repoSession.Object);
 
             var result = sessionLogic.LogIn(emailSample, passwordSample);
 
@@ -93,9 +95,9 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> repo = new Mock<ISessionRepository>(MockBehavior.Strict);
 
             repo.Setup(logic => logic.DeleteSession(It.IsAny<Session>())).Returns(session);
-            repo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session,bool>>())).Returns(new List<Session> { session});
+            repo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session });
 
-            var sessionLogic = new SessionLogic(null,repo.Object);
+            var sessionLogic = new SessionLogic(null, repo.Object);
 
             var result = sessionLogic.LogOut(userGuid);
 

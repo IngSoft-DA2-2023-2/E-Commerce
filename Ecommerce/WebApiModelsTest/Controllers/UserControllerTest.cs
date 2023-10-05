@@ -1,14 +1,18 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
+using BusinessLogic;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface;
+using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 
 namespace WebApiModelsTest.Controller
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UserControllerTest
     {
@@ -47,6 +51,39 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Name, expectedMappedResult.First().Name);
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
+        }
+        [TestMethod]
+        public void ThrowExceptionTryingToGetUsers()
+        {
+            Guid guid = Guid.NewGuid();
+
+            IEnumerable<User> expected = new List<User>()
+            {
+                new User {
+                    Email= "mail1@sample.com",
+                    Name="name1",
+                    Password="password1",
+                    Address="address sample",
+                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
+                    Id = guid,
+                },
+            };
+
+            var token = "testToken";
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(false);
+            var userController = new UserController(logic.Object);
+            Exception catchedException = null;
+            try
+            {
+                userController.GetUsers(token);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            }
+            Assert.IsInstanceOfType(catchedException, typeof(UnauthorizedAccessException));
+
         }
 
         [TestMethod]
@@ -88,6 +125,39 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
             Assert.AreEqual(resultValue.First().Roles.First(), expectedMappedResult.First().Roles.First());
         }
+        [TestMethod]
+        public void ThrowExceptionTryingToGetUserById()
+        {
+            Guid guid = Guid.NewGuid();
+
+            IEnumerable<User> expected = new List<User>()
+            {
+                new User {
+                    Email= "mail1@sample.com",
+                    Name="name1",
+                    Password="password1",
+                    Address="address sample",
+                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
+                    Id = guid,
+                },
+            };
+
+            var token = "testToken";
+            Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
+            logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(false);
+            var userController = new UserController(logic.Object);
+            Exception catchedException = null;
+            try
+            {
+                userController.GetUsersById(guid,token);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            }
+            Assert.IsInstanceOfType(catchedException, typeof(UnauthorizedAccessException));
+
+        }
 
         [TestMethod]
         public void GetNonExistingUserByIdReturnsEmptyList()
@@ -121,7 +191,7 @@ namespace WebApiModelsTest.Controller
                 Email = "email@sample.com",
                 Address = "address sample",
                 Password = "password sample",
-                Roles = new List<string>() { "role sample"},
+                Roles = new List<string>() { "role sample" },
 
             };
 
@@ -205,14 +275,14 @@ namespace WebApiModelsTest.Controller
                 Password = "password sample",
             };
 
-        User expected = new User()
-        {
-            Name = "nameSample",
-            Email = "email@sample.com",
-            Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
-            Address = "address sample",
-            Password = "password sample",
-            Id = guid,
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
+                Address = "address sample",
+                Password = "password sample",
+                Id = guid,
             };
             var token = "testToken";
 

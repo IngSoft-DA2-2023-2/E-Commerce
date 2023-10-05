@@ -17,8 +17,8 @@ namespace ApiModels.Out
             Id = savedPurchase.Id;
             BuyerId = savedPurchase.UserId;
             PurchaseTime = savedPurchase.Date;
-            SelectedPromotion = savedPurchase.CurrentPromotion; 
-            foreach(Product p in savedPurchase.Cart)
+            SelectedPromotion = savedPurchase.CurrentPromotion;
+            foreach (Product p in savedPurchase.Cart)
             {
                 Cart.Add(new CreateProductResponse(p));
             }

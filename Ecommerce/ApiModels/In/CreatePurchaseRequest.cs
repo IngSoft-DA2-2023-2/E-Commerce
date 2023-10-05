@@ -4,7 +4,7 @@ namespace ApiModels.In
 {
     public class CreatePurchaseRequest
     {
-        public List<CreateProductRequest> Cart { get; set; } 
+        public List<CreateProductRequest> Cart { get; set; }
 
         public Purchase ToEntity(Guid Buyer)
         {
@@ -13,7 +13,7 @@ namespace ApiModels.In
             {
                 products.Add(createProductRequest.ToEntity());
             }
-            return new Purchase() { Cart = products, UserId = Buyer};
+            return new Purchase() { Cart = products, UserId = Buyer };
         }
     }
 }

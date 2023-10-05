@@ -22,10 +22,10 @@ namespace BusinessLogic
                 return true;
             }
             catch (DataAccessException e)
-            { 
-                throw new LogicException (e);
+            {
+                throw new LogicException(e);
             }
-            
+
         }
     }
 }

@@ -5,12 +5,15 @@ using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
 using Moq;
 using Moq.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CategoryRepositoryTest
     {
+
         [TestMethod]
         public void GivenExistingCategoryNameReturnsTrue()
         {
@@ -41,8 +44,8 @@ namespace DataAccessTest
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Category {categoryName} does not exists"));
-            
-          
+
+
         }
 
     }

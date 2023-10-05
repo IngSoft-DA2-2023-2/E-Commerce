@@ -31,7 +31,7 @@ namespace BusinessLogic.Promotions
             int maxDiscount = 0;
             foreach (IPromotionable promotion in _promotions)
             {
-                if(promotion.IsApplicable(cart))
+                if (promotion.IsApplicable(cart))
                 {
                     int currentDiscount = promotion.CalculateDiscount(cart);
                     if (currentDiscount > maxDiscount)
@@ -67,7 +67,7 @@ namespace BusinessLogic.Promotions
                     }
                 }
             }
-            return prices-maxDiscount;
+            return prices - maxDiscount;
         }
     }
 }

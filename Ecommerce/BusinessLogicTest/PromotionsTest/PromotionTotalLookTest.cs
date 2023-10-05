@@ -3,11 +3,11 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class PromotionTotalLookTest
     {
@@ -17,7 +17,7 @@ namespace BusinessLogicTest.PromotionsTest
 
         private string _red = "red";
         private string _blue = "blue";
-    private string _green = "green";
+        private string _green = "green";
 
         private const int _fifty = 50;
         private const int _seventy = 70;
@@ -57,7 +57,7 @@ namespace BusinessLogicTest.PromotionsTest
         [TestMethod]
         public void Given3ItemOfSameColourPurchaseReturnsPromotionIsApplicable()
         {
-            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name= _red},new Colour() { Name=_blue} } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue } } });
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue }, new Colour() { Name = _green } } });
 
@@ -71,7 +71,7 @@ namespace BusinessLogicTest.PromotionsTest
         {
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _blue } } });
-            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _green }} });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _green } } });
             _purchaseSample.Cart = _cartSample;
             Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
@@ -81,7 +81,7 @@ namespace BusinessLogicTest.PromotionsTest
         {
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _blue } } });
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } } });
-            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name =    _green } } });
+            _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red }, new Colour() { Name = _green } } });
             _cartSample.Add(new Product() { Colours = new List<Colour>() { new Colour() { Name = _red } } });
 
             _purchaseSample.Cart = _cartSample;

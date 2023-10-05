@@ -5,9 +5,11 @@ using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
 using Moq;
 using Moq.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ColourRepositoryTest
     {
@@ -28,7 +30,7 @@ namespace DataAccessTest
             string colourName = "colour";
             var colourContext = new Mock<ECommerceContext>();
             colourContext.Setup(ctx => ctx.Colours).ReturnsDbSet(new List<Colour>() { });
-            IColourRepository colourRepository = new ColourRepository(colourContext.Object);           
+            IColourRepository colourRepository = new ColourRepository(colourContext.Object);
             Exception catchedException = null;
             try
             {

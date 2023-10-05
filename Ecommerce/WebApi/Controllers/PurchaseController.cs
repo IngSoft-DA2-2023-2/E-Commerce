@@ -9,7 +9,7 @@ namespace WebApi.Controllers
 {
     [Route("api/purchases")]
     [ApiController]
-    public class PurchaseController :ControllerBase
+    public class PurchaseController : ControllerBase
     {
         private readonly IPurchaseLogic _purchaseLogic;
         private readonly IUserLogic _userLogic;
@@ -38,7 +38,7 @@ namespace WebApi.Controllers
             {
                 throw new UnauthorizedAccessException();
             }
-           
+
         }
 
         [HttpGet]
@@ -51,7 +51,8 @@ namespace WebApi.Controllers
             {
                 var tokenUserPurchase = _userLogic.GetUserIdFromToken(userHeader);
                 return Ok(_purchaseLogic.GetPurchase(tokenUserPurchase));
-            }else if(_userLogic.IsAdmin(userHeader))
+            }
+            else if (_userLogic.IsAdmin(userHeader))
             {
                 return Ok(_purchaseLogic.GetAllPurchases());
             }

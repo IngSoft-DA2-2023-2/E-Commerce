@@ -1,8 +1,9 @@
 ﻿using ApiModels.Out;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.Out
 {
-
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UpdateProductResponseTest
     {

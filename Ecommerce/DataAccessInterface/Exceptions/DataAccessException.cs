@@ -6,9 +6,6 @@
         {
 
         }
-        public DataAccessException() : base()
-        {
 
-        }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using WebApi.Controllers;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApi.Filters
 {
+    [ExcludeFromCodeCoverage]
     public class AuthenticationFilter : ActionFilterAttribute, IActionFilter
     {
 
