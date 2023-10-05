@@ -97,7 +97,14 @@ namespace BusinessLogicTest.PromotionsTest
         [ExpectedException(typeof(LogicException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
-            List<Product> cartSample = new List<Product>() { new Product() };
+            Product productSample = new Product() {
+                Name = "product2",
+                Description = "product2",
+                Brand = new Brand() { Name = "brand2" },
+                Category = new Category { Name = "category2"},
+                Price = _four,
+            };
+            List<Product> cartSample = new List<Product>() { productSample };
 
             _promo.CalculateDiscount(cartSample);
         }
