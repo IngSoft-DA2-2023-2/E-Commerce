@@ -18,10 +18,21 @@ namespace DataAccess.Repository
 
         public Product CreateProduct(Product product)
         {
-            var productos = _eCommerceContext.Products.
-                Where(p => (p.Name.Equals(product.Name)))
-                .FirstOrDefault();
-            if (productos is null)
+            var products = _eCommerceContext.Products.
+                 Include(p => p.Brand).
+                 Include(p => p.Category).
+                 Include(p => p.Colours).ToList();
+
+            if (products.Contains(product))
+            {
+                throw new DataAccessException($"Product {product.Name} already exists.");
+            }
+            else
+            {
+                products = null;
+            }
+
+            if (products is null)
             {
                 _eCommerceContext.Products.Add(product);
                 _eCommerceContext.SaveChanges();

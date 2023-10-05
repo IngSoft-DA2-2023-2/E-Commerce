@@ -22,12 +22,14 @@ namespace BusinessLogicTest.PromotionsTest
                 Name = "product1",
                 Description = "product1",
                 Category = category,
+                Brand = new Brand() { Name = "brand1" },
                 Price = 10,
             };
             product2 = new Product()
             {
                 Name = "product2",
                 Description = "product2",
+                Brand = new Brand() { Name = "brand2" },
                 Category = category,
                 Price = 4,
             };
@@ -63,7 +65,7 @@ namespace BusinessLogicTest.PromotionsTest
                 product1,
                 product2,
             };
-            Assert.AreEqual("PercentageOff", promotion.GetBestPromotion(cart));
+            Assert.AreEqual("20% Off", promotion.GetBestPromotion(cart));
         }
 
         [TestMethod]

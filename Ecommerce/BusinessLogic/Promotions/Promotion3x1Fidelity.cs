@@ -8,11 +8,11 @@ namespace BusinessLogic.Promotions
     {
         private const int _minQuantity = 3;
         private const int _numberOfProductsToTake = 2;
-        public string Name { get; } = "Fidelity";
+        public string Name { get; } = "3x1 Fidelity";
 
         public bool IsApplicable(List<Product> cart)
         {
-            return cart.GroupBy(product => product.Brand)
+            return cart.GroupBy(product => product.Brand.Name)
                                  .Any(group => group.Count() >= _minQuantity);
         }
 
@@ -25,7 +25,7 @@ namespace BusinessLogic.Promotions
 
             decimal currentDiscount = 0;
 
-            foreach (var group in cart.GroupBy(product => product.Brand))
+            foreach (var group in cart.GroupBy(product => product.Brand.Name))
             {
                 if (group.Count() >= _minQuantity)
                 {
