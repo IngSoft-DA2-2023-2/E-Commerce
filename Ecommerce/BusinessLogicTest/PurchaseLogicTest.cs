@@ -18,6 +18,7 @@ namespace BusinessLogicTest
         public void CreatePurchaseCorrectly()
         {
            Category category = new Category() { Name = "category" };
+            Brand brand = new Brand() { Name = "brand" };
             Purchase purchase = new Purchase()
             {
                 Cart = new List<Product>()
@@ -27,6 +28,7 @@ namespace BusinessLogicTest
                     Name = "product1",
                     Description = "product1",
                     Category = category,
+                    Brand= brand,
                     Price = 10,
                     },
                     new Product()
@@ -34,6 +36,7 @@ namespace BusinessLogicTest
                     Name = "product2",
                     Description = "product2",
                     Category = category,
+                    Brand= brand,
                     Price = 4,
                     },
                 }
