@@ -26,7 +26,14 @@ namespace DataAccessTest
         [TestMethod]
         public void CreateAlreadyExistingProduct()
         {
-            Product product = new Product() { Name = "Sample" };
+            Product product = new Product() {
+                Name = "Sample",
+                Brand = new Brand() { Name = "Brand" },
+                Category = new Category() { Name = "Category" },
+                Colours = new List<Colour>() { new Colour() { Name = "Red" } },
+                Description = "Description",
+                Price = 10
+            };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
