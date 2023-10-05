@@ -1,6 +1,7 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Moq;
 
@@ -19,8 +20,11 @@ namespace BusinessLogicTest
                 {
                     new Product
                     {
-                        Name = "Name",
-                        Description = "Test",
+                          Name = "product2",
+                          Description = "product2",
+                          Brand = new Brand() { Name = "brand2" },
+                          Category = new Category { Name = "category2"},
+                          Price = 4,
                     }
                 }
             };

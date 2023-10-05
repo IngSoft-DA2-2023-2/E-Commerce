@@ -10,7 +10,7 @@ namespace BusinessLogic.Promotions
 
         private const decimal _twentyPercent = 0.2m;
         private const int _minCartSize = 2;
-        public string Name { get; } = "PercentageOff";
+        public string Name { get; } = "20% Off";
 
         public bool IsApplicable(List<Product> cart)
         {

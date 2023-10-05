@@ -7,12 +7,12 @@ namespace BusinessLogic.Promotions
     public class Promotion3x2 : IPromotionable
     {
         private const int _minQuantity = 3;
-        public string Name { get; } = "BuyTwoGetOneFree";
+        public string Name { get; } = "3x2";
 
         public bool IsApplicable(List<Product> cart)
         {
-            return cart.GroupBy(product => product.Category)
-                                 .Any(group => group.Count() >= _minQuantity);
+            return cart.GroupBy(product => product.Category.Name)
+                                  .Any(group => group.Count() >= _minQuantity);
         }
 
         public int CalculateDiscount(List<Product> cart)
@@ -21,7 +21,8 @@ namespace BusinessLogic.Promotions
 
             decimal discount = 0;
 
-            foreach (var group in cart.GroupBy(product => product.Category))
+
+            foreach (var group in cart.GroupBy(product => product.Category.Name))
             {
                 if (group.Count() >= _minQuantity)
                 {
