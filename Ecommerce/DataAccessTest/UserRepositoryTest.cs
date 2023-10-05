@@ -46,7 +46,7 @@ namespace DataAccessTest
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
-            userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException());
+            userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException($"User with email test@example.com already exists."));
             userContext.Setup(c => c.SaveChanges());
 
             IUserRepository userRepository = new UserRepository(userContext.Object);

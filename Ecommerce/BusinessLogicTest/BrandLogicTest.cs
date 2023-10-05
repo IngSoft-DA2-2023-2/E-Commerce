@@ -49,7 +49,7 @@ namespace BusinessLogicTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(LogicException));
-            Assert.IsTrue(catchedException.Message.Equals("Brand Brand does not exists"));
+            Assert.IsTrue(catchedException?.Message.Equals("Brand Brand does not exists"));
         }
 
     }

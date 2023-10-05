@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
@@ -120,6 +121,8 @@ namespace BusinessLogicTest
             {
                 Id = id,
                 Name = "ProductSample1",
+                Description = "Description",
+                Price =10,
                 Brand = new Brand() { Name = "Brand1" },
                 Category = new Category() { Name = "Category1" },
                 Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
@@ -134,6 +137,37 @@ namespace BusinessLogicTest
             var result = productLogic.FilterIntersectionProduct("ProductSample1", "Brand2", "Category3");
             productRepo.VerifyAll();
             Assert.AreEqual(expected, result.First());
+        }
+        [TestMethod]
+        public void FilterProductIntersectionThrowsException()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Description = "Description",
+                Price = 10,
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+
+            IEnumerable<Product> list = new List<Product>() { expected };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.GetProductByName("ProductSample1")).Throws(new DataAccessException("Product ProductSample1 does not exist."));
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            Exception catchedException = null;
+            try
+            {
+                productLogic.FilterIntersectionProduct("ProductSample1", "Brand2", "Category3");
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            }
+            Assert.IsInstanceOfType(catchedException, typeof(LogicException));
+            Assert.AreEqual(catchedException?.Message, "Product ProductSample1 does not exist.");
         }
         [TestMethod]
         public void GivenExistingProductReturnsTrue()
@@ -189,6 +223,56 @@ namespace BusinessLogicTest
             Assert.IsInstanceOfType(catchedException, typeof(LogicException));
             Assert.AreEqual(catchedException?.Message, "Product Does not exists.");
 
+        }
+        [TestMethod]
+        public void GetProductById()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Description = "Description",
+                Price = 10,
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(l => l.GetProductById(id)).Returns(expected);
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            var result = productLogic.GetProductById(id);
+            productRepo.VerifyAll();
+            Assert.AreEqual(expected, result);
+        }
+        [TestMethod]
+        public void ThrowExceptionTryingToGetProductById()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Description = "Description",
+                Price = 10,
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(l => l.GetProductById(id)).Throws(new DataAccessException($"Product with id {id} does not exist."));
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            Exception catchedException = null;
+            try
+            {
+                productLogic.GetProductById(id);
+            }
+            catch (Exception ex)
+            {
+                catchedException = ex;
+            };
+            Assert.IsInstanceOfType(catchedException, typeof(LogicException));
+            Assert.IsTrue(catchedException?.Message.Equals($"Product with id {id} does not exist."));
         }
 
     }

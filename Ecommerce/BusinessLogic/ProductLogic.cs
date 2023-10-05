@@ -133,7 +133,7 @@ namespace BusinessLogic
             {
                 throw new LogicException(e);
             }
-            if (products.Count() <= 0) throw new LogicException("there is no product with those conditions");
+            if (products.Count() == 0) throw new LogicException("there is no product with those conditions");
             return products;
         }
 

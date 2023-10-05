@@ -174,7 +174,7 @@ namespace BusinessLogicTest
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new DataAccessException($"User with email a@a.com already exists."));
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { });
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
@@ -205,7 +205,7 @@ namespace BusinessLogicTest
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new DataAccessException($"User with email a@a.com already exists."));
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { });
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
@@ -311,7 +311,7 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException($"User with email a@a.com already exists."));
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             var result = userLogic.GetAllUsers(u => u.Name == "Juan");
@@ -470,7 +470,7 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException("empty"));
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             userLogic.UpdateUserByAdmin(user);
@@ -494,7 +494,7 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Throws(new DataAccessException("empty"));
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             userLogic.UpdateUserByThemself(user);
@@ -553,7 +553,7 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Throws(new DataAccessException());
+            repo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Throws(new DataAccessException("empty"));
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             userLogic.DeleteUser(user.Id);
