@@ -4,14 +4,11 @@ using DataAccessInterface;
 using Domain;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class SessionRepositoryTest
     {
@@ -36,13 +33,13 @@ namespace DataAccessTest
         [TestMethod]
         public void GetAllSessions()
         {
-            Session sessionSample = new Session { Id = Guid.NewGuid() , User = new User() };
+            Session sessionSample = new Session { Id = Guid.NewGuid(), User = new User() };
 
             var sessionContext = new Mock<ECommerceContext>();
             sessionContext.Setup(c => c.Sessions).ReturnsDbSet(new List<Session> { sessionSample });
 
             ISessionRepository sessionRepository = new SessionRepository(sessionContext.Object);
-            var expectedReturn = sessionRepository.GetSessions(s=>true).ToList();
+            var expectedReturn = sessionRepository.GetSessions(s => true).ToList();
 
             Assert.AreEqual(expectedReturn.Count, 1);
             Assert.AreEqual(expectedReturn[0], sessionSample);
@@ -57,7 +54,7 @@ namespace DataAccessTest
                 User = new User()
             };
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(s => s.Sessions).ReturnsDbSet(new List<Session> { session});
+            userContext.Setup(s => s.Sessions).ReturnsDbSet(new List<Session> { session });
             userContext.Setup(c => c.Sessions.Remove(session));
             userContext.Setup(c => c.SaveChanges());
 

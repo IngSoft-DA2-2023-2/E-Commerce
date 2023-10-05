@@ -2,11 +2,6 @@
 using DataAccessInterface;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
@@ -27,9 +22,9 @@ namespace DataAccess.Repository
 
         public Session DeleteSession(Session session)
         {
-           _eCommerceContext.Sessions.Remove(session);
-           _eCommerceContext.SaveChanges();
-           return session;
+            _eCommerceContext.Sessions.Remove(session);
+            _eCommerceContext.SaveChanges();
+            return session;
         }
 
         public IEnumerable<Session> GetSessions(Func<Session, bool> pred)

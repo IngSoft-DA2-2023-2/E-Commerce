@@ -23,8 +23,8 @@ namespace ApiModels.In
                 roles.Add(stringWrapper);
             }
             return new User
-            { 
-                Name = Name, 
+            {
+                Name = Name,
                 Email = Email,
                 Password = Password,
                 Address = Address,

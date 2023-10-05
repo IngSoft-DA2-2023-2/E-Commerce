@@ -2,12 +2,11 @@
 using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class Promotion20OffTest
     {

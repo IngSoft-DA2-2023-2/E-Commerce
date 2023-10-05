@@ -44,7 +44,7 @@ namespace BusinessLogic.Promotions
 
         private static List<Colour> GetDistinctColoursInCart(List<Product> products)
         {
-             List<Colour> colourList = new();
+            List<Colour> colourList = new();
 
             foreach (Product product in products)
             {

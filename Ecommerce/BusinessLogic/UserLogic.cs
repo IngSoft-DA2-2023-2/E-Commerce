@@ -4,7 +4,6 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Xml.XPath;
 
 namespace BusinessLogic
 {

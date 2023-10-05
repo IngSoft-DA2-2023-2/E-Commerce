@@ -5,15 +5,15 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using Moq;
-using System;
+using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 using WebApiTest.Exceptions;
 
 namespace WebApiModelsTest.Controller
 {
 
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ProductControllerTest
     {
@@ -27,7 +27,7 @@ namespace WebApiModelsTest.Controller
         public void Init()
         {
             stringColour = new List<string>() { "Red", "Blue" };
-            colour = new List<Colour>() { new Colour() { Name = "Red"}, new Colour() { Name = "Blue" } };
+            colour = new List<Colour>() { new Colour() { Name = "Red" }, new Colour() { Name = "Blue" } };
 
             productRequest = new CreateProductRequest()
             {
@@ -90,7 +90,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters("or",null,null,null) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or", null, null, null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -122,7 +122,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters("or",null,null,null) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or", null, null, null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -159,7 +159,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters("or",exceptedName,null,null) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or", exceptedName, null, null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -197,7 +197,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
                 It.Is<string?>(categoryName => categoryName == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters("or",null,exceptedBrandName,null) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or", null, exceptedBrandName, null) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -235,7 +235,7 @@ namespace WebApiModelsTest.Controller
                 It.Is<string?>(brandName => brandName == null),
                 It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters("or",null,null, exceptedCategoryName) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters("or", null, null, exceptedCategoryName) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(products, result.Value);
         }
@@ -268,7 +268,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(),It.IsAny<string?>(),It.IsAny<string?>())).Returns(products);
+            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("and", "name1", null, exceptedCategoryName) as OkObjectResult;
             Assert.AreEqual(products, result.Value);

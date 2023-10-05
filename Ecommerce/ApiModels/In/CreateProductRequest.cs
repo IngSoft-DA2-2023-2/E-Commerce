@@ -16,14 +16,16 @@ namespace ApiModels.In
         {
             List<Colour> colours = new List<Colour>();
             foreach (string colour in Colour) colours.Add(new Colour { Name = colour });
-            return new Product { Name = Name,
+            return new Product
+            {
+                Name = Name,
                 Description = Description,
                 Price = Price,
                 Brand = new Brand()
                 {
-                    Name= Brand,
+                    Name = Brand,
                 },
-                Category = new Category 
+                Category = new Category
                 {
                     Name = Category,
                 },

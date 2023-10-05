@@ -3,9 +3,11 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class Promotion3x2Test
     {

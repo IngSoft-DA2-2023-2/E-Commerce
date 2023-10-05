@@ -1,7 +1,6 @@
 ﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Linq.Expressions;
 
 namespace BusinessLogic.Promotions
 {

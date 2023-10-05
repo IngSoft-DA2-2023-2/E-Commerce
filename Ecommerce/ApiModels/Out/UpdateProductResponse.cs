@@ -19,7 +19,7 @@ namespace ApiModels.Out
         public UpdateProductResponse(Product product)
         {
             List<string> colours = new List<string>();
-            foreach( Colour colour in product.Colours)
+            foreach (Colour colour in product.Colours)
             {
                 colours.Add(colour.Name);
             }

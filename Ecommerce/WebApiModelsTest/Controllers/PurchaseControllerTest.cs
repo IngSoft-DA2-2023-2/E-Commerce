@@ -5,13 +5,12 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Newtonsoft.Json.Linq;
-using System;
+using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 
 namespace WebApiModelsTest.Controller
 {
-
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class PurchaseControllerTest
     {
@@ -21,7 +20,7 @@ namespace WebApiModelsTest.Controller
             List<string> colour = new List<string>() { "Red", "Blue" };
             Guid id = Guid.NewGuid();
             Guid buyer = Guid.NewGuid();
-            List <CreateProductRequest> cart = new List<CreateProductRequest>()
+            List<CreateProductRequest> cart = new List<CreateProductRequest>()
             {
                 new CreateProductRequest()
                 {
@@ -56,7 +55,7 @@ namespace WebApiModelsTest.Controller
             };
 
 
-           
+
 
             IEnumerable<User> listUsers = new List<User>()
             {
@@ -86,7 +85,7 @@ namespace WebApiModelsTest.Controller
             Assert.IsNotNull(result);
             var response = result.Value as CreatePurchaseResponse;
             Assert.AreEqual(purchaseRequest.ToEntity(buyer).UserId, response.BuyerId);
-            Assert.AreEqual(purchaseRequest.Cart.First().Name, response.Cart.First().Name);   
+            Assert.AreEqual(purchaseRequest.Cart.First().Name, response.Cart.First().Name);
         }
 
         [TestMethod]
@@ -128,7 +127,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
-            
+
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
             purchaseLogic.Setup(p => p.GetPurchase(buyerId)).Returns(purchases);

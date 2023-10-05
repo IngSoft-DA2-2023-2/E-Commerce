@@ -2,6 +2,6 @@
 {
     public interface IColourRepository
     {
-       public bool CheckForColour(string colourName);
+        public bool CheckForColour(string colourName);
     }
 }

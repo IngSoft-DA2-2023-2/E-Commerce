@@ -1,10 +1,11 @@
 ﻿using ApiModels.Out;
 using Domain;
 using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.Out
 {
-
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CreatePurchaseResponseTest
     {
@@ -40,7 +41,7 @@ namespace WebApiModelsTest.Out
                 UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
-                
+
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Id, createPurchaseResponse.Id);
@@ -52,7 +53,7 @@ namespace WebApiModelsTest.Out
             {
                 Id = Id,
                 UserId = BuyerId,
-                
+
                 Cart = products,
                 CurrentPromotion = promotion,
             };

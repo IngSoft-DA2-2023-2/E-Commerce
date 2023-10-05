@@ -1,12 +1,8 @@
 ﻿using DataAccess.Context;
-using DataAccessInterface.Exceptions;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
-using Domain.ProductParts;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
-using System.Security.Principal;
-using System.Collections.Generic;
 
 namespace DataAccess.Repository
 {
@@ -44,7 +40,7 @@ namespace DataAccess.Repository
             var productsReturn = new List<Product>();
             foreach (Product product in products)
             {
-                if(!(productsReturn.Contains(product)))
+                if (!(productsReturn.Contains(product)))
                 {
                     productsReturn.Add(product);
                 }
@@ -52,9 +48,9 @@ namespace DataAccess.Repository
 
             return productsReturn;
         }
-     
 
-        
+
+
 
         public IEnumerable<Product> GetProductByBrand(string brand)
         {
@@ -169,14 +165,14 @@ namespace DataAccess.Repository
             }
             else
             {
-                if(newProduct.Name != null) product.Name = newProduct.Name;
+                if (newProduct.Name != null) product.Name = newProduct.Name;
                 if (newProduct.Description != null) product.Description = newProduct.Description;
-                if(newProduct.Price != null) product.Price = newProduct.Price;
-                if(newProduct.Brand != null) product.Brand = newProduct.Brand;
+                if (newProduct.Price != null) product.Price = newProduct.Price;
+                if (newProduct.Brand != null) product.Brand = newProduct.Brand;
                 if (newProduct.Category != null) product.Category = newProduct.Category;
                 if (newProduct.Colours != null) product.Colours = newProduct.Colours;
 
-                  _eCommerceContext.SaveChanges();
+                _eCommerceContext.SaveChanges();
                 return newProduct;
             }
         }

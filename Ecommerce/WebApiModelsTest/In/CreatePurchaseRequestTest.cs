@@ -1,14 +1,16 @@
 ﻿using ApiModels.In;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.In
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CreatePurchaseRequestTest
     {
         private CreatePurchaseRequest purchaseRequest;
         Guid guid = Guid.NewGuid();
         private List<CreateProductRequest> products = new List<CreateProductRequest>()
-        { 
+        {
             new CreateProductRequest()
             {
                 Name = "name",

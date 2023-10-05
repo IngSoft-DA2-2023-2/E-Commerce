@@ -3,13 +3,14 @@ using DataAccessInterface;
 using Domain;
 using LogicInterface;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class PurchaseLogicTest
     {
-
         [TestMethod]
         public void CreatePurchaseCorrectly()
         {

@@ -28,17 +28,19 @@ namespace BusinessLogic
 
         public Purchase CreatePurchase(Purchase purchase)
         {
-            try{
+            try
+            {
                 Guid guid = Guid.NewGuid();
                 purchase.Id = guid;
-                foreach(Product p in purchase.Cart) _productLogic.CheckProduct(p);
+                foreach (Product p in purchase.Cart) _productLogic.CheckProduct(p);
                 purchase.Total = _promotionContext.CalculateTotalWithoutPromotion(purchase.Cart);
                 if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
                 return _purchaseRepository.CreatePurchase(purchase);
-            }catch (DataAccessException e)
+            }
+            catch (DataAccessException e)
             {
                 throw new LogicException(e);
-            }           
+            }
         }
 
         public IEnumerable<Purchase> GetPurchase(Guid id)
@@ -48,12 +50,12 @@ namespace BusinessLogic
 
         private bool IsEligibleForPromotions(Purchase purchase)
         {
-           return _promotionContext.IsEligibleForPromotions(purchase.Cart);   
+            return _promotionContext.IsEligibleForPromotions(purchase.Cart);
         }
 
         public IEnumerable<Purchase> GetAllPurchases()
         {
-           return _purchaseRepository.GetAllPurchases();
+            return _purchaseRepository.GetAllPurchases();
         }
     }
 }

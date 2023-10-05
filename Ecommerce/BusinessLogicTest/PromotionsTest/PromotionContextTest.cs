@@ -2,14 +2,11 @@
 using Domain;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class PromotionContextTest
     {
@@ -43,7 +40,7 @@ namespace BusinessLogicTest.PromotionsTest
             {
                 product1,
                 product2,
-                
+
             };
             Assert.IsTrue(promotion.IsEligibleForPromotions(cart));
         }
@@ -78,7 +75,7 @@ namespace BusinessLogicTest.PromotionsTest
                 product1,
                 product2,
             };
-            Assert.AreEqual(12, promotion.CalculateTotalWithPromotion(cart)) ;
+            Assert.AreEqual(12, promotion.CalculateTotalWithPromotion(cart));
         }
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]

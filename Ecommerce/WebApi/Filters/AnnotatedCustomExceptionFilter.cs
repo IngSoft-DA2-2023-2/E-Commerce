@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Domain.Exceptions;
 using LogicInterface.Exceptions;
-using Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApi.Filters
 {
+    [ExcludeFromCodeCoverage]
     public class AnnotatedCustomExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
@@ -30,14 +32,15 @@ namespace WebApi.Filters
                     StatusCode = StatusCodes.Status400BadRequest,
                 };
             }
-            else {
+            else
+            {
 
                 context.Result = new ObjectResult(new { ErrorMessage = "Something went wrong." })
                 {
                     StatusCode = StatusCodes.Status500InternalServerError,
                 };
             }
-            
+
 
         }
     }

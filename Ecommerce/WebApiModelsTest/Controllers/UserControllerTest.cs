@@ -5,10 +5,12 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 
 namespace WebApiModelsTest.Controller
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UserControllerTest
     {
@@ -121,7 +123,7 @@ namespace WebApiModelsTest.Controller
                 Email = "email@sample.com",
                 Address = "address sample",
                 Password = "password sample",
-                Roles = new List<string>() { "role sample"},
+                Roles = new List<string>() { "role sample" },
 
             };
 
@@ -205,14 +207,14 @@ namespace WebApiModelsTest.Controller
                 Password = "password sample",
             };
 
-        User expected = new User()
-        {
-            Name = "nameSample",
-            Email = "email@sample.com",
-            Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
-            Address = "address sample",
-            Password = "password sample",
-            Id = guid,
+            User expected = new User()
+            {
+                Name = "nameSample",
+                Email = "email@sample.com",
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "role sample" } },
+                Address = "address sample",
+                Password = "password sample",
+                Id = guid,
             };
             var token = "testToken";
 

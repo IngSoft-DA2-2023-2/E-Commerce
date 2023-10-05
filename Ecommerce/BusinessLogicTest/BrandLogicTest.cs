@@ -2,9 +2,11 @@
 using DataAccessInterface;
 using Domain.ProductParts;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class BrandLogicTest
     {

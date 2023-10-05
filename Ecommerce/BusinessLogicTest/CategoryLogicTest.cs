@@ -2,14 +2,11 @@
 using DataAccessInterface;
 using Domain.ProductParts;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CategoryLogicTest
     {

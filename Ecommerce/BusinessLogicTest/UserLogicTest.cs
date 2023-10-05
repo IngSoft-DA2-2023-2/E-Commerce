@@ -1,18 +1,15 @@
 ﻿using BusinessLogic;
-using Castle.Components.DictionaryAdapter;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UserLogicTest
     {
@@ -34,10 +31,10 @@ namespace BusinessLogicTest
                 Id = Guid.NewGuid(),
                 User = expected,
             };
-            
+
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
-            
+
 
             Mock<IUserRepository> userRepo = new Mock<IUserRepository>(MockBehavior.Strict);
             userRepo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
@@ -117,7 +114,7 @@ namespace BusinessLogicTest
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
             repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Returns(expected);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> {expected});
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { expected });
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             var result = userLogic.AddUserByAdmin(expected);
@@ -164,7 +161,7 @@ namespace BusinessLogicTest
                 Address = "aaa",
                 Password = "12345",
                 Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
- 
+
             };
 
             Session session = new Session()
@@ -226,7 +223,7 @@ namespace BusinessLogicTest
                Email = "a@a.com",
                Address = "aaa",
                Password = "12345",
-               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },   
+               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
                },
             };
 
@@ -280,7 +277,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
-            var result = userLogic.GetAllUsers(u=>u.Name=="Juan");
+            var result = userLogic.GetAllUsers(u => u.Name == "Juan");
 
             repo.VerifyAll();
             Assert.AreEqual(result.First().Name, expected.First().Name);
@@ -328,8 +325,8 @@ namespace BusinessLogicTest
             {
                 Name = "Juancito",
                 Address = "aaa2",
-                Password= "12345",
-                Email= "a@a.com",
+                Password = "12345",
+                Email = "a@a.com",
                 Roles = new List<StringWrapper>(),
             };
 
@@ -353,7 +350,7 @@ namespace BusinessLogicTest
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
             repo.Setup(logic => logic.UpdateUser(It.IsAny<User>())).Returns(modifications);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(new List<User> { outdated});
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { outdated });
 
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
@@ -385,9 +382,9 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User,bool>>())).Returns(new List<User>());
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User>());
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
-            
+
             userLogic.UpdateUserByAdmin(user);
         }
 
@@ -550,7 +547,7 @@ namespace BusinessLogicTest
             Session session = new Session()
             {
                 Id = Guid.NewGuid(),
-                User = user,              
+                User = user,
             };
 
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
@@ -559,7 +556,7 @@ namespace BusinessLogicTest
             repo.Setup(logic => logic.DeleteUser(It.IsAny<Guid>())).Throws(new DataAccessException());
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
-           userLogic.DeleteUser(user.Id);
+            userLogic.DeleteUser(user.Id);
         }
 
         [TestMethod]

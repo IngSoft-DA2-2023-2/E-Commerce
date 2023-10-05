@@ -1,14 +1,9 @@
 ﻿using ApiModels.In;
-using Castle.Core.Smtp;
-using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.In
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UpdateUserByAdminRequestTest
     {
@@ -21,13 +16,13 @@ namespace WebApiModelsTest.In
         [TestInitialize]
         public void Init()
         {
-          user= new UpdateUserRequestByAdmin()
-             {
-                 Name = nameSample,
-                 Password = passwordSample,
-                 Address = addressSample,
-                 Roles = buyerRole,
-             };
+            user = new UpdateUserRequestByAdmin()
+            {
+                Name = nameSample,
+                Password = passwordSample,
+                Address = addressSample,
+                Roles = buyerRole,
+            };
         }
 
         [TestMethod]

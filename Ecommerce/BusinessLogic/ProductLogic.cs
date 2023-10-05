@@ -1,11 +1,9 @@
-﻿using BusinessLogic.Promotions;
-using DataAccessInterface;
+﻿using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Linq;
 
 namespace BusinessLogic
 {
@@ -22,7 +20,7 @@ namespace BusinessLogic
             _categoryLogic = new CategoryLogic(categoryRepository);
             _colourLogic = new ColourLogic(colourRepository);
         }
-      
+
         public Product GetProductById(Guid id)
         {
             try
@@ -144,7 +142,7 @@ namespace BusinessLogic
             IEnumerable<Product> products = _productRepository.GetAllProducts();
             foreach (Product product in products)
             {
-                if(product.Equals(expected)) return true;
+                if (product.Equals(expected)) return true;
             }
             throw new LogicException("Product Does not exists.");
 

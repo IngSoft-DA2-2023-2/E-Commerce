@@ -1,14 +1,16 @@
 using DataAccess.Context;
-using DataAccessInterface.Exceptions;
 using DataAccess.Repository;
 using DataAccessInterface;
+using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using Moq;
 using Moq.EntityFrameworkCore;
-using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ProductRepositoryTest
     {
@@ -59,7 +61,7 @@ namespace DataAccessTest
             var listProducts = new List<Product>() { product };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(listProducts);
-         
+
             Product expectedReturn = new Product()
             {
                 Name = "Sample2",
@@ -68,7 +70,7 @@ namespace DataAccessTest
                 Category = new Category() { Name = "Category2" },
                 Colours = new List<Colour>() { new Colour() { Name = "Green" } }
             };
-             IProductRepository productRepository = new ProductRepository(productContext.Object);
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
             var result = productRepository.UpdateProduct(expectedReturn);
             Assert.AreEqual(expectedReturn, result);
         }
@@ -197,7 +199,7 @@ namespace DataAccessTest
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetAllProducts();
             Assert.AreEqual(response.Count(), products.Count());
-            for(int i = 0; i < response.Count(); i++)
+            for (int i = 0; i < response.Count(); i++)
             {
                 Assert.AreEqual(response.ElementAt(i), products.ElementAt(i));
             }

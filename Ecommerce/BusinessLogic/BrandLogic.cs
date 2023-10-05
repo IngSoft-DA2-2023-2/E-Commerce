@@ -2,7 +2,6 @@
 using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
-using System.Drawing;
 
 namespace BusinessLogic
 {

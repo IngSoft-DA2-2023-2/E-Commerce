@@ -5,14 +5,11 @@ using DataAccessInterface.Exceptions;
 using Domain;
 using Moq;
 using Moq.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccessTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class PurchaseRepositoryTest
     {
@@ -55,7 +52,7 @@ namespace DataAccessTest
                 UserId = buyer,
                 Cart = new List<Product>
                 {
-                    new Product 
+                    new Product
                     {
                         Name="producto",
                         Id =Guid.NewGuid(),

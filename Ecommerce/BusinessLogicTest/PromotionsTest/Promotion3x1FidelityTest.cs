@@ -3,12 +3,11 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class Promotion3x1FidelityTest
     {
@@ -22,7 +21,7 @@ namespace BusinessLogicTest.PromotionsTest
         private const int _five = 5;
         private const int _six = 6;
 
-        private Brand _brandSample1 =  new Brand() { Name = "brand sample" };
+        private Brand _brandSample1 = new Brand() { Name = "brand sample" };
         private Brand _brandSample2 = new Brand() { Name = "brand sample 2" };
         private Brand _brandSample3 = new Brand() { Name = "brand sample 3" };
         private Brand _brandSample4 = new Brand() { Name = "brand sample 4" };

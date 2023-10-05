@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
 using Utilities;
 
 namespace UnitTest.UtilitiesTest
 {
 
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CreateProductResponseTest
     {

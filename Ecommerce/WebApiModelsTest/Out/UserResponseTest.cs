@@ -1,14 +1,10 @@
 ﻿using ApiModels.Out;
 using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.Out
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class UserResponseTest
     {

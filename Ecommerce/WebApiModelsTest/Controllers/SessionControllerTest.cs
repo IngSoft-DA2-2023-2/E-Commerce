@@ -6,10 +6,12 @@ using LogicInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 
 namespace WebApiModelsTest.Controller
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class SessionControllerTest
     {
@@ -66,7 +68,7 @@ namespace WebApiModelsTest.Controller
         {
             Guid guid = Guid.NewGuid();
 
-           
+
 
 
             IEnumerable<User> expected = new List<User>()

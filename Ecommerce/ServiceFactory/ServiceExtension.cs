@@ -20,7 +20,7 @@ namespace ServiceFactory
             serviceCollection.AddScoped<IPurchaseRepository, PurchaseRepository>();
 
             serviceCollection.AddScoped<IUserLogic, UserLogic>();
-            serviceCollection.AddScoped<IProductLogic,ProductLogic>();
+            serviceCollection.AddScoped<IProductLogic, ProductLogic>();
             serviceCollection.AddScoped<IPurchaseLogic, PurchaseLogic>();
             serviceCollection.AddScoped<ISessionLogic, SessionLogic>();
         }

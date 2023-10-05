@@ -2,7 +2,6 @@
 using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
-using System.Drawing;
 
 namespace BusinessLogic
 {
@@ -12,7 +11,7 @@ namespace BusinessLogic
 
         public CategoryLogic(ICategoryRepository context)
         {
-           _context = context;
+            _context = context;
         }
 
         public bool CheckForCategory(Category category)
