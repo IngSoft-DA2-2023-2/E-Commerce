@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using Moq;
@@ -16,15 +17,25 @@ namespace BusinessLogicTest
         [TestMethod]
         public void CreatePurchaseCorrectly()
         {
+           Category category = new Category() { Name = "category" };
             Purchase purchase = new Purchase()
             {
                 Cart = new List<Product>()
                 {
-                    new Product
+                    new Product()
                     {
-                        Name = "Name",
-                        Description = "Test",
-                    }
+                    Name = "product1",
+                    Description = "product1",
+                    Category = category,
+                    Price = 10,
+                    },
+                    new Product()
+                    {
+                    Name = "product2",
+                    Description = "product2",
+                    Category = category,
+                    Price = 4,
+                    },
                 }
             };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);

@@ -587,6 +587,34 @@ namespace BusinessLogicTest
 
             Assert.IsTrue(userLogic.IsAdmin(session.Id.ToString()));
         }
+        [TestMethod]
+        public void IsBuyerReturnsTrue()
+        {
+            User user = new User()
+            {
+                Name = "Juan",
+                Email = "juan@gmail.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
+                Id = Guid.NewGuid(),
+            };
+            Session session = new Session()
+            {
+                Id = Guid.NewGuid(),
+                User = user,
+            };
+
+            Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
+            sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
+            sessionRepo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session });
+
+            Mock<IUserRepository> userRepo = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
+            var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
+
+            Assert.IsTrue(userLogic.IsBuyer(session.Id.ToString()));
+        }
 
         [TestMethod]
         public void IsAdminReturnsFalse()
@@ -615,6 +643,34 @@ namespace BusinessLogicTest
             var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
 
             Assert.AreEqual(userLogic.IsAdmin(session.Id.ToString()), false);
+        }
+        [TestMethod]
+        public void IsBuyerReturnsFalse()
+        {
+            User user = new User()
+            {
+                Name = "Juan",
+                Email = "juan@gmail.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "user" } },
+                Id = Guid.NewGuid(),
+            };
+            Session session = new Session()
+            {
+                Id = Guid.NewGuid(),
+                User = user,
+            };
+
+            Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
+            sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
+            sessionRepo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session });
+
+            Mock<IUserRepository> userRepo = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
+            var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
+
+            Assert.AreEqual(userLogic.IsBuyer(session.Id.ToString()), false);
         }
 
         [TestMethod]

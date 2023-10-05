@@ -121,7 +121,7 @@ namespace BusinessLogic
             {
                 Guid tokenGuid = Guid.Parse(token);
                 var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
-                if (sessions.Count() == 0) return false;
+                if (!sessions.Any()) return false;
                 return sessions.FirstOrDefault().
                 User.Roles.
                 Contains(new StringWrapper() { Info = "admin" });
@@ -130,7 +130,6 @@ namespace BusinessLogic
             {
                 throw new LogicException(e);
             }
-            catch { return false; }
 
         }
 
@@ -149,7 +148,7 @@ namespace BusinessLogic
             {
                 Guid tokenGuid = Guid.Parse(token);
                 var sessions = _sessionRepository.GetSessions(s => s.Id == tokenGuid);
-                if (sessions.Count() == 0) return false;
+                if (!sessions.Any()) return false;
                 return sessions.FirstOrDefault().
                      User.Roles.
                      Contains(new StringWrapper() { Info = "buyer" });
