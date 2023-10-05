@@ -1,7 +1,9 @@
 using ServiceFactory;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApi
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         public static void Main(string[] args)

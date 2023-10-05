@@ -20,7 +20,7 @@ namespace DataAccess.Repository
                 _eCommerceContext.SaveChanges();
                 return purchase;
             }
-            throw new DataAccessException($"Purchase {purchase.Id} already exists.");
+            throw new DataAccessException($"Purchase already exists.");
 
         }
 

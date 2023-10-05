@@ -40,7 +40,7 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.IsTrue(catchedException.Message.Equals($"Purchase {purchase.Id} already exists."));
+            Assert.IsTrue(catchedException.Message.Equals($"Purchase already exists."));
         }
         [TestMethod]
         public void GetAllTheBuyersPurchases()

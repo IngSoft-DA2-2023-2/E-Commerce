@@ -114,10 +114,6 @@ namespace BusinessLogic
             }
         }
 
-        private Func<User, bool> GetUserByGuid(Guid? guid)
-        {
-            return (User u) => guid == null || u.Id == guid;
-        }
 
         public bool IsAdmin(string token)
         {
