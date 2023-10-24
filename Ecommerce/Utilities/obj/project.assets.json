@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Felipe\\.nuget\\packages\\": {}
+    "C:\\Users\\fedev\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+      "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
       "projectName": "Utilities",
-      "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
-      "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-      "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
+      "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+      "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

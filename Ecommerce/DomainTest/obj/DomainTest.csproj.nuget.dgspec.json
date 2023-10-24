@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj": {}
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj": {}
   },
   "projects": {
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj",
         "projectName": "DomainTest",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DomainTest\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DomainTest\\DomainTest.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DomainTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -81,17 +81,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -105,8 +105,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
               }
             }
           }
@@ -140,17 +140,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
         "projectName": "Utilities",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

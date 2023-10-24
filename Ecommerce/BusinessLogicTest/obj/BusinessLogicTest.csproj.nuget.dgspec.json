@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj": {}
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj": {}
   },
   "projects": {
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj",
         "projectName": "BusinessLogicTest",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\BusinessLogicTest.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogicTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,17 +28,17 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               }
             }
           }
@@ -94,17 +94,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
         "projectName": "BusinessLogic",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -118,14 +118,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               }
             }
           }
@@ -159,17 +159,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
         "projectName": "DataAccessInterface",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -183,8 +183,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -218,17 +218,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -242,8 +242,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
               }
             }
           }
@@ -277,17 +277,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
         "projectName": "LogicInterface",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -301,8 +301,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -336,17 +336,17 @@
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+    "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+        "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
         "projectName": "Utilities",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
+        "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+        "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
