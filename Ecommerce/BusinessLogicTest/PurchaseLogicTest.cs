@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.PaymentMethodCategories;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;

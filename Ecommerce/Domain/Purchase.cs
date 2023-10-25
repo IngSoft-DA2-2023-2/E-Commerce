@@ -18,6 +18,7 @@ namespace Domain
         {
             _date = DateTime.Now;
         }
+        public PaymentMethod PaymentMethod { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
         public int Total { get; set; }

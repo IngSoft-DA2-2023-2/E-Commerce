@@ -13,8 +13,6 @@ namespace Domain.PaymentMethodCategories
 
         public string Flag { get; set; }
 
-        public string PAN { get; set; }
-
-        public string CVV { get; set; }
+      
     }
 }
