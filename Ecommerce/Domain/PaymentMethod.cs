@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class PaymentMethod
+    public abstract class PaymentMethod
     {
-        public Guid Id { get; set; }
-        public string Category { get; set; }
+        public abstract Guid Id { get; set; }
+        public abstract string CategoryName { get; set; }
 
-        public string? SubCategoryName { get; set; }
     }
 }
