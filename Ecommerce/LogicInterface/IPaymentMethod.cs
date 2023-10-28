@@ -9,7 +9,7 @@ namespace LogicInterface
 {
     public interface IPaymentMethod
     {
-        public int CalculateDiscount(List<Product> cart);
+        public int CalculateDiscount(int total, string categoryName);
 
     }
 }

@@ -13,3 +13,18 @@ C:\ORT\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\refint\Domain.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.pdb
 C:\ORT\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\ref\Domain.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\bin\Debug\net6.0\Domain.deps.json
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\bin\Debug\net6.0\Domain.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\bin\Debug\net6.0\Domain.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\bin\Debug\net6.0\Utilities.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\bin\Debug\net6.0\Utilities.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.csproj.CopyComplete
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\refint\Domain.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\Domain.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\Domain\obj\Debug\net6.0\ref\Domain.dll

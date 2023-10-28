@@ -1,6 +1,4 @@
 ﻿using BusinessLogic.PaymentMethod;
-using BusinessLogic.Promotions;
-using Domain;
 using LogicInterface;
 using System;
 using System.Collections.Generic;
@@ -13,24 +11,28 @@ namespace BusinessLogicTest.PaymentMethodTest
 {
     [ExcludeFromCodeCoverage]
     [TestClass]
-    public class PaganzaLogicTest
+    public class PaymentMethodContextText
     {
-        private IPaymentMethod _paganzaLogic;
-        private int totalCart = 100;
-        private string categoryName = "Paganza";
+        private PaymentMethodContext _paymentMethodContext;
 
         [TestInitialize]
         public void Init()
         {
-            _paganzaLogic = new PaganzaLogic();
+            _paymentMethodContext = new PaymentMethodContext();
         }
 
         [TestMethod]
         public void GivenEmptyCartReturnsZero()
         {
-            Assert.AreEqual(0, _paganzaLogic.CalculateDiscount(0, categoryName));
+            Assert.AreEqual(0, _paymentMethodContext.CalculateDiscount(0, "Paganza"));
         }
 
+        [TestMethod]
+        public void GivenCartWithOnePaganzaReturnsDiscount()
+        {
+            Assert.AreEqual(90, _paymentMethodContext.CalculateDiscount(100, "Paganza"));
+        }
 
+       
     }
 }

@@ -20,20 +20,28 @@ namespace ApiModels.In
                 case "CreditCard":
                 return new CreditCard
                 {
+                    CategoryName = CategoryName,
                     Flag = Flag
                 };
-            case "BankDebit":
-                return new BankDebit
-                {
-                    Bank = Bank
-                };
-            case "Paganza":
-                return new Paganza();
-            case "PayPal":
-                return new Paypal();
-            default:
-                throw new Exception("Invalid Payment Method Category");
-            }
+                case "BankDebit":
+                    return new BankDebit
+                    {
+                        CategoryName = CategoryName,
+                        Bank = Bank
+                    };
+                case "Paganza":
+                    return new Paganza()
+                    {
+                        CategoryName = CategoryName,
+                    };
+                case "PayPal":
+                    return new Paypal()
+                    {
+                        CategoryName = CategoryName,
+                    };
+                default:
+                    throw new Exception("Invalid Payment Method Category");
+                }
         }
     }
 }

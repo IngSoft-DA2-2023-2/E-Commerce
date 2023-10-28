@@ -23,3 +23,28 @@ C:\ORT\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\Busine
 C:\ORT\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\LogicInterface.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\BusinessLogic.pdb
 C:\ORT\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\LogicInterface.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\ServiceFactory.deps.json
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\ServiceFactory.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\ServiceFactory.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\BusinessLogic.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\DataAccess.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\DataAccessInterface.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\Domain.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\LogicInterface.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\Utilities.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\BusinessLogic.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\DataAccessInterface.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\DataAccess.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\LogicInterface.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\Domain.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\bin\Debug\net6.0\Utilities.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.csproj.AssemblyReference.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.AssemblyInfoInputs.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.AssemblyInfo.cs
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.csproj.CoreCompileInputs.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.csproj.CopyComplete
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\refint\ServiceFactory.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ServiceFactory.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\ServiceFactory\obj\Debug\net6.0\ref\ServiceFactory.dll

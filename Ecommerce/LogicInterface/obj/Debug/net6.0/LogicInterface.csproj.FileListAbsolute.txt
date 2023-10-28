@@ -15,3 +15,20 @@ C:\ORT\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicI
 C:\ORT\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\refint\LogicInterface.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.pdb
 C:\ORT\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\ref\LogicInterface.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\LogicInterface.deps.json
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\LogicInterface.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\LogicInterface.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\Domain.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\Utilities.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\Domain.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\bin\Debug\net6.0\Utilities.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.csproj.AssemblyReference.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.AssemblyInfoInputs.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.AssemblyInfo.cs
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.csproj.CoreCompileInputs.cache
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.csproj.CopyComplete
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\refint\LogicInterface.dll
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\LogicInterface.pdb
+C:\Users\Nicole\OneDrive\Escritorio\ORT\Semetre 6\DA2\222675-269851-270303\Ecommerce\LogicInterface\obj\Debug\net6.0\ref\LogicInterface.dll
