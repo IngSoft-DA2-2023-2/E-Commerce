@@ -3864,19 +3864,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fedev\\.nuget\\packages\\": {}
+    "C:\\Users\\Nicole\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
-      "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\WebApi\\obj\\",
+      "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
+      "packagesPath": "C:\\Users\\Nicole\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nicole\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3890,17 +3890,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj": {
-              "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj"
+            "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj": {
+              "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj"
             },
-            "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+            "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-              "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+            "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+              "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
             },
-            "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj": {
-              "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj"
+            "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj": {
+              "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj"
             }
           }
         }
@@ -3961,7 +3961,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

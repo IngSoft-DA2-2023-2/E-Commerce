@@ -8,18 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="NewFolder1\**" />
+    <Compile Remove="PaymentMethodCategories\**" />
     <EmbeddedResource Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="PaymentMethodCategories\**" />
     <None Remove="NewFolder1\**" />
+    <None Remove="PaymentMethodCategories\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\LogicInterface\LogicInterface.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="PaymentMethodCategories\" />
   </ItemGroup>
 
 </Project>

@@ -2319,19 +2319,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fedev\\.nuget\\packages\\": {}
+    "C:\\Users\\Nicole\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
+      "projectUniqueName": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
       "projectName": "UtilitiesTest",
-      "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
-      "packagesPath": "C:\\Users\\fedev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\obj\\",
+      "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
+      "packagesPath": "C:\\Users\\Nicole\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\fedev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nicole\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2345,8 +2345,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
-              "projectPath": "C:\\Users\\fedev\\Desktop\\Nic\\da2-nic\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
+            "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+              "projectPath": "C:\\Users\\Nicole\\OneDrive\\Escritorio\\ORT\\Semetre 6\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
             }
           }
         }
@@ -2394,7 +2394,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
