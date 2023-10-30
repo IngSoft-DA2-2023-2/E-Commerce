@@ -12,8 +12,10 @@ namespace BusinessLogic.PaymentMethod
         private List<IPaymentMethod> _paymentMethods;
         public PaymentMethodContext() { 
             _paymentMethods = new List<IPaymentMethod>();
-            IPaymentMethod paymentMethod = new PaganzaLogic();
-            _paymentMethods.Add(paymentMethod);
+            IPaymentMethod paganza = new PaganzaLogic();
+            IPaymentMethod bankDebit = new BankDebitLogic();
+            _paymentMethods.Add(paganza);
+            _paymentMethods.Add(bankDebit);
         }
 
         public int CalculateDiscount(int total, string categoryName)
