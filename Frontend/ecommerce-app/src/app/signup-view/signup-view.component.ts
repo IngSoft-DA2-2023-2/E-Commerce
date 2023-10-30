@@ -25,6 +25,7 @@ signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement
     next: (response) => {
       this.userLogged = response;
       this.feedbackMessage = "User created successfully";
+      this.router.navigate(['']);
     },
     error: (e) => {
       this.feedbackMessage = e.error.errorMessage;
