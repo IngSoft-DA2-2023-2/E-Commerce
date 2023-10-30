@@ -9,18 +9,17 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public class CreditCardRepository : ICreditCardRepository
+    public class PaganzaRepository : IPaganzaRepository
     {
         private readonly ECommerceContext _context;
-        public CreditCardRepository(ECommerceContext context)
+        public PaganzaRepository(ECommerceContext context)
         {
             _context = context;
         }
-
-        public bool CheckForCreditCard(string Flag)
+        public bool CheckForPaganza(string Paganza)
         {
-            var creditCard = _context.CreditCards.FirstOrDefault(b => b.Flag.Equals(Flag));
-            if (creditCard is null) throw new DataAccessException($"CreditCard {Flag} does not exists");
+            var paganza = _context.Paganzas.FirstOrDefault(b => b.CategoryName.Equals(Paganza));
+            if (paganza is null) throw new DataAccessException($"{Paganza} does not exists");
             return true;
         }
     }
