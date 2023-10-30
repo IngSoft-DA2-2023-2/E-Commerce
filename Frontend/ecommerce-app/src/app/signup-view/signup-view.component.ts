@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
+import { userModel } from './signupUserModel';
 
 @Component({
   selector: 'app-signup-view',
@@ -15,23 +16,18 @@ export class SignupViewComponent {
     this.router.navigate(['']);
 }
 
+feedbackMessage:string = "";
+userLogged: any = null;
+
 signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement,password:HTMLInputElement){
-  console.log("Signing up")
   console.log(`Name: ${name.value} Email: ${email.value} Address: ${address.value} Password: ${password.value}`);
   this.api.postUser({ name: name.value, email: email.value, address: address.value, password: password.value }).subscribe({
     next: (response) => {
-      // Función de devolución de llamada en caso de éxito
-      console.log('Solicitud exitosa:', response);
-      // Aquí puedes realizar acciones adicionales, como actualizar la interfaz de usuario.
+      this.userLogged = response;
+      this.feedbackMessage = "User created successfully";
     },
-    error: (error) => {
-      // Función de devolución de llamada en caso de error
-      console.error('Error en la solicitud:', error);
-      // Puedes manejar el error de acuerdo a tus necesidades, como mostrar un mensaje de error al usuario.
-    },
-    complete: () => {
-      // Función de devolución de llamada cuando la solicitud se completa (opcional).
-      console.log('Solicitud completada');
+    error: (e) => {
+      this.feedbackMessage = e.error.errorMessage;
     }
   });
 }
