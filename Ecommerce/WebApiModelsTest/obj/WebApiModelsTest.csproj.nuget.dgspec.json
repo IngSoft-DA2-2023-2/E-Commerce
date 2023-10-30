@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj": {}
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj": {}
   },
   "projects": {
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj",
         "projectName": "ApiModels",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ApiModels\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -59,21 +59,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
         "projectName": "BusinessLogic",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,14 +87,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               }
             }
           }
@@ -124,21 +124,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
         "projectName": "DataAccessInterface",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -152,8 +152,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -183,21 +183,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -211,11 +211,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -261,21 +261,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -289,8 +289,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
               }
             }
           }
@@ -320,21 +320,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
         "projectName": "LogicInterface",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -348,8 +348,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               }
             }
           }
@@ -379,21 +379,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj",
         "projectName": "ServiceFactory",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ServiceFactory\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -407,17 +407,17 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\BusinessLogic\\BusinessLogic.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccessInterface\\DataAccessInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\DataAccess\\DataAccess.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               }
             }
           }
@@ -453,21 +453,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
         "projectName": "Utilities",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -508,21 +508,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj",
         "projectName": "WebApiModelsTest",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -536,14 +536,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj"
               }
             }
           }
@@ -595,21 +595,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj": {
+    "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\WebApi\\obj\\",
+        "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApi\\WebApi.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -623,17 +623,17 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ApiModels\\ApiModels.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               },
-              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj": {
-                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj"
+              "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj": {
+                "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\ServiceFactory\\ServiceFactory.csproj"
               }
             }
           }
@@ -694,7 +694,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

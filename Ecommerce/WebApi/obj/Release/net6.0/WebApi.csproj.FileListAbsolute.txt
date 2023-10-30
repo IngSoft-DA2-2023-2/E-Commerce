@@ -82,3 +82,4 @@ C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\obj\Release\net6.0\refint\WebAp
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\obj\Release\net6.0\WebApi.pdb
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\obj\Release\net6.0\WebApi.genruntimeconfig.cache
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\obj\Release\net6.0\ref\WebApi.dll
+C:\Users\diego\OneDrive\Escritorio\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
