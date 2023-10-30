@@ -1,16 +1,18 @@
 import { Component,OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { product } from './productModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
-  styleUrls: ['./product-view.component.css']
+  styleUrls: ['./product-view.component.css'],
+  template: `<button (click)="openSignUpMenu()">`
 })
 export class ProductViewComponent implements OnInit {
     
     data!:product[];
-    constructor(private api:ApiService) { }
+    constructor(private api:ApiService,private router:Router) { }
   
     ngOnInit(): void {
       this.displayProducts();
@@ -21,6 +23,10 @@ export class ProductViewComponent implements OnInit {
        this.data = res;
        console.log(res);
       });
+    }
+
+    openSignUpMenu() {
+      this.router.navigate(['/signup']);
     }
 
 }
