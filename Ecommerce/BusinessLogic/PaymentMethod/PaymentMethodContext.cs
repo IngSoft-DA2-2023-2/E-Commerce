@@ -18,10 +18,14 @@ namespace BusinessLogic.PaymentMethod
 
         public int CalculateDiscount(int total, string categoryName)
         {
-            total = total;
+            int newTotal = total;
             foreach (IPaymentMethod paymentMethod in _paymentMethods)
             {
-                total = paymentMethod.CalculateDiscount(total, categoryName);
+                newTotal = paymentMethod.CalculateDiscount(total, categoryName);
+                if (newTotal != total)
+                {
+                    return newTotal;
+                }
             }
             return total;
         }
