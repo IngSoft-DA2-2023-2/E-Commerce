@@ -2319,19 +2319,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Felipe\\.nuget\\packages\\": {}
+    "C:\\Users\\diego\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
+      "projectUniqueName": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
       "projectName": "UtilitiesTest",
-      "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
-      "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-      "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\obj\\",
+      "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\UtilitiesTest.csproj",
+      "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\UtilitiesTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2345,8 +2345,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
-              "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
+            "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj": {
+              "projectPath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\Utilities\\Utilities.csproj"
             }
           }
         }
@@ -2394,7 +2394,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

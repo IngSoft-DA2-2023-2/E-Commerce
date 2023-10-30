@@ -1,0 +1,26 @@
+<div class="container-fluid" style="background-color: black;">
+    <div class="row justify-content-center text-center">
+        <div class="col-md-8 col-lg-8">
+            <div class="header">
+                <h3 style="color: white; font-size: 23px;">Popular E-commerce products</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center">
+        <div class="col-md-3" *ngFor="let product of data">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h6 class="card-price">${{product.price }}</h6>
+                    <p class="card-text">{{ product.brand.name }}</p>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Colors:</p>
+                    <ul class="list-group list-unstyled">
+                        <li class="card-text-colours" *ngFor="let c of product.colours">{{c.name}}</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

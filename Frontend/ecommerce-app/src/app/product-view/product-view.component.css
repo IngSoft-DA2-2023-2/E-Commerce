@@ -1,0 +1,36 @@
+body{
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.5385;
+    color : #333;
+    text-align: left;
+    background-color: #2196f3;
+}
+
+.card {
+    width: 18rem;
+    border: 1px solid #000; 
+    border-radius: 5px;   
+    margin: 10px; 
+  }
+  
+  .card-title {
+    font-size: 1.25rem;   
+  }
+  
+  .card-price {
+    color: #007bff;     
+  }
+  
+  .card-text {
+    margin-bottom: 4px;  
+  }
+  
+  .btn-primary {
+    background-color: #005ec2; 
+    color: #fff;           
+  }
+  
+.card-text-colours{
+  /*display: inline-block;*/
+}
