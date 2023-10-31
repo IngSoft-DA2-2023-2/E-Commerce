@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessInterface
 {
-    public interface ICreditCardRepository
+    public interface IPaymentMethodRepository
     {
-        public bool CheckForCreditCard(string Flag);
+        bool CheckForPaymentMethod(string name);
     }
 }

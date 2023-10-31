@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    [Migration("20231030224558_added_paymentMethods")]
-    partial class added_paymentMethods
+    [Migration("20231031170217_V3AddedPaymentMethod")]
+    partial class V3AddedPaymentMethod
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,40 +222,17 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.PaymentMethodCategories.BankDebit", b =>
+            modelBuilder.Entity("Domain.PaymentMethodCategories.PaymentMethodEntity", b =>
                 {
                     b.HasBaseType("Domain.PaymentMethod");
 
                     b.Property<string>("Bank")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("BankDebit");
-                });
-
-            modelBuilder.Entity("Domain.PaymentMethodCategories.CreditCard", b =>
-                {
-                    b.HasBaseType("Domain.PaymentMethod");
 
                     b.Property<string>("Flag")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("CreditCard");
-                });
-
-            modelBuilder.Entity("Domain.PaymentMethodCategories.Paganza", b =>
-                {
-                    b.HasBaseType("Domain.PaymentMethod");
-
-                    b.HasDiscriminator().HasValue("Paganza");
-                });
-
-            modelBuilder.Entity("Domain.PaymentMethodCategories.Paypal", b =>
-                {
-                    b.HasBaseType("Domain.PaymentMethod");
-
-                    b.HasDiscriminator().HasValue("Paypal");
+                    b.HasDiscriminator().HasValue("PaymentMethodEntity");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>

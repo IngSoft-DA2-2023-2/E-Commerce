@@ -17,13 +17,7 @@ namespace DataAccess.Context
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Colour> Colours { get; set; }
         public virtual DbSet<StringWrapper> StringListWrappers { get; set; }
-
-        public virtual DbSet<BankDebit> BankDebits { get; set; }
-        public virtual DbSet<CreditCard> CreditCards { get; set; }
-        public virtual DbSet<Paganza> Paganzas { get; set; }
-        public virtual DbSet<Paypal> Paypal { get; set; }
-
-
+        public virtual DbSet<PaymentMethodEntity> PaymentMethods { get; set; }
 
         public ECommerceContext() { }
 
