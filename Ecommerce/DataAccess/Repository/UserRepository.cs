@@ -34,8 +34,8 @@ namespace DataAccess.Repository
                 var rolId = existingUser.Roles;
                 while (rolId.Count > 0)
                 {
-                    var rol = _eCommerceContext.StringListWrappers.FirstOrDefault(r => r.Id == rolId[0].Id);
-                    _eCommerceContext.StringListWrappers.Remove(rol);
+                    var rol = _eCommerceContext.Roles.FirstOrDefault(r => r.Id == rolId[0].Id);
+                    _eCommerceContext.Roles.Remove(rol);
                     _eCommerceContext.SaveChanges();
                 }
                 _eCommerceContext.Users.Remove(existingUser);
@@ -48,7 +48,7 @@ namespace DataAccess.Repository
 
         public IEnumerable<User> GetAllUsers(Func<User, bool> predicate)
         {
-            return _eCommerceContext.Users.Where(predicate).ToList();
+            return _eCommerceContext.Users.Include(u=>u.Roles).Where(predicate).ToList();
         }
 
         public User UpdateUser(User updatedUser)

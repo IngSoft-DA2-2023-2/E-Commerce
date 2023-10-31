@@ -24,19 +24,22 @@ namespace WebApiModelsTest.Controller
                 Password = "password",
             };
 
+            User u = new User
+            {
+                Email = "email@sample.com",
+                Name = "name1",
+                Password = "password",
+                Address = "address sample",
+                Roles = new List<StringWrapper>(),
+            };
+
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { Id = guid };
+            Session session = new Session() { Id = guid, User=u};
             var expectedMappedResult = new SessionResponse(session);
 
             IEnumerable<User> expected = new List<User>()
             {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List<StringWrapper>(),
-                },
+               u
             };
             var token = "testToken";
 

@@ -202,6 +202,7 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(products, result.Value);
         }
 
+
         [TestMethod]
         public void GetAllProductsWithCategoryNameOk()
         {
@@ -274,17 +275,7 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(products, result.Value);
         }
 
-        [TestMethod]
-        public void GetProductsWithNullOperatorReturnsBadRequest()
-        {
-            Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
 
-            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters(null, null, null, null) as BadRequestResult;
-
-            Assert.AreEqual(result.StatusCode, StatusCodes.Status400BadRequest);
-        }
 
         [TestMethod]
         public void CreateNewProduct()

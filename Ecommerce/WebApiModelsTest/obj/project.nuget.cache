@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "FzEPYDiK9saSQ9e4qAm7Vlf6aaEfHwc9H6Y6Z/MxKOSpRE/kXYDwdzFYJNNeaOpFUpm+HuYWykDSVvnhfJN5Dg==",
+  "dgSpecHash": "6phfDfvLhZD2KLuJ4ZkIWucmB5JdUpcue6S9yosPIbCmsS03ZRyg+0zydVcXsY9irEYPT4Y/U4o4Ho/lh3wnMQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\diego\\OneDrive\\Escritorio\\222675-269851-270303\\Ecommerce\\WebApiModelsTest\\WebApiModelsTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\diego\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
+    "C:\\Users\\diego\\.nuget\\packages\\microsoft.aspnet.cors\\5.3.0\\microsoft.aspnet.cors.5.3.0.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
@@ -88,5 +89,16 @@
     "C:\\Users\\diego\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Cors 5.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Cors",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

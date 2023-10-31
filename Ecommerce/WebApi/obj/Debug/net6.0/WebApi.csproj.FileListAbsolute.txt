@@ -166,3 +166,4 @@ C:\Users\diego\OneDrive\Escritorio\222675-269851-270303\Ecommerce\WebApi\obj\Deb
 C:\Users\diego\OneDrive\Escritorio\222675-269851-270303\Ecommerce\WebApi\obj\Debug\net6.0\WebApi.pdb
 C:\Users\diego\OneDrive\Escritorio\222675-269851-270303\Ecommerce\WebApi\obj\Debug\net6.0\WebApi.genruntimeconfig.cache
 C:\Users\diego\OneDrive\Escritorio\222675-269851-270303\Ecommerce\WebApi\obj\Debug\net6.0\ref\WebApi.dll
+C:\Users\diego\OneDrive\Escritorio\222675-269851-270303\Ecommerce\WebApi\bin\Debug\net6.0\System.Web.Cors.dll
