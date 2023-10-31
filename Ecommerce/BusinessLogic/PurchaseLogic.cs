@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Promotions;
+﻿using BusinessLogic.PaymentMethod;
+using BusinessLogic.Promotions;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
@@ -12,11 +13,14 @@ namespace BusinessLogic
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly PromotionContext _promotionContext;
         private readonly IProductLogic _productLogic;
+        private readonly PaymentMethodContext _paymentMethod;
 
-        public PurchaseLogic(IPurchaseRepository purchaseRepository, IProductLogic productLogic)
+        public PurchaseLogic(IPurchaseRepository purchaseRepository,
+            IProductLogic productLogic)
         {
             _purchaseRepository = purchaseRepository;
             _promotionContext = new PromotionContext();
+            _paymentMethod = new PaymentMethodContext();
             _productLogic = productLogic;
         }
 
@@ -25,6 +29,8 @@ namespace BusinessLogic
             purchase.CurrentPromotion = _promotionContext.GetBestPromotion(purchase.Cart);
             purchase.Total = _promotionContext.CalculateTotalWithPromotion(purchase.Cart);
         }
+
+     
 
         public Purchase CreatePurchase(Purchase purchase)
         {
@@ -35,6 +41,7 @@ namespace BusinessLogic
                 foreach (Product p in purchase.Cart) _productLogic.CheckProduct(p);
                 purchase.Total = _promotionContext.CalculateTotalWithoutPromotion(purchase.Cart);
                 if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
+                purchase.Total = _paymentMethod.CalculateDiscount(purchase.Total, purchase.PaymentMethod.CategoryName);
                 return _purchaseRepository.CreatePurchase(purchase);
             }
             catch (DataAccessException e)
@@ -57,5 +64,7 @@ namespace BusinessLogic
         {
             return _purchaseRepository.GetAllPurchases();
         }
+
+    
     }
 }

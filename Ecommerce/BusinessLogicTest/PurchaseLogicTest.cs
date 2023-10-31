@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.PaymentMethodCategories;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
@@ -39,6 +40,11 @@ namespace BusinessLogicTest
                     Brand= brand,
                     Price = 4,
                     },
+                },
+                PaymentMethod = new CreditCard()
+                {
+                    CategoryName = "CreditCard",
+                    Flag = "Visa"
                 }
             };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);
@@ -67,6 +73,11 @@ namespace BusinessLogicTest
                           Category = new Category { Name = "category2"},
                           Price = 4,
                     }
+                },
+                PaymentMethod = new CreditCard()
+                {
+                    CategoryName = "CreditCard",
+                    Flag = "Visa"
                 }
             };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);

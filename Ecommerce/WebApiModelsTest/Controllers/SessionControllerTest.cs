@@ -38,27 +38,17 @@ namespace WebApiModelsTest.Controller
                     Roles=new List<StringWrapper>(),
                 },
             };
-            var token = "testToken";
-
-
             var userExpectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
-
-
-
-
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
             var sessionController = new SessionController(logic.Object, userLogic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateSession", "Session", new { id = 5 }, expectedMappedResult);
-
             var result = sessionController.LogIn(received);
-
             logic.VerifyAll();
-            CreatedAtActionResult resultObject = result as CreatedAtActionResult;
-            SessionResponse resultValue = resultObject.Value as SessionResponse;
-
+            CreatedAtActionResult? resultObject = result as CreatedAtActionResult;
+            SessionResponse? resultValue = resultObject.Value as SessionResponse;
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
             Assert.AreEqual(guid, resultValue.Token);
         }

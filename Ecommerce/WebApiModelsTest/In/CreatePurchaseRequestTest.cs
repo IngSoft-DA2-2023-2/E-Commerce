@@ -8,6 +8,7 @@ namespace WebApiModelsTest.In
     public class CreatePurchaseRequestTest
     {
         private CreatePurchaseRequest purchaseRequest;
+        private CreatePaymentMethodRequest createPaymentMethodRequest;
         Guid guid = Guid.NewGuid();
         private List<CreateProductRequest> products = new List<CreateProductRequest>()
         {
@@ -21,6 +22,7 @@ namespace WebApiModelsTest.In
         public void Init()
         {
             purchaseRequest = new CreatePurchaseRequest();
+            createPaymentMethodRequest = new CreatePaymentMethodRequest();
         }
         [TestMethod]
         public void GivenPurchaseRequestReturnsProductRequest()

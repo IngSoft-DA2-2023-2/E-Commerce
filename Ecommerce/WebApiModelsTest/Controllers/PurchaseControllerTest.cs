@@ -45,7 +45,12 @@ namespace WebApiModelsTest.Controller
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
             {
-                Cart = cart
+                Cart = cart,
+                PaymentMethod = new CreatePaymentMethodRequest()
+                {
+                    CategoryName = "CreditCard",
+                    Flag = "Visa"
+                }
             };
             Purchase purchase = new Purchase()
             {
