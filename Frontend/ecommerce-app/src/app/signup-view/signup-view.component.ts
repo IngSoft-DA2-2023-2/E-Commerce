@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
-import { userModel } from './signupUserModel';
+import { user, userModel } from './signupUserModel';
 
 @Component({
   selector: 'app-signup-view',
@@ -26,13 +26,13 @@ signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement
       this.feedbackMessage = "";
       this.api.postSession({ email: email.value, password: password.value }).subscribe({
       next: (sessionToken) =>{
-                              this.api.loggedToken = sessionToken.token;
+                              if(this.api.loggedUser == undefined){
+                              this.api.loggedUser = {token: "", user: new user()};
+                              }
+                              this.api.loggedUser.user = sessionToken.user;
+                              this.api.loggedUser.token = sessionToken.token;
                               this.router.navigate(['']);
-      }})
-      
-      
-      
-
+      }});
     },
     error: (e) => {
       this.feedbackMessage = e.error.errorMessage;

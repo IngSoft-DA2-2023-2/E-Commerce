@@ -21,7 +21,6 @@ export class ProductViewComponent implements OnInit {
     displayProducts(){
       this.api.getProduct().subscribe(res=>{
        this.data = res;
-       console.log(res);
       });
     }
 
@@ -30,5 +29,9 @@ export class ProductViewComponent implements OnInit {
     }
     openSignInMenu() {
       this.router.navigate(['/signin']);
+    }
+
+    seeLoggedInfo(){
+      console.log(this.api.loggedUser);
     }
 }

@@ -11,8 +11,8 @@ export class ApiService {
 
   constructor(private httpClient:HttpClient) { }
   
-  loggedUser: userModel | undefined = undefined;
-  loggedToken: string | undefined = undefined;
+  loggedUser: sessionModel | undefined = undefined;
+
 
   getProduct(){
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');
@@ -24,7 +24,6 @@ export class ApiService {
 
   postSession(data:sessionRequest){
     return this.httpClient.post<sessionModel>('https://localhost:7150/api/sessions',data);
-
   }
   
 }
