@@ -48,7 +48,8 @@ namespace DataAccess.Repository
 
         public IEnumerable<User> GetAllUsers(Func<User, bool> predicate)
         {
-            return _eCommerceContext.Users.Where(predicate).ToList();
+            var ret = _eCommerceContext.Users.Include(u => u.Roles);
+            return ret.Where(predicate).ToList();
         }
 
         public User UpdateUser(User updatedUser)
