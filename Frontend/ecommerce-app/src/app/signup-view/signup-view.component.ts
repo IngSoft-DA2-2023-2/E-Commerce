@@ -17,14 +17,22 @@ export class SignupViewComponent {
 }
 
 feedbackMessage:string = "";
-userLogged: any = null;
+
+
 
 signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement,password:HTMLInputElement){
   this.api.postUser({ name: name.value, email: email.value, address: address.value, password: password.value }).subscribe({
     next: (response) => {
-      this.userLogged = response;
       this.feedbackMessage = "";
-      this.router.navigate(['']);
+      this.api.postSession({ email: email.value, password: password.value }).subscribe({
+      next: (sessionToken) =>{
+                              this.api.loggedToken = sessionToken.token;
+                              this.router.navigate(['']);
+      }})
+      
+      
+      
+
     },
     error: (e) => {
       this.feedbackMessage = e.error.errorMessage;
