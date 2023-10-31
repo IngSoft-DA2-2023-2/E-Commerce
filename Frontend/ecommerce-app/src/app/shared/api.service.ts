@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private httpClient:HttpClient) { }
   
-  loggedUser: sessionModel | undefined = undefined;
+  currentSession: sessionModel | undefined = undefined;
 
 
   getProduct(){
@@ -24,6 +24,11 @@ export class ApiService {
 
   postSession(data:sessionRequest){
     return this.httpClient.post<sessionModel>('https://localhost:7150/api/sessions',data);
+
   }
   
+  deleteSession(token:string){
+    let res = this.httpClient.delete('https://localhost:7150/api/sessions/',{headers:{'Authorization':`${token}`}});
+    return res;
+  }
 }
