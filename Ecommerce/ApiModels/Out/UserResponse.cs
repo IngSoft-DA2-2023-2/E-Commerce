@@ -8,7 +8,7 @@ namespace ApiModels.Out
         public string Name { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public IEnumerable<string> Roles { get; set; } = new List<string>();
+        public IEnumerable<string> Roles { get; set; }
         public Guid Guid { get; set; }
 
         public UserResponse(User user)
