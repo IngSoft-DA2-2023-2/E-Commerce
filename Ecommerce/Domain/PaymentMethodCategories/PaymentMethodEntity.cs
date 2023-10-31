@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.PaymentMethodCategories
 {
-    public class PaymentMethodEntity : PaymentMethod
+    public class PaymentMethodEntity 
     {
-        public override Guid Id { get; set; }
-        public override string CategoryName { get; set; }
+        public Guid Id { get; set; }
+        public string CategoryName { get; set; }
         public string? Bank { get; set; }
         public string? Flag { get; set; }
     }

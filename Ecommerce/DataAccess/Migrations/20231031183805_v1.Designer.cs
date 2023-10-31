@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    [Migration("20230929143626_v1")]
+    [Migration("20231031183805_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,27 @@ namespace DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Domain.PaymentMethod", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethod");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("PaymentMethod");
+                });
 
             modelBuilder.Entity("Domain.Product", b =>
                 {
@@ -138,13 +159,20 @@ namespace DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CurrentPromotion")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PaymentMethodId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.HasIndex("UserId");
 
@@ -194,6 +222,19 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Domain.PaymentMethodCategories.PaymentMethodEntity", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.Property<string>("Bank")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Flag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("PaymentMethodEntity");
+                });
+
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.HasOne("Domain.ProductParts.Brand", "Brand")
@@ -220,7 +261,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.ProductParts.Colour", b =>
                 {
                     b.HasOne("Domain.Product", null)
-                        .WithMany("Colors")
+                        .WithMany("Colours")
                         .HasForeignKey("ProductId");
                 });
 
@@ -233,11 +274,19 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Purchase", b =>
                 {
+                    b.HasOne("Domain.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PaymentMethod");
 
                     b.Navigation("User");
                 });
@@ -255,7 +304,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Product", b =>
                 {
-                    b.Navigation("Colors");
+                    b.Navigation("Colours");
                 });
 
             modelBuilder.Entity("Domain.Purchase", b =>

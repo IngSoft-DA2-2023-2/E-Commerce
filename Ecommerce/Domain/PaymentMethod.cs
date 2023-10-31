@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.PaymentMethodCategories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Domain
     {
         public abstract Guid Id { get; set; }
         public abstract string CategoryName { get; set; }
+        public abstract PaymentMethodEntity ToEntity();
 
     }
 }

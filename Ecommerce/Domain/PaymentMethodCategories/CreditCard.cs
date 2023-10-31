@@ -11,7 +11,15 @@ namespace Domain.PaymentMethodCategories
         public override Guid Id { get; set; }
         public override string CategoryName { get; set; }
         public string Flag { get; set; }
+        public override PaymentMethodEntity ToEntity()
+        {
+            return new PaymentMethodEntity()
+            {
+                Id = Id,
+                CategoryName = CategoryName,
+                Flag = Flag,
+            };
+        }
 
-      
     }
 }
