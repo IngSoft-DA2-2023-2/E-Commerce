@@ -27,4 +27,8 @@ export class ApiService {
 
   }
   
+  deleteSession(token:string){
+    let res = this.httpClient.delete('https://localhost:7150/api/sessions/',{headers:{'Authorization':`${token}`}});
+    return res;
+  }
 }

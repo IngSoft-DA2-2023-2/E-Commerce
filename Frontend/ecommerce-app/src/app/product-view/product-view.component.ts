@@ -21,7 +21,6 @@ export class ProductViewComponent implements OnInit {
     displayProducts(){
       this.api.getProduct().subscribe(res=>{
        this.data = res;
-       console.log(res);
       });
     }
 
@@ -34,4 +33,16 @@ export class ProductViewComponent implements OnInit {
     seeLoggedInfo(){
       console.log(this.api.currentSession);
     }
+
+// Supongamos que esta es una función en tu componente o servicio
+logout() {
+  if(this.api.currentSession == undefined) return;
+  const token:string = this.api.currentSession?.token; // Reemplaza esto con el token real
+  this.api.deleteSession(token).subscribe(
+    response => {
+      this.api.currentSession = undefined;
+    },
+  );
+}
+
 }
