@@ -25,8 +25,8 @@ signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement
     next: (response) => {
       this.feedbackMessage = "";
       this.api.postSession({ email: email.value, password: password.value }).subscribe({
-      next: (sessionToken) =>{
-                              this.api.loggedToken = sessionToken.token;
+      next: (sessionInfo) =>{
+                              this.api.currentSession = sessionInfo;
                               this.router.navigate(['']);
       }})
       

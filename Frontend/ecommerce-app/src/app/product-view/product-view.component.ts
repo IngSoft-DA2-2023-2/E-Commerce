@@ -31,4 +31,7 @@ export class ProductViewComponent implements OnInit {
     openSignInMenu() {
       this.router.navigate(['/signin']);
     }
+    seeLoggedInfo(){
+      console.log(this.api.currentSession);
+    }
 }

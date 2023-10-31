@@ -16,7 +16,7 @@ export class SigninViewComponent {
 
   signInUser(email:string,password:string){
     this.api.postSession(new sessionRequest(email,password)).subscribe(res=>{
-      this.api.loggedToken = res.token;
+      this.api.currentSession = res;
       this.feedback="success";
       this.router.navigate(['']);
     },err=>{

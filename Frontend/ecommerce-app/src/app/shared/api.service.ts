@@ -11,8 +11,8 @@ export class ApiService {
 
   constructor(private httpClient:HttpClient) { }
   
-  loggedUser: userModel | undefined = undefined;
-  loggedToken: string | undefined = undefined;
+  currentSession: sessionModel | undefined = undefined;
+
 
   getProduct(){
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');
