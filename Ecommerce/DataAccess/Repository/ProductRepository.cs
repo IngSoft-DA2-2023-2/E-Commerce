@@ -74,7 +74,7 @@ namespace DataAccess.Repository
                 ToList();
             if (!selectedProducts.Any())
             {
-                throw new DataAccessException($"Product brand {brand} does not exist.");
+                return new List<Product>();
             }
             else
             {
@@ -102,7 +102,7 @@ namespace DataAccess.Repository
 
             if (!selectedProducts.Any())
             {
-                throw new DataAccessException($"Product category {category} does not exist.");
+                return new List<Product>();
             }
             else
             {
@@ -147,7 +147,7 @@ namespace DataAccess.Repository
                 ToList();
             if (!selectedProducts.Any())
             {
-                throw new DataAccessException($"Product {name} does not exist.");
+                return new List<Product>();
             }
             else
             {
