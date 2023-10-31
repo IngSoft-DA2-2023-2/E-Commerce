@@ -28,5 +28,7 @@ export class ProductViewComponent implements OnInit {
     openSignUpMenu() {
       this.router.navigate(['/signup']);
     }
-
+    openSignInMenu() {
+      this.router.navigate(['/signin']);
+    }
 }

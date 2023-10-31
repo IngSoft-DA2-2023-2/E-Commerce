@@ -1,0 +1,12 @@
+<form>
+
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="Enter email" #email>
+   
+    <label>Password</label>
+    <input type="password" class="form-control" placeholder="Enter password" #password>
+</form>
+
+    <button type="button" class="btn btn-primary" (click)="signInUser(email.value,password.value)">Sign in</button>
+    <p>{{feedback}}</p>
+    <button (click)="goBack()" class="btn btn-primary" id="back">Go back</button>

@@ -20,11 +20,10 @@ feedbackMessage:string = "";
 userLogged: any = null;
 
 signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement,password:HTMLInputElement){
-  console.log(`Name: ${name.value} Email: ${email.value} Address: ${address.value} Password: ${password.value}`);
   this.api.postUser({ name: name.value, email: email.value, address: address.value, password: password.value }).subscribe({
     next: (response) => {
       this.userLogged = response;
-      this.feedbackMessage = "User created successfully";
+      this.feedbackMessage = "";
       this.router.navigate(['']);
     },
     error: (e) => {
