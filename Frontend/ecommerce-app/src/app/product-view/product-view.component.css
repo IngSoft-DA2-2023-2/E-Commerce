@@ -8,12 +8,19 @@ body{
 }
 
 .card {
-    width: 18rem;
-    border: 1px solid #000; 
-    border-radius: 5px;   
-    margin: 10px; 
-  }
+  width: 40%;
+  height: 400px;
+  line-height: 40px;
+  background-color: lightgray;
+  margin: 10px;
+  color: black;
+  text-align: center;
+  vertical-align: middle;
+}
   
+.card-text-colours{
+ font-size: 12px;
+}
   .card-title {
     font-size: 1.25rem;   
   }

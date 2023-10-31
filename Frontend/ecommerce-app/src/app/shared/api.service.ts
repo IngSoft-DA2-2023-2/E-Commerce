@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { product } from '../product-view/productModel';
-import { userModel, userRegistrationModel } from '../signup-view/signupUserModel';
+import { product, productFilterRequestModel } from '../product-view/productModel';
+import { userRegistrationModel } from '../signup-view/signupUserModel';
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,27 @@ export class ApiService {
 
   getProduct(){
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');
+  }
+
+  getFilteredProducts(modelIn: productFilterRequestModel) {
+    const url = 'https://localhost:7150/api/products'; 
+  
+    let params = new HttpParams();
+  
+    if (modelIn.name) {
+      params = params.set('name', modelIn.name);
+    }
+    if (modelIn.brand) {
+      params = params.set('brandName', modelIn.brand);
+
+    }
+    if (modelIn.category) {
+      params = params.set('categoryName', modelIn.category);
+    }
+    if (modelIn.operation) {
+      params = params.set('operation', modelIn.operation);
+    }
+    return this.httpClient.get<product[]>(url, { params });
   }
 
   postUser(data: userRegistrationModel){

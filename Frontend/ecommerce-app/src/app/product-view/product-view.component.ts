@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { product } from './productModel';
 import { Router } from '@angular/router';
+import { productFilterRequestModel } from './productModel';
 
 @Component({
   selector: 'app-product-view',
@@ -12,8 +13,11 @@ import { Router } from '@angular/router';
 export class ProductViewComponent implements OnInit {
     
     data!:product[];
+    operation:string="or";
+
     constructor(private api:ApiService,private router:Router) { }
   
+
     ngOnInit(): void {
       this.displayProducts();
 
@@ -24,6 +28,22 @@ export class ProductViewComponent implements OnInit {
       });
     }
 
+    displayFilteredProducts(name: string, brand: string, category: string) {
+      // Create an object to represent the filter criteria
+      const filters: productFilterRequestModel = {
+        name: name,
+        brand: brand,
+        category: category,
+        operation: this.operation
+
+      };
+    
+      // Make a GET request to the API using the filters
+      this.api.getFilteredProducts(filters).subscribe(res => {
+        this.data = res;
+      });
+    }
+    
     openSignUpMenu() {
       this.router.navigate(['/signup']);
     }
@@ -34,10 +54,9 @@ export class ProductViewComponent implements OnInit {
       console.log(this.api.currentSession);
     }
 
-// Supongamos que esta es una función en tu componente o servicio
 logout() {
   if(this.api.currentSession == undefined) return;
-  const token:string = this.api.currentSession?.token; // Reemplaza esto con el token real
+  const token:string = this.api.currentSession?.token;
   this.api.deleteSession(token).subscribe(
     response => {
       this.api.currentSession = undefined;
