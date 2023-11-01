@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ECommerceContext))]
-    [Migration("20231031183805_v1")]
+    [Migration("20231101182650_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,17 +222,40 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.PaymentMethodCategories.PaymentMethodEntity", b =>
+            modelBuilder.Entity("Domain.PaymentMethodCategories.BankDebit", b =>
                 {
                     b.HasBaseType("Domain.PaymentMethod");
 
                     b.Property<string>("Bank")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("BankDebit");
+                });
+
+            modelBuilder.Entity("Domain.PaymentMethodCategories.CreditCard", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
 
                     b.Property<string>("Flag")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("PaymentMethodEntity");
+                    b.HasDiscriminator().HasValue("CreditCard");
+                });
+
+            modelBuilder.Entity("Domain.PaymentMethodCategories.Paganza", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.HasDiscriminator().HasValue("Paganza");
+                });
+
+            modelBuilder.Entity("Domain.PaymentMethodCategories.Paypal", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.HasDiscriminator().HasValue("Paypal");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
