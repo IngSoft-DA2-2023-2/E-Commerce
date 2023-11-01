@@ -17,7 +17,6 @@ namespace DataAccess.Context
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Colour> Colours { get; set; }
         public virtual DbSet<StringWrapper> StringListWrappers { get; set; }
-        public virtual DbSet<PaymentMethodEntity> PaymentMethods { get; set; }
 
         public ECommerceContext() { }
 
@@ -29,7 +28,6 @@ namespace DataAccess.Context
             modelBuilder.Entity<Paypal>();
             modelBuilder.Entity<BankDebit>();
             modelBuilder.Entity<CreditCard>();
-
         }
     }
 }

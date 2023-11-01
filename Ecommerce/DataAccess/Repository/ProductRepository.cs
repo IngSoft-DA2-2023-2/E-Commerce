@@ -178,7 +178,7 @@ namespace DataAccess.Repository
             {
                 if (newProduct.Name != null) product.Name = newProduct.Name;
                 if (newProduct.Description != null) product.Description = newProduct.Description;
-                if (newProduct.Price != null) product.Price = newProduct.Price;
+                if (newProduct.Price != 0) product.Price = newProduct.Price;
                 if (newProduct.Brand != null) product.Brand = newProduct.Brand;
                 if (newProduct.Category != null) product.Category = newProduct.Category;
                 if (newProduct.Colours != null) product.Colours = newProduct.Colours;
