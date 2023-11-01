@@ -23,13 +23,14 @@ namespace DataAccess.Context
 
         public ECommerceContext(DbContextOptions options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+      /*  protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Paganza>();
             modelBuilder.Entity<Paypal>();
             modelBuilder.Entity<BankDebit>();
             modelBuilder.Entity<CreditCard>();
 
-        }
+        }*/
     }
 }
