@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { product, productFilterRequestModel } from '../product-view/productModel';
 import { userRegistrationModel } from '../signup-view/signupUserModel';
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
-
+import { createProductModel } from '../admin-view/createProductModel';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +49,13 @@ export class ApiService {
 
   }
   
-  deleteSession(token:string){
-    let res = this.httpClient.delete('https://localhost:7150/api/sessions/',{headers:{'Authorization':`${token}`}});
+  deleteSession(){
+    let res = this.httpClient.delete('https://localhost:7150/api/sessions/',{headers:{'Authorization':`${this.currentSession?.token}`}});
     return res;
+  }
+
+  postProduct(data:createProductModel){
+    console.log(data);
+    return this.httpClient.post('https://localhost:7150/api/products',data,{headers:{'Authorization':`${this.currentSession?.token}`}});
   }
 }

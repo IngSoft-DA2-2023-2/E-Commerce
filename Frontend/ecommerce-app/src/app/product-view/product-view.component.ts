@@ -55,7 +55,7 @@ export class ProductViewComponent implements OnInit {
   logout() {
     if (this.api.currentSession == undefined) return;
     const token: string = this.api.currentSession?.token;
-    this.api.deleteSession(token).subscribe(
+    this.api.deleteSession().subscribe(
       response => {
         this.api.currentSession = undefined;
       },
