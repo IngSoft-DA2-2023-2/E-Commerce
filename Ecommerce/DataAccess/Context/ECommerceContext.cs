@@ -17,13 +17,12 @@ namespace DataAccess.Context
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Colour> Colours { get; set; }
         public virtual DbSet<StringWrapper> StringListWrappers { get; set; }
-        public virtual DbSet<PaymentMethodEntity> PaymentMethods { get; set; }
 
         public ECommerceContext() { }
 
         public ECommerceContext(DbContextOptions options) : base(options) { }
 
-      /*  protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Entity<Paganza>();
@@ -31,6 +30,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<BankDebit>();
             modelBuilder.Entity<CreditCard>();
 
-        }*/
+        }
+
     }
 }

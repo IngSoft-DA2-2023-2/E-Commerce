@@ -11,7 +11,6 @@ namespace Domain
     {
         public abstract Guid Id { get; set; }
         public abstract string CategoryName { get; set; }
-        public abstract PaymentMethodEntity ToEntity();
 
     }
 }
