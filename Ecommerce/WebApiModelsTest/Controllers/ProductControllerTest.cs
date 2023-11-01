@@ -275,15 +275,19 @@ namespace WebApiModelsTest.Controller
         }
 
         [TestMethod]
-        public void GetProductsWithNullOperatorReturnsBadRequest()
+        public void GetProductsWithNullOperatorReturnsAllProducts()
         {
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
 
-            Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters(null, null, null, null) as BadRequestResult;
+            Mock<IProductLogic> productLogic = new Mock<IProductLogic>(MockBehavior.Strict);
 
-            Assert.AreEqual(result.StatusCode, StatusCodes.Status400BadRequest);
+            productLogic.Setup(p => p.FilterUnionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(new List<Product>());
+            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>()));
+            ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
+            var result = productController.GetAllProductsByFilters(null, null, null, null) as OkObjectResult;
+            var resultValue = result.Value as List<Product>;
+
+            Assert.AreEqual(resultValue.Count, 0);
         }
 
         [TestMethod]

@@ -143,7 +143,7 @@ namespace DataAccess.Repository
                 Include(p => p.Brand).
                 Include(p => p.Category).
                 Include(p => p.Colours).
-                Where(p => p.Name == name).
+                Where(p => p.Name.Contains(name)).
                 ToList();
             if (!selectedProducts.Any())
             {
