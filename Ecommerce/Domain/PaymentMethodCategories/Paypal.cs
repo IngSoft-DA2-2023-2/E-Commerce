@@ -16,7 +16,7 @@ namespace Domain.PaymentMethodCategories
             {
                 Id = Id,
                 CategoryName = CategoryName,
-                Bank = Bank,
+               // Bank = Bank,
             };
         }
     }

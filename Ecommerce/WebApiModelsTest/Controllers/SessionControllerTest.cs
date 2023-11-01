@@ -18,25 +18,31 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void CreateSession()
         {
-            CreateSessionRequest received = new CreateSessionRequest()
+            User userSample = new User
             {
                 Email = "email@sample.com",
+                Name = "name1",
                 Password = "password",
+                Address = "address sample",
+                Roles = new List<StringWrapper>(),
+            };
+
+
+
+            CreateSessionRequest received = new CreateSessionRequest()
+            {
+                Email = userSample.Email,
+                Password = userSample.Password,
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { Id = guid };
+            Session session = new() { Id = guid,User=userSample };
+
             var expectedMappedResult = new SessionResponse(session);
 
             IEnumerable<User> expected = new List<User>()
             {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List<StringWrapper>(),
-                },
+                userSample,
             };
             var userExpectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);

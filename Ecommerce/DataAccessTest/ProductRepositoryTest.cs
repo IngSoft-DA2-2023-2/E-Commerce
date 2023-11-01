@@ -126,6 +126,7 @@ namespace DataAccessTest
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.AreEqual(catchedException?.Message, $"Product with id {product.Id} does not exist.");
         }
+
         [TestMethod]
         public void GetFilteredProductByName()
         {
@@ -136,25 +137,20 @@ namespace DataAccessTest
             var response = productRepository.GetProductByName(product.Name);
             Assert.AreEqual(response.First().Name, product.Name);
         }
+
         [TestMethod]
-        public void GetExceptionAfterFilteringProductsByName()
+        public void GetEmptyListAfterFilteringProductsByName()
         {
             Product product = new Product() { Name = "Sample", Id = new Guid() };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
-            Exception catchedException = null;
-            try
-            {
-                productRepository.GetProductByName(product.Name);
-            }
-            catch (Exception ex)
-            {
-                catchedException = ex;
-            };
-            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.AreEqual(catchedException?.Message, $"Product {product.Name} does not exist.");
+
+            var ret = productRepository.GetProductByName(product.Name);
+
+            Assert.AreEqual(ret.Count(), 0);
         }
+
         [TestMethod]
         public void GetFilteredProductByBrand()
         {
@@ -170,10 +166,11 @@ namespace DataAccessTest
             var response = productRepository.GetProductByBrand("brand");
             Assert.AreEqual(response.First().Brand.Name, "brand");
         }
+
         [TestMethod]
-        public void GetExceptionAfterFilteringProductsByBrand()
+        public void GetEmptyListAfterFilteringProductsByBrand()
         {
-            Product product = new Product()
+            Product product = new()
             {
                 Name = "Sample",
                 Brand = new Brand() { Name = "brand" },
@@ -182,18 +179,12 @@ namespace DataAccessTest
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
-            Exception catchedException = null;
-            try
-            {
-                productRepository.GetProductByBrand("brand");
-            }
-            catch (Exception ex)
-            {
-                catchedException = ex;
-            };
-            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.AreEqual(catchedException?.Message, "Product brand brand does not exist.");
+
+            var ret = productRepository.GetProductByBrand("brand");
+            
+            Assert.AreEqual(ret.Count(), 0);
         }
+
         [TestMethod]
         public void GetFilteredProductByCategory()
         {
@@ -209,24 +200,18 @@ namespace DataAccessTest
             var response = productRepository.GetProductByCategory("category");
             Assert.AreEqual(response.First().Category.Name, "category");
         }
+
         [TestMethod]
-        public void ThrowExceptionTryingToGetProductByCategory()
+        public void ReturnsEmptyListWhenTryingToGetProductByCategoryThatHasNoElements()
         {
             Product product = new Product() { Name = "Sample",Category= new Category() { Name = "category" }, Id = Guid.NewGuid() };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
-            Exception catchedException = null;
-            try
-            {
-                productRepository.GetProductByCategory(product.Category.Name);
-            }
-            catch (Exception ex)
-            {
-                catchedException = ex;
-            };
-            Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.AreEqual(catchedException?.Message, "Product category category does not exist.");
+
+            var ret = productRepository.GetProductByCategory(product.Category.Name);
+
+            Assert.AreEqual(ret.Count(), 0);
         }
 
         [TestMethod]
@@ -249,6 +234,5 @@ namespace DataAccessTest
                 Assert.AreEqual(response.ElementAt(i), products.ElementAt(i));
             }
         }
-
     }
 }
