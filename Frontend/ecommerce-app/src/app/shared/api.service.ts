@@ -19,6 +19,10 @@ export class ApiService {
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');
   }
 
+  getProductById(id:string){
+    return this.httpClient.get<product|undefined>('https://localhost:7150/api/products'+`/${id}`, {headers:{'Authorization':`${this.currentSession?.token}`}});
+  }
+
   getFilteredProducts(modelIn: productFilterRequestModel) {
     const url = 'https://localhost:7150/api/products'; 
   
@@ -55,7 +59,6 @@ export class ApiService {
   }
 
   postProduct(data:createProductModel){
-    console.log(data);
     return this.httpClient.post('https://localhost:7150/api/products',data,{headers:{'Authorization':`${this.currentSession?.token}`}});
   }
 }

@@ -31,10 +31,13 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex">
+        <form class="d-flex" class="unloggedOptions">
           <button class="btn btn-outline-success" type="submit" (click)="openSignInMenu()">Log in</button>
           <button class="btn btn-outline-success" type="submit" (click)="openSignUpMenu()">Sign up</button>
         </form>
+        <form class="d-flex" class="loggedOptions">
+            <button class="btn btn-outline-success"  value="YOUR NAME">"Your name"</button>
+          </form>
       </div>
     </div>
   </nav>

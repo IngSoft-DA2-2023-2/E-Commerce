@@ -32,3 +32,41 @@
 
 <button type="button" class="btn btn-primary" (click)="createProduct(name,desc,price,brand,category,colours)">Create product</button>
 <p>{{feedback}}</p>
+
+<button (click)="goBack()" class="btn btn-primary" id="back">Go back</button>
+
+<!--Get Products-->
+<h1>BuscarProducto por id</h1>
+<input type="text" #id>
+<button (click)="getProductById(id)">Search</button>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Colours</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products">
+        <th scope="row">{{p?.id}}</th>
+        <td>{{p?.name}}</td>
+        <td>{{p?.brand?.name}}</td>
+        <td>{{p?.category?.name}}</td>
+        <td>{{p?.description}}</td>
+        <td>{{p?.price}}</td>
+        <td>{{getColourNames(p?.colours)}}</td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+

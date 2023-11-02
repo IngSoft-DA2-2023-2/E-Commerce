@@ -15,12 +15,17 @@ export class ProductViewComponent implements OnInit {
   data!: product[];
   operation: string = "or";
 
+
+
+//mientras
+session: any = undefined;	
+
   constructor(private api: ApiService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.displayProducts();
-
+    this.session = this.api.currentSession?.token;
   }
   displayProducts() {
     this.api.getProduct().subscribe(res => {
