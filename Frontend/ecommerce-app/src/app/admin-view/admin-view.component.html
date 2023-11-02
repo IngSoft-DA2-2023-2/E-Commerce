@@ -37,8 +37,9 @@
 
 <!--Get Products-->
 <h1>BuscarProducto por id</h1>
-<input type="text" #id>
+<input type="text" id="filteredId" #id>
 <button (click)="getProductById(id)">Search</button>
+<button (click)="clearSearch()">Clear</button>
 
 
 <table class="table">
@@ -51,9 +52,10 @@
         <th scope="col">Description</th>
         <th scope="col">Price</th>
         <th scope="col">Colours</th>
-
-      </tr>
+        <th scope="col">Modify</th>
+   </tr>
     </thead>
+
     <tbody>
       <tr *ngFor="let p of products">
         <th scope="row">{{p?.id}}</th>
@@ -63,9 +65,8 @@
         <td>{{p?.description}}</td>
         <td>{{p?.price}}</td>
         <td>{{getColourNames(p?.colours)}}</td>
-
+        <td><button (click)="updateProduct(p)">Update</button></td>
       </tr>
-
     </tbody>
   </table>
 

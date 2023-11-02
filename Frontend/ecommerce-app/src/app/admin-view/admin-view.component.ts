@@ -3,6 +3,7 @@ import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
 import { createProductModel } from './createProductModel';
 import { product , colour } from '../product-view/productModel';
+import { UpdateProductServiceService } from '../update-product-service.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -13,7 +14,7 @@ import { product , colour } from '../product-view/productModel';
 export class AdminViewComponent {
 
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router, private dataService : UpdateProductServiceService) { }
 
   feedback: string = "";
 
@@ -34,8 +35,8 @@ export class AdminViewComponent {
 
    products:product[]= [];
 
-  getProductById(modelIn: HTMLInputElement) {
-    if(modelIn.value==""){
+  getProductById(modelIn: HTMLInputElement | undefined) {
+    if(!modelIn || modelIn.value==""){
       this.api.getProduct().subscribe(
         res => {
           this.products = res;
@@ -53,7 +54,11 @@ export class AdminViewComponent {
         this.products=[];
         if(!res)return;
         this.products.push(res);
-      });
+      },
+      err => {
+        this.products = [];
+      }
+      );
       id
       return res;
 
@@ -68,10 +73,25 @@ export class AdminViewComponent {
     return colourNames;
  }
 
+ clearSearch(){
+  const filteredId = document.getElementById("filteredId") as HTMLInputElement;
+  if (filteredId) {
+    filteredId.value="";
+  }
 
+  this.getProductById(undefined);
+ }
   goBack(){
     this.feedback="";
       this.router.navigate(['']);
+  }
+
+
+
+  updateProduct(p : product){
+   this.dataService.setData(p);
+    this.router.navigate(['admin/updateProduct']);
+
   }
 }
 

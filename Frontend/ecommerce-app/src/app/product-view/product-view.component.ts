@@ -68,7 +68,6 @@ session: any = undefined;
   }
 
   displayAdminMenu(){
-    console.log("desplegando...")
     this.router.navigate(['/admin']);
   }
 }
