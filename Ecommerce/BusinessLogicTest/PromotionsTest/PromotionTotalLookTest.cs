@@ -4,6 +4,7 @@ using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using System.Diagnostics.CodeAnalysis;
+using PromotionTotalLook;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -31,7 +32,7 @@ namespace BusinessLogicTest.PromotionsTest
         {
             _purchaseSample = new Purchase();
             _cartSample = new List<Product>();
-            _promotionTotalLook = new PromotionTotalLook();
+            _promotionTotalLook = new PromotionTotalLookLogic();
         }
 
         [TestMethod]

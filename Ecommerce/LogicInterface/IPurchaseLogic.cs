@@ -8,5 +8,7 @@ namespace LogicInterface
         public IEnumerable<Purchase> GetPurchase(Guid id);
 
         public IEnumerable<Purchase> GetAllPurchases();
+
+
     }
 }

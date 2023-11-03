@@ -14,12 +14,14 @@ namespace BusinessLogic
         private readonly PromotionContext _promotionContext;
         private readonly IProductLogic _productLogic;
         private readonly PaymentMethodContext _paymentMethod;
+        private readonly IReflectionPromotions _reflectionPromotion;
 
         public PurchaseLogic(IPurchaseRepository purchaseRepository,
             IProductLogic productLogic)
         {
             _purchaseRepository = purchaseRepository;
             _promotionContext = new PromotionContext();
+            _reflectionPromotion = new ReflectionPromotions();
             _paymentMethod = new PaymentMethodContext();
             _productLogic = productLogic;
         }
@@ -36,6 +38,8 @@ namespace BusinessLogic
         {
             try
             {
+                _promotionContext.SetListPromotions(_reflectionPromotion.ReturnListPromotions());
+
                 Guid guid = Guid.NewGuid();
                 purchase.Id = guid;
                 foreach (Product p in purchase.Cart) _productLogic.CheckProduct(p);
