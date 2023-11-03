@@ -26,7 +26,7 @@ session: any = undefined;
   ngOnInit(): void {
     this.displayProducts();
     this.session = this.api.currentSession?.token;
-  }
+}
   displayProducts() {
     this.api.getProduct().subscribe(res => {
       this.data = res;
@@ -58,11 +58,12 @@ session: any = undefined;
   }
 
   logout() {
-    if (this.api.currentSession == undefined) return;
+    if (!this.api.currentSession) return;
     const token: string = this.api.currentSession?.token;
     this.api.deleteSession().subscribe(
       response => {
         this.api.currentSession = undefined;
+        localStorage.removeItem('user');
       },
     );
   }
