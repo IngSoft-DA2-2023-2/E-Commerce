@@ -1,5 +1,13 @@
+
 export interface sessionModel{
     token: string;
+    user: {
+        name: string;
+        email: string;
+        address: string;
+        roles: string[];
+        guid: string;
+    }
 }
 
 export class sessionRequest{

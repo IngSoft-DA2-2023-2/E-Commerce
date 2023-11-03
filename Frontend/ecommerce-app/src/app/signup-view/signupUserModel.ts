@@ -6,7 +6,7 @@ export interface userRegistrationModel {
 }
 
 export interface userModel{
-    id: number;
+    id: string;
     name: string;
     email: string;
     address: string;
@@ -14,7 +14,7 @@ export interface userModel{
 }
 
 export interface userRetrieveModel{
-    guid: number;
+    guid: string;
     name: string;
     email: string;
     address: string;

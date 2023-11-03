@@ -21,20 +21,11 @@ export class NavBarViewComponent implements OnInit {
     console.log(this.api.currentSession);
   }
 
+  
+  
   ngOnInit(){
-    if(this.api.currentSession){
-      const element = document.querySelector("unloggedOptions");
-      element?.classList.add("hidden");
 
-      const elem = document.querySelector("loggedOptions");
-      elem?.classList.add("show");
-    } else{
-      const element = document.querySelector("unloggedOptions");
-      element?.classList.add("show");
 
-      const elem = document.querySelector("loggedOptions");
-      elem?.classList.add("hidden");
-
-    }
   }
+
 }

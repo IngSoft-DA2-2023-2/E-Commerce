@@ -82,4 +82,8 @@ export class ApiService {
   getUsers(){
     return this.httpClient.get<userRetrieveModel[]>('https://localhost:7150/api/users',{headers:{'Authorization':`${this.currentSession?.token}`}});
   }
+
+  deleteUsers(id: string){
+    return this.httpClient.delete<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`,{headers:{'Authorization':`${this.currentSession?.token}`}});
+  }
 }

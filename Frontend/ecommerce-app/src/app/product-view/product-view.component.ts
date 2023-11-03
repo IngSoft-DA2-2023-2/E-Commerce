@@ -3,6 +3,7 @@ import { ApiService } from '../shared/api.service';
 import { product } from './productModel';
 import { Router } from '@angular/router';
 import { productFilterRequestModel } from './productModel';
+import { sessionModel } from '../signup-view/sessionModel';
 
 @Component({
   selector: 'app-product-view',
@@ -18,14 +19,15 @@ export class ProductViewComponent implements OnInit {
 
 
 //mientras
-session: any = undefined;	
+session?: sessionModel = undefined;	
+
 
   constructor(private api: ApiService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.displayProducts();
-    this.session = this.api.currentSession?.token;
+    this.session = this.api.currentSession;
 }
   displayProducts() {
     this.api.getProduct().subscribe(res => {
@@ -70,5 +72,13 @@ session: any = undefined;
 
   displayAdminMenu(){
     this.router.navigate(['/admin']);
+  }
+
+  isUserLogged() : boolean{
+    return this.api.currentSession?.token != undefined;
+  }
+
+  getUserName() : string{
+    return this.api.currentSession?.user.name|| "";
   }
 }

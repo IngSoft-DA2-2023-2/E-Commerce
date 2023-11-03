@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
 import { createProductModel } from './createProductModel';
@@ -12,10 +12,16 @@ import { userRetrieveModel } from '../signup-view/signupUserModel';
   styleUrls: ['./admin-view.component.css']
 })
 
-export class AdminViewComponent {
+export class AdminViewComponent implements OnInit{
 
 
   constructor(private api: ApiService, private router: Router, private dataService : UpdateProductServiceService) { }
+
+  ngOnInit(): void {
+    debugger;
+      this.getUsers();
+      this.getProductById(undefined);
+  }
 
   feedback: string = "";
 
@@ -106,6 +112,20 @@ export class AdminViewComponent {
 
     );
     console.log(this.users);
+  }
+
+  updateUser(u:userRetrieveModel){
+
+  }
+  deleteUser(u:userRetrieveModel){
+    this.api.deleteUsers(u.guid).subscribe(
+      res => {
+        this.getUsers();
+      },
+      err => {
+        this.getUsers();
+      }
+    );
   }
 }
 
