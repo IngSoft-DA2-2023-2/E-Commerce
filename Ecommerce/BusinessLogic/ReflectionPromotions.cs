@@ -9,11 +9,18 @@ using LogicInterface;
 
 namespace BusinessLogic
 {
-    public class RelectionPromotions
+    public class ReflectionPromotions : IReflectionPromotions
     {
+        private string basePath;
 
-        public static List<IPromotionable> AddPromotions(string basePath)
+        public ReflectionPromotions()
         {
+            basePath = AppDomain.CurrentDomain.BaseDirectory + "\\promotions";
+        }
+
+        public List<IPromotionable> ReturnListPromotions()
+        {
+
             List<IPromotionable> listPromotions = new List<IPromotionable>();
             var paths = Directory.GetFiles(basePath, "*.dll");
             foreach (var path in paths)
@@ -33,12 +40,9 @@ namespace BusinessLogic
                                 listPromotions.Add(promotion);
                             }
                         }
-
-
                     }
                 }
             }
-
             return listPromotions;
         }
     }

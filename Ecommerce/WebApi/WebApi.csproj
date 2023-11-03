@@ -26,4 +26,19 @@
     <ProjectReference Include="..\ServiceFactory\ServiceFactory.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="promotions\Promotion20Off.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="promotions\Promotion3x1Fidelity.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="promotions\Promotion3x2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="promotions\PromotionTotalLook.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
