@@ -28,10 +28,7 @@ namespace DataAccess.Repository
         {
             IEnumerable<Purchase> purchases = null;
             purchases = _eCommerceContext.Purchases.ToList();
-            if (purchases.Count() == 0)
-            {
-                throw new DataAccessException("List is null");
-            }
+
             return purchases;
         }
 
@@ -41,10 +38,6 @@ namespace DataAccess.Repository
 
             purchases = _eCommerceContext.Purchases.Where(p => p.UserId == id).ToList();
 
-            if (purchases.Count() == 0)
-            {
-                throw new DataAccessException("List is null");
-            }
             return purchases;
 
         }

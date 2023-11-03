@@ -6,6 +6,26 @@ body{
     text-align: left;
     background-color: #2196f3;
 }
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.search-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  margin-top: 20px;
+}
 
 .card {
   width: 40%;
@@ -38,3 +58,10 @@ body{
     color: #fff;           
   }
   
+  .hidden{
+    display: none;
+  }
+
+  .unhidden{
+    display: block;
+  }

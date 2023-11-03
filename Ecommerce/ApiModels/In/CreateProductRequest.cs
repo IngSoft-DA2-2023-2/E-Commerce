@@ -29,7 +29,8 @@ namespace ApiModels.In
                 {
                     Name = Category,
                 },
-                Colours = colours
+                Colours = colours,
+                Id = Guid.NewGuid(),
             };
         }
     }

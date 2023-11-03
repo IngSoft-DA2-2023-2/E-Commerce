@@ -1,12 +1,15 @@
-<form>
+<div class="container">
+    <form>
 
-    <label>Email</label>
-    <input type="email" class="form-control" placeholder="Enter email" #email>
-   
-    <label>Password</label>
-    <input type="password" class="form-control" placeholder="Enter password" #password>
-</form>
+        <label>Email</label>
+        <input type="email" class="form-control" placeholder="Enter email" #email>
 
-    <button type="button" class="btn btn-primary" (click)="signInUser(email.value,password.value)">Sign in</button>
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Enter password" #password>
+
+        <button type="button" class="btn btn-primary" (click)="signInUser(email.value,password.value)">Sign in</button>
+
+    </form>
     <p>{{feedback}}</p>
     <button (click)="goBack()" class="btn btn-primary" id="back">Go back</button>
+</div>

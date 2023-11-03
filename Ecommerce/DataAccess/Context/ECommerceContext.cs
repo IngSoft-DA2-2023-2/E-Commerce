@@ -24,10 +24,13 @@ namespace DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Paganza>();
             modelBuilder.Entity<Paypal>();
             modelBuilder.Entity<BankDebit>();
             modelBuilder.Entity<CreditCard>();
+
         }
+
     }
 }
