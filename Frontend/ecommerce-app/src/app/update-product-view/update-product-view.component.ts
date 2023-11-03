@@ -3,7 +3,7 @@ import { product } from '../product-view/productModel';
 import { UpdateProductServiceService } from '../update-product-service.service';
 import { updateProductModel } from './updateProductModel';
 import { ApiService } from '../shared/api.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-update-product-view',
   templateUrl: './update-product-view.component.html',
@@ -12,8 +12,9 @@ import { ApiService } from '../shared/api.service';
 
 export class UpdateProductViewComponent implements OnInit {
   dataReceived?: product;
+  feedback: string = "";
 
-  constructor(private dataService: UpdateProductServiceService, private api: ApiService) {
+  constructor(private dataService: UpdateProductServiceService, private api: ApiService,private router: Router) {
     this.dataReceived = undefined;
   }
 
@@ -58,13 +59,22 @@ export class UpdateProductViewComponent implements OnInit {
       category.value,
       colours.value.split(',')
     );
-    debugger;
+
     const res = this.api.putProduct(id.value, modelIn).subscribe(
       (response) => {
-        console.log('en branch', response);
-      });
-    console.log(res);
+        this.feedback = "Product updated successfully";
+      },
+      (error) => {
+        this.feedback = "Error updating product";
+      }
+      );
+    
 
     return res;
+  }
+
+  goBack() {
+    this.router.navigate(['/admin']);
+  
   }
 }

@@ -32,6 +32,7 @@ namespace WebApi.Controllers
 
         [HttpGet("{id}")]
         [AnnotatedCustomExceptionFilter]
+        [AuthenticationFilter]
         public IActionResult GetProductById([FromRoute] Guid id)
         {
             return Ok(productLogic.GetProductById(id));
