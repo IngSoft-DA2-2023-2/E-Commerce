@@ -4,6 +4,7 @@ using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using System.Diagnostics.CodeAnalysis;
+using Promotion3x2;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -24,7 +25,7 @@ namespace BusinessLogicTest.PromotionsTest
         [TestInitialize]
         public void Init()
         {
-            _promo3x2 = new Promotion3x2();
+            _promo3x2 = new Promotion3x2Logic();
         }
 
         [TestMethod]

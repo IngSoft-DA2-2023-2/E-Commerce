@@ -10,14 +10,11 @@ namespace BusinessLogic.Promotions
         public PromotionContext()
         {
             _promotions = new List<IPromotionable>();
-            IPromotionable percentageOff = new Promotion20Off();
-            IPromotionable fidelity = new Promotion3x1Fidelity();
-            IPromotionable getOneFree = new Promotion3x2();
-            IPromotionable totalLook = new PromotionTotalLook();
-            _promotions.Add(percentageOff);
-            _promotions.Add(fidelity);
-            _promotions.Add(getOneFree);
-            _promotions.Add(totalLook);
+        }
+
+        public void AddPromotion(IPromotionable promotion)
+        {
+            _promotions.Add(promotion);
         }
 
         public bool IsEligibleForPromotions(List<Product> cart)

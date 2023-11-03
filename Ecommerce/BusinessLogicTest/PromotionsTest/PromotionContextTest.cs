@@ -3,6 +3,11 @@ using Domain;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
 using System.Diagnostics.CodeAnalysis;
+using Promotion20Off;
+using Promotion3x1Fidelity;
+using Promotion3x2;
+using PromotionTotalLook;
+
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -13,9 +18,11 @@ namespace BusinessLogicTest.PromotionsTest
         Product product1;
         Product product2;
         Category category;
-        [TestInitialize]
+        PromotionContext promotion;
+       [TestInitialize]
         public void Init()
         {
+            promotion = new PromotionContext();
             category = new Category() { Name = "category" };
             product1 = new Product()
             {
@@ -33,11 +40,21 @@ namespace BusinessLogicTest.PromotionsTest
                 Category = category,
                 Price = 4,
             };
+            promotion.AddPromotion(new Promotion3x2Logic());
+            promotion.AddPromotion(new Promotion20OffLogic());
+            promotion.AddPromotion(new PromotionTotalLookLogic());
+            promotion.AddPromotion(new Promotion3x1FidelityLogic());
+
+
+
+
+
+
         }
+
         [TestMethod]
         public void GivenPromotionableCartReturnsTrue()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1,
@@ -49,7 +66,6 @@ namespace BusinessLogicTest.PromotionsTest
         [TestMethod]
         public void GivenNonPromotionableCartReturnsFalse()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1
@@ -59,7 +75,6 @@ namespace BusinessLogicTest.PromotionsTest
         [TestMethod]
         public void GivenPromotionableCartReturnsBestPromotion()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1,
@@ -71,7 +86,6 @@ namespace BusinessLogicTest.PromotionsTest
         [TestMethod]
         public void GivenPromotionableCartReturnsTotalWithBestPromotionApplied()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1,
@@ -83,7 +97,6 @@ namespace BusinessLogicTest.PromotionsTest
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
         public void GivenNonPromotionableCartThrowsException()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             { product1 };
             promotion.GetBestPromotion(cart);

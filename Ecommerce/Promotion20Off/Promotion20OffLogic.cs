@@ -3,9 +3,9 @@ using LogicInterface;
 using LogicInterface.Exceptions;
 
 
-namespace BusinessLogic.Promotions
+namespace Promotion20Off
 {
-    public class Promotion20Off : IPromotionable
+    public class Promotion20OffLogic : IPromotionable
     {
 
         private const decimal _twentyPercent = 0.2m;

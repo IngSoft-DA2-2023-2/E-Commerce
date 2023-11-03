@@ -2,9 +2,9 @@
 using LogicInterface;
 using LogicInterface.Exceptions;
 
-namespace BusinessLogic.Promotions
+namespace Promotion3x1Fidelity
 {
-    public class Promotion3x1Fidelity : IPromotionable
+    public class Promotion3x1FidelityLogic : IPromotionable
     {
         private const int _minQuantity = 3;
         private const int _numberOfProductsToTake = 2;
