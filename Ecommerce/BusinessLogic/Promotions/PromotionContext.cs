@@ -6,21 +6,17 @@ namespace BusinessLogic.Promotions
 {
     public class PromotionContext
     {
-        private readonly List<IPromotionable> _promotions;
+        private List<IPromotionable> _promotions;
         public PromotionContext()
         {
             _promotions = new List<IPromotionable>();
         }
 
-        public void AddPromotion(IPromotionable promotion)
+        public void SetListPromotions(List<IPromotionable> promotions)
         {
-            _promotions.Add(promotion);
+            _promotions = promotions;
         }
 
-        public List<IPromotionable> GetPromotions()
-        {
-           return _promotions;
-        }
 
         public bool IsEligibleForPromotions(List<Product> cart)
         {

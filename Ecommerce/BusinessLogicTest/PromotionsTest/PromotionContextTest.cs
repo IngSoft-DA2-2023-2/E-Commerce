@@ -7,7 +7,7 @@ using Promotion20Off;
 using Promotion3x1Fidelity;
 using Promotion3x2;
 using PromotionTotalLook;
-
+using LogicInterface;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -18,11 +18,12 @@ namespace BusinessLogicTest.PromotionsTest
         Product product1;
         Product product2;
         Category category;
-        PromotionContext promotion;
-       [TestInitialize]
+        PromotionContext promotionContext;
+        private List<IPromotionable> promotions;
+        [TestInitialize]
         public void Init()
         {
-            promotion = new PromotionContext();
+            promotionContext = new PromotionContext();
             category = new Category() { Name = "category" };
             product1 = new Product()
             {
@@ -40,27 +41,19 @@ namespace BusinessLogicTest.PromotionsTest
                 Category = category,
                 Price = 4,
             };
-            promotion.AddPromotion(new Promotion3x2Logic());
-            promotion.AddPromotion(new Promotion20OffLogic());
-            promotion.AddPromotion(new PromotionTotalLookLogic());
-            promotion.AddPromotion(new Promotion3x1FidelityLogic());
 
-        }
+            promotions = new List<IPromotionable>();
+            promotions.Add(new Promotion3x2Logic());
+            promotions.Add(new Promotion20OffLogic());
+            promotions.Add(new PromotionTotalLookLogic());
+            promotions.Add(new Promotion3x1FidelityLogic());
 
-        [TestMethod]
-        public void GivenAPromotionAddToPromotionList()
-        {
-            promotion.AddPromotion(new Promotion3x2Logic());
-            Assert.AreEqual(5, promotion.GetPromotions().Count());
-        }
+            promotionContext.SetListPromotions(promotions);
 
-        [TestMethod]
-        public void GetAllPromotionsInTheList()
-        {
-            int countPromotions = promotion.GetPromotions().Count();
-            Assert.AreEqual(4, countPromotions);
-        }
 
+    }
+
+       
         [TestMethod]
         public void GivenPromotionableCartReturnsTrue()
         {
@@ -70,7 +63,7 @@ namespace BusinessLogicTest.PromotionsTest
                 product2,
 
             };
-            Assert.IsTrue(promotion.IsEligibleForPromotions(cart));
+            Assert.IsTrue(promotionContext.IsEligibleForPromotions(cart));
         }
         [TestMethod]
         public void GivenNonPromotionableCartReturnsFalse()
@@ -79,7 +72,7 @@ namespace BusinessLogicTest.PromotionsTest
             {
                 product1
             };
-            Assert.IsFalse(promotion.IsEligibleForPromotions(cart));
+            Assert.IsFalse(promotionContext.IsEligibleForPromotions(cart));
         }
         [TestMethod]
         public void GivenPromotionableCartReturnsBestPromotion()
@@ -89,7 +82,7 @@ namespace BusinessLogicTest.PromotionsTest
                 product1,
                 product2,
             };
-            Assert.AreEqual("20% Off", promotion.GetBestPromotion(cart));
+            Assert.AreEqual("20% Off", promotionContext.GetBestPromotion(cart));
         }
 
         [TestMethod]
@@ -100,7 +93,7 @@ namespace BusinessLogicTest.PromotionsTest
                 product1,
                 product2,
             };
-            Assert.AreEqual(12, promotion.CalculateTotalWithPromotion(cart));
+            Assert.AreEqual(12, promotionContext.CalculateTotalWithPromotion(cart));
         }
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
@@ -108,7 +101,7 @@ namespace BusinessLogicTest.PromotionsTest
         {
             List<Product> cart = new List<Product>()
             { product1 };
-            promotion.GetBestPromotion(cart);
+            promotionContext.GetBestPromotion(cart);
         }
     }
 }
