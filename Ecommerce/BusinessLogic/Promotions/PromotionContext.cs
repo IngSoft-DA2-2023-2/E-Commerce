@@ -17,6 +17,11 @@ namespace BusinessLogic.Promotions
             _promotions.Add(promotion);
         }
 
+        public List<IPromotionable> GetPromotions()
+        {
+           return _promotions;
+        }
+
         public bool IsEligibleForPromotions(List<Product> cart)
         {
             return _promotions.Any(promotion => promotion.IsApplicable(cart));

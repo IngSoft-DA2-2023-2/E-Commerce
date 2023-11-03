@@ -45,11 +45,20 @@ namespace BusinessLogicTest.PromotionsTest
             promotion.AddPromotion(new PromotionTotalLookLogic());
             promotion.AddPromotion(new Promotion3x1FidelityLogic());
 
+        }
 
+        [TestMethod]
+        public void GivenAPromotionAddToPromotionList()
+        {
+            promotion.AddPromotion(new Promotion3x2Logic());
+            Assert.AreEqual(5, promotion.GetPromotions().Count());
+        }
 
-
-
-
+        [TestMethod]
+        public void GetAllPromotionsInTheList()
+        {
+            int countPromotions = promotion.GetPromotions().Count();
+            Assert.AreEqual(4, countPromotions);
         }
 
         [TestMethod]
