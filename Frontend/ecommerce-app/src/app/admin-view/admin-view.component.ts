@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { createProductModel } from './createProductModel';
 import { product , colour } from '../product-view/productModel';
 import { UpdateProductServiceService } from '../update-product-service.service';
+import { userRetrieveModel } from '../signup-view/signupUserModel';
 
 @Component({
   selector: 'app-admin-view',
@@ -91,7 +92,20 @@ export class AdminViewComponent {
   updateProduct(p : product){
    this.dataService.setData(p);
     this.router.navigate(['admin/updateProduct']);
+  }
 
+  users: userRetrieveModel[] = [];
+  getUsers(){
+    this.api.getUsers().subscribe(
+      res => {
+        this.users = res;
+      },
+      err => {
+        this.users = [];
+      }
+
+    );
+    console.log(this.users);
   }
 }
 

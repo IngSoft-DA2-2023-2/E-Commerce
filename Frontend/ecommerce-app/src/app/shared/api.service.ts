@@ -1,7 +1,7 @@
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { product, productFilterRequestModel } from '../product-view/productModel';
-import { userRegistrationModel } from '../signup-view/signupUserModel';
+import { userRegistrationModel, userRetrieveModel } from '../signup-view/signupUserModel';
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
 import { createProductModel } from '../admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
@@ -77,5 +77,9 @@ export class ApiService {
     return this.httpClient.put<product>(route, requestBody, {
       headers: { 'Authorization': `${this.currentSession?.token}` }
     });
+  }
+
+  getUsers(){
+    return this.httpClient.get<userRetrieveModel[]>('https://localhost:7150/api/users',{headers:{'Authorization':`${this.currentSession?.token}`}});
   }
 }

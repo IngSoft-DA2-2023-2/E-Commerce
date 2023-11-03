@@ -12,3 +12,11 @@ export interface userModel{
     address: string;
     password: string;
 }
+
+export interface userRetrieveModel{
+    guid: number;
+    name: string;
+    email: string;
+    address: string;
+    roles: string[];
+}

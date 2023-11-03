@@ -36,7 +36,7 @@
 <button (click)="goBack()" class="btn btn-primary" id="back">Go back</button>
 
 <!--Get Products-->
-<h1>BuscarProducto por id</h1>
+<h1>Search product by id</h1>
 <input type="text" id="filteredId" #id>
 <button (click)="getProductById(id)">Search</button>
 <button (click)="clearSearch()">Clear</button>
@@ -70,4 +70,27 @@
     </tbody>
   </table>
 
+  <h1>Search all users</h1>
+  <button (click)="getUsers()">Get all users</button>
 
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Email</th>
+        <th scope="col">Roles</th>
+   </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let u of users">
+        <th scope="row">{{u?.guid}}</th>
+        <td>{{u?.name}}</td>
+        <td>{{u?.address}}</td>
+        <td>{{u.email}}</td>
+        <td>{{u?.roles?.join(',')}}</td>
+      </tr>
+    </tbody>
+  </table>
