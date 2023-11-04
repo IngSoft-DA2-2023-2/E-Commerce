@@ -11,6 +11,7 @@ namespace ApiModels.In
         public string Brand { get; set; }
         public string Category { get; set; }
         public List<string> Colour { get; set; }
+        public int Stock {  get; set; }
 
         public Product ToEntity()
         {
@@ -31,6 +32,7 @@ namespace ApiModels.In
                 },
                 Colours = colours,
                 Id = Guid.NewGuid(),
+                Stock = Stock
             };
         }
     }
