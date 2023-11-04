@@ -11,6 +11,7 @@ import { NavBarViewComponent } from './nav-bar-view/nav-bar-view.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProductViewComponent } from './update-product-view/update-product-view.component';
 import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/update-user-by-admin-view.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/upda
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

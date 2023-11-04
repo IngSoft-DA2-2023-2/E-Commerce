@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { userRetrieveModel } from '../signup-view/signupUserModel';
 import { UpdateUserService } from '../update-user.service';
+import { updateUserByAdminModel } from './updateUserByAdminModel';
+import { Router } from '@angular/router';
+import { ApiService } from '../shared/api.service';
 
 @Component({
   selector: 'app-update-user-by-admin-view',
@@ -8,94 +11,45 @@ import { UpdateUserService } from '../update-user.service';
   styleUrls: ['./update-user-by-admin-view.component.css']
 })
 export class UpdateUserByAdminViewComponent {
-  dataReceived?: userRetrieveModel;
-
-  constructor(private dataService: UpdateUserService) {
-    this.dataReceived = dataService.getData();
-    console.log('en constructor',this.dataReceived);
-  }
- 
-}
-
-/*
-import { Component, OnInit } from '@angular/core';
-import { product } from '../product-view/productModel';
-import { UpdateProductServiceService } from '../update-product-service.service';
-import { updateProductModel } from './updateProductModel';
-import { ApiService } from '../shared/api.service';
-import { Router } from '@angular/router';
-@Component({
-  selector: 'app-update-product-view',
-  templateUrl: './update-product-view.component.html',
-  styleUrls: ['./update-product-view.component.css']
-})
-
-export class UpdateProductViewComponent implements OnInit {
-  dataReceived?: product;
+  updatingUser: updateUserByAdminModel;
+  userId: string;
   feedback: string = "";
-
-  constructor(private dataService: UpdateProductServiceService, private api: ApiService,private router: Router) {
-    this.dataReceived = undefined;
-  }
-
-  ngOnInit(): void {
-    this.dataReceived = this.dataService.getData();
-    if (!this.dataReceived) {
-      console.log("No data received");
-      return;
+  constructor(private dataService: UpdateUserService,private route: Router, private api: ApiService) {
+    const incomingData = dataService.getData();
+    if (!!incomingData) {
+      this.updatingUser = new updateUserByAdminModel(incomingData?.name, incomingData?.address, incomingData?.roles)
+      this.userId = incomingData?.guid;
+    } else{
+      this.updatingUser = new updateUserByAdminModel("", "", []);
+      this.userId = "";
     }
-    const productIdElement = document.getElementById("productId") as HTMLInputElement;
-    const nameElement = document.getElementById("name") as HTMLInputElement;
-    const priceElement = document.getElementById("price") as HTMLInputElement;
-    const descElement = document.getElementById("desc") as HTMLInputElement;
-    const brandElement = document.getElementById("brand") as HTMLInputElement;
-    const categoryElement = document.getElementById("category") as HTMLInputElement;
-    const coloursElement = document.getElementById("colours") as HTMLInputElement;
-
-    if (productIdElement) productIdElement.value = this.dataReceived.id.toString();
-    if (nameElement) nameElement.value = this.dataReceived.name;
-    if (priceElement) priceElement.value = this.dataReceived.price.toString();
-    if (descElement) descElement.value = this.dataReceived.description;
-    if (brandElement) brandElement.value = this.dataReceived.brand.name;
-    if (categoryElement) categoryElement.value = this.dataReceived.category.name;
-    if (coloursElement) coloursElement.value = this.getColours();
-  
   }
+    ngOnInit(): void {
+      const incomingData = this.dataService.getData();
+      if(incomingData?.name)this.updatingUser.name = incomingData?.name;
+      if(incomingData?.address)this.updatingUser.address = incomingData?.address;
+      if(incomingData?.roles)this.updatingUser.roles = incomingData?.roles;
+      console.log('en ngOnInit', this.updatingUser);
+    }
 
-  getColours(): string {
-    const result: string[] = [];
-    this.dataReceived?.colours.forEach(element => {
-      result.push(element.name);
-    });
-    return result.join(",");
-  }
-
-  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement) {
-    const modelIn = new updateProductModel(
-      name.value,
-      parseInt(price.value),
-      desc.value,
-      brand.value,
-      category.value,
-      colours.value.split(',')
-    );
-
-    const res = this.api.putProduct(id.value, modelIn).subscribe(
-      (response) => {
-        this.feedback = "Product updated successfully";
-      },
-      (error) => {
-        this.feedback = "Error updating product";
-      }
+    updateUserData(){
+      this.updatingUser.roles=this.updatingUser.roles.toString().split(',');
+      console.log('en updateUserData', this.updatingUser,this.dataService.getData()	)
+      this.api.putUserByAdmin(this.userId,this.updatingUser).subscribe(
+        res => {
+          this.feedback="Successfully changed";
+        },
+        err => {
+          this.feedback = "Not valid data"
+        }
       );
-    
 
-    return res;
+
+    }
+
+    goBack() {
+      this.route.navigate(['/admin']);
+    }
   }
 
-  goBack() {
-    this.router.navigate(['/admin']);
-  
-  }
-}
-*/
+

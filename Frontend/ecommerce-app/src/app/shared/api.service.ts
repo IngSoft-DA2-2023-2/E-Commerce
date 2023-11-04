@@ -5,6 +5,7 @@ import { userRegistrationModel, userRetrieveModel } from '../signup-view/signupU
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
 import { createProductModel } from '../admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
+import { updateUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
 
 @Injectable({
   providedIn: 'root'
@@ -86,4 +87,10 @@ export class ApiService {
   deleteUsers(id: string){
     return this.httpClient.delete<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`,{headers:{'Authorization':`${this.currentSession?.token}`}});
   }
+
+  putUserByAdmin(id: string, data: updateUserByAdminModel) {
+    console.log('pegandole a la api')
+    return this.httpClient.put<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`, data, {headers:{'Authorization':`${this.currentSession?.token}`}});
+  }
+
 }
