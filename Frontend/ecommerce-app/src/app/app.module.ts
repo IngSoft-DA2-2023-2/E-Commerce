@@ -10,6 +10,7 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
 import { NavBarViewComponent } from './nav-bar-view/nav-bar-view.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProductViewComponent } from './update-product-view/update-product-view.component';
+import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/update-user-by-admin-view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UpdateProductViewComponent } from './update-product-view/update-product
     AdminViewComponent,
     NavBarViewComponent,
     LandingPageComponent,
-    UpdateProductViewComponent
+    UpdateProductViewComponent,
+    UpdateUserByAdminViewComponent
   ],
   imports: [
     BrowserModule,

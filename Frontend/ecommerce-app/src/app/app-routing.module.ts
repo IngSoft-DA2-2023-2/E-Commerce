@@ -5,6 +5,7 @@ import { SigninViewComponent } from './signin-view/signin-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProductViewComponent } from './update-product-view/update-product-view.component';
+import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/update-user-by-admin-view.component';
 
 const routes: Routes = [
   {path:'', component:LandingPageComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'signin', component:SigninViewComponent},
   {path:'admin', component:AdminViewComponent},
   {path:'admin/updateProduct', component:UpdateProductViewComponent},
+  {path:'admin/updateUser',component:UpdateUserByAdminViewComponent}
 ];
 
 @NgModule({

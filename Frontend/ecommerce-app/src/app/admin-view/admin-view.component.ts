@@ -5,6 +5,7 @@ import { createProductModel } from './createProductModel';
 import { product , colour } from '../product-view/productModel';
 import { UpdateProductServiceService } from '../update-product-service.service';
 import { userRetrieveModel } from '../signup-view/signupUserModel';
+import { UpdateUserService } from '../update-user.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -15,10 +16,9 @@ import { userRetrieveModel } from '../signup-view/signupUserModel';
 export class AdminViewComponent implements OnInit{
 
 
-  constructor(private api: ApiService, private router: Router, private dataService : UpdateProductServiceService) { }
+  constructor(private api: ApiService, private router: Router, private productService : UpdateProductServiceService, private userService: UpdateUserService) { }
 
   ngOnInit(): void {
-    debugger;
       this.getUsers();
       this.getProductById(undefined);
   }
@@ -96,7 +96,7 @@ export class AdminViewComponent implements OnInit{
 
 
   updateProduct(p : product){
-   this.dataService.setData(p);
+   this.productService.setData(p);
     this.router.navigate(['admin/updateProduct']);
   }
 
@@ -115,7 +115,8 @@ export class AdminViewComponent implements OnInit{
   }
 
   updateUser(u:userRetrieveModel){
-
+    this.userService.setData(u);
+    this.router.navigate(['admin/updateUser']);
   }
   deleteUser(u:userRetrieveModel){
     this.api.deleteUsers(u.guid).subscribe(
