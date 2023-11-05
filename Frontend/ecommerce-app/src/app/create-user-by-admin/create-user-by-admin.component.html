@@ -1,5 +1,10 @@
 <app-nav-bar-view></app-nav-bar-view>
 
+<button class="btn btn-primary" (click)="createUserData()">Create user</button>
+<button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+
+<p>{{feedback}}</p>
+
 <form (click)="this.feedback=''">
     <div class="form-row">
       <div class="form-group col-md-6">
@@ -24,8 +29,3 @@
       </div>
     </div>
   </form>
-
-  <button class="btn btn-primary" (click)="createUserData()">Create user</button>
-  <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
-  
-  <p>{{feedback}}</p>

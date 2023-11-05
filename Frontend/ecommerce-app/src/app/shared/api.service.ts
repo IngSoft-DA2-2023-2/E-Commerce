@@ -17,13 +17,9 @@ export class ApiService {
   currentSession: sessionModel | undefined = undefined;
 
   updateSession() {
-    if(!this.currentSession){
-      console.log('no session');
-      if(localStorage.getItem('user')){
+    if (!this.currentSession) {
+      if (localStorage.getItem('user')) {
         this.currentSession = JSON.parse(localStorage.getItem('user') as string);
-        console.log('session updated');
-      } else{
-        console.log('no session in storage');
       }
     }
   }
@@ -83,7 +79,8 @@ export class ApiService {
       price: data.Price,
       brand: data.Brand,
       category: data.Category,
-      colour: data.Colour
+      colour: data.Colour,
+      stock: data.Stock
     };
 
     return this.httpClient.put<product>(route, requestBody, {
@@ -104,8 +101,7 @@ export class ApiService {
   }
 
   postUserByAdmin(data: modifyUserByAdminModel) {
-    if(!this.currentSession){
-      console.log('no session');
+    if (!this.currentSession) {
       throw new Error('no session');
     }
     return this.httpClient.post<userRetrieveModel>('https://localhost:7150/api/users/admin', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });

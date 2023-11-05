@@ -17,6 +17,7 @@
         <th scope="col">Description</th>
         <th scope="col">Price</th>
         <th scope="col">Colours</th>
+        <th scope="col">Stock</th>
         <th scope="col">Modify</th>
    </tr>
     </thead>
@@ -30,6 +31,7 @@
         <td>{{p?.description}}</td>
         <td>{{p?.price}}</td>
         <td>{{getColourNames(p?.colours)}}</td>
+        <td>{{p.stock}}</td>
         <td><button class="btn btn-warning" (click)="updateProduct(p)">Modify</button></td>
       </tr>
     </tbody>

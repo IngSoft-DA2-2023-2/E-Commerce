@@ -35,6 +35,7 @@ export class UpdateUserByAdminViewComponent {
     updateUserData(){
       this.feedback = "";
       this.updatingUser.roles=this.updatingUser.roles.toString().split(',');
+      if(!this.updatingUser.password)this.updatingUser.password = "";
       this.api.putUserByAdmin(this.userId,this.updatingUser).subscribe(
         res => {
           this.feedback="Successfully changed";

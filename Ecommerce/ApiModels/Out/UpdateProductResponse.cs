@@ -31,6 +31,7 @@ namespace ApiModels.Out
             Brand = product.Brand.Name;
             Category = product.Category.Name;
             Colours = colours;
+            Stock = product.Stock;
         }
     }
 }

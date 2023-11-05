@@ -127,13 +127,13 @@ namespace WebApi.Controllers
         private User UserRequestByAdminToEntity([FromBody] UpdateUserRequestByAdmin received)
         {
             User ret = new User();
-            if (received.Name is not null) ret.Name = received.Name;
-            if (received.Address is not null) ret.Address = received.Address;
-            if (received.Roles is not null)
+            if (received.Name!="") ret.Name = received.Name;
+            if (received.Address!="") ret.Address = received.Address;
+            if (received.Roles.Count!=0)
             {
                 foreach (string receivedRol in received.Roles) ret.Roles.Add(new StringWrapper() { Info = receivedRol });
             }
-            if (received.Password is not null) ret.Password = received.Password;
+            if (received.Password != "") ret.Password = received.Password;
             return ret;
         }
 

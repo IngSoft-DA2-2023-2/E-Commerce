@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-update-product-view',
   templateUrl: './update-product-view.component.html',
-  styleUrls: ['./update-product-view.component.css']
+  styleUrls: []
 })
 
 export class UpdateProductViewComponent implements OnInit {
@@ -30,6 +30,7 @@ export class UpdateProductViewComponent implements OnInit {
     const brandElement = document.getElementById("brand") as HTMLInputElement;
     const categoryElement = document.getElementById("category") as HTMLInputElement;
     const coloursElement = document.getElementById("colours") as HTMLInputElement;
+    const stockElement = document.getElementById("stock") as HTMLInputElement;
 
     if (productIdElement) productIdElement.value = this.dataReceived.id.toString();
     if (nameElement) nameElement.value = this.dataReceived.name;
@@ -38,6 +39,7 @@ export class UpdateProductViewComponent implements OnInit {
     if (brandElement) brandElement.value = this.dataReceived.brand.name;
     if (categoryElement) categoryElement.value = this.dataReceived.category.name;
     if (coloursElement) coloursElement.value = this.getColours();
+    if (stockElement) stockElement.value = this.dataReceived.stock.toString();
   
   }
 
@@ -49,14 +51,15 @@ export class UpdateProductViewComponent implements OnInit {
     return result.join(",");
   }
 
-  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement) {
+  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement,stock: HTMLInputElement) {
     const modelIn = new updateProductModel(
       name.value,
       parseInt(price.value),
       desc.value,
       brand.value,
       category.value,
-      colours.value.split(',')
+      colours.value.split(','),
+      parseInt(stock.value)
     );
 
     const res = this.api.putProduct(id.value, modelIn).subscribe(
