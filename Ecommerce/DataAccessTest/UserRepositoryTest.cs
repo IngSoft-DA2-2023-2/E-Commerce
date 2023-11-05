@@ -3,6 +3,7 @@ using DataAccess.Repository;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using Moq;
 using Moq.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
@@ -102,6 +103,27 @@ namespace DataAccessTest
             userContext.Setup(c => c.Users.Remove(deletingUser));
             userContext.Setup(c => c.SaveChanges());
 
+            IUserRepository userRepository = new UserRepository(userContext.Object);
+            var expectedReturn = userRepository.DeleteUser(deletingUser.Id);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DataAccessException))]
+        public void DeleteAdminUserThrowsException()
+        {
+
+            User deletingUser = new User
+            {
+                Name = "TestUser",
+                Email = "test@example.com",
+                Id = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() {Info="admin" } }
+            };
+
+            var userContext = new Mock<ECommerceContext>();
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>() { deletingUser});
+            userContext.Setup(c => c.Users.Remove(deletingUser));
+            userContext.Setup(c => c.SaveChanges());
             IUserRepository userRepository = new UserRepository(userContext.Object);
             var expectedReturn = userRepository.DeleteUser(deletingUser.Id);
         }
