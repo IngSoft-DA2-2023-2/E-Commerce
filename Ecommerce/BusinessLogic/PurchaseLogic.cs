@@ -32,7 +32,7 @@ namespace BusinessLogic
             purchase.Total = _promotionContext.CalculateTotalWithPromotion(purchase.Cart);
         }
 
-     
+
 
         public Purchase CreatePurchase(Purchase purchase)
         {
@@ -69,6 +69,6 @@ namespace BusinessLogic
             return _purchaseRepository.GetAllPurchases();
         }
 
-    
+
     }
 }

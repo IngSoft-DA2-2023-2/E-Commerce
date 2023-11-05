@@ -3,7 +3,6 @@ using ApiModels.Out;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
@@ -17,11 +16,11 @@ namespace WebApiModelsTest.Controller
     [TestClass]
     public class ProductControllerTest
     {
-        List<string> stringColour;
-        List<Colour> colour;
-        CreateProductRequest productRequest;
-        Product product;
-        Product secondProduct;
+        private List<string> stringColour;
+        private List<Colour> colour;
+        private CreateProductRequest productRequest;
+        private Product product;
+        private Product secondProduct;
 
         [TestInitialize]
         public void Init()

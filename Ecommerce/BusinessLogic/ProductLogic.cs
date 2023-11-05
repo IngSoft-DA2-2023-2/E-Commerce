@@ -9,10 +9,10 @@ namespace BusinessLogic
 {
     public class ProductLogic : IProductLogic
     {
-        private IProductRepository _productRepository;
-        private BrandLogic _brandLogic;
-        private CategoryLogic _categoryLogic;
-        private ColourLogic _colourLogic;
+        private readonly IProductRepository _productRepository;
+        private readonly BrandLogic _brandLogic;
+        private readonly CategoryLogic _categoryLogic;
+        private readonly ColourLogic _colourLogic;
         public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository)
         {
             _productRepository = productRepository;

@@ -18,7 +18,7 @@ namespace BusinessLogicTest
         [TestMethod]
         public void CreatePurchaseCorrectly()
         {
-           Category category = new Category() { Name = "category" };
+            Category category = new Category() { Name = "category" };
             Brand brand = new Brand() { Name = "brand" };
             Purchase purchase = new Purchase()
             {

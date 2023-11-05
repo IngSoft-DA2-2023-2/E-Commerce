@@ -1,10 +1,10 @@
+
 body{
     margin: 0;
     font-weight: 400;
     line-height: 1.5385;
     color : #333;
     text-align: left;
-    background-color: #2196f3;
 }
 .search {
   display: flex;
@@ -12,6 +12,9 @@ body{
   gap: 20px;
 }
 
+.thirtyPrcWidth {
+  width: 50%;
+}
 .search-inputs {
   display: flex;
   flex-wrap: wrap;
@@ -64,4 +67,8 @@ body{
 
   .unhidden{
     display: block;
+  }
+  
+  .backgroundColor {
+    background-color: #FAF9F8;
   }

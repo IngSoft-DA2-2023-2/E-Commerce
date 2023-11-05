@@ -47,14 +47,15 @@ namespace WebApi.Controllers
         public IActionResult GetAllPurchases([FromHeader] string Authorization)
         {
             var userHeader = Authorization;
-            if (_userLogic.IsBuyer(userHeader))
+
+            if (_userLogic.IsAdmin(userHeader))
+            {
+                return Ok(_purchaseLogic.GetAllPurchases());
+            }
+            else if (_userLogic.IsBuyer(userHeader))
             {
                 var tokenUserPurchase = _userLogic.GetUserIdFromToken(userHeader);
                 return Ok(_purchaseLogic.GetPurchase(tokenUserPurchase));
-            }
-            else if (_userLogic.IsAdmin(userHeader))
-            {
-                return Ok(_purchaseLogic.GetAllPurchases());
             }
             else
             {

@@ -36,7 +36,7 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new() { Id = guid,User=userSample };
+            Session session = new() { Id = guid, User = userSample };
 
             var expectedMappedResult = new SessionResponse(session);
 

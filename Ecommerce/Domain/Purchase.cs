@@ -6,7 +6,7 @@ namespace Domain
     {
 
         private List<Product> _cart = new List<Product>();
-        private DateTime _date;
+        private readonly DateTime _date;
 
         public DateTime Date
         {

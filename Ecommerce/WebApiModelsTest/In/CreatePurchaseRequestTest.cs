@@ -9,8 +9,8 @@ namespace WebApiModelsTest.In
     {
         private CreatePurchaseRequest purchaseRequest;
         private CreatePaymentMethodRequest createPaymentMethodRequest;
-        Guid guid = Guid.NewGuid();
-        private List<CreateProductRequest> products = new List<CreateProductRequest>()
+        private readonly Guid guid = Guid.NewGuid();
+        private readonly List<CreateProductRequest> products = new List<CreateProductRequest>()
         {
             new CreateProductRequest()
             {

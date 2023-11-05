@@ -1,10 +1,8 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
-using BusinessLogic;
 using Domain;
 using Domain.ProductParts;
 using LogicInterface;
-using LogicInterface.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
@@ -149,7 +147,7 @@ namespace WebApiModelsTest.Controller
             Exception catchedException = null;
             try
             {
-                userController.GetUsersById(guid,token);
+                userController.GetUsersById(guid, token);
             }
             catch (Exception ex)
             {

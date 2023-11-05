@@ -126,9 +126,9 @@ namespace BusinessLogic
                 User.Roles.
                 Contains(new StringWrapper() { Info = "admin" });
             }
-            catch (DataAccessException e)
+            catch (Exception)
             {
-                throw new LogicException(e);
+                return false;
             }
 
         }

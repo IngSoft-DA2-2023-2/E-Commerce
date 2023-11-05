@@ -7,7 +7,7 @@ namespace BusinessLogic
 {
     public class BrandLogic
     {
-        private IBrandRepository _context;
+        private readonly IBrandRepository _context;
 
         public BrandLogic(IBrandRepository context)
         {

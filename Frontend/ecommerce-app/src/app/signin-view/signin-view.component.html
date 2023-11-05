@@ -1,15 +1,16 @@
-<div class="container">
-    <form>
+<app-nav-bar-view></app-nav-bar-view>
+<div class="wrapper">
+    <div class="container">
+        <form>
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Enter email" #email>
 
-        <label>Email</label>
-        <input type="email" class="form-control" placeholder="Enter email" #email>
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Enter password" (keyup.enter)="signInUser(email.value,password.value)" #password>
 
-        <label>Password</label>
-        <input type="password" class="form-control" placeholder="Enter password" #password>
-
-        <button type="button" class="btn btn-primary" (click)="signInUser(email.value,password.value)">Sign in</button>
-
-    </form>
-    <p>{{feedback}}</p>
-    <button (click)="goBack()" class="btn btn-primary" id="back">Go back</button>
+            <button type="button" class="btn btn-primary" (click)="signInUser(email.value,password.value)">Sign in</button>
+            <p>{{feedback}}</p>
+        </form>
+        <button (click)="goBack()" class="btn btn-secondary" id="back">Go back</button>
+    </div>
 </div>

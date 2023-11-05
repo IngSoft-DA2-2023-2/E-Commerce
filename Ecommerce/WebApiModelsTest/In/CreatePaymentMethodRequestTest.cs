@@ -1,11 +1,5 @@
 ﻿using ApiModels.In;
-using Domain;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiModelsTest.In
 {
@@ -20,12 +14,12 @@ namespace WebApiModelsTest.In
         [TestInitialize]
         public void Init()
         {
-          paymentMethodRequestCreditCard = new CreatePaymentMethodRequest()
-          {
-              CategoryName = "CreditCard",
-              Flag = "Visa",
+            paymentMethodRequestCreditCard = new CreatePaymentMethodRequest()
+            {
+                CategoryName = "CreditCard",
+                Flag = "Visa",
 
-          };
+            };
             paymentMethodRequestBankDebit = new CreatePaymentMethodRequest()
             {
                 CategoryName = "BankDebit",

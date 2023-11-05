@@ -30,12 +30,11 @@ export class UpdateUserByAdminViewComponent {
       if(incomingData?.name)this.updatingUser.name = incomingData?.name;
       if(incomingData?.address)this.updatingUser.address = incomingData?.address;
       if(incomingData?.roles)this.updatingUser.roles = incomingData?.roles;
-      console.log('en ngOnInit', this.updatingUser);
     }
 
     updateUserData(){
+      this.feedback = "";
       this.updatingUser.roles=this.updatingUser.roles.toString().split(',');
-      console.log('en updateUserData', this.updatingUser,this.dataService.getData()	)
       this.api.putUserByAdmin(this.userId,this.updatingUser).subscribe(
         res => {
           this.feedback="Successfully changed";
@@ -49,7 +48,7 @@ export class UpdateUserByAdminViewComponent {
     }
 
     goBack() {
-      this.route.navigate(['/admin']);
+      this.route.navigate(['/admin/users']);
     }
   }
 

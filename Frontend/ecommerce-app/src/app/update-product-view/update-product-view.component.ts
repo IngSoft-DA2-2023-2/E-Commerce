@@ -21,7 +21,6 @@ export class UpdateProductViewComponent implements OnInit {
   ngOnInit(): void {
     this.dataReceived = this.dataService.getData();
     if (!this.dataReceived) {
-      console.log("No data received");
       return;
     }
     const productIdElement = document.getElementById("productId") as HTMLInputElement;
@@ -74,7 +73,6 @@ export class UpdateProductViewComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/admin']);
-  
+    this.router.navigate(['']);
   }
 }

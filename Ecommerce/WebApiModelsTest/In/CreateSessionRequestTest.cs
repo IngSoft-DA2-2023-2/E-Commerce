@@ -7,8 +7,8 @@ namespace WebApiModelsTest.In
     [TestClass]
     public class CreateSessionRequestTest
     {
-        private string emailSample = "test@email.com";
-        private string passwordSample = "password";
+        private readonly string emailSample = "test@email.com";
+        private readonly string passwordSample = "password";
         [TestMethod]
         public void AssignsProperties()
         {

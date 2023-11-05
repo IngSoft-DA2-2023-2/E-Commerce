@@ -186,7 +186,7 @@ namespace BusinessLogicTest
                 Id = id,
                 Name = "ProductSample1",
                 Description = "Description",
-                Price =10,
+                Price = 10,
                 Brand = new Brand() { Name = "Brand1" },
                 Category = new Category() { Name = "Category1" },
                 Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
@@ -270,7 +270,7 @@ namespace BusinessLogicTest
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
             productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category1")).Returns(new List<Product>() { expected });
             var productLogic = new ProductLogic(productRepo.Object, null, null, null);
-            var result = productLogic.FilterIntersectionProduct(null,null, "Category1");
+            var result = productLogic.FilterIntersectionProduct(null, null, "Category1");
             productRepo.VerifyAll();
             Assert.AreEqual(expected, result.First());
         }

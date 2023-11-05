@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicInterface;
 using System.Reflection;
-using System.Data;
-using LogicInterface;
 
 namespace BusinessLogic
 {
     public class ReflectionPromotions : IReflectionPromotions
     {
-        private string basePath;
+        private readonly string basePath;
 
         public ReflectionPromotions()
         {

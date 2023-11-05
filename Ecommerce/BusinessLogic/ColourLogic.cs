@@ -7,7 +7,7 @@ namespace BusinessLogic
 {
     public class ColourLogic
     {
-        private IColourRepository _context;
+        private readonly IColourRepository _context;
 
         public ColourLogic(IColourRepository context)
         {

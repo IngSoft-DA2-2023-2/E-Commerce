@@ -28,7 +28,8 @@ namespace DataAccessTest
         [TestMethod]
         public void CreateAlreadyExistingProduct()
         {
-            Product product = new Product() {
+            Product product = new Product()
+            {
                 Name = "Sample",
                 Brand = new Brand() { Name = "Brand" },
                 Category = new Category() { Name = "Category" },
@@ -181,7 +182,7 @@ namespace DataAccessTest
             IProductRepository productRepository = new ProductRepository(productContext.Object);
 
             var ret = productRepository.GetProductByBrand("brand");
-            
+
             Assert.AreEqual(ret.Count(), 0);
         }
 
@@ -204,7 +205,7 @@ namespace DataAccessTest
         [TestMethod]
         public void ReturnsEmptyListWhenTryingToGetProductByCategoryThatHasNoElements()
         {
-            Product product = new Product() { Name = "Sample",Category= new Category() { Name = "category" }, Id = Guid.NewGuid() };
+            Product product = new Product() { Name = "Sample", Category = new Category() { Name = "category" }, Id = Guid.NewGuid() };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
