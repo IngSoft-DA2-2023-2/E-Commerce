@@ -1,4 +1,5 @@
-<form *ngIf="updatingUser">
+<app-nav-bar-view></app-nav-bar-view>
+<form *ngIf="updatingUser" (click)="this.feedback=''">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label>Name</label>
@@ -20,6 +21,6 @@
   </form>
 
   <button class="btn btn-primary" (click)="updateUserData()">Update changes</button>
-  <button class="btn btn-primary" (click)="goBack()">Go Back</button>
+  <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
   
   <p>{{feedback}}</p>

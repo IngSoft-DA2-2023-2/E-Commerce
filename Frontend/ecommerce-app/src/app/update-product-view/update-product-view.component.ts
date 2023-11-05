@@ -73,7 +73,6 @@ export class UpdateProductViewComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/admin']);
-  
+    this.router.navigate(['']);
   }
 }

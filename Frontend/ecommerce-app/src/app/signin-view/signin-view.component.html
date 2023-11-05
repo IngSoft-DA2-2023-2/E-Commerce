@@ -6,7 +6,7 @@
             <input type="email" class="form-control" placeholder="Enter email" #email>
 
             <label>Password</label>
-            <input type="password" class="form-control" placeholder="Enter password" #password>
+            <input type="password" class="form-control" placeholder="Enter password" (keyup.enter)="signInUser(email.value,password.value)" #password>
 
             <button type="button" class="btn btn-primary" (click)="signInUser(email.value,password.value)">Sign in</button>
             <p>{{feedback}}</p>

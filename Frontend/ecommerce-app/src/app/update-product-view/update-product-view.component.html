@@ -1,4 +1,5 @@
-<form>
+<app-nav-bar-view></app-nav-bar-view>
+<form (click)="this.feedback=''">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label>Id</label>
@@ -33,5 +34,5 @@
   </form>
 
   <button class="btn btn-primary" (click)="updateProduct(id,name,desc,pric,brand,category,colours)">Update changes</button>
-  <button class="btn btn-primary" (click)="goBack()">Go Back</button>
+  <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
   <p>{{feedback}}</p>

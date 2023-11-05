@@ -10,12 +10,10 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" (click)="openAdminMenu()" *ngIf="isAdmin()">Admin menu</a>
-        </li>
+
         <li class="nav-item dropdown" *ngIf="isAdmin()">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin menu (2)
+            Admin menu
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" (click)="openUserAdminMenu()">Users</a></li>
@@ -25,9 +23,6 @@
             </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
       <form class="d-flex" *ngIf="!isLogged()">
@@ -41,7 +36,7 @@
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">My purchases</a></li>
+            <li><a class="dropdown-item" href="#" *ngIf="isBuyer()">My purchases</a></li>
             <li><a class="dropdown-item" href="#">My profile</a></li>
             <li>
               <hr class="dropdown-divider">

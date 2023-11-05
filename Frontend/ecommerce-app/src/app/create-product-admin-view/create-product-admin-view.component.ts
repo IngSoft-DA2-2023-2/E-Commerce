@@ -16,12 +16,13 @@ export class CreateProductAdminViewComponent {
   product: createProductModel = new createProductModel("", "", 0, "", "", []);
 
   createProduct() {
-    this.feedback = undefined;
+    this.feedback = '';
     this.product.Colour=this.product.Colour.toString().split(',');
     const res = this.api.postProduct(this.product).subscribe({
       next: res => {this.feedback = "Success";},
       error: res => {this.feedback = "An error occured";}
     });
+    console.log(res)
     return res;
   }
 

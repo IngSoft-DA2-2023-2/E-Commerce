@@ -33,6 +33,7 @@ export class UpdateUserByAdminViewComponent {
     }
 
     updateUserData(){
+      this.feedback = "";
       this.updatingUser.roles=this.updatingUser.roles.toString().split(',');
       this.api.putUserByAdmin(this.userId,this.updatingUser).subscribe(
         res => {

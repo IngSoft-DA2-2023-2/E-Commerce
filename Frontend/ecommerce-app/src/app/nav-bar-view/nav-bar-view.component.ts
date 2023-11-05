@@ -29,6 +29,7 @@ export class NavBarViewComponent implements OnInit {
       response => {
         this.api.currentSession = undefined;
         localStorage.removeItem('user');
+        this.router.navigate(['']);
       },
     );
   }
@@ -36,20 +37,29 @@ export class NavBarViewComponent implements OnInit {
   openSignUpMenu() {
     this.router.navigate(['/signup']);
   }
+
   openSignInMenu() {
     this.router.navigate(['/signin']);
   }
+
   openAdminMenu() {
     this.router.navigate(['/admin']);
   }
+
   openUserAdminMenu() {
   this.router.navigate(['/admin/users']);
   }
+
   seeLoggedInfo() {
     console.log(this.api.currentSession);
   }
+
   isAdmin(): boolean {
     return this.api.currentSession?.user?.roles.includes("admin") || false;
+  }
+  
+  isBuyer(): boolean {
+    return this.api.currentSession?.user?.roles.includes("buyer") || false;
   }
 
   isLogged(): boolean {
