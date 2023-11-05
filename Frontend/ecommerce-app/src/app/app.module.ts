@@ -10,6 +10,9 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
 import { NavBarViewComponent } from './nav-bar-view/nav-bar-view.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProductViewComponent } from './update-product-view/update-product-view.component';
+import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/update-user-by-admin-view.component';
+import { FormsModule } from '@angular/forms';
+import { CreateUserByAdminComponent } from './create-user-by-admin/create-user-by-admin.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import { UpdateProductViewComponent } from './update-product-view/update-product
     AdminViewComponent,
     NavBarViewComponent,
     LandingPageComponent,
-    UpdateProductViewComponent
+    UpdateProductViewComponent,
+    UpdateUserByAdminViewComponent,
+    CreateUserByAdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

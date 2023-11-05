@@ -6,9 +6,17 @@ export interface userRegistrationModel {
 }
 
 export interface userModel{
-    id: number;
+    id: string;
     name: string;
     email: string;
     address: string;
     password: string;
+}
+
+export interface userRetrieveModel{
+    guid: string;
+    name: string;
+    email: string;
+    address: string;
+    roles: string[];
 }

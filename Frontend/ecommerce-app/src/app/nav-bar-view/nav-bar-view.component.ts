@@ -9,7 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar-view.component.css']
 })
 export class NavBarViewComponent implements OnInit {
+  userName: string = "";
+
   constructor(private api: ApiService, private router: Router) { }
+
+  ngOnInit(): void {
+    if(this.isLogged())this.userName =this.api.currentSession?.user.name || "";
+  }
 
   openSignUpMenu() {
     this.router.navigate(['/signup']);
@@ -21,20 +27,8 @@ export class NavBarViewComponent implements OnInit {
     console.log(this.api.currentSession);
   }
 
-  ngOnInit(){
-    if(this.api.currentSession){
-      const element = document.querySelector("unloggedOptions");
-      element?.classList.add("hidden");
-
-      const elem = document.querySelector("loggedOptions");
-      elem?.classList.add("show");
-    } else{
-      const element = document.querySelector("unloggedOptions");
-      element?.classList.add("show");
-
-      const elem = document.querySelector("loggedOptions");
-      elem?.classList.add("hidden");
-
-    }
+  isLogged(): boolean {
+    return !!this.api.currentSession;
   }
+
 }
