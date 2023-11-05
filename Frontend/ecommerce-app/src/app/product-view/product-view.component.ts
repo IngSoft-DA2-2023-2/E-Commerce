@@ -18,17 +18,13 @@ export class ProductViewComponent implements OnInit {
 
 
 
-//mientras
-session?: sessionModel = undefined;	
-
-
   constructor(private api: ApiService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.displayProducts();
-    this.session = this.api.currentSession;
-}
+  }
+
   displayProducts() {
     this.api.getProduct().subscribe(res => {
       this.data = res;
@@ -41,7 +37,6 @@ session?: sessionModel = undefined;
       brand: brand,
       category: category,
       operation: this.operation
-
     };
 
     this.api.getFilteredProducts(filters).subscribe(res => {
@@ -49,32 +44,11 @@ session?: sessionModel = undefined;
     });
   }
 
-  openSignUpMenu() {
-    this.router.navigate(['/signup']);
-  }
-  openSignInMenu() {
-    this.router.navigate(['/signin']);
-  }
-  seeLoggedInfo() {
-    console.log(this.api.currentSession);
-  }
-
-  logout() {
-    if (!this.api.currentSession) return;
-    const token: string = this.api.currentSession?.token;
-    this.api.deleteSession().subscribe(
-      response => {
-        this.api.currentSession = undefined;
-        localStorage.removeItem('user');
-      },
-    );
-  }
-
-  isUserLogged() : boolean{
-    return this.api.currentSession?.token != undefined;
-  }
-
-  getUserName() : string{
-    return this.api.currentSession?.user.name|| "";
+  getColors(product: product): string[] {
+    const colors: string[] = [];
+    for (let color of product.colours) {
+      colors.push(color.name);
+    }
+    return colors;
   }
 }

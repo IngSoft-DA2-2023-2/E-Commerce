@@ -14,17 +14,19 @@ export class SigninViewComponent {
 
   feedback:string = "";
 
-  signInUser(email:string,password:string){
-    this.api.postSession(new sessionRequest(email,password)).subscribe(res=>{
-      this.api.currentSession = res;
-      this.feedback="success";
-      localStorage.setItem('user',JSON.stringify(res));
-      this.router.navigate(['']);
-    },err=>{
-      this.feedback="Invalid credentials";
-    }
-    );
-}
+    signInUser(email:string,password:string){
+      this.api.postSession(new sessionRequest(email,password)).subscribe({
+        next: res => {
+          this.api.currentSession = res;
+          this.feedback="success";
+          localStorage.setItem('user',JSON.stringify(res));
+          this.router.navigate(['']);
+        },
+        error: err => {
+          this.feedback="Invalid credentials";
+        }
+      });
+  }
 
 goBack(){
   this.feedback="";

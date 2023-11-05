@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { product, productFilterRequestModel } from '../product-view/productModel';
 import { userRegistrationModel, userRetrieveModel } from '../signup-view/signupUserModel';
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
-import { createProductModel } from '../admin-view/createProductModel';
+import { createProductModel } from '../create-product-admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
 import { modifyUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
 
@@ -16,6 +16,17 @@ export class ApiService {
 
   currentSession: sessionModel | undefined = undefined;
 
+  updateSession() {
+    if(!this.currentSession){
+      console.log('no session');
+      if(localStorage.getItem('user')){
+        this.currentSession = JSON.parse(localStorage.getItem('user') as string);
+        console.log('session updated');
+      } else{
+        console.log('no session in storage');
+      }
+    }
+  }
 
   getProduct() {
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');

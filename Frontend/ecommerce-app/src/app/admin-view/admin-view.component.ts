@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
-import { createProductModel } from './createProductModel';
+import { createProductModel } from '../create-product-admin-view/createProductModel';
 import { product , colour } from '../product-view/productModel';
 import { UpdateProductServiceService } from '../update-product-service.service';
 import { userRetrieveModel } from '../signup-view/signupUserModel';
@@ -111,7 +111,6 @@ export class AdminViewComponent implements OnInit{
       }
 
     );
-    console.log(this.users);
   }
 
   updateUser(u:userRetrieveModel){

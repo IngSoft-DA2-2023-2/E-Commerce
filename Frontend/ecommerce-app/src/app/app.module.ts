@@ -13,6 +13,9 @@ import { UpdateProductViewComponent } from './update-product-view/update-product
 import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/update-user-by-admin-view.component';
 import { FormsModule } from '@angular/forms';
 import { CreateUserByAdminComponent } from './create-user-by-admin/create-user-by-admin.component';
+import { UsersAdminViewComponent } from './users-admin-view/users-admin-view.component';
+import { ProductAdminViewComponent } from './product-admin-view/product-admin-view.component';
+import { CreateProductAdminViewComponent } from './create-product-admin-view/create-product-admin-view.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { CreateUserByAdminComponent } from './create-user-by-admin/create-user-b
     LandingPageComponent,
     UpdateProductViewComponent,
     UpdateUserByAdminViewComponent,
-    CreateUserByAdminComponent
+    CreateUserByAdminComponent,
+    UsersAdminViewComponent,
+    ProductAdminViewComponent,
+    CreateProductAdminViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 <div>
+  <h4>Filter products</h4>
   <label>Name</label>
   <input class="form-control me-2" type="search" placeholder="Name" #name>
 
@@ -29,7 +30,7 @@
 
 </div>
 
-<div class="container-fluid" style="background-color: black;">
+<div class="container-fluid" class="mh-100" >
 
   <div class="row justify-content-center text-center">
     <div class="col-md-3" *ngFor="let product of data">
@@ -43,15 +44,10 @@
           <p class="card-text">{{ product.category.name }}</p>
 
           <p class="card-text">Colors:</p>
-          <ul class="list-group list-unstyled">
-            <li class="card-text-colours" *ngFor="let c of product.colours">{{c.name}}</li>
-          </ul>
+          <p class="card-text">{{getColors(product).join(',')}}</p>
           <a href="#" class="btn btn-primary">Add to cart</a>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-<button (click)="logout()">Logout</button>

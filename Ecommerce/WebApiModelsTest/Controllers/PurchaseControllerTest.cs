@@ -133,15 +133,19 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
             userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
+            userLogic.Setup(logic => logic.IsAdmin(It.IsAny<string>())).Returns(true);
 
 
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.GetPurchase(buyerId)).Returns(purchases);
+            purchaseLogic.Setup(p => p.GetAllPurchases()).Returns(purchases);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             var result = purchaseController.GetAllPurchases(guid.ToString()) as OkObjectResult;
-            Assert.IsNotNull(result);
-            Assert.AreEqual(purchases, result.Value);
+            var res = result.Value as List<Purchase>;
+
+            Assert.IsNotNull(res);
+            Assert.AreEqual(res.Count(), 1);
+            Assert.AreEqual(res,purchases);
         }
 
         [TestMethod]

@@ -36,6 +36,6 @@ export class CreateUserByAdminComponent {
 
 
   goBack() {
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/admin/users']);
   }
 }

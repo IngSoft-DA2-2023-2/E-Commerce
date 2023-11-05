@@ -6,12 +6,8 @@ import { ApiService } from '../shared/api.service';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
 
-  constructor(private api: ApiService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    const res = localStorage.getItem('user');
-    if (!!res) this.api.currentSession = JSON.parse((res as string));
-  }
 }

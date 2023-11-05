@@ -1,38 +1,5 @@
 <app-nav-bar-view></app-nav-bar-view>
 
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" >Product Name</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" #name>
-</div>
-
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" >Description</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="description" #desc>
-</div>
-
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" >Price</label>
-    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="price" #price>
-</div>
-
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" >Brand</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="brand" #brand>
-</div>
-
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" >Category</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="category" #category>
-</div>
-
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label" >Colours (separate colours between commas)</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="colours" #colours>
-</div>
-
-<button type="button" class="btn btn-primary" (click)="createProduct(name,desc,price,brand,category,colours)">Create product</button>
-<p>{{feedback}}</p>
-
 <!--Get Products-->
 <h1>BuscarProducto por id</h1>
 <input type="text" id="filteredId" #id>
