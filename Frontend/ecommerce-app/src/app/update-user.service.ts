@@ -9,7 +9,7 @@ export class UpdateUserService {
   modifyingUser?: userRetrieveModel;
   constructor() { }
 
-  getData(){
+  getData():userRetrieveModel | undefined{
     return this.modifyingUser;
   }
 
