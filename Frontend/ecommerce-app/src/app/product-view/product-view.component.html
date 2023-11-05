@@ -1,5 +1,4 @@
-
-<div class="form-horizontal">
+<div>
   <label>Name</label>
   <input class="form-control me-2" type="search" placeholder="Name" #name>
 
@@ -9,18 +8,18 @@
   <label>Category</label>
   <input class="form-control me-2" type="search" placeholder="Category" #category>
 
-  <label>Operation</label>
+  <label>Filter</label>
 
   <div class="form-check">
     <input class="form-check-input" name="operation" type="radio" checked (click)="this.operation='or'">
     <label class="form-check-label" for="flexRadioDefault1">
-      Or
+      Meet at least one
     </label>
   </div>
   <div class="form-check">
     <input class="form-check-input" name="operation" type="radio" (click)="this.operation='and'">
     <label class="form-check-label" for="flexRadioDefault2">
-      And
+      Meet all
     </label>
   </div>
 
@@ -55,7 +54,4 @@
 </div>
 
 
-<button (click)="seeLoggedInfo()">Log info</button>
 <button (click)="logout()">Logout</button>
-<button id="adminMenu" class="unhidden" (click)="displayAdminMenu()">Admin menu</button>
-

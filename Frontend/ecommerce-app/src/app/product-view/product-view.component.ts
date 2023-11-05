@@ -70,10 +70,6 @@ session?: sessionModel = undefined;
     );
   }
 
-  displayAdminMenu(){
-    this.router.navigate(['/admin']);
-  }
-
   isUserLogged() : boolean{
     return this.api.currentSession?.token != undefined;
   }

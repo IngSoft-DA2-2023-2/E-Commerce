@@ -26,6 +26,9 @@ export class NavBarViewComponent implements OnInit {
   seeLoggedInfo() {
     console.log(this.api.currentSession);
   }
+  isAdmin(): boolean {
+  return this.api.currentSession?.user?.roles.includes("admin") || false;
+  }
 
   isLogged(): boolean {
     return !!this.api.currentSession;
