@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
@@ -32,6 +33,8 @@ namespace DataAccess.Repository
             if (existingUser != null)
             {
                 var rolId = existingUser.Roles;
+                StringWrapper admin = new StringWrapper() { Info = "admin" };
+                if (rolId.Contains(admin)) throw new DataAccessException("Admins can not be deleted");
                 while (rolId.Count > 0)
                 {
                     var rol = _eCommerceContext.StringListWrappers.FirstOrDefault(r => r.Id == rolId[0].Id);

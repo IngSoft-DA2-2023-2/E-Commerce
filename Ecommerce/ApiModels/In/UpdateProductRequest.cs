@@ -10,6 +10,7 @@ namespace ApiModels.In
         public int Price { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }
+        public int Stock { get; set; }
 
         public List<string> Colour { get; set; }
         public Product ToEntity(Guid id)
@@ -24,7 +25,8 @@ namespace ApiModels.In
                 Price = Price,
                 Brand = new Brand() { Name = Brand },
                 Category = new Category() { Name = Category },
-                Colours = colours
+                Colours = colours,
+                Stock = Stock
             };
         }
     }
