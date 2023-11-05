@@ -31,12 +31,12 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" class="unloggedOptions">
+        <form class="d-flex" class="unloggedOptions" *ngIf="!this.isLogged()">
           <button class="btn btn-outline-success" type="submit" (click)="openSignInMenu()">Log in</button>
           <button class="btn btn-outline-success" type="submit" (click)="openSignUpMenu()">Sign up</button>
         </form>
-        <form class="d-flex" class="loggedOptions">
-            <button class="btn btn-outline-success">YOUR NAME</button>
+        <form class="d-flex" class="loggedOptions" *ngIf="this.isLogged()">
+            <button class="btn btn-outline-success">Welcome back, {{userName}}</button>
           </form>
       </div>
     </div>

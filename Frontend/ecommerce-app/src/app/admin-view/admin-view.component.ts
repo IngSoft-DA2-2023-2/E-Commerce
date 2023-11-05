@@ -128,5 +128,9 @@ export class AdminViewComponent implements OnInit{
       }
     );
   }
+
+  createUser(){
+    this.router.navigate(['admin/createUser']);
+  }
 }
 

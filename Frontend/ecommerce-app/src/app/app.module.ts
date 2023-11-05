@@ -12,6 +12,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProductViewComponent } from './update-product-view/update-product-view.component';
 import { UpdateUserByAdminViewComponent } from './update-user-by-admin-view/update-user-by-admin-view.component';
 import { FormsModule } from '@angular/forms';
+import { CreateUserByAdminComponent } from './create-user-by-admin/create-user-by-admin.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     NavBarViewComponent,
     LandingPageComponent,
     UpdateProductViewComponent,
-    UpdateUserByAdminViewComponent
+    UpdateUserByAdminViewComponent,
+    CreateUserByAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,43 @@
 import { Component } from '@angular/core';
+import { modifyUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
+import { ApiService } from '../shared/api.service';
+import { Router } from '@angular/router';
+import { createUserByAdminModel } from './createUserByAdminModel';
+
+
+@Component({
+  selector: 'app-create-user-by-admin',
+  templateUrl: './create-user-by-admin.component.html',
+  styleUrls: ['./create-user-by-admin.component.css']
+})
+export class CreateUserByAdminComponent {
+creatingUser: createUserByAdminModel;
+feedback: string = "";
+
+constructor(private api: ApiService, private router: Router){
+  this.creatingUser = new createUserByAdminModel("","", "", []);
+}
+
+createUserData(){
+  this.creatingUser.roles=this.creatingUser.roles.toString().split(',');
+  this.api.postUserByAdmin(this.creatingUser).subscribe(
+    res => {
+      this.feedback="Successfully created";
+    },
+    err => {
+     this.feedback = "Not valid data"
+    }
+  );
+}
+
+goBack() {
+  this.router.navigate(['/admin']);
+}
+}
+/*import { Component } from '@angular/core';
 import { userRetrieveModel } from '../signup-view/signupUserModel';
 import { UpdateUserService } from '../update-user.service';
-import { modifyUserByAdminModel } from './updateUserByAdminModel';
+import { updateUserByAdminModel } from './updateUserByAdminModel';
 import { Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
 
@@ -12,16 +48,16 @@ import { ApiService } from '../shared/api.service';
 })
 
 export class UpdateUserByAdminViewComponent {
-  updatingUser: modifyUserByAdminModel;
+  updatingUser: updateUserByAdminModel;
   userId: string;
   feedback: string = "";
   constructor(private dataService: UpdateUserService,private route: Router, private api: ApiService) {
     const incomingData = dataService.getData();
     if (!!incomingData) {
-      this.updatingUser = new modifyUserByAdminModel(incomingData?.name, incomingData?.address, incomingData?.roles)
+      this.updatingUser = new updateUserByAdminModel(incomingData?.name, incomingData?.address, incomingData?.roles)
       this.userId = incomingData?.guid;
     } else{
-      this.updatingUser = new modifyUserByAdminModel("", "", []);
+      this.updatingUser = new updateUserByAdminModel("", "", []);
       this.userId = "";
     }
   }
@@ -54,3 +90,4 @@ export class UpdateUserByAdminViewComponent {
   }
 
 
+*/

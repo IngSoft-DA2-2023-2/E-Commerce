@@ -1,35 +1,35 @@
-import { HttpClient,HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { product, productFilterRequestModel } from '../product-view/productModel';
 import { userRegistrationModel, userRetrieveModel } from '../signup-view/signupUserModel';
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
 import { createProductModel } from '../admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
-import { updateUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
+import { modifyUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private httpClient:HttpClient) { }
-  
-  currentSession: sessionModel | undefined = undefined;
-  
+  constructor(private httpClient: HttpClient) { }
 
-  getProduct(){
+  currentSession: sessionModel | undefined = undefined;
+
+
+  getProduct() {
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');
   }
 
-  getProductById(id:string){
-    return this.httpClient.get<product|undefined>('https://localhost:7150/api/products'+`/${id}`, {headers:{'Authorization':`${this.currentSession?.token}`}});
+  getProductById(id: string) {
+    return this.httpClient.get<product | undefined>('https://localhost:7150/api/products' + `/${id}`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   getFilteredProducts(modelIn: productFilterRequestModel) {
-    const url = 'https://localhost:7150/api/products'; 
-  
+    const url = 'https://localhost:7150/api/products';
+
     let params = new HttpParams();
-  
+
     if (modelIn.name) {
       params = params.set('name', modelIn.name);
     }
@@ -45,27 +45,27 @@ export class ApiService {
     return this.httpClient.get<product[]>(url, { params });
   }
 
-  postUser(data: userRegistrationModel){
-    return this.httpClient.post('https://localhost:7150/api/users',data);
+  postUser(data: userRegistrationModel) {
+    return this.httpClient.post('https://localhost:7150/api/users', data);
   }
 
-  postSession(data:sessionRequest){
-    return this.httpClient.post<sessionModel>('https://localhost:7150/api/sessions',data);
+  postSession(data: sessionRequest) {
+    return this.httpClient.post<sessionModel>('https://localhost:7150/api/sessions', data);
 
   }
-  
-  deleteSession(){
-    let res = this.httpClient.delete('https://localhost:7150/api/sessions/',{headers:{'Authorization':`${this.currentSession?.token}`}});
+
+  deleteSession() {
+    let res = this.httpClient.delete('https://localhost:7150/api/sessions/', { headers: { 'Authorization': `${this.currentSession?.token}` } });
     return res;
   }
 
-  postProduct(data:createProductModel){
-    return this.httpClient.post('https://localhost:7150/api/products',data,{headers:{'Authorization':`${this.currentSession?.token}`}});
+  postProduct(data: createProductModel) {
+    return this.httpClient.post('https://localhost:7150/api/products', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   putProduct(id: string, data: updateProductModel) {
     const route = 'https://localhost:7150/api/products' + '/' + id;
-  
+
     const requestBody = {
       name: data.Name,
       description: data.Description,
@@ -74,23 +74,29 @@ export class ApiService {
       category: data.Category,
       colour: data.Colour
     };
-  
+
     return this.httpClient.put<product>(route, requestBody, {
       headers: { 'Authorization': `${this.currentSession?.token}` }
     });
   }
 
-  getUsers(){
-    return this.httpClient.get<userRetrieveModel[]>('https://localhost:7150/api/users',{headers:{'Authorization':`${this.currentSession?.token}`}});
+  getUsers() {
+    return this.httpClient.get<userRetrieveModel[]>('https://localhost:7150/api/users', { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
-  deleteUsers(id: string){
-    return this.httpClient.delete<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`,{headers:{'Authorization':`${this.currentSession?.token}`}});
+  deleteUsers(id: string) {
+    return this.httpClient.delete<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
-  putUserByAdmin(id: string, data: updateUserByAdminModel) {
-    console.log('pegandole a la api')
-    return this.httpClient.put<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`, data, {headers:{'Authorization':`${this.currentSession?.token}`}});
+  putUserByAdmin(id: string, data: modifyUserByAdminModel) {
+    return this.httpClient.put<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`, data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
+  postUserByAdmin(data: modifyUserByAdminModel) {
+    if(!this.currentSession){
+      console.log('no session');
+      throw new Error('no session');
+    }
+    return this.httpClient.post<userRetrieveModel>('https://localhost:7150/api/users/admin', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+  }
 }
