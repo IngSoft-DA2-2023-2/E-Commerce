@@ -13,16 +13,16 @@ export class CreateProductAdminViewComponent {
   constructor(private api: ApiService, private router: Router) { }
   feedback?: string;
   
-  product: createProductModel = new createProductModel("", "", 0, "", "", []);
+  product: createProductModel = new createProductModel("", "", 0, "", "", [],0);
 
   createProduct() {
     this.feedback = '';
     this.product.Colour=this.product.Colour.toString().split(',');
+    debugger;
     const res = this.api.postProduct(this.product).subscribe({
       next: res => {this.feedback = "Success";},
       error: res => {this.feedback = "An error occured";}
     });
-    console.log(res)
     return res;
   }
 

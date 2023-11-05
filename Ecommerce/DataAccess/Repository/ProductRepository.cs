@@ -182,6 +182,10 @@ namespace DataAccess.Repository
                 if (newProduct.Brand != null) product.Brand = newProduct.Brand;
                 if (newProduct.Category != null) product.Category = newProduct.Category;
                 if (newProduct.Colours != null) product.Colours = newProduct.Colours;
+                if (newProduct.Stock != 0) product.Stock = newProduct.Stock;
+                {
+                    
+                }
 
                 _eCommerceContext.SaveChanges();
                 return newProduct;

@@ -6,6 +6,7 @@ export interface product {
     brand: brand;
     category: category;
     colours: colour[];
+    stock: number;
 }
 
 export interface brand{

@@ -1,32 +1,37 @@
+<app-nav-bar-view></app-nav-bar-view>
 <div (click)="this.feedback=''">
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Product Name</label>
-        <input type="text" class="form-control" placeholder="name">
+        <input type="text" class="form-control" [(ngModel)]="product.Name" placeholder="name">
     </div>
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Description</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="description" #desc>
+        <input type="text" class="form-control" [(ngModel)]="product.Description" placeholder="description" >
     </div>
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Price</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="price" #price>
+        <input type="number" class="form-control" [(ngModel)]="product.Price" placeholder="price" >
     </div>
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Brand</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="brand" #brand>
+        <input type="text" class="form-control" [(ngModel)]="product.Brand" placeholder="brand" >
     </div>
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Category</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="category" #category>
+        <input type="text" class="form-control" [(ngModel)]="product.Category" placeholder="category" >
     </div>
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Colours (separate colours between commas)</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="colours" #colours>
+        <input type="text" class="form-control" [(ngModel)]="product.Colour" placeholder="colours">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Stock</label>
+        <input type="number" class="form-control" [(ngModel)]="product.Stock" placeholder="stock" >
     </div>
 </div>
 <p *ngIf="!!feedback">{{feedback}}</p>

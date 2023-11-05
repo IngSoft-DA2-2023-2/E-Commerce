@@ -8,7 +8,7 @@ import { createProductModel } from '../create-product-admin-view/createProductMo
 @Component({
   selector: 'app-product-admin-view',
   templateUrl: './product-admin-view.component.html',
-  styleUrls: ['./product-admin-view.component.css']
+  styleUrls: []
 })
 export class ProductAdminViewComponent implements OnInit {
   constructor(private api: ApiService, private router: Router, private productService: UpdateProductServiceService) { }
@@ -18,8 +18,8 @@ export class ProductAdminViewComponent implements OnInit {
     this.getProductById(undefined);
   }
 
-  createProduct(name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement) {
-    const modelIn = new createProductModel(name.value, desc.value, parseInt(price.value), brand.value, category.value, colours.value.split(','));
+  createProduct(name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement,stock: HTMLInputElement) {
+    const modelIn = new createProductModel(name.value, desc.value, parseInt(price.value), brand.value, category.value, colours.value.split(','),parseInt(stock.value));
     const res = this.api.postProduct(modelIn).subscribe(
       res => {
         this.feedback = "success";
@@ -61,7 +61,6 @@ export class ProductAdminViewComponent implements OnInit {
         this.feedback = "";
       },
       error: err => {
-        console.log(err)
         this.products = [];
         if (err.status == 400) {
           this.feedback = "Not existing product";
