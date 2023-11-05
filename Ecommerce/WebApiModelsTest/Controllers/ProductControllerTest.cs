@@ -36,7 +36,8 @@ namespace WebApiModelsTest.Controller
                 Category = "Category1",
                 Brand = "Brand1",
                 Colour = stringColour,
-                Price = 100
+                Price = 100,
+                Stock = 1
             };
             product = new Product()
             {
@@ -45,7 +46,8 @@ namespace WebApiModelsTest.Controller
                 Category = new Category() { Name = "Category1" },
                 Brand = new Brand() { Name = "Brand1" },
                 Colours = colour,
-                Price = 100
+                Price = 100,
+                Stock = 1
             };
             secondProduct = new Product()
             {
@@ -54,7 +56,8 @@ namespace WebApiModelsTest.Controller
                 Category = new Category() { Name = "Category2" },
                 Brand = new Brand() { Name = "Brand2" },
                 Colours = colour,
-                Price = 100
+                Price = 100,
+                Stock = 1
             };
         }
 
@@ -278,15 +281,12 @@ namespace WebApiModelsTest.Controller
         public void GetProductsWithNullOperatorReturnsAllProducts()
         {
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
-
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>(MockBehavior.Strict);
-
             productLogic.Setup(p => p.FilterUnionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(new List<Product>());
             productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>()));
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters(null, null, null, null) as OkObjectResult;
             var resultValue = result.Value as List<Product>;
-
             Assert.AreEqual(resultValue.Count, 0);
         }
 
@@ -310,7 +310,6 @@ namespace WebApiModelsTest.Controller
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
             userLogic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(true);
-
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
             productLogic.Setup(p => p.AddProduct(It.Is<Product>(product =>
               product.Name == productRequest.Name &&
@@ -377,7 +376,8 @@ namespace WebApiModelsTest.Controller
                 Category = "Category1",
                 Brand = "Brand1",
                 Colour = colour,
-                Price = 100
+                Price = 100,
+                Stock = 1
             };
             IEnumerable<User> listUsers = new List<User>()
             {
@@ -426,7 +426,8 @@ namespace WebApiModelsTest.Controller
                 Category = "Category1",
                 Brand = "Brand1",
                 Colour = new List<string>() { "Red", "Blue" },
-                Price = 100
+                Price = 100,
+                Stock = 1
             };
 
             IEnumerable<User> listUsers = new List<User>()

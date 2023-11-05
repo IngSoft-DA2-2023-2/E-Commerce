@@ -30,7 +30,7 @@ namespace WebApiModelsTest.Controller
                     Brand = "brand",
                     Category = "category",
                     Colour = colour,
-
+                    Stock = 1
                 }
             };
             List<Product> products = new List<Product>()
@@ -41,7 +41,8 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = new Brand{ Name = "brand"},
                     Category = new Category{ Name = "category"},
-                    Colours = new List < Colour > () { new Colour() { Name = "Red" }, new Colour() { Name = "Red" } }
+                    Colours = new List < Colour > () { new Colour() { Name = "Red" }, new Colour() { Name = "Red" } },
+                    Stock = 1
                 }
             };
             CreatePurchaseRequest purchaseRequest = new CreatePurchaseRequest()
@@ -60,10 +61,6 @@ namespace WebApiModelsTest.Controller
                 Cart = products,
                 PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" }
             };
-
-
-
-
             IEnumerable<User> listUsers = new List<User>()
             {
                 new User {
@@ -77,13 +74,10 @@ namespace WebApiModelsTest.Controller
             };
 
             Guid guid = Guid.NewGuid();
-
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(listUsers);
             userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
-
-
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
             purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.ToEntity(buyer).UserId &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
