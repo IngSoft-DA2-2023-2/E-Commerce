@@ -1,6 +1,7 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
 using Domain;
+using Domain.PaymentMethodCategories;
 using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,8 @@ namespace WebApiModelsTest.Controller
             {
                 Id = id,
                 UserId = buyer,
-                Cart = products
+                Cart = products,
+                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" }
             };
 
 

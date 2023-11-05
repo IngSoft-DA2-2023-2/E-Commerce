@@ -18,6 +18,7 @@ export class SigninViewComponent {
     this.api.postSession(new sessionRequest(email,password)).subscribe(res=>{
       this.api.currentSession = res;
       this.feedback="success";
+      localStorage.setItem('user',JSON.stringify(res));
       this.router.navigate(['']);
     },err=>{
       this.feedback="Invalid credentials";

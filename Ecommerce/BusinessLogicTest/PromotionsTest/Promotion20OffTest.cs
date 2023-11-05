@@ -1,8 +1,8 @@
-﻿using BusinessLogic.Promotions;
-using Domain;
+﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using System.Diagnostics.CodeAnalysis;
+using Promotion20Off;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -24,7 +24,7 @@ namespace BusinessLogicTest.PromotionsTest
         public void Init()
         {
             _cartSample = new List<Product>();
-            _promo20Off = new Promotion20Off();
+            _promo20Off = new Promotion20OffLogic();
         }
 
         [TestMethod]

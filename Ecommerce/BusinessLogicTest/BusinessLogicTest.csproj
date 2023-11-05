@@ -22,6 +22,29 @@
     <ProjectReference Include="..\DataAccessInterface\DataAccessInterface.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\LogicInterface\LogicInterface.csproj" />
+    <ProjectReference Include="..\Promotion20Off\Promotion20Off.csproj" />
+    <ProjectReference Include="..\Promotion3x1Fidelity\Promotion3x1Fidelity.csproj" />
+    <ProjectReference Include="..\Promotion3x2\Promotion3x2.csproj" />
+    <ProjectReference Include="..\PromotionTotalLook\PromotionTotalLook.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="promotions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="promotions\Promotion20Off.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="promotions\Promotion3x1Fidelity.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="promotions\Promotion3x2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="promotions\PromotionTotalLook.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

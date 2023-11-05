@@ -4,6 +4,7 @@ using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 using System.Diagnostics.CodeAnalysis;
+using Promotion3x1Fidelity;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -11,7 +12,7 @@ namespace BusinessLogicTest.PromotionsTest
     [TestClass]
     public class Promotion3x1FidelityTest
     {
-        private readonly IPromotionable _promo = new Promotion3x1Fidelity();
+        private readonly IPromotionable _promo = new Promotion3x1FidelityLogic();
         private Purchase _purchaseSample;
 
         private const int _one = 1;

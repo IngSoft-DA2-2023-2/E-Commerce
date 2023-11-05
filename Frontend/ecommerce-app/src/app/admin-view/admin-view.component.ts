@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
 import { createProductModel } from './createProductModel';
 import { product , colour } from '../product-view/productModel';
 import { UpdateProductServiceService } from '../update-product-service.service';
+import { userRetrieveModel } from '../signup-view/signupUserModel';
+import { UpdateUserService } from '../update-user.service';
 
 @Component({
   selector: 'app-admin-view',
@@ -11,10 +13,15 @@ import { UpdateProductServiceService } from '../update-product-service.service';
   styleUrls: ['./admin-view.component.css']
 })
 
-export class AdminViewComponent {
+export class AdminViewComponent implements OnInit{
 
 
-  constructor(private api: ApiService, private router: Router, private dataService : UpdateProductServiceService) { }
+  constructor(private api: ApiService, private router: Router, private productService : UpdateProductServiceService, private userService: UpdateUserService) { }
+
+  ngOnInit(): void {
+      this.getUsers();
+      this.getProductById(undefined);
+  }
 
   feedback: string = "";
 
@@ -89,9 +96,41 @@ export class AdminViewComponent {
 
 
   updateProduct(p : product){
-   this.dataService.setData(p);
+   this.productService.setData(p);
     this.router.navigate(['admin/updateProduct']);
+  }
 
+  users: userRetrieveModel[] = [];
+  getUsers(){
+    this.api.getUsers().subscribe(
+      res => {
+        this.users = res;
+      },
+      err => {
+        this.users = [];
+      }
+
+    );
+    console.log(this.users);
+  }
+
+  updateUser(u:userRetrieveModel){
+    this.userService.setData(u);
+    this.router.navigate(['admin/updateUser']);
+  }
+  deleteUser(u:userRetrieveModel){
+    this.api.deleteUsers(u.guid).subscribe(
+      res => {
+        this.getUsers();
+      },
+      err => {
+        this.getUsers();
+      }
+    );
+  }
+
+  createUser(){
+    this.router.navigate(['admin/createUser']);
   }
 }
 

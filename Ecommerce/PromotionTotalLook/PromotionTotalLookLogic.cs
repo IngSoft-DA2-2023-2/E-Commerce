@@ -3,9 +3,9 @@ using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
 
-namespace BusinessLogic.Promotions
+namespace PromotionTotalLook
 {
-    public class PromotionTotalLook : IPromotionable
+    public class PromotionTotalLookLogic : IPromotionable
     {
         private const int MinimumSameColourProducts = 3;
         private const decimal DiscountPercentage = 0.5m;
