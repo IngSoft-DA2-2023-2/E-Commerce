@@ -1,11 +1,6 @@
 ﻿using BusinessLogic.PaymentMethod;
 using LogicInterface;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicTest.PaymentMethodTest
 {
@@ -14,8 +9,8 @@ namespace BusinessLogicTest.PaymentMethodTest
     public class PaymentMethodLogicTestTest
     {
         private IPaymentMethod _bankDebitLogic;
-        private int totalCart = 100;
-        private string categoryName = "BankDebit";
+        private readonly int totalCart = 100;
+        private readonly string categoryName = "BankDebit";
 
         [TestInitialize]
         public void Init()

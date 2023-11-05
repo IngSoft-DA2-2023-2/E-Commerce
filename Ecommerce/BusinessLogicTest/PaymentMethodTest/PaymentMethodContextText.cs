@@ -1,11 +1,5 @@
 ﻿using BusinessLogic.PaymentMethod;
-using LogicInterface;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogicTest.PaymentMethodTest
 {
@@ -33,6 +27,6 @@ namespace BusinessLogicTest.PaymentMethodTest
             Assert.AreEqual(90, _paymentMethodContext.CalculateDiscount(100, "Paganza"));
         }
 
-       
+
     }
 }

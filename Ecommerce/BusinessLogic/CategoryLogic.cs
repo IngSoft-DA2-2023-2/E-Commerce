@@ -7,7 +7,7 @@ namespace BusinessLogic
 {
     public class CategoryLogic
     {
-        private ICategoryRepository _context;
+        private readonly ICategoryRepository _context;
 
         public CategoryLogic(ICategoryRepository context)
         {

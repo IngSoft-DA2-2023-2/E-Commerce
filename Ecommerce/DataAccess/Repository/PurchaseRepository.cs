@@ -2,7 +2,6 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
 {
@@ -32,7 +31,7 @@ namespace DataAccess.Repository
 
         public IEnumerable<Purchase> GetPurchase(Guid id)
         {
-            return  _eCommerceContext.Purchases.Where(p => p.UserId == id).ToList();
+            return _eCommerceContext.Purchases.Where(p => p.UserId == id).ToList();
         }
 
     }

@@ -1,13 +1,13 @@
 ﻿using BusinessLogic.Promotions;
 using Domain;
 using Domain.ProductParts;
+using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Diagnostics.CodeAnalysis;
 using Promotion20Off;
 using Promotion3x1Fidelity;
 using Promotion3x2;
 using PromotionTotalLook;
-using LogicInterface;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -15,10 +15,10 @@ namespace BusinessLogicTest.PromotionsTest
     [TestClass]
     public class PromotionContextTest
     {
-        Product product1;
-        Product product2;
-        Category category;
-        PromotionContext promotionContext;
+        private Product product1;
+        private Product product2;
+        private Category category;
+        private PromotionContext promotionContext;
         private List<IPromotionable> promotions;
         [TestInitialize]
         public void Init()
@@ -51,9 +51,9 @@ namespace BusinessLogicTest.PromotionsTest
             promotionContext.SetListPromotions(promotions);
 
 
-    }
+        }
 
-       
+
         [TestMethod]
         public void GivenPromotionableCartReturnsTrue()
         {

@@ -1,10 +1,9 @@
-﻿using BusinessLogic.Promotions;
-using Domain;
+﻿using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Diagnostics.CodeAnalysis;
 using Promotion3x1Fidelity;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -22,10 +21,10 @@ namespace BusinessLogicTest.PromotionsTest
         private const int _five = 5;
         private const int _six = 6;
 
-        private Brand _brandSample1 = new Brand() { Name = "brand sample" };
-        private Brand _brandSample2 = new Brand() { Name = "brand sample 2" };
-        private Brand _brandSample3 = new Brand() { Name = "brand sample 3" };
-        private Brand _brandSample4 = new Brand() { Name = "brand sample 4" };
+        private readonly Brand _brandSample1 = new Brand() { Name = "brand sample" };
+        private readonly Brand _brandSample2 = new Brand() { Name = "brand sample 2" };
+        private readonly Brand _brandSample3 = new Brand() { Name = "brand sample 3" };
+        private readonly Brand _brandSample4 = new Brand() { Name = "brand sample 4" };
 
         private const int _discount2 = 2;
         private const int _discount3 = 3;
@@ -97,11 +96,12 @@ namespace BusinessLogicTest.PromotionsTest
         [ExpectedException(typeof(LogicException), "Not applicable promotion")]
         public void GivenNotApplicablePromotionThrowsBackEndException()
         {
-            Product productSample = new Product() {
+            Product productSample = new Product()
+            {
                 Name = "product2",
                 Description = "product2",
                 Brand = new Brand() { Name = "brand2" },
-                Category = new Category { Name = "category2"},
+                Category = new Category { Name = "category2" },
                 Price = _four,
             };
             List<Product> cartSample = new List<Product>() { productSample };

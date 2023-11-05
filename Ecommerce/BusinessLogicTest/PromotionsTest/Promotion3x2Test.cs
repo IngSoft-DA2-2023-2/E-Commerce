@@ -1,10 +1,9 @@
-﻿using BusinessLogic.Promotions;
-using Domain;
+﻿using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Diagnostics.CodeAnalysis;
 using Promotion3x2;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -13,9 +12,9 @@ namespace BusinessLogicTest.PromotionsTest
     public class Promotion3x2Test
     {
         private IPromotionable _promo3x2;
-        private Category _categorySample1 = new Category() { Name = "category sample 1" };
-        private Category _categorySample2 = new Category() { Name = "category sample 2" };
-        private Category _categorySample3 = new Category() { Name = "category sample 3" };
+        private readonly Category _categorySample1 = new Category() { Name = "category sample 1" };
+        private readonly Category _categorySample2 = new Category() { Name = "category sample 2" };
+        private readonly Category _categorySample3 = new Category() { Name = "category sample 3" };
 
         private const int _one = 1;
         private const int _two = 2;

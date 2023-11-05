@@ -1,10 +1,9 @@
-﻿using BusinessLogic.Promotions;
-using Domain;
+﻿using Domain;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Diagnostics.CodeAnalysis;
 using PromotionTotalLook;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {
@@ -16,9 +15,9 @@ namespace BusinessLogicTest.PromotionsTest
         private List<Product> _cartSample;
         private IPromotionable _promotionTotalLook;
 
-        private string _red = "red";
-        private string _blue = "blue";
-        private string _green = "green";
+        private readonly string _red = "red";
+        private readonly string _blue = "blue";
+        private readonly string _green = "green";
 
         private const int _fifty = 50;
         private const int _seventy = 70;

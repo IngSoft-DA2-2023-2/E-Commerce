@@ -1,8 +1,8 @@
 ﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Diagnostics.CodeAnalysis;
 using Promotion20Off;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
 {

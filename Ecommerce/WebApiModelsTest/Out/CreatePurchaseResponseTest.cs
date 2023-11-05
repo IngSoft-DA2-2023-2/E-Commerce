@@ -1,14 +1,8 @@
 ﻿using ApiModels.Out;
-using BusinessLogic.Promotions;
 using Domain;
-using Domain.ProductParts;
-using Moq;
-using System.Diagnostics.CodeAnalysis;
-using Promotion20Off;
-using Promotion3x1Fidelity;
-using Promotion3x2;
-using PromotionTotalLook;
 using Domain.PaymentMethodCategories;
+using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebApiModelsTest.Out
 {
@@ -16,11 +10,11 @@ namespace WebApiModelsTest.Out
     [TestClass]
     public class CreatePurchaseResponseTest
     {
-        private Guid Id = Guid.NewGuid();
-        private Guid BuyerId = Guid.NewGuid();
-        private string promotion = "Promotion20Off";
+        private readonly Guid Id = Guid.NewGuid();
+        private readonly Guid BuyerId = Guid.NewGuid();
+        private readonly string promotion = "Promotion20Off";
         private CreatePurchaseResponse createPurchaseResponse;
-        private int total = 20;
+        private readonly int total = 20;
         private Purchase purchase;
         private List<Product> products;
 
@@ -44,7 +38,7 @@ namespace WebApiModelsTest.Out
                 UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
-                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa"}
+                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" }
 
 
             };

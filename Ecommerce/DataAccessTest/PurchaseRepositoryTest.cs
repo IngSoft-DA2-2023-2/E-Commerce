@@ -84,14 +84,14 @@ namespace DataAccessTest
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);
-            var ret= purchaseRepository.GetAllPurchases();
+            var ret = purchaseRepository.GetAllPurchases();
             Assert.AreEqual(ret.Count(), 0);
         }
         [TestMethod]
         public void GetPaymentMethodFromPurchase()
         {
             PaymentMethod paymentMethod = new BankDebit() { CategoryName = "bank" };
-            Purchase purchase = new Purchase() { Id = Guid.NewGuid(), PaymentMethod =paymentMethod };
+            Purchase purchase = new Purchase() { Id = Guid.NewGuid(), PaymentMethod = paymentMethod };
             var purchaseContext = new Mock<ECommerceContext>();
             purchaseContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { purchase });
             IPurchaseRepository purchaseRepository = new PurchaseRepository(purchaseContext.Object);

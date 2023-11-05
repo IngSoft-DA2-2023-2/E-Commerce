@@ -7,10 +7,10 @@ namespace WebApiModelsTest.In
     [TestClass]
     public class UpdateUserByThemselfRequestTest
     {
-        private string nameSample = "nameSample";
-        private string passwordSample = "passwordSample";
-        private string addressSample = "addressSample";
-        private List<string> buyerRole = new List<string> { "buyer" };
+        private readonly string nameSample = "nameSample";
+        private readonly string passwordSample = "passwordSample";
+        private readonly string addressSample = "addressSample";
+        private readonly List<string> buyerRole = new List<string> { "buyer" };
         private UpdateUserRequestByThemself user;
 
         [TestInitialize]

@@ -1,10 +1,5 @@
 ﻿using Domain;
 using Domain.PaymentMethodCategories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApiModels.In
 {
@@ -16,13 +11,14 @@ namespace ApiModels.In
 
         public PaymentMethod ToEntity()
         {
-            switch (CategoryName) { 
+            switch (CategoryName)
+            {
                 case "CreditCard":
-                return new CreditCard
-                {
-                    CategoryName = CategoryName,
-                    Flag = Flag
-                };
+                    return new CreditCard
+                    {
+                        CategoryName = CategoryName,
+                        Flag = Flag
+                    };
                 case "BankDebit":
                     return new BankDebit
                     {
@@ -41,7 +37,7 @@ namespace ApiModels.In
                     };
                 default:
                     throw new Exception("Invalid Payment Method Category");
-                }
+            }
         }
     }
 }

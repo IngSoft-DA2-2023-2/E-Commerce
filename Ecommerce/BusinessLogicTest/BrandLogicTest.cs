@@ -1,7 +1,6 @@
 ﻿using BusinessLogic;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
-using Domain;
 using Domain.ProductParts;
 using LogicInterface.Exceptions;
 using Moq;
@@ -38,7 +37,7 @@ namespace BusinessLogicTest
 
             Mock<IBrandRepository> repository = new Mock<IBrandRepository>(MockBehavior.Strict);
             repository.Setup(logic => logic.CheckForBrand("Brand")).Throws(new DataAccessException("Brand Brand does not exists"));
-            var brandLogic = new BrandLogic(repository.Object);          
+            var brandLogic = new BrandLogic(repository.Object);
             Exception catchedException = null;
             try
             {
