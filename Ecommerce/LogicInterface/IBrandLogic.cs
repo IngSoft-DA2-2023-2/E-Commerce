@@ -1,0 +1,16 @@
+﻿using Domain.ProductParts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LogicInterface
+{
+    public interface IBrandLogic
+    {
+        public IEnumerable<Brand> GetBrands();
+
+        public bool CheckBrand(Brand brand);
+    }
+}
