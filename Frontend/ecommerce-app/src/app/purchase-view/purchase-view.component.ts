@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { product } from '../product-view/productModel';
+import { ApiService } from '../shared/api.service';
+import { paymentMethod } from './purchaseModel';
 
 @Component({
   selector: 'app-purchase-view',
@@ -7,9 +9,10 @@ import { product } from '../product-view/productModel';
   styleUrls: ['./purchase-view.component.css']
 })
 export class PurchaseViewComponent {
- cart = localStorage.getItem('cart') || "[]";
+  constructor(private api:ApiService) { }
+paymentMethod : paymentMethod = new paymentMethod();  
+cart = localStorage.getItem('cart') || "[]";
 cartArray = JSON.parse(this.cart);
-
  getColors(product: product): string[] {
   const colors: string[] = [];
   for (let color of product.colours) {
@@ -17,12 +20,17 @@ cartArray = JSON.parse(this.cart);
   }
   return colors;
   }
-  removeProductFromCart(product: product) {
-    let cart = localStorage.getItem('cart') || "[]";
-    let cartArray = JSON.parse(cart);
-    cartArray = cartArray.filter((item: product) => item.id !== product.id);
-    localStorage.setItem('cart', JSON.stringify(cartArray));
-    this.cartArray = cartArray;
+
+  removeFromCart(p: product){
+    let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+    for(let element of cart){
+      if(element.id==p.id){
+        cart.splice(cart.indexOf(element),1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        this.cartArray = JSON.parse(localStorage.getItem('cart') || "[]");
+        return;
+      }
+    }
   }
   hasCart(): boolean {
     console.log(this.cartArray)
@@ -34,5 +42,30 @@ cartArray = JSON.parse(this.cart);
       price += product.price;
     }
     return price;
+  }
+  selectedOption(){
+    return this.paymentMethod.categoryName;
+  }
+  onPaymentMethodChange(category: string) {
+    this.paymentMethod.categoryName = category;
+    if(category == "bankDebit"){
+      this.paymentMethod.bank ="santander";
+      this.paymentMethod.flag = "";
+      return;
+    }
+    if(category == "credit"){
+      this.paymentMethod.bank ="";
+      this.paymentMethod.flag = "visa";
+      return;
+    }
+    this.paymentMethod.bank ="";
+    this.paymentMethod.flag = "";
+  }
+  onFlagChange(event :any) {
+    this.paymentMethod.flag = event.target.value;
+  }
+
+  onBankChange(event :any) {
+    this.paymentMethod.bank = event.target.value;
   }
 }
