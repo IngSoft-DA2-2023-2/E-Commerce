@@ -158,9 +158,9 @@ namespace WebApi.Controllers
         {
             User ret = new User();
             ret.Id = id;
-            if (received.Name is not null) ret.Name = received.Name;
-            if (received.Password is not null) ret.Password = received.Password;
-            if (received.Address is not null) ret.Address = received.Address;
+            if (received.Name is not null && received.Name!="") ret.Name = received.Name;
+            if (received.Password is not null && received.Password!="") ret.Password = received.Password;
+            if (received.Address is not null && received.Address != "") ret.Address = received.Address;
             return ret;
         }
     }

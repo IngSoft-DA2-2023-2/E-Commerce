@@ -15,6 +15,7 @@ import { CreateUserByAdminComponent } from './create-user-by-admin/create-user-b
 import { UsersAdminViewComponent } from './users-admin-view/users-admin-view.component';
 import { ProductAdminViewComponent } from './product-admin-view/product-admin-view.component';
 import { CreateProductAdminViewComponent } from './create-product-admin-view/create-product-admin-view.component';
+import { UpdataSelfDataViewComponent } from './updata-self-data-view/updata-self-data-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CreateProductAdminViewComponent } from './create-product-admin-view/cre
     CreateUserByAdminComponent,
     UsersAdminViewComponent,
     ProductAdminViewComponent,
-    CreateProductAdminViewComponent
+    CreateProductAdminViewComponent,
+    UpdataSelfDataViewComponent
   ],
   imports: [
     BrowserModule,
