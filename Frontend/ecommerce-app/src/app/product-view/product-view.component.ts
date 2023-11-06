@@ -51,4 +51,38 @@ export class ProductViewComponent implements OnInit {
     }
     return colors;
   }
+
+  productCounter(product: product): number {
+    let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+    let ret:number=0;
+    for (let item of cart) {
+      if (item.id == product.id) {
+        ret++;
+      }
+    }
+    return ret;
+  }
+
+  addToCart(p: product){
+    let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+    let countInCart = this.productCounter(p);
+    if(p.stock>countInCart){
+    cart.push(p);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+  else{
+    console.log('No stock')
+  }
+}
+
+removeFromCart(p: product){
+  let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+  for(let element of cart){
+    if(element.id==p.id){
+      cart.splice(cart.indexOf(element),1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      return;
+    }
+  }
+}
 }
