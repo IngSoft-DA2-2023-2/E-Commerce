@@ -6,6 +6,6 @@ namespace DataAccessInterface
     {
         public bool CheckForBrand(string brandName);
 
-        public List<Brand> GetBrands();
+        public IEnumerable<Brand> GetBrands();
     }
 }

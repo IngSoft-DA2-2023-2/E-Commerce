@@ -8,18 +8,18 @@ namespace BusinessLogic
 {
     public class BrandLogic : IBrandLogic
     {
-        private readonly IBrandRepository _context;
+        private readonly IBrandRepository _brandRepository;
 
         public BrandLogic(IBrandRepository context)
         {
-            _context = context;
+            _brandRepository = context;
         }
 
         public bool CheckBrand(Brand brand)
         {
             try
             {
-                _context.CheckForBrand(brand.Name);
+                _brandRepository.CheckForBrand(brand.Name);
                 return true;
             }
             catch (DataAccessException e)
@@ -28,11 +28,11 @@ namespace BusinessLogic
             }
         }
 
-        public List<Brand> GetBrands()
+        public IEnumerable<Brand> GetBrands()
         {
             try
             {
-               return _context.GetBrands();
+               return _brandRepository.GetBrands();
             }catch (DataAccessException e)
             {
                 throw new LogicException(e);

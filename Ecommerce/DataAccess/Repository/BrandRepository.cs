@@ -21,7 +21,7 @@ namespace DataAccess.Repository
             return true;
         }
 
-        public List<Brand> GetBrands()
+        public IEnumerable<Brand> GetBrands()
         {
              var brands = _context.Brands.ToList();
             List<Brand> brandsReturn = new List<Brand>();

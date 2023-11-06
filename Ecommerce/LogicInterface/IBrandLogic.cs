@@ -9,7 +9,7 @@ namespace LogicInterface
 {
     public interface IBrandLogic
     {
-        public List<Brand> GetBrands();
+        public IEnumerable<Brand> GetBrands();
 
         public bool CheckBrand(Brand brand);
     }
