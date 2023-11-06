@@ -9,6 +9,7 @@ import { CreateUserByAdminComponent } from './create-user-by-admin/create-user-b
 import { UsersAdminViewComponent } from './users-admin-view/users-admin-view.component';
 import { ProductAdminViewComponent } from './product-admin-view/product-admin-view.component';
 import { CreateProductAdminViewComponent } from './create-product-admin-view/create-product-admin-view.component';
+import { UpdataSelfDataViewComponent } from './updata-self-data-view/updata-self-data-view.component';
 
 const routes: Routes = [
   {path:'', component:LandingPageComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:'admin/createUser',component:CreateUserByAdminComponent},
   {path:'admin/users',component:UsersAdminViewComponent},
   {path:'admin/products',component: ProductAdminViewComponent},
-  {path:'admin/createProduct',component: CreateProductAdminViewComponent}
+  {path:'admin/createProduct',component: CreateProductAdminViewComponent},
+  {path:'profile',component: UpdataSelfDataViewComponent},
 
 ];
 

@@ -1,13 +1,8 @@
+import { userModel, userRetrieveModel } from "./signupUserModel";
 
 export interface sessionModel{
     token: string;
-    user: {
-        name: string;
-        email: string;
-        address: string;
-        roles: string[];
-        guid: string;
-    }
+    user: userRetrieveModel;
 }
 
 export class sessionRequest{
