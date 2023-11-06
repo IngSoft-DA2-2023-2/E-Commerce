@@ -1,7 +1,10 @@
-﻿namespace DataAccessInterface
+﻿using Domain.ProductParts;
+
+namespace DataAccessInterface
 {
     public interface ICategoryRepository
     {
-        bool CheckForCategory(string categoryName);
+        public bool CheckForCategory(string categoryName);
+        public IEnumerable<Category> GetCategories();
     }
 }

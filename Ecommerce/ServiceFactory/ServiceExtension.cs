@@ -24,6 +24,7 @@ namespace ServiceFactory
             serviceCollection.AddScoped<IPurchaseLogic, PurchaseLogic>();
             serviceCollection.AddScoped<ISessionLogic, SessionLogic>();
             serviceCollection.AddScoped<IBrandLogic, BrandLogic>();
+            serviceCollection.AddScoped<ICategoryLogic, CategoryLogic>();
 
         }
         public static void AddConnectionString(this IServiceCollection serviceCollection, string connectionString)
