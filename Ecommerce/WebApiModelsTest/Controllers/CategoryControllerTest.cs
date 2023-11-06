@@ -28,7 +28,7 @@ namespace WebApiModelsTest.Controllers
             };
             List<Category> categories = new List<Category>() { cat };
             Mock<ICategoryLogic> categoryLogic = new Mock<ICategoryLogic>();
-            categoryLogic.Setup(p => p.GetCategory()).Returns(categories);
+            categoryLogic.Setup(p => p.GetCategories()).Returns(categories);
             CategoryController categoryController = new CategoryController(categoryLogic.Object);
             var result = categoryController.GetAllCategories() as OkObjectResult;
             Assert.IsNotNull(result);

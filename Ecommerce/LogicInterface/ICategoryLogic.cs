@@ -10,6 +10,6 @@ namespace LogicInterface
     public interface ICategoryLogic
     {
        public bool CheckForCategory(Category category);
-        public IEnumerable<Category> GetCategory();
+        public IEnumerable<Category> GetCategories();
     }
 }

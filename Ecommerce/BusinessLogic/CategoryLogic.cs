@@ -29,7 +29,7 @@ namespace BusinessLogic
         }
 
 
-        public IEnumerable<Category> GetCategory()
+        public IEnumerable<Category> GetCategories()
         {
             try
             {

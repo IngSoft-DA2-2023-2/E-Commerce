@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         [AnnotatedCustomExceptionFilter]
         public IActionResult GetAllCategories()
         {
-            return Ok(_categoryLogic.GetCategory());
+            return Ok(_categoryLogic.GetCategories());
         }
     }
 
