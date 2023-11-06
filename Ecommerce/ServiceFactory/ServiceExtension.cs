@@ -27,6 +27,7 @@ namespace ServiceFactory
             serviceCollection.AddScoped<IBrandLogic, BrandLogic>();
             serviceCollection.AddScoped<ICategoryLogic, CategoryLogic>();
             serviceCollection.AddScoped<IStringWrapperLogic, StringWrapperLogic>();
+            serviceCollection.AddScoped<IColourLogic, ColourLogic>();
 
 
         }
