@@ -12,18 +12,18 @@ namespace WebApi.Controllers
     [ApiController]
     public class BrandController : ControllerBase
     {
-        private readonly IBrandLogic brandLogic;
+        private readonly IBrandLogic _brandLogic;
 
         public BrandController(IBrandLogic brandLogic)
         {
-            this.brandLogic = brandLogic;
+            _brandLogic = brandLogic;
         }
 
         [HttpGet]
         [AnnotatedCustomExceptionFilter]
         public IActionResult GetAllBrands()
         {
-            return Ok(brandLogic.GetBrands());
+            return Ok(_brandLogic.GetBrands());
         }
     }
 

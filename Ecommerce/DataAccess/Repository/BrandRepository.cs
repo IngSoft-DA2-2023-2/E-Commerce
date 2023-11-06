@@ -23,7 +23,7 @@ namespace DataAccess.Repository
 
         public List<Brand> GetBrands()
         {
-            var brands = _context.Brands.ToList();
+             var brands = _context.Brands.ToList();
             List<Brand> brandsReturn = new List<Brand>();
             foreach (Brand brand in brands)
             {
