@@ -48,6 +48,10 @@ export class NavBarViewComponent implements OnInit {
   this.router.navigate(['/admin/users']);
   }
 
+  openProfileMenu(){
+    this.router.navigate(['/profile']);
+  }
+
   seeLoggedInfo() {
     console.log(this.api.currentSession);
   }

@@ -45,9 +45,16 @@
 
           <p class="card-text">Colors:</p>
           <p class="card-text">{{getColors(product).join(',')}}</p>
-          <a class="btn btn-primary" (click)="addProductToCart(product)">Add to cart</a>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" [disabled]="productCounter(product)===0" (click)="removeFromCart(product)">-</button>
+            <button type="button" class="btn btn-light" readonly>{{productCounter(product)}}</button>
+            <button type="button" class="btn btn-primary" [disabled]="product.stock===productCounter(product)" (click)="addToCart(product)">+</button>
+          </div>
+          <p *ngIf="product.stock===productCounter(product)">No more items available</p>
         </div>
       </div>
     </div>
   </div>
+  
 </div>

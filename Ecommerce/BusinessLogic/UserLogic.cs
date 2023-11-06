@@ -99,8 +99,11 @@ namespace BusinessLogic
             {
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
                 if (outdated == null) throw new LogicException("User not found");
-
-                return _userRepository.UpdateUser(updated);
+                if(updated.Name is not null && updated.Name!="") outdated.Name=updated.Name;
+                if(updated.Password is not null && updated.Password!="")outdated.Password=updated.Password;
+                if(updated.Address is not null && updated.Address!="")outdated.Address = updated.Address;
+            
+                return _userRepository.UpdateUser(outdated);
             }
             catch (DataAccessException e)
             {

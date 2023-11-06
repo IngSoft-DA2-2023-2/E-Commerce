@@ -10,6 +10,7 @@ import { UsersAdminViewComponent } from './users-admin-view/users-admin-view.com
 import { ProductAdminViewComponent } from './product-admin-view/product-admin-view.component';
 import { CreateProductAdminViewComponent } from './create-product-admin-view/create-product-admin-view.component';
 import { PurchaseViewComponent } from './purchase-view/purchase-view.component';
+import { UpdataSelfDataViewComponent } from './updata-self-data-view/updata-self-data-view.component';
 
 const routes: Routes = [
   {path:'', component:LandingPageComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path:'admin/users',component:UsersAdminViewComponent},
   {path:'admin/products',component: ProductAdminViewComponent},
   {path:'admin/createProduct',component: CreateProductAdminViewComponent},
-  {path: 'purchases', component: PurchaseViewComponent}
+  {path: 'purchases', component: PurchaseViewComponent},
+  {path:'profile',component: UpdataSelfDataViewComponent},
 
 ];
 
