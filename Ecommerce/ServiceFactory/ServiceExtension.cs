@@ -18,6 +18,7 @@ namespace ServiceFactory
             serviceCollection.AddScoped<IColourRepository, ColourRepository>();
             serviceCollection.AddScoped<IProductRepository, ProductRepository>();
             serviceCollection.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            serviceCollection.AddScoped<IStringWrapperRepository, StringWrapperRepository>();
 
             serviceCollection.AddScoped<IUserLogic, UserLogic>();
             serviceCollection.AddScoped<IProductLogic, ProductLogic>();
@@ -25,6 +26,8 @@ namespace ServiceFactory
             serviceCollection.AddScoped<ISessionLogic, SessionLogic>();
             serviceCollection.AddScoped<IBrandLogic, BrandLogic>();
             serviceCollection.AddScoped<ICategoryLogic, CategoryLogic>();
+            serviceCollection.AddScoped<IStringWrapperLogic, StringWrapperLogic>();
+
 
         }
         public static void AddConnectionString(this IServiceCollection serviceCollection, string connectionString)
