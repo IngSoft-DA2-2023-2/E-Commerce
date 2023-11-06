@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
+using LogicInterface;
 using LogicInterface.Exceptions;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
@@ -43,6 +44,17 @@ namespace BusinessLogicTest
             };
             Assert.IsInstanceOfType(catchedException, typeof(LogicException));
             Assert.IsTrue(catchedException?.Message.Equals("Colour Colour does not exists"));
+        }
+
+        [TestMethod]
+        public void GivenExistingColourReturnsColour()
+        {
+            Colour colour = new Colour() { Name = "colour" };
+            var colourContext = new Mock<IColourRepository>();
+            colourContext.Setup(ctx => ctx.GetColours()).Returns(new List<Colour>() { colour });
+            IColourLogic colourLogic = new ColourLogic(colourContext.Object);
+            var expectedReturn = colourLogic.GetColours();
+            Assert.IsTrue(expectedReturn.Contains(colour));
         }
     }
 }
