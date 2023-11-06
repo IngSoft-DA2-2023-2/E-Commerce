@@ -20,7 +20,16 @@ namespace DataAccess.Repository
        
         public IEnumerable<StringWrapper> GetRoles()
         {
-           return _context.StringListWrappers.ToList();
+            var roles = _context.StringListWrappers.ToList();
+            List<StringWrapper> rolesReturn = new List<StringWrapper>();
+            foreach (StringWrapper role in roles)
+            {
+                if (!(rolesReturn.Contains(role)))
+                {
+                    rolesReturn.Add(role);
+                }
+            }
+           return rolesReturn;
         }
     }
 }
