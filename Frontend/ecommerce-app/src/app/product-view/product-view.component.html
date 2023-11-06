@@ -45,7 +45,7 @@
 
           <p class="card-text">Colors:</p>
           <p class="card-text">{{getColors(product).join(',')}}</p>
-          <a href="#" class="btn btn-primary">Add to cart</a>
+          <a class="btn btn-primary" (click)="addProductToCart(product)">Add to cart</a>
         </div>
       </div>
     </div>

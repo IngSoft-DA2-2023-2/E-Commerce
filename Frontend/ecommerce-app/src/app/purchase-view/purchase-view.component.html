@@ -1,0 +1,28 @@
+<app-nav-bar-view></app-nav-bar-view>
+<div *ngIf="!hasCart()">
+    <h1>There are no products</h1>
+</div>
+<div *ngIf="hasCart()">
+    <h3>Price:${{getPrice()}}</h3>
+</div>
+<div class="container-fluid" class="mh-100" >
+    <div class="row justify-content-center text-center">
+      <div class="col-md-3" *ngFor="let product of cartArray">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <h6 class="card-price">${{product.price }}</h6>
+  
+            <p class="card-text">{{ product.brand.name }}</p>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text">{{ product.category.name }}</p>
+            <p class="card-text">{{ product.Stock }}</p>
+  
+            <p class="card-text">Colors:</p>
+            <p class="card-text">{{getColors(product).join(',')}}</p>
+            <a class="btn btn-primary" (click)="removeProductFromCart(product)">Remove from cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

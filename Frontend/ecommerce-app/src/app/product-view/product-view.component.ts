@@ -51,4 +51,10 @@ export class ProductViewComponent implements OnInit {
     }
     return colors;
   }
+  addProductToCart(product: product) {
+    let cart = localStorage.getItem('cart') || "[]";
+    let cartArray = JSON.parse(cart);
+    cartArray.push(product);
+    localStorage.setItem('cart', JSON.stringify(cartArray));
+  }
 }
