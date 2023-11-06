@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
+using Domain.ProductParts;
 
 namespace DataAccess.Repository
 {
@@ -17,6 +18,20 @@ namespace DataAccess.Repository
             var colour = _context.Colours.FirstOrDefault(c => c.Name == colourName);
             if (colour is null) throw new DataAccessException($"Colour {colourName} does not exists");
             return true;
+        }
+
+        public IEnumerable<Colour> GetColours()
+        {
+            var colours = _context.Colours.ToList();
+            List<Colour> coloursReturn = new List<Colour>();
+            foreach (Colour colour in colours)
+            {
+                if (!(coloursReturn.Contains(colour)))
+                {
+                    coloursReturn.Add(colour);
+                }
+            }
+            return coloursReturn;
         }
     }
 }

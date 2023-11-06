@@ -43,5 +43,16 @@ namespace DataAccessTest
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Colour {colourName} does not exists"));
         }
+
+        [TestMethod]
+        public void GivenExistingColourReturnsColour()
+        {
+            Colour colour = new Colour() { Name = "colour" };
+            var colourContext = new Mock<ECommerceContext>();
+            colourContext.Setup(ctx => ctx.Colours).ReturnsDbSet(new List<Colour>() { colour });
+            IColourRepository colourRepository = new ColourRepository(colourContext.Object);
+            var expectedReturn = colourRepository.GetColours();
+            Assert.IsTrue(expectedReturn.Contains(colour));
+        }
     }
 }
