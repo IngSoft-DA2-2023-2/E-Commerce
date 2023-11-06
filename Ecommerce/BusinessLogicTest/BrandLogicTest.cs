@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
+using LogicInterface;
 using LogicInterface.Exceptions;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
@@ -49,6 +50,17 @@ namespace BusinessLogicTest
             };
             Assert.IsInstanceOfType(catchedException, typeof(LogicException));
             Assert.IsTrue(catchedException?.Message.Equals("Brand Brand does not exists"));
+        }
+
+        [TestMethod]
+        public void GivenExistingBrandReturnsBrands()
+        {
+            Brand brand = new Brand() { Name = "brand" };
+            var brandContext = new Mock<IBrandRepository>();
+            brandContext.Setup(ctx => ctx.GetBrands()).Returns(new List<Brand>() { brand });
+            IBrandLogic brandLogic = new BrandLogic(brandContext.Object);
+            var expectedReturn = brandLogic.GetBrands();
+            Assert.IsTrue(expectedReturn.Contains(brand));
         }
 
     }
