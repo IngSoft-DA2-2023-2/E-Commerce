@@ -3,6 +3,7 @@ using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace DataAccess.Repository
 {
@@ -159,14 +160,36 @@ namespace DataAccess.Repository
                         productsReturn.Add(product);
                     }
                 }
-
                 return productsReturn;
             }
         }
 
         public IEnumerable<Product> GetProductByPriceRange(string priceRange)
         {
-            throw new NotImplementedException();
+            int from = int.Parse(priceRange.Split('-')[0]);
+            int to = int.Parse(priceRange.Split('-')[1]);
+            var selectedProducts = _eCommerceContext.Products.
+            Include(p => p.Brand).
+            Include(p => p.Category).
+            Include(p => p.Colours).
+            Where(p => p.Price <=to && p.Price>=from).
+            ToList();
+            if (!selectedProducts.Any())
+            {
+                return new List<Product>();
+            }
+            else
+            {
+                var productsReturn = new List<Product>();
+                foreach (Product product in selectedProducts)
+                {
+                    if (!(productsReturn.Contains(product)))
+                    {
+                        productsReturn.Add(product);
+                    }
+                }
+                return productsReturn;
+            }
         }
 
         public Product UpdateProduct(Product newProduct)

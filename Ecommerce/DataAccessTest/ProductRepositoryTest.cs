@@ -214,6 +214,21 @@ namespace DataAccessTest
 
             Assert.AreEqual(ret.Count(), 0);
         }
+        [TestMethod]
+        public void GetFilteredProductByPriceRange()
+        {
+            Product product = new Product()
+            {
+                Name = "Sample",
+                Price = 20,
+                Id = new Guid()
+            };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            var response = productRepository.GetProductByPriceRange("0-100");
+            Assert.AreEqual(response.First().Price, 20);
+        }
 
         [TestMethod]
         public void GetAllProducts()
