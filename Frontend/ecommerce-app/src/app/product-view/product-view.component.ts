@@ -28,7 +28,9 @@ export class ProductViewComponent implements OnInit {
   displayProducts() {
     this.api.getProduct().subscribe(res => {
       this.data = res;
+      console.log(this.data);
     });
+
   }
 
   displayFilteredProducts(name: string, brand: string, category: string, priceFrom: string, priceTo: string) {

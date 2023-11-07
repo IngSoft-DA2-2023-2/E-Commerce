@@ -158,10 +158,23 @@ namespace BusinessLogic
             IEnumerable<Product> products = _productRepository.GetAllProducts();
             foreach (Product product in products)
             {
-                if (product.Equals(expected)) return true;
+                if (product.Equals(expected))
+                {
+                    if (expected.Stock < 0 || expected.Stock > product.Stock) throw new LogicException("invalid stock");
+                    return true;
+                }
             }
             throw new LogicException("Product Does not exists.");
 
+        }
+        public void UpdateStock(IEnumerable<Product> products)
+        {
+            foreach (Product product in products)
+            {
+                _productRepository.UpdateStock(product);
+                product.Stock = 1;
+                product.Id = Guid.NewGuid();
+            }
         }
     }
 }

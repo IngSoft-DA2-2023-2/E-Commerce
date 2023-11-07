@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
-import { paymentMethod } from './purchaseModel';
+import { paymentMethod, productModel } from './purchaseModel';
 import { purchase } from './purchaseModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 @Component({
@@ -85,7 +85,7 @@ cartArray = JSON.parse(this.cart);
     let returnCart = [];
     for(let element of cart){
       let colorName = this.transferColors(element.colours);
-      let returnProduct = new createProductModel(element.name,element.description,element.price,element.brand.name,element.category.name,colorName,element.stock);
+      let returnProduct = new productModel(element.id,element.name,element.description,element.price,element.brand.name,element.category.name,colorName,element.stock);
       returnCart.push(returnProduct);
     }
     p.Cart = returnCart;

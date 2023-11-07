@@ -11,7 +11,7 @@ namespace DataAccessInterface
         public Product GetProductById(Guid id);
         public IEnumerable<Product> GetProductByName(string name);
         public Product UpdateProduct(Product newProduct);
-
         public IEnumerable<Product> GetAllProducts();
+        public int UpdateStock(Product product);
     }
 }

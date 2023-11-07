@@ -11,7 +11,6 @@ namespace LogicInterface
         public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName, string? priceRange);
         public Product UpdateProduct(Product newProduct);
         public bool CheckProduct(Product product);
-
-
+        public void UpdateStock(IEnumerable<Product> cart);
     }
 }

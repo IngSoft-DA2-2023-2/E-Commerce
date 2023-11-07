@@ -109,6 +109,16 @@ namespace DataAccessTest
             Assert.AreEqual(response, product);
         }
         [TestMethod]
+        public void UpdateProductStockOk()
+        {
+            Product product = new Product() { Name = "Sample", Id = new Guid(), Stock =5 };
+            var productContext = new Mock<ECommerceContext>();
+            productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            IProductRepository productRepository = new ProductRepository(productContext.Object);
+            int response = productRepository.UpdateStock(product);
+            Assert.AreEqual(response, 4);
+        }
+        [TestMethod]
         public void ThrowExceptionTryingToGetProductById()
         {
             Product product = new Product() { Name = "Sample", Id = Guid.NewGuid() };
@@ -134,6 +144,7 @@ namespace DataAccessTest
             Product product = new Product() { Name = "Sample", Id = new Guid() };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            productContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetProductByName(product.Name);
             Assert.AreEqual(response.First().Name, product.Name);
@@ -163,6 +174,7 @@ namespace DataAccessTest
             };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            productContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetProductByBrand("brand");
             Assert.AreEqual(response.First().Brand.Name, "brand");
@@ -197,6 +209,7 @@ namespace DataAccessTest
             };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            productContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetProductByCategory("category");
             Assert.AreEqual(response.First().Category.Name, "category");
@@ -214,6 +227,7 @@ namespace DataAccessTest
 
             Assert.AreEqual(ret.Count(), 0);
         }
+
         [TestMethod]
         public void ReturnsEmptyListWhenTryingToGetProductByPriceRange()
         {
@@ -236,10 +250,12 @@ namespace DataAccessTest
             {
                 Name = "Sample",
                 Price = 20,
-                Id = new Guid()
+                Id = new Guid(),
+                Stock = 1,
             };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
+            productContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetProductByPriceRange("0-100");
             Assert.AreEqual(response.First().Price, 20);
@@ -257,6 +273,7 @@ namespace DataAccessTest
             var products = new List<Product>() { product };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(products);
+            productContext.Setup(ctx => ctx.Purchases).ReturnsDbSet(new List<Purchase>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             var response = productRepository.GetAllProducts();
             Assert.AreEqual(response.Count(), products.Count());

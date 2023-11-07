@@ -44,15 +44,15 @@ namespace DataAccess.Repository
 
         public IEnumerable<Product> GetAllProducts()
         {
-            var products = _eCommerceContext.Products.
+                var products = _eCommerceContext.Products.
                  Include(p => p.Brand).
                  Include(p => p.Category).
                  Include(p => p.Colours).ToList();
-
             var productsReturn = new List<Product>();
+            IEnumerable<Product> doNotInclude = GetProductsOfPurchases();
             foreach (Product product in products)
             {
-                if (!(productsReturn.Contains(product)))
+                if (!doNotInclude.Any(p=> p.Id == product.Id))
                 {
                     productsReturn.Add(product);
                 }
@@ -60,8 +60,6 @@ namespace DataAccess.Repository
 
             return productsReturn;
         }
-
-
 
 
         public IEnumerable<Product> GetProductByBrand(string brand)
@@ -79,10 +77,11 @@ namespace DataAccess.Repository
             }
             else
             {
+                IEnumerable<Product> doNotInclude = GetProductsOfPurchases();
                 var productsReturn = new List<Product>();
                 foreach (Product product in selectedProducts)
                 {
-                    if (!(productsReturn.Contains(product)))
+                    if (!doNotInclude.Any(p => p.Id == product.Id))
                     {
                         productsReturn.Add(product);
                     }
@@ -107,10 +106,11 @@ namespace DataAccess.Repository
             }
             else
             {
+                IEnumerable<Product> doNotInclude = GetProductsOfPurchases();
                 var productsReturn = new List<Product>();
                 foreach (Product product in selectedProducts)
                 {
-                    if (!(productsReturn.Contains(product)))
+                    if (!doNotInclude.Any(p => p.Id == product.Id))
                     {
                         productsReturn.Add(product);
                     }
@@ -122,7 +122,6 @@ namespace DataAccess.Repository
 
         public Product GetProductById(Guid id)
         {
-
             var product = _eCommerceContext.Products.
                Include(p => p.Brand).
                Include(p => p.Category).
@@ -152,10 +151,11 @@ namespace DataAccess.Repository
             }
             else
             {
+                IEnumerable<Product> doNotInclude = GetProductsOfPurchases();
                 var productsReturn = new List<Product>();
                 foreach (Product product in selectedProducts)
                 {
-                    if (!(productsReturn.Contains(product)))
+                    if (!doNotInclude.Any(p => p.Id == product.Id))
                     {
                         productsReturn.Add(product);
                     }
@@ -180,10 +180,11 @@ namespace DataAccess.Repository
             }
             else
             {
+                IEnumerable<Product> doNotInclude = GetProductsOfPurchases();
                 var productsReturn = new List<Product>();
                 foreach (Product product in selectedProducts)
                 {
-                    if (!(productsReturn.Contains(product)))
+                    if (!doNotInclude.Any(p => p.Id == product.Id))
                     {
                         productsReturn.Add(product);
                     }
@@ -211,13 +212,35 @@ namespace DataAccess.Repository
                 if (newProduct.Category != null) product.Category = newProduct.Category;
                 if (newProduct.Colours != null) product.Colours = newProduct.Colours;
                 if (newProduct.Stock != 0) product.Stock = newProduct.Stock;
-                {
-                    
-                }
 
                 _eCommerceContext.SaveChanges();
                 return newProduct;
             }
         }
+
+        public int UpdateStock(Product newProduct)
+        {
+           var product = _eCommerceContext.Products.Where(p => p.Id == newProduct.Id).FirstOrDefault();
+           if (product is null)
+           {
+                throw new DataAccessException($"Product does not exist.");
+           }
+           product.Stock -= 1;
+           _eCommerceContext.SaveChanges();
+           return product.Stock;
+        }
+
+        private IEnumerable<Product> GetProductsOfPurchases()
+        {
+            var purchases = _eCommerceContext.Purchases.Include(p=> p.Cart).ToList();
+            IEnumerable<Product> products = new List<Product>();
+            foreach (var purchase in purchases)
+            {
+               products= products.Union(purchase.Cart);
+            }
+            return products;
+
+        }
+
     }
 }
