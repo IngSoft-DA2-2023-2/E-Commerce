@@ -28,6 +28,7 @@ export class productFilterRequestModel{
     name:string | undefined = undefined;
     brand:string | undefined = undefined;
     category:string | undefined = undefined;
+    priceRange:string | undefined = undefined;
     operation:string | undefined= undefined;
 
     constructor(name:string | undefined,brand:string | undefined,category:string | undefined,operation:string | undefined){

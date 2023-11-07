@@ -52,6 +52,9 @@ export class ApiService {
     if (modelIn.operation) {
       params = params.set('operation', modelIn.operation);
     }
+    if(modelIn.priceRange){
+      params = params.set('priceRange', modelIn.priceRange);
+    }
     return this.httpClient.get<product[]>(url, { params });
   }
 

@@ -31,14 +31,15 @@ export class ProductViewComponent implements OnInit {
     });
   }
 
-  displayFilteredProducts(name: string, brand: string, category: string) {
+  displayFilteredProducts(name: string, brand: string, category: string, priceFrom: string, priceTo: string) {
     const filters: productFilterRequestModel = {
       name: name,
       brand: brand,
       category: category,
+      priceRange : priceFrom + "-" + priceTo,
       operation: this.operation
     };
-
+    console.log(filters.priceRange);
     this.api.getFilteredProducts(filters).subscribe(res => {
       this.data = res;
     });

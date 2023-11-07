@@ -9,6 +9,9 @@
   <label>Category</label>
   <input class="form-control me-2" type="search" placeholder="Category" #category>
 
+  <label>Price</label>
+  <input class="form-control me-2" type="number" value="0" #priceFrom>
+  <input class="form-control me-2" type="number" value="100" #priceTo>
   <label>Filter</label>
 
   <div class="form-check">
@@ -25,7 +28,7 @@
   </div>
 
   <button class="btn btn-outline-success" type="submit"
-    (click)="displayFilteredProducts(name.value, brand.value,category.value)">Search</button>
+    (click)="displayFilteredProducts(name.value, brand.value,category.value,priceFrom.value, priceTo.value)">Search</button>
   <button class="btn btn-outline-dark" type="submit" (click)="displayProducts()">Reset filters</button>
 
 </div>
