@@ -164,6 +164,11 @@ namespace DataAccess.Repository
             }
         }
 
+        public IEnumerable<Product> GetProductByPriceRange(string priceRange)
+        {
+            throw new NotImplementedException();
+        }
+
         public Product UpdateProduct(Product newProduct)
         {
             var product = _eCommerceContext.Products.Include(p => p.Brand).

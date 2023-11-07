@@ -90,7 +90,8 @@ namespace WebApiModelsTest.Controller
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
             productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
-                It.Is<string?>(categoryName => categoryName == null))).Returns(products);
+                It.Is<string?>(categoryName => categoryName == null),
+                It.Is<string?>(priceRange=> priceRange == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("or", null, null, null) as OkObjectResult;
             Assert.IsNotNull(result);
@@ -122,7 +123,8 @@ namespace WebApiModelsTest.Controller
             Mock<IProductLogic> mock = new Mock<IProductLogic>();
             mock.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
-                It.Is<string?>(categoryName => categoryName == null))).Returns(products);
+                It.Is<string?>(categoryName => categoryName == null),
+                It.Is<string?>(priceRange => priceRange == null))).Returns(products);
             ProductController productController = new ProductController(mock.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("or", null, null, null) as OkObjectResult;
             Assert.IsNotNull(result);
@@ -159,7 +161,8 @@ namespace WebApiModelsTest.Controller
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
             productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == exceptedName),
                 It.Is<string?>(brandName => brandName == null),
-                It.Is<string?>(categoryName => categoryName == null))).Returns(products);
+                It.Is<string?>(categoryName => categoryName == null),
+                It.Is<string?>(priceRange => priceRange == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("or", exceptedName, null, null) as OkObjectResult;
             Assert.IsNotNull(result);
@@ -197,7 +200,8 @@ namespace WebApiModelsTest.Controller
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
             productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == exceptedBrandName),
-                It.Is<string?>(categoryName => categoryName == null))).Returns(products);
+                It.Is<string?>(categoryName => categoryName == null),
+                It.Is<string?>(priceRange => priceRange == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("or", null, exceptedBrandName, null) as OkObjectResult;
             Assert.IsNotNull(result);
@@ -235,7 +239,8 @@ namespace WebApiModelsTest.Controller
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
             productLogic.Setup(p => p.FilterUnionProduct(It.Is<string?>(name => name == null),
                 It.Is<string?>(brandName => brandName == null),
-                It.Is<string?>(categoryName => categoryName == exceptedCategoryName))).Returns(products);
+                It.Is<string?>(categoryName => categoryName == exceptedCategoryName),
+                It.Is<string?>(priceRange => priceRange == null))).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("or", null, null, exceptedCategoryName) as OkObjectResult;
             Assert.IsNotNull(result);
@@ -270,7 +275,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
 
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>();
-            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(products);
+            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(products);
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             var result = productController.GetAllProductsByFilters("and", "name1", null, exceptedCategoryName) as OkObjectResult;
             Assert.AreEqual(products, result.Value);
@@ -281,10 +286,10 @@ namespace WebApiModelsTest.Controller
         {
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             Mock<IProductLogic> productLogic = new Mock<IProductLogic>(MockBehavior.Strict);
-            productLogic.Setup(p => p.FilterUnionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(new List<Product>());
-            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>()));
+            productLogic.Setup(p => p.FilterUnionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>())).Returns(new List<Product>());
+            productLogic.Setup(p => p.FilterIntersectionProduct(It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>()));
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
-            var result = productController.GetAllProductsByFilters(null, null, null, null) as OkObjectResult;
+            var result = productController.GetAllProductsByFilters(null, null, null, null,null) as OkObjectResult;
             var resultValue = result.Value as List<Product>;
             Assert.AreEqual(resultValue.Count, 0);
         }

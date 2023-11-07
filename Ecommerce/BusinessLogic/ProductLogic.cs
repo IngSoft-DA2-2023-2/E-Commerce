@@ -33,12 +33,15 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<Product> FilterUnionProduct(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> FilterUnionProduct(string? name, string? brandName, string? categoryName, string? priceRange)
         {
             try
             {
                 IEnumerable<Product> products = new List<Product>();
-                if (name is null && brandName is null && categoryName is null) return _productRepository.GetAllProducts();
+                if (name is null && brandName is null && categoryName is null && priceRange is null)
+                {
+                    return _productRepository.GetAllProducts();
+                }
                 if (name is not null) products = _productRepository.GetProductByName(name);
                 if (brandName is not null)
                 {
@@ -49,6 +52,11 @@ namespace BusinessLogic
                 {
                     IEnumerable<Product> categoryFilter = _productRepository.GetProductByCategory(categoryName);
                     products = products.Union(categoryFilter);
+                }
+                if (priceRange is not null)
+                {
+                    IEnumerable<Product> priceFilter = _productRepository.GetProductByPriceRange(priceRange);
+                    products = products.Union(priceFilter);
                 }
                 return products.Distinct();
             }
@@ -95,9 +103,9 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName, string? priceRange)
         {
-            IEnumerable<Product> products = null;
+            IEnumerable<Product>? products = null;
             try
             {
                 if (name is not null)
@@ -126,6 +134,15 @@ namespace BusinessLogic
                 else if (categoryName is not null)
                 {
                     products = _productRepository.GetProductByCategory(categoryName);
+
+                }
+                if(priceRange is not null && (brandName is not null || name is not null || categoryName is not null))
+                {
+                    products = products.Intersect(_productRepository.GetProductByPriceRange(priceRange));
+                }
+                else if (priceRange is not null)
+                {
+                    products = _productRepository.GetProductByPriceRange(priceRange);
 
                 }
             }
