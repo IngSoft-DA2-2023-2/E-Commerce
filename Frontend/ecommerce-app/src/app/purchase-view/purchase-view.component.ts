@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
 import { paymentMethod } from './purchaseModel';
@@ -9,8 +9,9 @@ import { createProductModel } from '../create-product-admin-view/createProductMo
   templateUrl: './purchase-view.component.html',
   styleUrls: ['./purchase-view.component.css']
 })
-export class PurchaseViewComponent {
+export class PurchaseViewComponent{
   constructor(private api:ApiService) { }
+
 feedback = "";
 paymentMethod : paymentMethod = new paymentMethod();  
 cart = localStorage.getItem('cart') || "[]";
@@ -79,6 +80,7 @@ cartArray = JSON.parse(this.cart);
   }
 
   purchase(){
+    if(!this.api.currentSession) this.api.currentSession = JSON.parse(localStorage.getItem('session') || "");
     let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
     let p = new purchase();
     p.PaymentMethod= this.paymentMethod;

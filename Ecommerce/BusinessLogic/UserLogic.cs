@@ -162,9 +162,9 @@ namespace BusinessLogic
                      User.Roles.
                      Contains(new StringWrapper() { Info = "buyer" });
             }
-            catch (DataAccessException e)
+            catch (Exception)
             {
-                throw new LogicException(e);
+                return false;
             }
         }
     }

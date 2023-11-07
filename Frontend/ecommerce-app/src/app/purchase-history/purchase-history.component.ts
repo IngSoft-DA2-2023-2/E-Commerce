@@ -11,11 +11,13 @@ import { ApiService } from '../shared/api.service';
 export class PurchaseHistoryComponent {
   constructor(private api:ApiService) { }
   purchases : purchaseInterface[] = [];
+
   ngOnInit(): void {
+    if(!this.api.currentSession) this.api.currentSession = JSON.parse(localStorage.getItem('user') || "{}");
     this.api.getPurchaseHistory().subscribe({
       next:response => {
         console.log(response);
-        this.purchases = response;
+        this.purchases = response.filter((p: purchaseInterface) => p.userId == this.api.currentSession?.user.guid as string);
         console.log(this.purchases);
       },
       error:error => {
