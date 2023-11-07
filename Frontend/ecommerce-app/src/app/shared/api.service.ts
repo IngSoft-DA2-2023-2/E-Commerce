@@ -6,7 +6,7 @@ import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
 import { modifyUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
-import { purchase, purchaseInterface } from '../purchase-view/purchaseModel';
+import { productModel, purchase, purchaseInterface } from '../purchase-view/purchaseModel';
 import { UpdataSelfDataModel } from '../updata-self-data-view/updateSelfDataModel';
 
 @Injectable({
@@ -129,6 +129,9 @@ export class ApiService {
       throw new Error('no session');
     }
     return this.httpClient.get<purchaseInterface[]>('https://localhost:7150/api/purchases', { headers: { 'Authorization': `${this.currentSession?.token}` } });
+  }
+  postCartPrice(data :createProductModel[]){
+    return this.httpClient.post<number>('https://localhost:7150/api/cart/promotion', data);
   }
 
 }

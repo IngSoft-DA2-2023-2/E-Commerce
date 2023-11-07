@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
 import { paymentMethod, productModel } from './purchaseModel';
@@ -9,12 +9,17 @@ import { createProductModel } from '../create-product-admin-view/createProductMo
   templateUrl: './purchase-view.component.html',
   styleUrls: ['./purchase-view.component.css']
 })
-export class PurchaseViewComponent {
+export class PurchaseViewComponent implements OnInit {
   constructor(private api:ApiService) { }
+  total = 0;
+  ngOnInit(): void {
+    this.total = this.getPrice();
+    console.log(this.total);
+  }
 feedback = "";
 paymentMethod : paymentMethod = new paymentMethod();  
 cart = localStorage.getItem('cart') || "[]";
-cartArray = JSON.parse(this.cart);
+cartArray : product[] = JSON.parse(this.cart);
  getColors(product: product): string[] {
   const colors: string[] = [];
   for (let color of product.colours) {
@@ -40,9 +45,14 @@ cartArray = JSON.parse(this.cart);
   }
   getPrice(): number {
     let price = 0;
-    for (let product of this.cartArray) {
-      price += product.price;
+    let sendCart :Array<createProductModel> =[];
+    for(let element of this.cartArray){
+      sendCart.push(new createProductModel(element.name,element.description,element.price,element.brand.name,element.category.name,element.colours.map(c=>c.name),element.stock));
     }
+
+    this.api.postCartPrice(sendCart).subscribe({
+      next: res => price = (res as number),
+      error: error => this.feedback = "An error has occurred"});
     return price;
   }
   selectedOption(){

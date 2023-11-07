@@ -12,17 +12,34 @@
             <th scope="col">Applied promotion</th>
             <th scope="col">Payment method</th>
             <th scope="col">Products</th>
+            <th scope="col">Actions</th>
             </tr>
         </thead>
     
         <tbody>
-          <tr *ngFor="let p of purchases">
+          <ng-container *ngFor="let p of purchases; let i = index">
+          <tr>
             <th scope="row">{{p?.date}}</th>
             <td>{{p?.total}}</td>
-            <td>{{p?.currentPromotion}}</td>
-            <td>{{p?.paymentMethod?.categoryName}}</td>
+            <td>{{p?.currentPromotion ? p?.currentPromotion : 'none'}}</td>
+            <td >{{p?.paymentMethod?.categoryName}}</td>
             <td>{{getProductNames(p?.cart)}}</td>
+            <td>
+              <button class="btn btn-primary" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseExample' + i" aria-expanded="false" aria-controls="collapseExample">
+                View Details
+              </button>
+            </td>
           </tr>
+          <tr [attr.id]="'collapseExample' + i" class="collapse">
+            <td colspan="6">
+              <div class="card card-body">
+                <div *ngFor="let pr of p?.cart">
+                  <p>name : {{pr.name}}, brand: {{pr.brand.name}}, category: {{pr.category.name}}, description: {{pr.description}}, price: {{pr.price}}</p>
+                </div> 
+              </div>
+            </td>
+          </tr>
+        </ng-container>
         </tbody>
       </table>
 </div>

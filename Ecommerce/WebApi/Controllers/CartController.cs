@@ -23,12 +23,11 @@ namespace WebApi.Controllers
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         public IActionResult CreateCart([FromBody] CreateCartRequest cart)
-        {
-            
+        {      
                 var newpurchase = cart.ToEntity();
                 Purchase savedPurchase = _purchaseLogic.CreatePurchaseLogic(newpurchase);
                 var response = new CreateCartResponse(savedPurchase);
-                return Ok(response);
+                return Ok(response.Total);
             
 
         }

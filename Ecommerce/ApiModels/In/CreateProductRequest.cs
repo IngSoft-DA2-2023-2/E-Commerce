@@ -10,13 +10,13 @@ namespace ApiModels.In
         public int Price { get; set; }
         public string Brand { get; set; }
         public string Category { get; set; }
-        public List<string> Colour { get; set; }
+        public List<string> Colours { get; set; }
         public int Stock {  get; set; }
 
         public Product ToEntity()
         {
             List<Colour> colours = new List<Colour>();
-            foreach (string colour in Colour) colours.Add(new Colour { Name = colour });
+            foreach (string colour in Colours) colours.Add(new Colour { Name = colour });
             return new Product
             {
                 Name = Name,
