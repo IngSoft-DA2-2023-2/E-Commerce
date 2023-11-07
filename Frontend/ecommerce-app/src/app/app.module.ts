@@ -17,6 +17,8 @@ import { ProductAdminViewComponent } from './product-admin-view/product-admin-vi
 import { CreateProductAdminViewComponent } from './create-product-admin-view/create-product-admin-view.component';
 import { PurchaseViewComponent } from './purchase-view/purchase-view.component';
 import { UpdataSelfDataViewComponent } from './updata-self-data-view/updata-self-data-view.component';
+import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
+import { PurchaseHistoryAdminComponent } from './purchase-history-admin/purchase-history-admin.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { UpdataSelfDataViewComponent } from './updata-self-data-view/updata-self
     ProductAdminViewComponent,
     CreateProductAdminViewComponent,
     PurchaseViewComponent,
-    UpdataSelfDataViewComponent
+    UpdataSelfDataViewComponent,
+    PurchaseHistoryComponent,
+    PurchaseHistoryAdminComponent
   ],
   imports: [
     BrowserModule,

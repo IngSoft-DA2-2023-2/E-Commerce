@@ -6,7 +6,7 @@ import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
 import { modifyUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
-import { purchase } from '../purchase-view/purchaseModel';
+import { purchase, purchaseInterface } from '../purchase-view/purchaseModel';
 import { UpdataSelfDataModel } from '../updata-self-data-view/updateSelfDataModel';
 
 @Injectable({
@@ -14,12 +14,6 @@ import { UpdataSelfDataModel } from '../updata-self-data-view/updateSelfDataMode
 })
 export class ApiService {
 
-  postPurchase(data :purchase) { 
-    if (!this.currentSession) {
-      throw new Error('no session');
-    }
-    return this.httpClient.post('https://localhost:7150/api/purchases', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
-  }
 
   constructor(private httpClient: HttpClient) { }
 
@@ -120,6 +114,18 @@ export class ApiService {
       throw new Error('no session');
     }
     return this.httpClient.put<userRetrieveModel>('https://localhost:7150/api/users', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+  }
+  postPurchase(data :purchase) { 
+    if (!this.currentSession) {
+      throw new Error('no session');
+    }
+    return this.httpClient.post('https://localhost:7150/api/purchases', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+  }
+  getPurchaseHistory() {
+    if (!this.currentSession) {
+      throw new Error('no session');
+    }
+    return this.httpClient.get<purchaseInterface[]>('https://localhost:7150/api/purchases', { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
 }

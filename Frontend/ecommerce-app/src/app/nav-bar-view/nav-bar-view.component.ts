@@ -67,5 +67,8 @@ export class NavBarViewComponent implements OnInit {
   isLogged(): boolean {
     return !!this.api.currentSession;
   }
+  openPurchaseHistory(){
+    this.router.navigate(['/purchases/history']);
+  }
 
 }
