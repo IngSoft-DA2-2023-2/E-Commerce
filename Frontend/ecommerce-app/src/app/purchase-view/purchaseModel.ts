@@ -21,8 +21,8 @@ export class purchase{
     }
 }
 export interface purchaseInterface{
-    id : number;
-    userId : number;
+    id : string;
+    userId : string;
     date : Date;
     currentPromotion :string;
     total: number;
