@@ -79,7 +79,7 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.CreatePurchaseLogic(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.ToEntity(buyer).UserId &&
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.ToEntity(buyer).UserId &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             var result = purchaseController.CreatePurchase(purchaseRequest, guid.ToString()) as OkObjectResult;
@@ -210,7 +210,7 @@ namespace WebApiModelsTest.Controller
 
 
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.CreatePurchaseLogic(It.Is<Purchase>(purchase => purchase.Id == purchaseRequest.ToEntity(buyer).UserId &&
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.Id == purchaseRequest.ToEntity(buyer).UserId &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.CreatePurchase(purchaseRequest, guid.ToString()));

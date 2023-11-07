@@ -15,7 +15,7 @@ namespace WebApiModelsTest.Out
     public class CreateCartResponseTest
     {
         [TestMethod]
-        public void GivenCreateCartResponseReturnsItsId()
+        public void GivenCreateCartResponse()
         {
             List<Product> products = new List<Product>()
             {
