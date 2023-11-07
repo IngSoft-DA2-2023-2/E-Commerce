@@ -1,0 +1,28 @@
+<app-nav-bar-view></app-nav-bar-view>
+<div *ngIf="!hasPurchases()">
+    <h1>There are no purchases</h1>
+</div>
+<div *ngIf="hasPurchases()">
+    <h1>Purchase History</h1>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scope="col">Applied promotion</th>
+            <th scope="col">Payment method</th>
+            <th scope="col">Products</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+          <tr *ngFor="let p of purchases">
+            <th scope="row">{{p?.date}}</th>
+            <td>{{p?.total}}</td>
+            <td>{{p?.currentPromotion}}</td>
+            <td>{{p?.paymentMethod?.categoryName}}</td>
+            <td>{{getProductNames(p?.cart)}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

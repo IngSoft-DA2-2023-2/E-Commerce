@@ -17,7 +17,6 @@ export class NavBarViewComponent implements OnInit {
   ngOnInit(): void {
     const res = localStorage.getItem('user');
     if (!!res) this.api.currentSession = JSON.parse((res as string));
-
     if (this.isLogged()) this.userName = this.api.currentSession?.user.name || "";
   }
 
@@ -67,6 +66,9 @@ export class NavBarViewComponent implements OnInit {
 
   isLogged(): boolean {
     return !!this.api.currentSession;
+  }
+  openPurchaseHistory(){
+    this.router.navigate(['/purchases/history']);
   }
 
 }
