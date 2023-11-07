@@ -30,7 +30,7 @@ namespace WebApi.Controllers
             {
                 var userId = _userLogic.GetUserIdFromToken(userHeader);
                 var newpurchase = purchase.ToEntity(userId);
-                Purchase savedPurchase = _purchaseLogic.CreatePurchase(newpurchase);
+                Purchase savedPurchase = _purchaseLogic.CreatePurchaseLogic(newpurchase);
                 var response = new CreatePurchaseResponse(savedPurchase);
                 return Ok(response);
             }

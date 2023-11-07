@@ -32,9 +32,7 @@ namespace BusinessLogic
             purchase.Total = _promotionContext.CalculateTotalWithPromotion(purchase.Cart);
         }
 
-
-
-        public Purchase CreatePurchase(Purchase purchase)
+        public Purchase CreatePurchaseLogic(Purchase purchase)
         {
             try
             {
@@ -46,7 +44,20 @@ namespace BusinessLogic
                 purchase.Total = _promotionContext.CalculateTotalWithoutPromotion(purchase.Cart);
                 if (IsEligibleForPromotions(purchase)) AssignsBestPromotion(purchase);
                 purchase.Total = _paymentMethod.CalculateDiscount(purchase.Total, purchase.PaymentMethod.CategoryName);
-                return _purchaseRepository.CreatePurchase(purchase);
+                return purchase;
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+        }
+
+        public Purchase CreatePurchase(Purchase purchase)
+        {
+            try
+            {
+               Purchase returnPurchase = CreatePurchaseLogic(purchase);
+                return _purchaseRepository.CreatePurchase(returnPurchase);
             }
             catch (DataAccessException e)
             {
