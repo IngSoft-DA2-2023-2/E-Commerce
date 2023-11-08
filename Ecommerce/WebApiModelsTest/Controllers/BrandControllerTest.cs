@@ -28,7 +28,7 @@ namespace WebApiModelsTest.Controllers
                 Name = "brand"
             };
 
-            List<Brand> brands = new List<Brand>() { brand };
+            List<string> brands = new List<string>() { "brand" };
             Mock<IBrandLogic> brandLogic = new Mock<IBrandLogic>();
             brandLogic.Setup(p => p.GetBrands()).Returns(brands);
             BrandController brandController = new BrandController(brandLogic.Object);

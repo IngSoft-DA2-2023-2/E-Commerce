@@ -24,7 +24,7 @@ namespace BusinessLogicTest
             Mock<ICategoryRepository> repository = new Mock<ICategoryRepository>(MockBehavior.Strict);
             repository.Setup(logic => logic.CheckForCategory("Category")).Returns(true);
             var categoryLogic = new CategoryLogic(repository.Object);
-            var result = categoryLogic.CheckForCategory(expected);
+            var result = categoryLogic.CheckForCategory(expected.Name);
             repository.VerifyAll();
             Assert.IsTrue(result);
         }
@@ -42,7 +42,7 @@ namespace BusinessLogicTest
             Exception catchedException = null;
             try
             {
-                categoryLogic.CheckForCategory(expected);
+                categoryLogic.CheckForCategory(expected.Name);
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace BusinessLogicTest
             categoryText.Setup(ctx => ctx.GetCategories()).Returns(new List<Category>() { category });
             ICategoryLogic categoryLogic = new CategoryLogic(categoryText.Object);
             var expectedReturn = categoryLogic.GetCategories();
-            Assert.IsTrue(expectedReturn.Contains(category));
+            Assert.IsTrue(expectedReturn.Contains(category.Name));
         }
 
     }

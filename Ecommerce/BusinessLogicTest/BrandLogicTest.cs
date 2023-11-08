@@ -60,7 +60,7 @@ namespace BusinessLogicTest
             brandContext.Setup(ctx => ctx.GetBrands()).Returns(new List<Brand>() { brand });
             IBrandLogic brandLogic = new BrandLogic(brandContext.Object);
             var expectedReturn = brandLogic.GetBrands();
-            Assert.IsTrue(expectedReturn.Contains(brand));
+            Assert.IsTrue(expectedReturn.Contains(brand.Name));
         }
 
     }

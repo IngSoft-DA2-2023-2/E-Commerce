@@ -13,6 +13,7 @@ namespace Domain
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
         public virtual List<Colour> Colours { get; set; } = new List<Colour>();
+        public virtual bool Include {  get; set; } = true;
 
         public virtual int Stock {  get => _stock;
             set 

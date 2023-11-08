@@ -32,7 +32,7 @@ namespace WebApiModelsTest.Controllers
                     Description = "description",
                     Brand = "brand",
                     Category = "category",
-                    Colour = colour,
+                    Colours = colour,
                     Stock = 1
                 }
             };
