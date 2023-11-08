@@ -6,7 +6,7 @@ import { userModel } from './signupUserModel';
 @Component({
   selector: 'app-signup-view',
   templateUrl: './signup-view.component.html',
-  styleUrls: ['./signup-view.component.css']
+  styleUrls: []
 })
 
 export class SignupViewComponent {
@@ -35,7 +35,7 @@ signUpUser(name:HTMLInputElement,email:HTMLInputElement,address:HTMLInputElement
 
     },
     error: (e) => {
-      this.feedbackMessage = e.error.errorMessage;
+      this.feedbackMessage = "An error has occurred";
     }
   });
 }

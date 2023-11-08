@@ -9,7 +9,7 @@ import { sessionModel } from '../signup-view/sessionModel';
 @Component({
   selector: 'app-updata-self-data-view',
   templateUrl: './updata-self-data-view.component.html',
-  styleUrls: ['./updata-self-data-view.component.css']
+  styleUrls: []
 })
 export class UpdataSelfDataViewComponent {
 

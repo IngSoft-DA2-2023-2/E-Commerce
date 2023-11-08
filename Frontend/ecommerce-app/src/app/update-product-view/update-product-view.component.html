@@ -1,58 +1,61 @@
 <app-nav-bar-view></app-nav-bar-view>
-<form (click)="this.feedback=''">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Id</label>
-      <input type="text" class="form-control" #id id="productId" readonly>
+<h3 class="row justify-content-center align-items-center">Update an existing product</h3>
+<form (click)="feedback = ''" class="user-form" style="width: 100%; max-width: 80%; margin: 0 auto; align-items: center;">
+  <div class="form-container"
+    style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Id</h6>
+      <input type="text" class="form-control" #id id="productId" readonly style="width: 100%;">
     </div>
-    <div class="form-group col-md-6">
-      <label>Name</label>
-      <input type="text" class="form-control" #name id="name">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Name</h6>
+      <input type="text" class="form-control" #name id="name" style="width: 100%;">
     </div>
-    <div class="form-group col-md-6">
-      <label>Price</label>
-      <input type="number" class="form-control" #pric id="price">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Price</h6>
+      <input type="number" class="form-control" #pric id="price" style="width: 100%;">
     </div>
-    <div class="form-group col-md-6">
-      <label>Description</label>
-      <input type="text" class="form-control" #desc id="desc">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Description</h6>
+      <input type="text" class="form-control" #desc id="desc" style="width: 100%;">
     </div>
-
-    <h1>Brands</h1>
-    <div class="radio-buttons" class="col-md-3">
-      <div class="form-check" *ngFor="let brand of brands; let i = index">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Stock</h6>
+      <input type="number" class="form-control" #stock id="stock" style="width: 100%;">
+    </div>
+    <h6>Brands</h6>
+    <div class="radio-buttons" style="display: flex; flex-wrap: wrap;">
+      <div class="form-check col-md-4" *ngFor="let brand of brands; let i = index">
         <input class="form-check-input" type="radio" name="brandRadio" [id]="'brandRadio' + i" [value]="brand"
           [(ngModel)]="selectedBrand">
-        <label class="form-check-label" [for]="'brandRadio' + i">
-          {{ brand }}
-        </label>
+        <label class="form-check-label" [for]="'brandRadio' + i">{{ brand }}</label>
       </div>
     </div>
-    <h1>Cat</h1>
-    <div class="radio-buttons" class="col-md-3">
-      <div class="form-check" *ngFor="let cat of categories; let i = index">
+    <h6>Categories</h6>
+    <div class="radio-buttons" style="display: flex; flex-wrap: wrap;">
+      <div class="form-check col-md-4" *ngFor="let cat of categories; let i = index">
         <input class="form-check-input" type="radio" name="catRadio" [id]="'catRadio' + i" [value]="cat"
           [(ngModel)]="selectedCategory">
-        <label class="form-check-label" [for]="'catRadio' + i">
-          {{ cat }}
-        </label>
+        <label class="form-check-label" [for]="'catRadio' + i">{{ cat }}</label>
       </div>
     </div>
-    <h1>Colors</h1>
-    <div class="form-check" *ngFor="let col of colors; let i = index">
-      <input class="form-check-input" type="checkbox" name="colRadio" [value]="col"
-        [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
-      <label class="form-check-label" [for]="'colRadio' + i">
-        {{ col }}
-      </label>
+    <h6>Colors</h6>
+    <div class="form-group col-md-6" style="width: 100%;">
+      <div style="display: flex; flex-wrap: wrap;">
+        <div class="form-check col-md-4" *ngFor="let col of colors; let i = index">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="colRadio" [value]="col"
+              [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
+            <label class="form-check-label" [for]="'colRadio' + i">{{ col }}</label>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group col-md-6">
-      <label>Stock</label>
-      <input type="number" class="form-control" #stock id="stock">
+    <div class="button-container">
+      <button class="btn btn-primary" (click)="updateProduct(id, name, desc, pric, stock)">Update changes</button>
+      <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
     </div>
   </div>
-</form>
 
-<button class="btn btn-primary" (click)="updateProduct(id,name,desc,pric,stock)">Update changes</button>
-<button class="btn btn-secondary" (click)="goBack()">Go Back</button>
-<p>{{feedback}}</p>
+  </form>
+<p style="text-align: center;" class="feedback">{{ feedback }}</p>
