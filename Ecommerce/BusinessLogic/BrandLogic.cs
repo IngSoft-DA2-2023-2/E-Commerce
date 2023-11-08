@@ -28,11 +28,11 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<Brand> GetBrands()
+        public IEnumerable<string> GetBrands()
         {
             try
             {
-               return _brandRepository.GetBrands();
+               return _brandRepository.GetBrands().Select(b=>b.Name).Distinct();
             }catch (DataAccessException e)
             {
                 throw new LogicException(e);

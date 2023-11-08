@@ -4,6 +4,7 @@ import { product } from './productModel';
 import { Router } from '@angular/router';
 import { productFilterRequestModel } from './productModel';
 import { sessionModel } from '../signup-view/sessionModel';
+import { NotExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-product-view',
@@ -15,14 +16,31 @@ export class ProductViewComponent implements OnInit {
 
   data!: product[];
   operation: string = "or";
+  brands: string[] = [];
+  categories: string[] = [];
 
-
-
+  selectedBrand: string = "";
+  selectedCategory: string = "";
   constructor(private api: ApiService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.displayProducts();
+    this.getBrands();
+    this.getCategories();
+  }
+
+  getBrands(){
+    this.api.getBrands().subscribe(res => {
+      this.brands = res;
+    });
+  }
+
+  getCategories(){
+    this.api.getCategories().subscribe(res => {
+      console.log(res);
+      this.categories = res;
+    });
   }
 
   displayProducts() {
@@ -31,11 +49,11 @@ export class ProductViewComponent implements OnInit {
     });
   }
 
-  displayFilteredProducts(name: string, brand: string, category: string) {
+  displayFilteredProducts(name: string) {
     const filters: productFilterRequestModel = {
       name: name,
-      brand: brand,
-      category: category,
+      brand: this.selectedBrand,
+      category: this.selectedCategory,
       operation: this.operation
     };
 

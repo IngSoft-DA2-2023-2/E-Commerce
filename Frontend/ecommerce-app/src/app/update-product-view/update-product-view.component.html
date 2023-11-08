@@ -1,42 +1,58 @@
 <app-nav-bar-view></app-nav-bar-view>
 <form (click)="this.feedback=''">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label>Id</label>
-        <input type="text" class="form-control" #id id="productId" readonly>
-      </div>
-      <div class="form-group col-md-6">
-        <label>Name</label>
-        <input type="text" class="form-control" #name id="name">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Price</label>
-        <input type="number" class="form-control" #pric id="price">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Description</label>
-        <input type="text" class="form-control" #desc id="desc">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Brand</label>
-        <input type="text" class="form-control" #brand id="brand">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Category</label>
-        <input type="text" class="form-control" #category id="category">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Colours (separate them by commas)</label>
-        <input type="text" class="form-control" #colours id="colours">
-      </div>
-      <div class="form-group col-md-6">
-        <label>Stock</label>
-        <input type="number" class="form-control" #stock id="stock">
-      </div>
-      
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Id</label>
+      <input type="text" class="form-control" #id id="productId" readonly>
     </div>
-  </form>
+    <div class="form-group col-md-6">
+      <label>Name</label>
+      <input type="text" class="form-control" #name id="name">
+    </div>
+    <div class="form-group col-md-6">
+      <label>Price</label>
+      <input type="number" class="form-control" #pric id="price">
+    </div>
+    <div class="form-group col-md-6">
+      <label>Description</label>
+      <input type="text" class="form-control" #desc id="desc">
+    </div>
 
-  <button class="btn btn-primary" (click)="updateProduct(id,name,desc,pric,brand,category,colours,stock)">Update changes</button>
-  <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
-  <p>{{feedback}}</p>
+    <h1>Brands</h1>
+    <div class="radio-buttons" class="col-md-3">
+      <div class="form-check" *ngFor="let brand of brands; let i = index">
+        <input class="form-check-input" type="radio" name="brandRadio" [id]="'brandRadio' + i" [value]="brand"
+          [(ngModel)]="selectedBrand">
+        <label class="form-check-label" [for]="'brandRadio' + i">
+          {{ brand }}
+        </label>
+      </div>
+    </div>
+    <h1>Cat</h1>
+    <div class="radio-buttons" class="col-md-3">
+      <div class="form-check" *ngFor="let cat of categories; let i = index">
+        <input class="form-check-input" type="radio" name="catRadio" [id]="'catRadio' + i" [value]="cat"
+          [(ngModel)]="selectedCategory">
+        <label class="form-check-label" [for]="'catRadio' + i">
+          {{ cat }}
+        </label>
+      </div>
+    </div>
+    <h1>Colors</h1>
+    <div class="form-check" *ngFor="let col of colors; let i = index">
+      <input class="form-check-input" type="checkbox" name="colRadio" [value]="col"
+        [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
+      <label class="form-check-label" [for]="'colRadio' + i">
+        {{ col }}
+      </label>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Stock</label>
+      <input type="number" class="form-control" #stock id="stock">
+    </div>
+  </div>
+</form>
+
+<button class="btn btn-primary" (click)="updateProduct(id,name,desc,pric,stock)">Update changes</button>
+<button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+<p>{{feedback}}</p>

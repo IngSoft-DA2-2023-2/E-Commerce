@@ -4,6 +4,7 @@ import { UpdateProductServiceService } from '../update-product-service.service';
 import { updateProductModel } from './updateProductModel';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-update-product-view',
   templateUrl: './update-product-view.component.html',
@@ -17,9 +18,19 @@ export class UpdateProductViewComponent implements OnInit {
   constructor(private dataService: UpdateProductServiceService, private api: ApiService,private router: Router) {
     this.dataReceived = undefined;
   }
+  selectedBrand: string = "";
+  selectedCategory: string = "";
+  selectedColors: string[] = [];
+  brands: string[] = [];
+  categories: string[] = [];
+  colors: string[] = [];
 
   ngOnInit(): void {
     this.dataReceived = this.dataService.getData();
+    this.getBrands();
+    this.getCategories();
+    this.getAllColours();
+    this.selectedColors=this.getCurrentColours();
     if (!this.dataReceived) {
       return;
     }
@@ -27,38 +38,56 @@ export class UpdateProductViewComponent implements OnInit {
     const nameElement = document.getElementById("name") as HTMLInputElement;
     const priceElement = document.getElementById("price") as HTMLInputElement;
     const descElement = document.getElementById("desc") as HTMLInputElement;
-    const brandElement = document.getElementById("brand") as HTMLInputElement;
-    const categoryElement = document.getElementById("category") as HTMLInputElement;
-    const coloursElement = document.getElementById("colours") as HTMLInputElement;
     const stockElement = document.getElementById("stock") as HTMLInputElement;
 
     if (productIdElement) productIdElement.value = this.dataReceived.id.toString();
     if (nameElement) nameElement.value = this.dataReceived.name;
     if (priceElement) priceElement.value = this.dataReceived.price.toString();
     if (descElement) descElement.value = this.dataReceived.description;
-    if (brandElement) brandElement.value = this.dataReceived.brand.name;
-    if (categoryElement) categoryElement.value = this.dataReceived.category.name;
-    if (coloursElement) coloursElement.value = this.getColours();
     if (stockElement) stockElement.value = this.dataReceived.stock.toString();
-  
+    this.selectedBrand = this.dataReceived.brand.name;
+    this.selectedCategory = this.dataReceived.category.name;
+
   }
 
-  getColours(): string {
+
+
+  getBrands(){
+    this.api.getBrands().subscribe(res => {
+      this.brands = res;
+    });
+  }
+
+  getCategories(){
+    this.api.getCategories().subscribe(res => {
+      this.categories = res;
+    });
+  }
+
+  getCurrentColours(): string[]{
     const result: string[] = [];
     this.dataReceived?.colours.forEach(element => {
       result.push(element.name);
     });
-    return result.join(",");
+    console.log('colores iniciales',result)
+    return result;
   }
 
-  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement,stock: HTMLInputElement) {
+  getAllColours(): void{
+    this.api.getColours().subscribe(res => {
+      this.colors = res;
+    });
+  }
+
+  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement,stock: HTMLInputElement) {
+    console.log('colores',this.selectedColors)
     const modelIn = new updateProductModel(
       name.value,
       parseInt(price.value),
       desc.value,
-      brand.value,
-      category.value,
-      colours.value.split(','),
+      this.selectedBrand,
+      this.selectedCategory,
+      this.selectedColors,
       parseInt(stock.value)
     );
 
@@ -75,7 +104,15 @@ export class UpdateProductViewComponent implements OnInit {
     return res;
   }
 
+  toggleColorSelection(color: string) {
+    if (this.selectedColors.includes(color)) {
+      this.selectedColors = this.selectedColors.filter(c => c !== color);
+    } else {
+      this.selectedColors.push(color);
+    }
+  }
+  
   goBack() {
-    this.router.navigate(['']);
+    this.router.navigate(['/admin/products']);
   }
 }

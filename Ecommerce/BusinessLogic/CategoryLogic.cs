@@ -3,6 +3,7 @@ using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using System.Globalization;
 
 namespace BusinessLogic
 {
@@ -15,11 +16,11 @@ namespace BusinessLogic
             _categoryRepository = context;
         }
 
-        public bool CheckForCategory(Category category)
+        public bool CheckForCategory(string category)
         {
             try
             {
-                _categoryRepository.CheckForCategory(category.Name);
+                _categoryRepository.CheckForCategory(category);
                 return true;
             }
             catch (DataAccessException e)
@@ -29,11 +30,11 @@ namespace BusinessLogic
         }
 
 
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<string> GetCategories()
         {
             try
             {
-                return _categoryRepository.GetCategories();
+                return _categoryRepository.GetCategories().Select(c=>c.Name).Distinct();
             }
             catch (DataAccessException e)
             {

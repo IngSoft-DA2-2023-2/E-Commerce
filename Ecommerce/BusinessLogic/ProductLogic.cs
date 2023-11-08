@@ -67,7 +67,7 @@ namespace BusinessLogic
                 Guid guid = Guid.NewGuid();
                 newProduct.Id = guid;
                 _brandLogic.CheckBrand(newProduct.Brand);
-                _categoryLogic.CheckForCategory(newProduct.Category);
+                _categoryLogic.CheckForCategory(newProduct.Category.Name);
                 foreach (Colour colour in newProduct.Colours) _colourLogic.CheckForColour(colour);
                 return _productRepository.CreateProduct(newProduct);
             }
@@ -84,7 +84,7 @@ namespace BusinessLogic
             try
             {
                 _brandLogic.CheckBrand(newProduct.Brand);
-                _categoryLogic.CheckForCategory(newProduct.Category);
+                _categoryLogic.CheckForCategory(newProduct.Category.Name);
                 foreach (Colour colour in newProduct.Colours) _colourLogic.CheckForColour(colour);
                 return _productRepository.UpdateProduct(newProduct);
 

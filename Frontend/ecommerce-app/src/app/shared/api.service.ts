@@ -31,6 +31,18 @@ export class ApiService {
     return this.httpClient.get<product[]>('https://localhost:7150/api/products');
   }
 
+  getBrands(){
+    return this.httpClient.get<string[]>('https://localhost:7150/api/products/brands');
+  }
+
+  getCategories(){
+    return this.httpClient.get<string[]>('https://localhost:7150/api/products/categories');
+  }
+
+  getColours(){
+    return this.httpClient.get<string[]>('https://localhost:7150/api/products/colours');
+  }
+
   getProductById(id: string) {
     return this.httpClient.get<product | undefined>('https://localhost:7150/api/products' + `/${id}`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }

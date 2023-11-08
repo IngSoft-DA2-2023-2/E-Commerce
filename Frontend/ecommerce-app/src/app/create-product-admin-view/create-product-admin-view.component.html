@@ -15,20 +15,38 @@
         <input type="number" class="form-control" [(ngModel)]="product.Price" placeholder="price" >
     </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Brand</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Brand" placeholder="brand" >
-    </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Category</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Category" placeholder="category" >
-    </div>
+<label>Brands</label>
+    <div class="radio-buttons" class="col-md-3">
+        <div class="form-check" *ngFor="let brand of brands; let i = index">
+          <input class="form-check-input" type="radio" name="brandRadio" [id]="'brandRadio' + i" [value]="brand"
+            [(ngModel)]="selectedBrand">
+          <label class="form-check-label" [for]="'brandRadio' + i">
+            {{ brand }}
+          </label>
+        </div>
+      </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Colours (separate colours between commas)</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Colour" placeholder="colours">
-    </div>
+      <label>Categories</label>
+      <div class="radio-buttons" class="col-md-3">
+        <div class="form-check" *ngFor="let cat of categories; let i = index">
+          <input class="form-check-input" type="radio" name="catRadio" [id]="'catRadio' + i" [value]="cat"
+            [(ngModel)]="selectedCategory">
+          <label class="form-check-label" [for]="'brandRadio' + i">
+            {{ cat }}
+          </label>
+        </div>
+      </div>
+
+      <h1>Colors</h1>
+      <div class="form-check" *ngFor="let col of colors; let i = index">
+        <input class="form-check-input" type="checkbox" name="colRadio" [value]="col"
+          [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
+        <label class="form-check-label" [for]="'colRadio' + i">
+          {{ col }}
+        </label>
+      </div>
+      
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Stock</label>
         <input type="number" class="form-control" [(ngModel)]="product.Stock" placeholder="stock" >
