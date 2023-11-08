@@ -79,7 +79,7 @@ export class UpdateProductViewComponent implements OnInit {
     });
   }
 
-  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement,stock: HTMLInputElement) {
+  updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement,stock: HTMLInputElement, includeForPromotion: HTMLInputElement) {
     console.log('colores',this.selectedColors)
     const modelIn = new updateProductModel(
       name.value,
@@ -88,7 +88,8 @@ export class UpdateProductViewComponent implements OnInit {
       this.selectedBrand,
       this.selectedCategory,
       this.selectedColors,
-      parseInt(stock.value)
+      parseInt(stock.value),
+      includeForPromotion.checked
     );
 
     const res = this.api.putProduct(id.value, modelIn).subscribe(
@@ -114,5 +115,9 @@ export class UpdateProductViewComponent implements OnInit {
   
   goBack() {
     this.router.navigate(['/admin/products']);
+  }
+  toggleInclude(){
+    if(this.dataReceived?.includeForPromotion ==true) this.dataReceived.includeForPromotion = false;
+    if(this.dataReceived?.includeForPromotion == false) this.dataReceived.includeForPromotion = true;
   }
 }

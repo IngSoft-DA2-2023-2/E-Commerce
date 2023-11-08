@@ -25,7 +25,7 @@ export class CreateProductAdminViewComponent implements OnInit {
   selectedColors: string[] = [];
   feedback?: string;
   
-  product: createProductModel = new createProductModel("", "", 0, this.selectedBrand, this.selectedCategory, [],0);
+  product: createProductModel = new createProductModel("", "", 0, this.selectedBrand, this.selectedCategory, [],0, true);
 
   createProduct() {
     console.log('marca',this.selectedBrand,'categoria',this.selectedCategory);
@@ -68,5 +68,9 @@ export class CreateProductAdminViewComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['admin/products']);
+  }
+  toggleInclude(){
+    if(this.product.IncludeForPromotion ==true) this.product.IncludeForPromotion = false;
+    else this.product.IncludeForPromotion = true;
   }
 }

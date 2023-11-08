@@ -19,7 +19,7 @@ export class ProductAdminViewComponent implements OnInit {
   }
 
   createProduct(name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement,stock: HTMLInputElement) {
-    const modelIn = new createProductModel(name.value, desc.value, parseInt(price.value), brand.value, category.value, colours.value.split(','),parseInt(stock.value));
+    const modelIn = new createProductModel(name.value, desc.value, parseInt(price.value), brand.value, category.value, colours.value.split(','),parseInt(stock.value),true);
     const res = this.api.postProduct(modelIn).subscribe(
       res => {
         this.feedback = "success";
