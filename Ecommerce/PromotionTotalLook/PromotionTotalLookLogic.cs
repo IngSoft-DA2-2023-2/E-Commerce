@@ -13,19 +13,35 @@ namespace PromotionTotalLook
 
         public bool IsApplicable(List<Product> cart)
         {
-            List<Colour> coloursInCart = GetDistinctColoursInCart(cart);
+            List<Product> productsForPromotion = new List<Product>();
+            foreach (Product product in cart)
+            {
+                if (product.IncludeForPromotion)
+                {
+                    productsForPromotion.Add(product);
+                }
+            }
+            List<Colour> coloursInCart = GetDistinctColoursInCart(productsForPromotion);
 
             return coloursInCart.Any(colour => GetProductsOfColour(cart, colour).Count >= MinimumSameColourProducts);
         }
 
         public int CalculateDiscount(List<Product> cart)
         {
+            List<Product> productsForPromotion = new List<Product>();
+            foreach (Product product in cart)
+            {
+                if (product.IncludeForPromotion)
+                {
+                    productsForPromotion.Add(product);
+                }
+            }
             if (!IsApplicable(cart))
             {
                 throw new LogicException("Not applicable promotion");
             }
 
-            List<Colour> coloursInCart = GetDistinctColoursInCart(cart);
+            List<Colour> coloursInCart = GetDistinctColoursInCart(productsForPromotion);
 
             decimal maxPrice = 0;
             foreach (Colour colour in coloursInCart)
