@@ -9,7 +9,7 @@ namespace LogicInterface
 {
     public interface ICategoryLogic
     {
-       public bool CheckForCategory(Category category);
-        public IEnumerable<Category> GetCategories();
+       public bool CheckForCategory(string category);
+        public IEnumerable<string> GetCategories();
     }
 }

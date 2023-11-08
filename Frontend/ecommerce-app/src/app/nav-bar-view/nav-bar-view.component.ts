@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
+import { product } from '../product-view/productModel';
 
 
 @Component({
@@ -30,6 +31,12 @@ export class NavBarViewComponent implements OnInit {
         this.router.navigate(['']);
       },
     );
+  }
+
+  countElemInCart():number{
+    let elem = (JSON.parse(localStorage.getItem('cart') || "") as product[]).length;
+    console.log('elem',elem)
+   return elem;
   }
 
   openSignUpMenu() {

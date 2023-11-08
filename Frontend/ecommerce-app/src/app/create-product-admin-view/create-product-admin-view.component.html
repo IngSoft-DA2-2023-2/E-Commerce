@@ -1,39 +1,58 @@
 <app-nav-bar-view></app-nav-bar-view>
-<div (click)="this.feedback=''">
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Product Name</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Name" placeholder="name">
+<h3 class="row justify-content-center align-items-center">Create a new product</h3>
+<form (click)="feedback = ''" class="user-form"
+  style="width: 100%; max-width: 80%; margin: 0 auto; align-items: center;">
+  <div class="form-container"
+    style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Product Name</h6>
+      <input type="text" class="form-control" [(ngModel)]="product.Name" placeholder="name" style="width: 100%;">
     </div>
-
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Description</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Description" placeholder="description" >
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Description</h6>
+      <input type="text" class="form-control" [(ngModel)]="product.Description" placeholder="description"
+        style="width: 100%;">
     </div>
-
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Price</label>
-        <input type="number" class="form-control" [(ngModel)]="product.Price" placeholder="price" >
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Price</h6>
+      <input type="number" class="form-control" [(ngModel)]="product.Price" placeholder="price" style="width: 100%;">
     </div>
-
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Brand</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Brand" placeholder="brand" >
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Stock</h6>
+      <input type="number" class="form-control" [(ngModel)]="product.Stock" placeholder="stock" style="width: 100%;">
     </div>
-
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Category</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Category" placeholder="category" >
+    <h6>Brands</h6>
+    <div class="radio-buttons" style="display: flex; flex-wrap: wrap;">
+      <div class="form-check col-md-4" *ngFor="let brand of brands; let i = index">
+        <input class="form-check-input" type="radio" name="brandRadio" [id]="'brandRadio' + i" [value]="brand"
+          [(ngModel)]="selectedBrand">
+        <label class="form-check-label" [for]="'brandRadio' + i">{{ brand }}</label>
+      </div>
     </div>
-
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Colours (separate colours between commas)</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Colour" placeholder="colours">
+    <h6>Categories</h6>
+    <div class="radio-buttons" style="display: flex; flex-wrap: wrap;">
+      <div class="form-check col-md-4" *ngFor="let cat of categories; let i = index">
+        <input class="form-check-input" type="radio" name="catRadio" [id]="'catRadio' + i" [value]="cat"
+          [(ngModel)]="selectedCategory">
+        <label class="form-check-label" [for]="'catRadio' + i">{{ cat }}</label>
+      </div>
     </div>
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Stock</label>
-        <input type="number" class="form-control" [(ngModel)]="product.Stock" placeholder="stock" >
+    <h6>Colors</h6>
+    <div class="form-group col-md-6" style="width: 100%;">
+      <div style="display: flex; flex-wrap: wrap;">
+        <div class="form-check col-md-4" *ngFor="let col of colors; let i = index">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="colRadio" [value]="col"
+              [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
+            <label class="form-check-label" [for]="'colRadio' + i">{{ col }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn btn-primary" (click)="createProduct()">New product</button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Go Back</button>
+      </div>
     </div>
-</div>
-<p *ngIf="!!feedback">{{feedback}}</p>
-<button type="button" class="btn btn-success" (click)="createProduct()">New product</button>
-<button type="button" class="btn btn-secondary" (click)="goBack()">Go Back</button>
+  </div>
+</form>
+<p *ngIf="!!feedback" style="text-align: center;" class="feedback">{{ feedback }}</p>

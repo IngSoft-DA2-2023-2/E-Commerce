@@ -1,23 +1,34 @@
 <app-nav-bar-view></app-nav-bar-view>
-<div class="container">
-      <form>
-
-            <label>Name</label>
-            <input type="text" class="form-control" placeholder="Enter name" #name>
-
-            <label>Email</label>
-            <input type="email" class="form-control" placeholder="Enter email" #email>
-
-            <label>Address</label>
-            <input type="text" class="form-control" placeholder="Enter address" #address>
-
-            <label>Password</label>
-            <input type="password" class="form-control" placeholder="Enter password" #password>
-
-            <button type="button" class="btn btn-primary" (click)="signUpUser(name,email,address,password)">Sign
-                  up</button>
-
-      </form>
-      <p>{{feedbackMessage}}</p>
-      <button (click)="goBack()" class="btn btn-primary" id="back">Go back</button>
-</div>
+<h3 class="row justify-content-center align-items-center">Sign In</h3>
+<form (click)="feedbackMessage = ''" class="user-form">
+      <div class="form-container"
+            style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
+            <div class="form-group">
+                  <h6>Name</h6>
+                  <input type="text" class="form-control" placeholder="Enter name" #name style="width: 100%;">
+            </div>
+            <div class="form-group">
+                  <h6>Email</h6>
+                  <input type="email" class="form-control" placeholder="Enter email" #email style="width: 100%;">
+            </div>
+            <div class="form-group">
+                  <h6>Address</h6>
+                  <input type="text" class="form-control" placeholder="Enter address" #address style="width: 100%;">
+            </div>
+            <div class="form-group">
+                  <h6>Password</h6>
+                  <input type="password" class="form-control" placeholder="Enter password" #password
+                        style="width: 100%;">
+            </div>
+            <div class="form-group">
+                  <h6>Password</h6>
+                  <input type="password" class="form-control" placeholder="Enter password"
+                        (keyup.enter)="signUpUser(name,email,address,password)" #password style="width: 100%;">
+            </div>
+            <div clas="button-container">
+                  <button class="btn btn-primary" (click)="signUpUser(name,email,address,password)">Sign in</button>
+                  <button class="btn btn-secondary" (click)="goBack()" id="back">Go back</button>
+            </div>
+      </div>
+      <p style="text-align: center;" class="feedback">{{ feedbackMessage }}</p>
+</form>
