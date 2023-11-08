@@ -102,9 +102,10 @@ export class ApiService {
       brand: data.Brand,
       category: data.Category,
       colour: data.Colour,
-      stock: data.Stock
+      stock: data.Stock,
+      includeForPromotion: data.IncludeForPromotion
     };
-
+    console.log(requestBody.includeForPromotion);
     return this.httpClient.put<product>(route, requestBody, {
       headers: { 'Authorization': `${this.currentSession?.token}` }
     });

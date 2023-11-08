@@ -7,6 +7,7 @@ export interface product {
     category: category;
     colours: colour[];
     stock: number;
+    includeForPromotion: boolean;
 }
 
 export interface brand{

@@ -14,7 +14,12 @@ namespace Promotion20Off
 
         public bool IsApplicable(List<Product> cart)
         {
-            return cart.Count >= _minCartSize;
+            int cant = 0;
+            foreach (var product in cart)
+            {
+                if(product.IncludeForPromotion)cant++;
+            }
+            return cant >= _minCartSize;
         }
 
         public int CalculateDiscount(List<Product> cart)
@@ -27,7 +32,7 @@ namespace Promotion20Off
             decimal maxPrice = 0;
             foreach (Product item in cart)
             {
-                if (item.Price > maxPrice)
+                if (item.Price > maxPrice && item.IncludeForPromotion)
                 {
                     maxPrice = item.Price;
                 }

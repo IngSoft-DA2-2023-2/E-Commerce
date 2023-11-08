@@ -51,8 +51,13 @@
         </div>
       </div>
     </div>
+    <h6>Include for Promotions</h6>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" (change)="toggleInclude()" #promotion id="Promotion" [checked]="dataReceived?.includeForPromotion">
+        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+      </div>
     <div class="button-container">
-      <button class="btn btn-primary" (click)="updateProduct(id, name, desc, pric, stock)">Update changes</button>
+      <button class="btn btn-primary" (click)="updateProduct(id, name, desc, pric, stock,promotion)">Update changes</button>
       <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
     </div>
   </div>

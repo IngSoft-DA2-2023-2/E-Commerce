@@ -21,6 +21,7 @@ namespace ApiModels.In
     public string Category { get; set; }
     public List<string> Colour { get; set; }
     public int Stock { get; set; }
+    public bool IncludeForPromotion {  get; set; }
 
     public Product ToEntity()
     {
@@ -41,7 +42,8 @@ namespace ApiModels.In
                 Name = Category,
             },
             Colours = colours,
-            Stock = Stock
+            Stock = Stock,
+            IncludeForPromotion = IncludeForPromotion
         };
     }
 }

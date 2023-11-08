@@ -11,18 +11,34 @@ namespace Promotion3x2
 
         public bool IsApplicable(List<Product> cart)
         {
-            return cart.GroupBy(product => product.Category.Name)
+            List<Product> productsForPromotion = new List<Product>();
+            foreach (Product product in cart)
+            {
+                if (product.IncludeForPromotion)
+                {
+                    productsForPromotion.Add(product);
+                }
+            }
+            return productsForPromotion.GroupBy(product => product.Category.Name)
                                   .Any(group => group.Count() >= _minQuantity);
         }
 
         public int CalculateDiscount(List<Product> cart)
         {
+            List<Product> productsForPromotion = new List<Product>();
+            foreach (Product product in cart)
+            {
+                if (product.IncludeForPromotion)
+                {
+                    productsForPromotion.Add(product);
+                }
+            }
             if (!IsApplicable(cart)) throw new LogicException("Not applicable promotion");
 
             decimal discount = 0;
 
 
-            foreach (var group in cart.GroupBy(product => product.Category.Name))
+            foreach (var group in productsForPromotion.GroupBy(product => product.Category.Name))
             {
                 if (group.Count() >= _minQuantity)
                 {

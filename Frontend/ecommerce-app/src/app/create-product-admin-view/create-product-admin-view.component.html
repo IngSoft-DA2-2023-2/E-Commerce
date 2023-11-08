@@ -48,6 +48,11 @@
           </div>
         </div>
       </div>
+      <h6>Include for Promotions</h6>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" (change)="toggleInclude()" id="flexSwitchCheckChecked" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+      </div>
       <div class="button-container">
         <button type="button" class="btn btn-primary" (click)="createProduct()">New product</button>
         <button type="button" class="btn btn-secondary" (click)="goBack()">Go Back</button>

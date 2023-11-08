@@ -11,6 +11,7 @@ namespace ApiModels.In
         public string Brand { get; set; }
         public string Category { get; set; }
         public int Stock { get; set; }
+        public bool IncludeForPromotion { get; set; }
 
         public List<string> Colour { get; set; }
         public Product ToEntity(Guid id)
@@ -26,7 +27,8 @@ namespace ApiModels.In
                 Brand = new Brand() { Name = Brand },
                 Category = new Category() { Name = Category },
                 Colours = colours,
-                Stock = Stock
+                Stock = Stock,
+                IncludeForPromotion = IncludeForPromotion
             };
         }
     }
