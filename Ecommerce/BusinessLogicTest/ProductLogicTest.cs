@@ -139,11 +139,13 @@ namespace BusinessLogicTest
             Guid id = Guid.NewGuid();
             Guid id2 = Guid.NewGuid();
             Guid id3 = Guid.NewGuid();
+            Guid id4 = Guid.NewGuid();
             Product expected1 = new()
             {
                 Id = id,
                 Name = "ProductSample1",
                 Description = "description1",
+                Price = 10,
                 Brand = new Brand() { Name = "Brand1" },
                 Category = new Category() { Name = "Category1" },
                 Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
@@ -153,6 +155,7 @@ namespace BusinessLogicTest
                 Id = id2,
                 Name = "ProductSample2",
                 Description = "description2",
+                Price = 10,
                 Brand = new Brand() { Name = "Brand2" },
                 Category = new Category() { Name = "Category2" },
                 Colours = new List<Colour>() { new Colour() { Name = "Colour2" } }
@@ -162,20 +165,36 @@ namespace BusinessLogicTest
                 Id = id3,
                 Name = "ProductSample3",
                 Description = "description3",
+                Price = 10,
                 Brand = new Brand() { Name = "Brand3" },
                 Category = new Category() { Name = "Category3" },
                 Colours = new List<Colour>() { new Colour() { Name = "Colour3" } }
+            };
+            Product expected4 = new()
+            {
+                Id = id,
+                Name = "ProductSample4",
+                Description = "description4",
+                Price = 50,
+                Brand = new Brand() { Name = "Brand4" },
+                Category = new Category() { Name = "Category4" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour4" } }
             };
             IEnumerable<Product> list = new List<Product>() { expected1, expected2, expected3 };
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>();
             productRepo.Setup(pLogic => pLogic.GetProductByName("ProductSample1")).Returns(new List<Product>() { expected1 });
             productRepo.Setup(pLogic => pLogic.GetProductByBrand("Brand2")).Returns(new List<Product>() { expected2 });
             productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category3")).Returns(new List<Product>() { expected3 });
+            productRepo.Setup(pLogic => pLogic.GetProductByPriceRange("50-100")).Returns(new List<Product>() { expected4 });
             var productLogic = new ProductLogic(productRepo.Object, null, null, null);
-            var result = productLogic.FilterUnionProduct("ProductSample1", "Brand2", "Category3");
+            var result = productLogic.FilterUnionProduct("ProductSample1", "Brand2", "Category3", "50-100");
             productRepo.VerifyAll();
             Assert.IsTrue(result.Contains(expected1));
+            Assert.IsTrue(result.Contains(expected2));
+            Assert.IsTrue(result.Contains(expected3));
+            Assert.IsTrue(result.Contains(expected4));
         }
+
 
         [TestMethod]
         public void FilterProductIntersectionOk()
@@ -197,8 +216,9 @@ namespace BusinessLogicTest
             productRepo.Setup(pLogic => pLogic.GetProductByName("ProductSample1")).Returns(new List<Product>() { expected });
             productRepo.Setup(pLogic => pLogic.GetProductByBrand("Brand1")).Returns(new List<Product>() { expected });
             productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category1")).Returns(new List<Product>() { expected });
+            productRepo.Setup(pLogic => pLogic.GetProductByPriceRange("0-10")).Returns(new List<Product>() { expected });
             var productLogic = new ProductLogic(productRepo.Object, null, null, null);
-            var result = productLogic.FilterIntersectionProduct("ProductSample1", "Brand1", "Category1");
+            var result = productLogic.FilterIntersectionProduct("ProductSample1", "Brand1", "Category1", "0-10");
             productRepo.VerifyAll();
             Assert.AreEqual(expected, result.First());
         }
@@ -221,8 +241,9 @@ namespace BusinessLogicTest
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
             productRepo.Setup(pLogic => pLogic.GetProductByBrand("Brand1")).Returns(new List<Product>() { expected });
             productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category1")).Returns(new List<Product>() { expected });
+            productRepo.Setup(pLogic => pLogic.GetProductByPriceRange("0-10")).Returns(new List<Product>() { expected });
             var productLogic = new ProductLogic(productRepo.Object, null, null, null);
-            var result = productLogic.FilterIntersectionProduct(null, "Brand1", "Category1");
+            var result = productLogic.FilterIntersectionProduct(null, "Brand1", "Category1", "0-10");
             productRepo.VerifyAll();
             Assert.AreEqual(expected, result.First());
         }
@@ -245,8 +266,9 @@ namespace BusinessLogicTest
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
             productRepo.Setup(pLogic => pLogic.GetProductByName("ProductSample1")).Returns(new List<Product>() { expected });
             productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category1")).Returns(new List<Product>() { expected });
+            productRepo.Setup(pLogic => pLogic.GetProductByPriceRange("0-10")).Returns(new List<Product>() { expected });
             var productLogic = new ProductLogic(productRepo.Object, null, null, null);
-            var result = productLogic.FilterIntersectionProduct("ProductSample1", null, "Category1");
+            var result = productLogic.FilterIntersectionProduct("ProductSample1", null, "Category1", "0-10");
             productRepo.VerifyAll();
             Assert.AreEqual(expected, result.First());
         }
@@ -269,8 +291,32 @@ namespace BusinessLogicTest
             IEnumerable<Product> list = new List<Product>() { expected };
             Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
             productRepo.Setup(pLogic => pLogic.GetProductByCategory("Category1")).Returns(new List<Product>() { expected });
+            productRepo.Setup(pLogic => pLogic.GetProductByPriceRange("0-10")).Returns(new List<Product>() { expected });
             var productLogic = new ProductLogic(productRepo.Object, null, null, null);
-            var result = productLogic.FilterIntersectionProduct(null, null, "Category1");
+            var result = productLogic.FilterIntersectionProduct(null, null, "Category1", "0-10");
+            productRepo.VerifyAll();
+            Assert.AreEqual(expected, result.First());
+        }
+        [TestMethod]
+        public void FilterProductIntersectionOnlyWithPriceOk()
+        {
+            Guid id = Guid.NewGuid();
+            Product expected = new()
+            {
+                Id = id,
+                Name = "ProductSample1",
+                Description = "Description",
+                Price = 10,
+                Brand = new Brand() { Name = "Brand1" },
+                Category = new Category() { Name = "Category1" },
+                Colours = new List<Colour>() { new Colour() { Name = "Colour1" } }
+            };
+
+            IEnumerable<Product> list = new List<Product>() { expected };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(pLogic => pLogic.GetProductByPriceRange("0-10")).Returns(new List<Product>() { expected });
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            var result = productLogic.FilterIntersectionProduct(null, null, null, "0-10");
             productRepo.VerifyAll();
             Assert.AreEqual(expected, result.First());
         }
@@ -296,7 +342,7 @@ namespace BusinessLogicTest
             Exception catchedException = null;
             try
             {
-                productLogic.FilterIntersectionProduct("ProductSample1", "Brand2", "Category3");
+                productLogic.FilterIntersectionProduct("ProductSample1", "Brand2", "Category3", "0-10");
             }
             catch (Exception ex)
             {

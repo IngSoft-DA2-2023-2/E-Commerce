@@ -21,9 +21,9 @@ namespace WebApiModelsTest.Controller
             List<string> colour = new List<string>() { "Red", "Blue" };
             Guid id = Guid.NewGuid();
             Guid buyer = Guid.NewGuid();
-            List<CreateProductRequest> cart = new List<CreateProductRequest>()
+            List<CreateProductForPurchase> cart = new List<CreateProductForPurchase>()
             {
-                new CreateProductRequest()
+                new CreateProductForPurchase()
                 {
                     Name = "name",
                     Description = "description",
@@ -148,9 +148,9 @@ namespace WebApiModelsTest.Controller
             List<string> colour = new List<string>() { "Red", "Blue" };
             Guid id = Guid.NewGuid();
             Guid buyer = Guid.NewGuid();
-            List<CreateProductRequest> cart = new List<CreateProductRequest>()
+            List<CreateProductForPurchase> cart = new List<CreateProductForPurchase>()
             {
-                new CreateProductRequest()
+                new CreateProductForPurchase()
                 {
                     Name = "name",
                     Description = "description",

@@ -3,11 +3,12 @@
     <h1>There are no products</h1>
 </div>
 <div *ngIf="hasCart()">
-    <h3>Price:${{getPrice()}}</h3>
+    <h3>Price:${{total}}</h3>
     <button class="btn btn-outline-success" type="submit" (click)="purchase()">Purchase</button>
 </div>
+<div (click)="this.feedback=''">
 <div>
-    <h1>{{feedback}}</h1>
+    <h3>{{feedback}}</h3>
 </div>
 <div class="d-flex">
     <div class="d-inline"> 
@@ -55,7 +56,7 @@
             <p class="card-text">{{ product.brand.name }}</p>
             <p class="card-text">{{ product.description }}</p>
             <p class="card-text">{{ product.category.name }}</p>
-            <p class="card-text">{{ product.Stock }}</p>
+            <p class="card-text">{{ product.stock }}</p>
   
             <p class="card-text">Colors:</p>
             <p class="card-text">{{getColors(product).join(',')}}</p>
@@ -65,3 +66,4 @@
       </div>
     </div>
   </div>
+</div>

@@ -43,7 +43,9 @@ export class ProductViewComponent implements OnInit {
   displayProducts() {
     this.api.getProduct().subscribe(res => {
       this.data = res;
+      console.log(this.data);
     });
+
   }
 
   displayFilteredProducts(name: string) {
@@ -51,7 +53,8 @@ export class ProductViewComponent implements OnInit {
       name: name,
       brand: this.selectedBrand,
       category: this.selectedCategory,
-      operation: this.operation
+      operation: this.operation,
+      priceRange: undefined
     };
     this.api.getFilteredProducts(filters).subscribe(res => {
       this.data = res;

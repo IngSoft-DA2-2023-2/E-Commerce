@@ -1,7 +1,7 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
-import { paymentMethod } from './purchaseModel';
+import { cartResponse, createCartModel, paymentMethod, productModel } from './purchaseModel';
 import { purchase } from './purchaseModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 @Component({
@@ -9,13 +9,17 @@ import { createProductModel } from '../create-product-admin-view/createProductMo
   templateUrl: './purchase-view.component.html',
   styleUrls: ['./purchase-view.component.css']
 })
-export class PurchaseViewComponent{
+export class PurchaseViewComponent implements OnInit {
   constructor(private api:ApiService) { }
-
+  total = 0;
+  ngOnInit(): void {
+    this.total = this.getPrice();
+    console.log(this.total);
+  }
 feedback = "";
 paymentMethod : paymentMethod = new paymentMethod();  
 cart = localStorage.getItem('cart') || "[]";
-cartArray = JSON.parse(this.cart);
+cartArray : product[] = JSON.parse(this.cart);
  getColors(product: product): string[] {
   const colors: string[] = [];
   for (let color of product.colours) {
@@ -41,9 +45,15 @@ cartArray = JSON.parse(this.cart);
   }
   getPrice(): number {
     let price = 0;
-    for (let product of this.cartArray) {
-      price += product.price;
+    let sendCart : createCartModel[] = [];
+    for(let element of this.cartArray){
+      sendCart.push(new createCartModel(element.name,element.description,element.price,element.brand.name,element.category.name,element.colours.map(c=>c.name),element.stock));
     }
+    let response : cartResponse = new cartResponse();
+    this.api.postCartPrices(sendCart).subscribe({
+      next: res => response = res,
+      error: error => this.feedback = "An error has occurred"});
+    price = response.total;
     return price;
   }
   selectedOption(){
@@ -87,7 +97,7 @@ cartArray = JSON.parse(this.cart);
     let returnCart = [];
     for(let element of cart){
       let colorName = this.transferColors(element.colours);
-      let returnProduct = new createProductModel(element.name,element.description,element.price,element.brand.name,element.category.name,colorName,element.stock);
+      let returnProduct = new productModel(element.id,element.name,element.description,element.price,element.brand.name,element.category.name,colorName,element.stock);
       returnCart.push(returnProduct);
     }
     p.Cart = returnCart;
