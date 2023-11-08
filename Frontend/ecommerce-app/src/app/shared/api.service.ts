@@ -6,7 +6,7 @@ import { sessionModel, sessionRequest } from '../signup-view/sessionModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 import { updateProductModel } from '../update-product-view/updateProductModel';
 import { modifyUserByAdminModel } from '../update-user-by-admin-view/updateUserByAdminModel';
-import { productModel, purchase, purchaseInterface } from '../purchase-view/purchaseModel';
+import { cartResponse, createCartModel, productModel, purchase, purchaseInterface } from '../purchase-view/purchaseModel';
 import { UpdataSelfDataModel } from '../updata-self-data-view/updateSelfDataModel';
 
 @Injectable({
@@ -130,8 +130,18 @@ export class ApiService {
     }
     return this.httpClient.get<purchaseInterface[]>('https://localhost:7150/api/purchases', { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
-  postCartPrice(data :createProductModel[]){
-    return this.httpClient.post<number>('https://localhost:7150/api/cart/promotion', data);
+  postCartPrice(data :createCartModel[]){
+    console.log("sexo");
+    console.log(data);
+    return this.httpClient.post<cartResponse>('https://localhost:7150/api/cart/promotions', data);
+  }
+  postCartPrices(modelIn: createCartModel[]) {
+    const url = 'https://localhost:7150/api/cart/promotions';
+
+    let params = new HttpParams();
+    params = params.set('cart', JSON.stringify(modelIn));
+
+    return this.httpClient.post<cartResponse>(url, { params });
   }
 
 }

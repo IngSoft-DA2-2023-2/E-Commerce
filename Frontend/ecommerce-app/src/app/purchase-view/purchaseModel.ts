@@ -57,4 +57,33 @@ export class productModel{
         this.Stock = stock;
     }
 }
+export class cartResponse{
+    selectedPromotion : string;
+    total : number;
+    cart : createCartModel[];
+    constructor(){
+        this.selectedPromotion = "";
+        this.total = 0;
+        this.cart = [];
+    }
+}
+export class createCartModel{
+    name:string;
+    description:string;
+    price:number;
+    brand:string;
+    category:string;
+    colours:string[];
+    stock:number;
+
+    constructor(name:string,description:string,price:number,brandName:string,categoryName:string,colours:string[],stock:number){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.brand = brandName;
+        this.category = categoryName;
+        this.colours = colours;
+        this.stock = stock;
+    }
+}
 

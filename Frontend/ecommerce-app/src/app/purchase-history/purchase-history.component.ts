@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { purchaseInterface } from '../purchase-view/purchaseModel';
-import { product } from '../product-view/productModel';
+import { colour, product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
 
 @Component({
@@ -35,5 +35,10 @@ export class PurchaseHistoryComponent {
     ret.push(elem.name);
     }
     return ret.join(", ");
+  }
+  colorsToString(colours: colour[]): string {
+    debugger;
+    console.log(colours.map(c => c.name).join(", "));
+    return colours.map(c => c.name).join(", ");
   }
 }

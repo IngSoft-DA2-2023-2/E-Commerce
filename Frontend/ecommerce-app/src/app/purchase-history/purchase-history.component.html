@@ -34,7 +34,7 @@
             <td colspan="6">
               <div class="card card-body">
                 <div *ngFor="let pr of p?.cart">
-                  <p>name : {{pr.name}}, brand: {{pr.brand.name}}, category: {{pr.category.name}}, description: {{pr.description}}, price: {{pr.price}}</p>
+                  <p>name : {{pr.name}}, brand: {{pr.brand.name}}, category: {{pr.category.name}}, description: {{pr.description}}, price: {{pr.price}}, color: {{colorsToString(pr.colours)}}</p>
                 </div> 
               </div>
             </td>

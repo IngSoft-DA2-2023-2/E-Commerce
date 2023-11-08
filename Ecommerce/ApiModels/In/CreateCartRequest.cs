@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.PaymentMethodCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace ApiModels.In
             {
                 products.Add(createProductRequest.ToEntity());
             }
-            return new Purchase() { Cart = products};
+            return new Purchase() { Cart = products, PaymentMethod= new Paypal() {CategoryName ="PayPal" } };
         }
     }
 }

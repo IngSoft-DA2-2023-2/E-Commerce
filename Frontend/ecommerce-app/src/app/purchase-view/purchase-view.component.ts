@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
-import { paymentMethod, productModel } from './purchaseModel';
+import { cartResponse, createCartModel, paymentMethod, productModel } from './purchaseModel';
 import { purchase } from './purchaseModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 @Component({
@@ -45,14 +45,15 @@ cartArray : product[] = JSON.parse(this.cart);
   }
   getPrice(): number {
     let price = 0;
-    let sendCart :Array<createProductModel> =[];
+    let sendCart : createCartModel[] = [];
     for(let element of this.cartArray){
-      sendCart.push(new createProductModel(element.name,element.description,element.price,element.brand.name,element.category.name,element.colours.map(c=>c.name),element.stock));
+      sendCart.push(new createCartModel(element.name,element.description,element.price,element.brand.name,element.category.name,element.colours.map(c=>c.name),element.stock));
     }
-
-    this.api.postCartPrice(sendCart).subscribe({
-      next: res => price = (res as number),
+    let response : cartResponse = new cartResponse();
+    this.api.postCartPrices(sendCart).subscribe({
+      next: res => response = res,
       error: error => this.feedback = "An error has occurred"});
+    price = response.total;
     return price;
   }
   selectedOption(){

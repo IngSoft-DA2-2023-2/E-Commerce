@@ -8,7 +8,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
-    [Route("api/cart/promotion")]
+    [Route("api/cart/promotions")]
     [ApiController]
     public class CartController : ControllerBase
     {
@@ -27,9 +27,7 @@ namespace WebApi.Controllers
                 var newpurchase = cart.ToEntity();
                 Purchase savedPurchase = _purchaseLogic.CreatePurchaseLogic(newpurchase);
                 var response = new CreateCartResponse(savedPurchase);
-                return Ok(response.Total);
-            
-
+                return Ok(response);
         }
 
     }
