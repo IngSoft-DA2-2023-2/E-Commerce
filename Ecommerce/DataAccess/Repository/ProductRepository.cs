@@ -212,6 +212,7 @@ namespace DataAccess.Repository
                 if (newProduct.Category != null) product.Category = newProduct.Category;
                 if (newProduct.Colours != null) product.Colours = newProduct.Colours;
                 if (newProduct.Stock != 0) product.Stock = newProduct.Stock;
+                if(newProduct.IncludeForPromotion!= product.IncludeForPromotion) product.IncludeForPromotion = product.IncludeForPromotion;
 
                 _eCommerceContext.SaveChanges();
                 return newProduct;
