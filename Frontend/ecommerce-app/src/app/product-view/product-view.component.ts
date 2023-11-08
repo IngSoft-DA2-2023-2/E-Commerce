@@ -3,8 +3,6 @@ import { ApiService } from '../shared/api.service';
 import { product } from './productModel';
 import { Router } from '@angular/router';
 import { productFilterRequestModel } from './productModel';
-import { sessionModel } from '../signup-view/sessionModel';
-import { NotExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-product-view',
@@ -38,7 +36,6 @@ export class ProductViewComponent implements OnInit {
 
   getCategories(){
     this.api.getCategories().subscribe(res => {
-      console.log(res);
       this.categories = res;
     });
   }
@@ -56,7 +53,6 @@ export class ProductViewComponent implements OnInit {
       category: this.selectedCategory,
       operation: this.operation
     };
-
     this.api.getFilteredProducts(filters).subscribe(res => {
       this.data = res;
     });

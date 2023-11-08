@@ -8,7 +8,7 @@ using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
-    [Route("api/products/roles")]
+    [Route("api/users/roles")]
     [ApiController]
     public class StringWrapperController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         [AnnotatedCustomExceptionFilter]
         public IActionResult GetAllRoles()
         {
-            return Ok(_stringWrapperLogic.GetRoles());
+            return Ok(_stringWrapperLogic.GetRoles().Select(r=>r.Info));
         }
     }
 

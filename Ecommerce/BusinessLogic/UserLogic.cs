@@ -82,7 +82,7 @@ namespace BusinessLogic
                 if(updated.Name is not null && updated.Name!= "") outdated.Name=updated.Name;
                 if(updated.Password is not null && updated.Password!="")outdated.Password=updated.Password;
                 if(updated.Address is not null && updated.Address!="")outdated.Address=updated.Address;
-                if(updated.Roles?.Count != 0) outdated.Roles = updated.Roles;
+                if(updated.Roles is not null) outdated.Roles = updated.Roles;
 
 
                 return _userRepository.UpdateUser(outdated);

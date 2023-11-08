@@ -43,6 +43,10 @@ export class ApiService {
     return this.httpClient.get<string[]>('https://localhost:7150/api/products/colours');
   }
 
+  getRoles(){
+    return this.httpClient.get<string[]>('https://localhost:7150/api/users/roles');
+  }
+
   getProductById(id: string) {
     return this.httpClient.get<product | undefined>('https://localhost:7150/api/products' + `/${id}`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }

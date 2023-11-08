@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { userRetrieveModel } from '../signup-view/signupUserModel';
 import { UpdateUserService } from '../update-user.service';
 import { modifyUserByAdminModel } from './updateUserByAdminModel';
@@ -8,13 +8,16 @@ import { ApiService } from '../shared/api.service';
 @Component({
   selector: 'app-update-user-by-admin-view',
   templateUrl: './update-user-by-admin-view.component.html',
-  styleUrls: ['./update-user-by-admin-view.component.css']
+  styleUrls: []
 })
 
-export class UpdateUserByAdminViewComponent {
+export class UpdateUserByAdminViewComponent implements OnInit {
   updatingUser: modifyUserByAdminModel;
   userId: string;
   feedback: string = "";
+  selectedRoles: string[] = [];
+  roles: string[] =[];
+
   constructor(private dataService: UpdateUserService,private route: Router, private api: ApiService) {
     const incomingData = dataService.getData();
     if (!!incomingData) {
@@ -27,14 +30,16 @@ export class UpdateUserByAdminViewComponent {
   }
     ngOnInit(): void {
       const incomingData = this.dataService.getData();
+      this.getAllRoles();
       if(incomingData?.name)this.updatingUser.name = incomingData?.name;
       if(incomingData?.address)this.updatingUser.address = incomingData?.address;
-      if(incomingData?.roles)this.updatingUser.roles = incomingData?.roles;
+      if(incomingData?.roles)this.selectedRoles = incomingData?.roles;
     }
 
     updateUserData(){
       this.feedback = "";
-      this.updatingUser.roles=this.updatingUser.roles.toString().split(',');
+      this.updatingUser.roles=this.selectedRoles;
+      console.log('roles',this.updatingUser.roles)
       if(!this.updatingUser.password)this.updatingUser.password = "";
       this.api.putUserByAdmin(this.userId,this.updatingUser).subscribe(
         res => {
@@ -44,8 +49,21 @@ export class UpdateUserByAdminViewComponent {
           this.feedback = "Not valid data"
         }
       );
+    }
 
+    getAllRoles(){
+      this.api.getRoles().subscribe(res => {
+        this.roles = res.filter(r=>!!r);
+        console.log('roles que llegaron:',this.roles)
+      });
+    }
 
+    toggleRoleSelection(rol: string) {
+      if (this.selectedRoles.includes(rol)) {
+        this.selectedRoles = this.selectedRoles.filter(r => r !== rol);
+      } else {
+        this.selectedRoles.push(rol);
+      }
     }
 
     goBack() {
