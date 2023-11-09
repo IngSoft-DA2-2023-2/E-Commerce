@@ -23,7 +23,7 @@
             <th scope="row">{{p?.date}}</th>
             <th scope="row">{{p?.userId}}</th>
             <td>{{p?.total}}</td>
-            <td>{{p?.currentPromotion}}</td>
+            <td>{{p?.currentPromotion ? p?.currentPromotion : 'none'}}</td>
             <td>{{p?.paymentMethod?.categoryName}}</td>
             <td>{{getProductNames(p?.cart)}}</td>
             <td>

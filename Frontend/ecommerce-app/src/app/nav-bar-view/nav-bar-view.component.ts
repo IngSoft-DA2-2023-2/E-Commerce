@@ -35,7 +35,6 @@ export class NavBarViewComponent implements OnInit {
 
   countElemInCart():number{
     let elem = (JSON.parse(localStorage.getItem('cart') || "") as product[]).length;
-    console.log('elem',elem)
    return elem;
   }
 
@@ -57,10 +56,6 @@ export class NavBarViewComponent implements OnInit {
 
   openProfileMenu(){
     this.router.navigate(['/profile']);
-  }
-
-  seeLoggedInfo() {
-    console.log(this.api.currentSession);
   }
 
   isAdmin(): boolean {

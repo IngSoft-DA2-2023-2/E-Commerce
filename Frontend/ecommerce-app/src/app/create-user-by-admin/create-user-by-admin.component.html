@@ -1,23 +1,32 @@
 <app-nav-bar-view></app-nav-bar-view>
-
+<div class="alert alert-info" role="alert" >
+  {{isLoading()? 'Loading...': this.feedback}}
+</div>
 <h3 class="row justify-content-center align-items-center">Create a new user</h3>
 <form (click)="this.feedback=''" class="row justify-content-center align-items-center" style="height: 60vh;">
   <div class="form-row col-12" style="background-color: rgb(238, 235, 235); width: 40%;">
     <div class="form-group col-12">
       <h6>Name</h6>
       <input type="text" class="form-control" [(ngModel)]="creatingUser.name" name="name" id="name">
+      <label style="color: red;" *ngIf="(creatingUser.name?.length || 0) < 3 || (creatingUser.name?.length || 0 ) > 20">Name must be between 3-20 characters </label>
+
     </div>
     <div class="form-group col-12">
       <h6>Email</h6>
-      <input type="email" class="form-control" [(ngModel)]="creatingUser.email" name="email" id="email">
+      <input type="email" class="form-control" [(ngModel)]="creatingUser.email" name="email" id="email" [email]="true">
+      <label style="color: red;" *ngIf="!isValidEmail(creatingUser.email)">Invalid email</label>
     </div>
     <div class="form-group col-12">
       <h6>Password</h6>
       <input type="password" class="form-control" [(ngModel)]="creatingUser.password" name="password" id="password">
+      <label style="color: red;" *ngIf="(creatingUser.password?.length || 0) < 5 || (creatingUser.password?.length || 0) > 20">Password must be between 5-20 characters </label>
+
     </div>
     <div class="form-group col-12">
       <h6>Address</h6>
       <input type="text" class="form-control" [(ngModel)]="creatingUser.address" name="address" id="address">
+      <label style="color: red;" *ngIf="(creatingUser.address?.length || 0) == 0">Address must not be empty </label>
+
     </div>
     <h6>Roles</h6>
     <div class="form-check" *ngFor="let r of roles; let i = index">
@@ -29,7 +38,5 @@
     </div>
     <button class="btn btn-primary" (click)="createUserData()">Create user</button>
     <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
-    <p>{{feedback}}</p>
-
   </div>
 </form>

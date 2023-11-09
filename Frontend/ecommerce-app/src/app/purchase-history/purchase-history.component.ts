@@ -6,7 +6,7 @@ import { ApiService } from '../shared/api.service';
 @Component({
   selector: 'app-purchase-history',
   templateUrl: './purchase-history.component.html',
-  styleUrls: ['./purchase-history.component.css']
+  styleUrls: []
 })
 export class PurchaseHistoryComponent {
   constructor(private api:ApiService) { }
