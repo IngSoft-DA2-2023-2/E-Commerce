@@ -19,6 +19,7 @@ export class UpdateUserByAdminViewComponent implements OnInit {
   roles: string[] = [];
 
   constructor(private dataService: UpdateUserService, private route: Router, private api: ApiService) {
+    if(!this.api.currentSession?.user.roles.includes('admin')) this.route.navigate(['']);
     const incomingData = dataService.getData();
     if (!!incomingData) {
       this.updatingUser = new modifyUserByAdminModel(incomingData?.name, incomingData?.address, incomingData?.roles)
@@ -44,6 +45,7 @@ export class UpdateUserByAdminViewComponent implements OnInit {
     this.api.putUserByAdmin(this.userId, this.updatingUser).subscribe(
       res => {
         this.feedback = "Successfully changed";
+        if(this.api.currentSession?.user.guid == this.userId) {this.api.currentSession.user = res; localStorage.setItem('user', JSON.stringify(res));}
       },
       err => {
         if (err.status == 0) this.feedback = "Could not connect to the server, please try again later.";

@@ -11,7 +11,9 @@ import { createProductModel } from '../create-product-admin-view/createProductMo
   styleUrls: []
 })
 export class ProductAdminViewComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router, private productService: UpdateProductServiceService) { }
+  constructor(private api: ApiService, private router: Router, private productService: UpdateProductServiceService) {
+    if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
+   }
   feedback?: string;
   loading: boolean = false;
 

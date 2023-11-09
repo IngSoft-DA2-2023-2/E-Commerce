@@ -3,23 +3,26 @@ import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
 import { cartForPromotion, cartResponse, createCartModel, paymentMethod, productModel } from './purchaseModel';
 import { purchase } from './purchaseModel';
-import { createProductModel } from '../create-product-admin-view/createProductModel';
 @Component({
   selector: 'app-purchase-view',
   templateUrl: './purchase-view.component.html',
-  styleUrls: ['./purchase-view.component.css']
+  styleUrls: []
 })
 export class PurchaseViewComponent implements OnInit {
   constructor(private api:ApiService) { }
   total = 0;
+  promotion= "";
+
   ngOnInit(): void {
     this.getPrice().then((value) => {this.total = value;})
-    console.log(this.total);
   }
+
 feedback = "";
 paymentMethod : paymentMethod = new paymentMethod();  
 cart = localStorage.getItem('cart') || "[]";
 cartArray : product[] = JSON.parse(this.cart);
+
+
  getColors(product: product): string[] {
   const colors: string[] = [];
   for (let color of product.colours) {
@@ -35,12 +38,13 @@ cartArray : product[] = JSON.parse(this.cart);
         cart.splice(cart.indexOf(element),1);
         localStorage.setItem('cart', JSON.stringify(cart));
         this.cartArray = JSON.parse(localStorage.getItem('cart') || "[]");
+        this.feedback = "Product removed from cart";
+        this.getPrice().then((value) => {this.total = value;})
         return;
       }
     }
   }
   hasCart(): boolean {
-    console.log(this.cartArray)
     return this.cartArray.length > 0;
   }
   async getPrice(): Promise<number> {
@@ -51,18 +55,19 @@ cartArray : product[] = JSON.parse(this.cart);
       sendCart.cart.push(new createCartModel(element.name, element.description, element.price, element.brand.name, element.category.name, element.colours.map(c => c.name), element.stock));
     }
   
-    let response: cartResponse | undefined = undefined;;
-  
+    let response: cartResponse | undefined = undefined;
+    
     try {
       response = await this.api.postCartPrice(sendCart).toPromise();
       price = response?.total || 0;
+      this.promotion = response?.selectedPromotion || "";
     } catch (error) {
       this.feedback = "An error has occurred";
     }
   
     return price;
   }
-  
+
   selectedOption(){
     return this.paymentMethod.categoryName;
   }
@@ -97,6 +102,7 @@ cartArray : product[] = JSON.parse(this.cart);
   }
 
   purchase(){
+    this.feedback = "Processing...";
     if(!this.api.currentSession) this.api.currentSession = JSON.parse(localStorage.getItem('session') || "");
     let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
     let p = new purchase();
@@ -108,12 +114,12 @@ cartArray : product[] = JSON.parse(this.cart);
       returnCart.push(returnProduct);
     }
     p.Cart = returnCart;
-    console.log(p);
     this.api.postPurchase(p).subscribe({next: res => {
       localStorage.setItem('cart', JSON.stringify([]));
       this.cartArray = JSON.parse(localStorage.getItem('cart') || "[]");
       this.feedback = "Successfully purchased";
-    },error: error => {this.feedback = "An error has occurred";}});
+    },error: error => {
+      if(error.status == 0) this.feedback = "Could not connect to server";
+      else this.feedback = "An error has occurred";}});
   }
-
 }

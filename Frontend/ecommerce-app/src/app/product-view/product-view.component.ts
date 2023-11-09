@@ -71,13 +71,10 @@ export class ProductViewComponent implements OnInit {
     };
     if (this.filterByPrice) { filters.priceRange = "" + this.priceFrom + "-" + this.priceTo; }
     this.alertMessage="Loading...";
-    debugger;
     this.api.getFilteredProducts(filters).subscribe({
       next: res => {
-        debugger;
         this.data = res;
         this.alertMessage="";
-        console.log('llego', res)
         if(res.length == 0) this.alertMessage = "No products found.";
       }, error: err => {
         if (err.status == 0) {

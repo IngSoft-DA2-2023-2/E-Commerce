@@ -27,7 +27,8 @@ const routes: Routes = [
   {path: 'purchases', component: PurchaseViewComponent},
   {path:'profile',component: UpdataSelfDataViewComponent},
   {path: 'purchases/history',component: PurchaseHistoryComponent},
-  {path: 'admin/history',component: PurchaseHistoryAdminComponent}
+  {path: 'admin/history',component: PurchaseHistoryAdminComponent},
+  {path: '**', redirectTo: ''}
 
 ];
 

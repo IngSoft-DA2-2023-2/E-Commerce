@@ -89,6 +89,7 @@ export class ApiService {
   }
 
   postProduct(data: createProductModel) {
+    console.log('por pegarle a la api con esto', data)
     return this.httpClient.post('https://localhost:7150/api/products', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
@@ -148,7 +149,6 @@ export class ApiService {
     return this.httpClient.get<purchaseInterface[]>('https://localhost:7150/api/purchases', { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
   postCartPrice(data :cartForPromotion){
-    console.log(data);
     return this.httpClient.post<cartResponse>('https://localhost:7150/api/cart/promotions', data);
   }
 

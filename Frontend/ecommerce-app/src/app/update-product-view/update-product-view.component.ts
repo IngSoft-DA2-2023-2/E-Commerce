@@ -16,6 +16,7 @@ export class UpdateProductViewComponent implements OnInit {
   feedback: string = "";
 
   constructor(private dataService: UpdateProductServiceService, private api: ApiService, private router: Router) {
+    if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
     this.dataReceived = undefined;
   }
   selectedBrand: string = "";

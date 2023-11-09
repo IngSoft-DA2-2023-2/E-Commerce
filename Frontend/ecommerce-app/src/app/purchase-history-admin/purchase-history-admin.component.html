@@ -8,7 +8,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Date</th>
-            <th scope="col">Buyer</th>
+            <th scope="col">Buyer's Id</th>
             <th scope="col">Total</th>
             <th scope="col">Applied promotion</th>
             <th scope="col">Payment method</th>
@@ -20,15 +20,15 @@
         <tbody>
           <ng-container *ngFor="let p of purchases; let i = index">
           <tr>
-            <th scope="row">{{p?.date}}</th>
+            <th scope="row">{{convertCSharpDateTimeToJsDate(p?.date)}}</th>
             <th scope="row">{{p?.userId}}</th>
             <td>{{p?.total}}</td>
-            <td>{{p?.currentPromotion ? p?.currentPromotion : 'none'}}</td>
+            <td>{{p?.currentPromotion ? p?.currentPromotion : 'None'}}</td>
             <td>{{p?.paymentMethod?.categoryName}}</td>
             <td>{{getProductNames(p?.cart)}}</td>
             <td>
               <button class="btn btn-primary" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseExample' + i" aria-expanded="false" aria-controls="collapseExample">
-                View Details
+                Show/Hide Details
               </button>
             </td>
           </tr>

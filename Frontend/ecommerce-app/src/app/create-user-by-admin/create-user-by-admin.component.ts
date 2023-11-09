@@ -17,6 +17,7 @@ export class CreateUserByAdminComponent {
 
 
   constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {
+    if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
     this.creatingUser = new createUserByAdminModel("", "", "", []);
     this.getAllRoles();
   }
