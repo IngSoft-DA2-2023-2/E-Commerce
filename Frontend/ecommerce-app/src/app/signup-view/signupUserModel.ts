@@ -5,6 +5,20 @@ export interface userRegistrationModel {
     password: string;
 }
 
+export class userRegistrationInstance implements userRegistrationModel {
+    name: string;
+    email: string;
+    address: string;
+    password: string;
+    constructor() {
+        this.name = "";
+        this.email = "";
+        this.address = "";
+        this.password = "";
+    }
+
+}
+
 export interface userModel{
     id: string;
     name: string;
