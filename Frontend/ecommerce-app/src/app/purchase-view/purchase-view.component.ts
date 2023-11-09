@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { product } from '../product-view/productModel';
 import { ApiService } from '../shared/api.service';
-import { cartResponse, createCartModel, paymentMethod, productModel } from './purchaseModel';
+import { cartForPromotion, cartResponse, createCartModel, paymentMethod, productModel } from './purchaseModel';
 import { purchase } from './purchaseModel';
 import { createProductModel } from '../create-product-admin-view/createProductModel';
 @Component({
@@ -13,7 +13,7 @@ export class PurchaseViewComponent implements OnInit {
   constructor(private api:ApiService) { }
   total = 0;
   ngOnInit(): void {
-    this.total = this.getPrice();
+    this.getPrice().then((value) => {this.total = value;})
     console.log(this.total);
   }
 feedback = "";
@@ -43,19 +43,26 @@ cartArray : product[] = JSON.parse(this.cart);
     console.log(this.cartArray)
     return this.cartArray.length > 0;
   }
-  getPrice(): number {
+  async getPrice(): Promise<number> {
     let price = 0;
-    let sendCart : createCartModel[] = [];
-    for(let element of this.cartArray){
-      sendCart.push(new createCartModel(element.name,element.description,element.price,element.brand.name,element.category.name,element.colours.map(c=>c.name),element.stock));
+    let sendCart: cartForPromotion = new cartForPromotion();
+  
+    for (let element of this.cartArray) {
+      sendCart.cart.push(new createCartModel(element.name, element.description, element.price, element.brand.name, element.category.name, element.colours.map(c => c.name), element.stock));
     }
-    let response : cartResponse = new cartResponse();
-    this.api.postCartPrices(sendCart).subscribe({
-      next: res => response = res,
-      error: error => this.feedback = "An error has occurred"});
-    price = response.total;
+  
+    let response: cartResponse | undefined = undefined;;
+  
+    try {
+      response = await this.api.postCartPrice(sendCart).toPromise();
+      price = response?.total || 0;
+    } catch (error) {
+      this.feedback = "An error has occurred";
+    }
+  
     return price;
   }
+  
   selectedOption(){
     return this.paymentMethod.categoryName;
   }
