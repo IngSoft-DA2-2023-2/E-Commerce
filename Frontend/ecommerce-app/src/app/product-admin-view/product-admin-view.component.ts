@@ -11,65 +11,82 @@ import { createProductModel } from '../create-product-admin-view/createProductMo
   styleUrls: []
 })
 export class ProductAdminViewComponent implements OnInit {
-  constructor(private api: ApiService, private router: Router, private productService: UpdateProductServiceService) { }
+  constructor(private api: ApiService, private router: Router, private productService: UpdateProductServiceService) {
+    if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
+   }
   feedback?: string;
+  loading: boolean = false;
 
   ngOnInit(): void {
-    this.getProductById(undefined);
-  }
-
-  createProduct(name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, brand: HTMLInputElement, category: HTMLInputElement, colours: HTMLInputElement,stock: HTMLInputElement) {
-    const modelIn = new createProductModel(name.value, desc.value, parseInt(price.value), brand.value, category.value, colours.value.split(','),parseInt(stock.value),true);
-    const res = this.api.postProduct(modelIn).subscribe(
-      res => {
-        this.feedback = "success";
-      },
-      err => {
-        this.feedback = err.error.title;
-      });
-
-    return res;
+    this.feedback = ""
+    this.getProducts(undefined);
   }
 
   products: product[] = [];
 
-  getProductById(modelIn: HTMLInputElement | undefined) {
+  getProducts(modelIn: HTMLInputElement | undefined) {
+    this.loading = true;
     if (!modelIn || modelIn.value == "") {
-      this.api.getProduct().subscribe({
-        next: res => {
-          this.products = res;
-          this.feedback = "";
-        },
-        error: err => {
-          this.products = [];
-          this.feedback = "An error occured";
-        }
-      });
-
-      return;
+      this.getAllProducts();
+    } else {
+      this.getProductById(modelIn);
     }
+  }
 
+  getProductById(modelIn: HTMLInputElement) {
+    this.loading = true;
     const id = modelIn.value;
-    const res = this.api.getProductById(id).subscribe({
-      next: res => {
-        this.products = [];
+    console.log('Sending request for product with id: ' + id);
+
+    this.api.getProductById(id).subscribe(
+      (res) => {
+        console.log('Received response: ', res);
+
         if (!res) {
+          this.products = [];
           this.feedback = "No results found";
-          throw new Error("No results found");
+        } else {
+          this.products = [res];
+          this.feedback = "";
         }
-        this.products.push(res);
-        this.feedback = "";
+        this.loading = false;
+      },
+      (error) => {
+        console.log('Error in API request: ', error);
+        if (error.status === 0) {
+          this.feedback = "Could not connect to the server, please try again later.";
+        } else if (error.status === 400) {
+          this.feedback = "Not existing product";
+          this.products = [];
+        } else {
+          this.feedback = "An error has occurred, please try again later.";
+          this.products = [];
+        }
+        this.loading = false;
+      }
+    );
+  }
+
+  getAllProducts() {
+    let that = this;
+    this.api.getProduct().subscribe({
+      next: res => {
+        that.products = res;
+        that.feedback = "";
+        that.loading = false;
+        return;
       },
       error: err => {
-        this.products = [];
-        if (err.status == 400) {
-          this.feedback = "Not existing product";
-        }
+        that.products = [];
+        if(err.status == 0) that.feedback = "Could not connect to the server, please try again later.";
+        else that.feedback = "An error occured";
+        that.loading = false;
+        return;
       }
     });
-    return res;
-
+    return;
   }
+
 
   getColourNames(colours?: colour[]): string[] {
     if (!colours) return [];
@@ -86,8 +103,13 @@ export class ProductAdminViewComponent implements OnInit {
       filteredId.value = "";
     }
 
-    this.getProductById(undefined);
+    this.getProducts(undefined);
   }
+
+  isLoading() {
+    return this.loading;
+  }
+
   goBack() {
     this.feedback = undefined;
     this.router.navigate(['']);

@@ -1,4 +1,7 @@
 <div>
+  <div class="alert alert-info" role="alert" *ngIf="!!alertMessage">
+    {{alertMessage}}
+  </div>
   <h1>Filter products</h1>
   <div class="container">
     <div class="row">
@@ -31,6 +34,24 @@
         </div>
       </div>
       <div class="col-sm">
+        <h4>By price</h4>
+        <div class="form-group">
+          <input type="checkbox" [(ngModel)]="filterByPrice" class="form-check-input">
+          <label class="form-check-label" for="exampleCheck1">Filter by price</label>
+          <br>
+          <div class="row" *ngIf="filterByPrice">
+            <div class="col">
+              <label for="formControlRange">From</label>
+              <input type="number" class="form-control me-2" [(ngModel)]="priceFrom">
+            </div>
+            <div class="col">
+              <label for="formControlRange">To</label>
+              <input type="number" class="form-control me-2" [(ngModel)]="priceTo">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
         <h4>Filter by</h4>
         <div class="form-check">
           <input class="form-check-input" name="operation" type="radio" checked (click)="this.operation='or'">
@@ -59,19 +80,19 @@
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
-            <h6 class="card-price">${{product.price }}</h6>
+            <h6 class="card-price">${{ product.price }}</h6>
 
             <p class="card-text">{{ product.brand.name }}</p>
             <p class="card-text">{{ product.description }}</p>
             <p class="card-text">{{ product.category.name }}</p>
 
             <p class="card-text">Colors:</p>
-            <p class="card-text">{{getColors(product).join(',')}}</p>
+            <p class="card-text">{{ getColors(product).join(',') }}</p>
 
             <div class="btn-group" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-primary" [disabled]="productCounter(product)===0"
                 (click)="removeFromCart(product)">-</button>
-              <button type="button" class="btn btn-light" readonly>{{productCounter(product)}}</button>
+              <button type="button" class="btn btn-light" readonly>{{ productCounter(product) }}</button>
               <button type="button" class="btn btn-primary" [disabled]="product.stock===productCounter(product)"
                 (click)="addToCart(product)">+</button>
             </div>
@@ -80,5 +101,5 @@
         </div>
       </div>
     </div>
-
   </div>
+</div>

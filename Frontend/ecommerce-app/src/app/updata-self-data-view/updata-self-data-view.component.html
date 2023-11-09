@@ -5,10 +5,14 @@
         <div class="form-group col-md-6" style="width: 100%;">
             <h6>Name</h6>
             <input type="text" class="form-control" [(ngModel)]="updatingUser.name" name="name" id="name" style="width: 100%;">
+            <label style="color: red;" *ngIf="(updatingUser.name?.length || 0) < 3 || (updatingUser.name?.length || 0 ) > 20">Name must be between 3-20 characters </label>
+
         </div>
         <div class="form-group col-md-6" style="width: 100%;">
             <h6>Password</h6>
             <input type="password" class="form-control" [(ngModel)]="updatingUser.password" name="password" id="password" style="width: 100%;">
+            <label style="color: red;" *ngIf="!updatingUser.password">If nothing is written, the previous password will not be changed </label>
+            <label style="color: red;" *ngIf="!!updatingUser.password && ((updatingUser.password?.length || 0) < 5 || (updatingUser.password?.length || 0 ) > 20)">Password must be between 5-20 characters </label>
         </div>
         <div class="form-group col-md-6" style="width: 100%;">
             <h6>Address</h6>

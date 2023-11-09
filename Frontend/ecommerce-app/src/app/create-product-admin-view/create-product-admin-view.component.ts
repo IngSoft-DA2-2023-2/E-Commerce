@@ -10,13 +10,19 @@ import { createProductModel } from './createProductModel';
 })
 export class CreateProductAdminViewComponent implements OnInit {
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router) {
+    this.product= new createProductModel("", "", 0, this.selectedBrand, this.selectedCategory, [],0, true);
+   }
 
   ngOnInit(): void {
     this.getBrands();
     this.getCategories();
     this.getAllColours();
   }
+
+  ngModelOptions = { standalone: true };
+
+
   brands: string[] = [];
   selectedBrand: string = "";
   categories: string[] = [];
@@ -24,19 +30,26 @@ export class CreateProductAdminViewComponent implements OnInit {
   colors: string[] = [];
   selectedColors: string[] = [];
   feedback?: string;
-  
-  product: createProductModel = new createProductModel("", "", 0, this.selectedBrand, this.selectedCategory, [],0, true);
+  product: createProductModel;
+  loading: boolean = false;
 
   createProduct() {
-    console.log('marca',this.selectedBrand,'categoria',this.selectedCategory);
-    this.feedback = '';
-    this.product.Brand=this.selectedBrand;
-    this.product.Category=this.selectedCategory;
-    this.product.Colour=this.selectedColors;
-    console.log('colores',this.product.Colour)
+    console.log('creando prod',this.product);
+    this.loading=true;
+    this.product.brand=this.selectedBrand;
+    this.product.category=this.selectedCategory;
+    this.product.colours=this.selectedColors;
+    console.log('colores',this.product.colours)
     const res = this.api.postProduct(this.product).subscribe({
-      next: res => {this.feedback = "Success";},
-      error: res => {this.feedback = "An error occured";}
+      next: res => {this.feedback = "Success"; this.loading=false;},
+      error: res => {
+        console.log(res)
+        if(res.status==0) this.feedback = "Could not connect to server";
+        else if(res.status==400) this.feedback = res.error.errorMessage;
+        else this.feedback = "An error occurred";
+
+        this.loading=false;
+      }
     });
     return res;
   }
@@ -49,28 +62,38 @@ export class CreateProductAdminViewComponent implements OnInit {
     }
   }
   getBrands(){
+    this.loading=true;
     this.api.getBrands().subscribe(res => {
       this.brands = res;
     });
+    this.loading=false;
   }
 
   getCategories(){
+    this.loading=true;
     this.api.getCategories().subscribe(res => {
       this.categories = res;
     });
+    this.loading=false;
   }
 
   getAllColours(){
+    this.loading=true;
     this.api.getColours().subscribe(res => {
       this.colors = res;
     });
+    this.loading=false;
+  }
+
+  isLoading(){
+    return this.loading;
   }
 
   goBack() {
     this.router.navigate(['admin/products']);
   }
   toggleInclude(){
-    if(this.product.IncludeForPromotion ==true) this.product.IncludeForPromotion = false;
-    else this.product.IncludeForPromotion = true;
+    if(this.product.includeForPromotion) this.product.includeForPromotion = false;
+    else this.product.includeForPromotion = true;
   }
 }

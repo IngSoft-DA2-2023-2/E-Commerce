@@ -16,11 +16,15 @@ export class ProductViewComponent implements OnInit {
   operation: string = "or";
   brands: string[] = [];
   categories: string[] = [];
+  filterByPrice: boolean = false;
+  priceFrom?: number;
+  priceTo?: number;
+  alertMessage: string = "";
 
   selectedBrand: string = "";
   selectedCategory: string = "";
-  constructor(private api: ApiService, private router: Router) { }
 
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.displayProducts();
@@ -28,24 +32,33 @@ export class ProductViewComponent implements OnInit {
     this.getCategories();
   }
 
-  getBrands(){
+  getBrands() {
     this.api.getBrands().subscribe(res => {
       this.brands = res;
     });
   }
 
-  getCategories(){
+  getCategories() {
     this.api.getCategories().subscribe(res => {
       this.categories = res;
     });
   }
 
   displayProducts() {
-    this.api.getProduct().subscribe(res => {
-      this.data = res;
-      console.log(this.data);
+    this.alertMessage="Loading...";
+    this.api.getProduct().subscribe({
+      next: res => {
+        this.data = res;
+        this.alertMessage="";
+      },
+      error: err => {
+        if (err.status == 0) {
+          this.alertMessage = "Could not connect to the server, please try again later.";
+        } else{
+          this.alertMessage = "An error has occured, please try again later.";
+        }
+      }
     });
-
   }
 
   displayFilteredProducts(name: string) {
@@ -56,8 +69,20 @@ export class ProductViewComponent implements OnInit {
       operation: this.operation,
       priceRange: undefined
     };
-    this.api.getFilteredProducts(filters).subscribe(res => {
-      this.data = res;
+    if (this.filterByPrice) { filters.priceRange = "" + this.priceFrom + "-" + this.priceTo; }
+    this.alertMessage="Loading...";
+    this.api.getFilteredProducts(filters).subscribe({
+      next: res => {
+        this.data = res;
+        this.alertMessage="";
+        if(res.length == 0) this.alertMessage = "No products found.";
+      }, error: err => {
+        if (err.status == 0) {
+          this.alertMessage = "Could not connect to the server, please try again later.";
+        } else{
+          this.alertMessage = "An error has occured, please try again later.";
+        }
+      }
     });
   }
 
@@ -71,7 +96,7 @@ export class ProductViewComponent implements OnInit {
 
   productCounter(product: product): number {
     let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
-    let ret:number=0;
+    let ret: number = 0;
     for (let item of cart) {
       if (item.id == product.id) {
         ret++;
@@ -80,26 +105,26 @@ export class ProductViewComponent implements OnInit {
     return ret;
   }
 
-  addToCart(p: product){
+  addToCart(p: product) {
     let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
     let countInCart = this.productCounter(p);
-    if(p.stock>countInCart){
-    cart.push(p);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-  else{
-    console.log('No stock')
-  }
-}
-
-removeFromCart(p: product){
-  let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
-  for(let element of cart){
-    if(element.id==p.id){
-      cart.splice(cart.indexOf(element),1);
+    if (p.stock > countInCart) {
+      cart.push(p);
       localStorage.setItem('cart', JSON.stringify(cart));
-      return;
+    }
+    else {
+      console.log('No stock')
     }
   }
-}
+
+  removeFromCart(p: product) {
+    let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+    for (let element of cart) {
+      if (element.id == p.id) {
+        cart.splice(cart.indexOf(element), 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        return;
+      }
+    }
+  }
 }

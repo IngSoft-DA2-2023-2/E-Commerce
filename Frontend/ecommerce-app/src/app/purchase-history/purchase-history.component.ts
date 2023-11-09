@@ -6,7 +6,7 @@ import { ApiService } from '../shared/api.service';
 @Component({
   selector: 'app-purchase-history',
   templateUrl: './purchase-history.component.html',
-  styleUrls: ['./purchase-history.component.css']
+  styleUrls: []
 })
 export class PurchaseHistoryComponent {
   constructor(private api:ApiService) { }
@@ -38,9 +38,24 @@ export class PurchaseHistoryComponent {
     }
     return ret.join(", ");
   }
+
   colorsToString(colours: colour[]): string {
     debugger;
     console.log(colours.map(c => c.name).join(", "));
     return colours.map(c => c.name).join(", ");
+  }
+
+  convertCSharpDateTimeToJsDate(csharpDateTimeString?: Date) {
+    if (!csharpDateTimeString) return "";
+  
+    const jsDate = new Date(csharpDateTimeString);
+    const formattedDate = 
+      ("0" + jsDate.getDate()).slice(-2) + "/" +
+      ("0" + (jsDate.getMonth() + 1)).slice(-2) + "/" +
+      jsDate.getFullYear() + " " +
+      ("0" + jsDate.getHours()).slice(-2) + ":" +
+      ("0" + jsDate.getMinutes()).slice(-2);
+  
+    return formattedDate;
   }
 }

@@ -86,4 +86,10 @@ export class createCartModel{
         this.stock = stock;
     }
 }
+export class cartForPromotion{
+    cart : createCartModel[];
+    constructor(){
+        this.cart = [] as createCartModel[];
+    }
+}
 

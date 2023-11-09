@@ -16,6 +16,7 @@ export class NavBarViewComponent implements OnInit {
   constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
+    debugger;
     const res = localStorage.getItem('user');
     if (!!res) this.api.currentSession = JSON.parse((res as string));
     if (this.isLogged()) this.userName = this.api.currentSession?.user.name || "";
@@ -34,8 +35,7 @@ export class NavBarViewComponent implements OnInit {
   }
 
   countElemInCart():number{
-    let elem = (JSON.parse(localStorage.getItem('cart') || "") as product[]).length;
-    console.log('elem',elem)
+    let elem = (JSON.parse(localStorage.getItem('cart') || "{}") as product[]).length;
    return elem;
   }
 
@@ -57,10 +57,6 @@ export class NavBarViewComponent implements OnInit {
 
   openProfileMenu(){
     this.router.navigate(['/profile']);
-  }
-
-  seeLoggedInfo() {
-    console.log(this.api.currentSession);
   }
 
   isAdmin(): boolean {

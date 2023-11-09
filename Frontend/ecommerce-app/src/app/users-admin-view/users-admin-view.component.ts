@@ -12,20 +12,16 @@ import { userRetrieveModel } from '../signup-view/signupUserModel';
 })
 export class UsersAdminViewComponent {
 
-  constructor(private api: ApiService, private router: Router, private userService: UpdateUserService) { 
+  constructor(private api: ApiService, private router: Router, private userService: UpdateUserService) {
+    if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
     this.api.updateSession();
     this.getUsers();
   }
 
-  ngOnInit(): void {
-    
-  }
-
-
   feedback: string = "";
-
-
+  loading: boolean = false;
   users: userRetrieveModel[] = [];
+
   getUsers() {
     this.api.getUsers().subscribe({
       next: res => {
@@ -36,7 +32,6 @@ export class UsersAdminViewComponent {
         this.users = [];
       }
     }
-
     );
   }
 
@@ -44,25 +39,34 @@ export class UsersAdminViewComponent {
     this.userService.setData(u);
     this.router.navigate(['admin/updateUser']);
   }
+
   deleteUser(u: userRetrieveModel) {
+    this.loading=true;
     this.api.deleteUsers(u.guid).subscribe({
       next: res => {
         this.getUsers();
+        this.feedback = "User deleted";
+        this.loading=false;
       },
       error: err => {
-        this.feedback = "Could not delete user";
+        if(err.status==0) this.feedback = "Could not connect to server";
+        else this.feedback = "Could not delete user";
+        this.loading=false;
+
       }
     }
-      
+
     );
   }
- 
 
+  isLoading(){
+    return this.loading;
+  }
   createUser() {
     this.router.navigate(['admin/createUser']);
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['']);
   }
 }

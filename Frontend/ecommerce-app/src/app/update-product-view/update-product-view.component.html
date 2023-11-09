@@ -1,6 +1,10 @@
 <app-nav-bar-view></app-nav-bar-view>
+<div class="alert alert-info" role="alert" *ngIf="isLoading() || !!this.feedback">
+  {{isLoading()? 'Loading...':this.feedback}}
+</div>
 <h3 class="row justify-content-center align-items-center">Update an existing product</h3>
-<form (click)="feedback = ''" class="user-form" style="width: 100%; max-width: 80%; margin: 0 auto; align-items: center;">
+<form (click)="feedback = ''" class="user-form"
+  style="width: 100%; max-width: 80%; margin: 0 auto; align-items: center;">
   <div class="form-container"
     style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
     <div class="form-group col-md-6" style="width: 100%;">
@@ -14,6 +18,8 @@
     <div class="form-group col-md-6" style="width: 100%;">
       <h6>Price</h6>
       <input type="number" class="form-control" #pric id="price" style="width: 100%;">
+      <label style="color: red;" *ngIf="!pric.valueAsNumber">Invalid value, if invalid value is used, then the previous price will not change</label>
+
     </div>
     <div class="form-group col-md-6" style="width: 100%;">
       <h6>Description</h6>
@@ -52,15 +58,15 @@
       </div>
     </div>
     <h6>Include for Promotions</h6>
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" (change)="toggleInclude()" #promotion id="Promotion" [checked]="dataReceived?.includeForPromotion">
-        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-      </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" (change)="toggleInclude()" #promotion id="Promotion"
+        [checked]="dataReceived?.includeForPromotion">
+      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+    </div>
     <div class="button-container">
-      <button class="btn btn-primary" (click)="updateProduct(id, name, desc, pric, stock,promotion)">Update changes</button>
+      <button class="btn btn-primary" (click)="updateProduct(id, name, desc, pric, stock,promotion)">Update
+        changes</button>
       <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
     </div>
   </div>
-
-  </form>
-<p style="text-align: center;" class="feedback">{{ feedback }}</p>
+</form>
