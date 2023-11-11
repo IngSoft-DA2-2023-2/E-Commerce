@@ -6,7 +6,6 @@
             <h6>Name</h6>
             <input type="text" class="form-control" [(ngModel)]="updatingUser.name" name="name" id="name" style="width: 100%;">
             <label style="color: red;" *ngIf="(updatingUser.name?.length || 0) < 3 || (updatingUser.name?.length || 0 ) > 20">Name must be between 3-20 characters </label>
-
         </div>
         <div class="form-group col-md-6" style="width: 100%;">
             <h6>Password</h6>

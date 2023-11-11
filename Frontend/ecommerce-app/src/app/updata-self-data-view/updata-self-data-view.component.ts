@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
 import { UpdataSelfDataModel } from './updateSelfDataModel';
-import { userModel, userRetrieveModel } from '../signup-view/signupUserModel';
+import { userRetrieveModel } from '../signup-view/signupUserModel';
 import { sessionModel } from '../signup-view/sessionModel';
-
 
 @Component({
   selector: 'app-updata-self-data-view',
@@ -20,7 +19,6 @@ export class UpdataSelfDataViewComponent {
     const user=this.api.currentSession?.user;
     this.updatingUser = new UpdataSelfDataModel(user?.name || "", "", user?.address || "");
   }
-
 
   updateUserData() {
     console.log(this.updatingUser)
@@ -39,6 +37,5 @@ export class UpdataSelfDataViewComponent {
 
   goBack(){
     this.router.navigate(['']);
-  
   }
 }

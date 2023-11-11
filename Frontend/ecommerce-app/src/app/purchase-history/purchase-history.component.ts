@@ -16,12 +16,7 @@ export class PurchaseHistoryComponent {
     if(!this.api.currentSession) this.api.currentSession = JSON.parse(localStorage.getItem('user') || "{}");
     this.api.getPurchaseHistory().subscribe({
       next:response => {
-        console.log(response);
         this.purchases = response.filter((p: purchaseInterface) => p.userId == this.api.currentSession?.user.guid as string);
-        console.log(this.purchases);
-      },
-      error:error => {
-        console.log(error);
       }
   });
   }
@@ -31,7 +26,7 @@ export class PurchaseHistoryComponent {
   }
 
   getProductNames(product?: product[]): string {
-    let ret = [];
+    let ret:string[] = [];
     if(!product) return "";
     for(let elem of product){
     ret.push(elem.name);
@@ -40,14 +35,11 @@ export class PurchaseHistoryComponent {
   }
 
   colorsToString(colours: colour[]): string {
-    debugger;
-    console.log(colours.map(c => c.name).join(", "));
     return colours.map(c => c.name).join(", ");
   }
 
   convertCSharpDateTimeToJsDate(csharpDateTimeString?: Date) {
     if (!csharpDateTimeString) return "";
-  
     const jsDate = new Date(csharpDateTimeString);
     const formattedDate = 
       ("0" + jsDate.getDate()).slice(-2) + "/" +
@@ -55,7 +47,6 @@ export class PurchaseHistoryComponent {
       jsDate.getFullYear() + " " +
       ("0" + jsDate.getHours()).slice(-2) + ":" +
       ("0" + jsDate.getMinutes()).slice(-2);
-  
     return formattedDate;
   }
 }

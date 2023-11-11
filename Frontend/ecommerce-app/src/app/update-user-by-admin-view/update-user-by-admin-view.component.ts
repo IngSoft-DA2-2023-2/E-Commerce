@@ -29,6 +29,7 @@ export class UpdateUserByAdminViewComponent implements OnInit {
       this.userId = "";
     }
   }
+  
   ngOnInit(): void {
     const incomingData = this.dataService.getData();
     this.getAllRoles();
@@ -45,8 +46,12 @@ export class UpdateUserByAdminViewComponent implements OnInit {
     this.api.putUserByAdmin(this.userId, this.updatingUser).subscribe(
       res => {
         this.feedback = "Successfully changed";
-        if(this.api.currentSession?.user.guid == this.userId) {this.api.currentSession.user = res; localStorage.setItem('user', JSON.stringify(res));}
-      },
+        if(this.api.currentSession?.user.guid == this.userId) {
+          const updatedSession = this.api.currentSession;
+          updatedSession.user = res;
+          updatedSession.token = this.api.currentSession?.token;
+          localStorage.setItem('user', JSON.stringify(updatedSession));
+      }},
       err => {
         if (err.status == 0) this.feedback = "Could not connect to the server, please try again later.";
         else this.feedback = "An error has occured, please try again later.";

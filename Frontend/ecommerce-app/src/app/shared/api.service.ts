@@ -14,8 +14,9 @@ import { UpdataSelfDataModel } from '../updata-self-data-view/updateSelfDataMode
 })
 export class ApiService {
 
-
   constructor(private httpClient: HttpClient) { }
+
+  url: string = 'https://localhost:7150/api';
 
   currentSession: sessionModel | undefined = undefined;
 
@@ -28,34 +29,32 @@ export class ApiService {
   }
 
   getProduct() {
-    return this.httpClient.get<product[]>('https://localhost:7150/api/products');
+    return this.httpClient.get<product[]>(this.url + '/products');
   }
 
-  getBrands(){
-    return this.httpClient.get<string[]>('https://localhost:7150/api/products/brands');
+  getBrands() {
+    return this.httpClient.get<string[]>(this.url + '/products/brands');
   }
 
-  getCategories(){
-    return this.httpClient.get<string[]>('https://localhost:7150/api/products/categories');
+  getCategories() {
+    return this.httpClient.get<string[]>(this.url + '/products/categories');
   }
 
-  getColours(){
-    return this.httpClient.get<string[]>('https://localhost:7150/api/products/colours');
+  getColours() {
+    return this.httpClient.get<string[]>(this.url + '/products/colours');
   }
 
-  getRoles(){
-    return this.httpClient.get<string[]>('https://localhost:7150/api/users/roles');
+  getRoles() {
+    return this.httpClient.get<string[]>(this.url + '/users/roles');
   }
 
   getProductById(id: string) {
-    return this.httpClient.get<product | undefined>('https://localhost:7150/api/products' + `/${id}`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.get<product | undefined>(this.url + '/products' + `/${id}`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   getFilteredProducts(modelIn: productFilterRequestModel) {
-    const url = 'https://localhost:7150/api/products';
-
+    const url = this.url + '/products';
     let params = new HttpParams();
-
     if (modelIn.name) {
       params = params.set('name', modelIn.name);
     }
@@ -68,34 +67,33 @@ export class ApiService {
     if (modelIn.operation) {
       params = params.set('operation', modelIn.operation);
     }
-    if(modelIn.priceRange){
+    if (modelIn.priceRange) {
       params = params.set('priceRange', modelIn.priceRange);
     }
     return this.httpClient.get<product[]>(url, { params });
   }
 
   postUser(data: userRegistrationModel) {
-    return this.httpClient.post('https://localhost:7150/api/users', data);
+    return this.httpClient.post<userRetrieveModel>(this.url + '/users', data);
   }
 
   postSession(data: sessionRequest) {
-    return this.httpClient.post<sessionModel>('https://localhost:7150/api/sessions', data);
+    return this.httpClient.post<sessionModel>(this.url + '/sessions', data);
 
   }
 
   deleteSession() {
-    let res = this.httpClient.delete('https://localhost:7150/api/sessions/', { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    let res = this.httpClient.delete<userRetrieveModel>(this.url + '/sessions/', { headers: { 'Authorization': `${this.currentSession?.token}` } });
     return res;
   }
 
   postProduct(data: createProductModel) {
     console.log('por pegarle a la api con esto', data)
-    return this.httpClient.post('https://localhost:7150/api/products', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.post<product>(this.url + '/products', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   putProduct(id: string, data: updateProductModel) {
-    const route = 'https://localhost:7150/api/products' + '/' + id;
-
+    const route = this.url + '/products' + '/' + id;
     const requestBody = {
       name: data.Name,
       description: data.Description,
@@ -113,43 +111,45 @@ export class ApiService {
   }
 
   getUsers() {
-    return this.httpClient.get<userRetrieveModel[]>('https://localhost:7150/api/users', { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.get<userRetrieveModel[]>(this.url + '/users', { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   deleteUsers(id: string) {
-    return this.httpClient.delete<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.delete<userRetrieveModel>(this.url + `/users/${id}/admin`, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   putUserByAdmin(id: string, data: modifyUserByAdminModel) {
-    return this.httpClient.put<userRetrieveModel>(`https://localhost:7150/api/users/${id}/admin`, data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.put<userRetrieveModel>(this.url + `/users/${id}/admin`, data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
   postUserByAdmin(data: modifyUserByAdminModel) {
     if (!this.currentSession) {
       throw new Error('no session');
     }
-    return this.httpClient.post<userRetrieveModel>('https://localhost:7150/api/users/admin', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.post<userRetrieveModel>(this.url + '/users/admin', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
+
   putUserByThemself(data: UpdataSelfDataModel) {
     if (!this.currentSession) {
       throw new Error('no session');
     }
-    return this.httpClient.put<userRetrieveModel>('https://localhost:7150/api/users', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.put<userRetrieveModel>(this.url + '/users', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
-  postPurchase(data :purchase) { 
+
+  postPurchase(data: purchase) {
     if (!this.currentSession) {
       throw new Error('no session');
     }
-    return this.httpClient.post('https://localhost:7150/api/purchases', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.post<purchaseInterface>(this.url + '/purchases', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
   getPurchaseHistory() {
     if (!this.currentSession) {
       throw new Error('no session');
     }
-    return this.httpClient.get<purchaseInterface[]>('https://localhost:7150/api/purchases', { headers: { 'Authorization': `${this.currentSession?.token}` } });
+    return this.httpClient.get<purchaseInterface[]>(this.url + '/purchases', { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
-  postCartPrice(data :cartForPromotion){
-    return this.httpClient.post<cartResponse>('https://localhost:7150/api/cart/promotions', data);
+  postCartPrice(data: cartForPromotion) {
+    return this.httpClient.post<cartResponse>(this.url + '/cart/promotions', data);
   }
 
 }

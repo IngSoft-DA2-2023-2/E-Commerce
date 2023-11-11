@@ -20,7 +20,6 @@ export class ProductViewComponent implements OnInit {
   priceFrom?: number;
   priceTo?: number;
   alertMessage: string = "";
-
   selectedBrand: string = "";
   selectedCategory: string = "";
 
@@ -32,36 +31,36 @@ export class ProductViewComponent implements OnInit {
     this.getCategories();
   }
 
-  getBrands() {
+  getBrands(): void {
     this.api.getBrands().subscribe(res => {
       this.brands = res;
     });
   }
 
-  getCategories() {
+  getCategories(): void {
     this.api.getCategories().subscribe(res => {
       this.categories = res;
     });
   }
 
-  displayProducts() {
-    this.alertMessage="Loading...";
+  displayProducts(): void {
+    this.alertMessage = "Loading...";
     this.api.getProduct().subscribe({
       next: res => {
         this.data = res;
-        this.alertMessage="";
+        this.alertMessage = "";
       },
       error: err => {
         if (err.status == 0) {
           this.alertMessage = "Could not connect to the server, please try again later.";
-        } else{
+        } else {
           this.alertMessage = "An error has occured, please try again later.";
         }
       }
     });
   }
 
-  displayFilteredProducts(name: string) {
+  displayFilteredProducts(name: string): void {
     const filters: productFilterRequestModel = {
       name: name,
       brand: this.selectedBrand,
@@ -70,16 +69,17 @@ export class ProductViewComponent implements OnInit {
       priceRange: undefined
     };
     if (this.filterByPrice) { filters.priceRange = "" + this.priceFrom + "-" + this.priceTo; }
-    this.alertMessage="Loading...";
+    this.alertMessage = "Loading...";
     this.api.getFilteredProducts(filters).subscribe({
       next: res => {
         this.data = res;
-        this.alertMessage="";
-        if(res.length == 0) this.alertMessage = "No products found.";
-      }, error: err => {
+        this.alertMessage = "";
+        if (res.length == 0) this.alertMessage = "No products found.";
+      },
+      error: err => {
         if (err.status == 0) {
           this.alertMessage = "Could not connect to the server, please try again later.";
-        } else{
+        } else {
           this.alertMessage = "An error has occured, please try again later.";
         }
       }
@@ -95,7 +95,7 @@ export class ProductViewComponent implements OnInit {
   }
 
   productCounter(product: product): number {
-    let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+    const cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
     let ret: number = 0;
     for (let item of cart) {
       if (item.id == product.id) {
@@ -105,19 +105,16 @@ export class ProductViewComponent implements OnInit {
     return ret;
   }
 
-  addToCart(p: product) {
-    let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
-    let countInCart = this.productCounter(p);
+  addToCart(p: product): void {
+    const cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
+    const countInCart = this.productCounter(p);
     if (p.stock > countInCart) {
       cart.push(p);
       localStorage.setItem('cart', JSON.stringify(cart));
     }
-    else {
-      console.log('No stock')
-    }
   }
 
-  removeFromCart(p: product) {
+  removeFromCart(p: product): void {
     let cart = JSON.parse(localStorage.getItem('cart') || "[]") as product[];
     for (let element of cart) {
       if (element.id == p.id) {

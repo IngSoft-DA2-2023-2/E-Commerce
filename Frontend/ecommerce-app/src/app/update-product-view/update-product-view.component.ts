@@ -19,6 +19,7 @@ export class UpdateProductViewComponent implements OnInit {
     if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
     this.dataReceived = undefined;
   }
+
   selectedBrand: string = "";
   selectedCategory: string = "";
   selectedColors: string[] = [];
@@ -85,7 +86,6 @@ export class UpdateProductViewComponent implements OnInit {
 
   updateProduct(id: HTMLInputElement, name: HTMLInputElement, desc: HTMLInputElement, price: HTMLInputElement, stock: HTMLInputElement, includeForPromotion: HTMLInputElement) {
     this.loading = true;
-    console.log('colores', this.selectedColors)
     const modelIn = new updateProductModel(
       name.value,
       parseInt(price.value),
@@ -103,7 +103,6 @@ export class UpdateProductViewComponent implements OnInit {
         that.loading = false;
       },
       (error) => {
-        console.log('el error fue', error)
         if (error.status == 0) that.feedback = "Could not connect to the server, please try again later.";
         else if (error.status == 400) {
           that.feedback = error.error.errorMessage;
@@ -130,8 +129,8 @@ export class UpdateProductViewComponent implements OnInit {
   goBack() {
     this.router.navigate(['/admin/products']);
   }
+  
   toggleInclude() {
-    if (this.dataReceived?.includeForPromotion == true) this.dataReceived.includeForPromotion = false;
-    if (this.dataReceived?.includeForPromotion == false) this.dataReceived.includeForPromotion = true;
+    if(this.dataReceived) this.dataReceived.includeForPromotion = !this.dataReceived.includeForPromotion;
   }
 }

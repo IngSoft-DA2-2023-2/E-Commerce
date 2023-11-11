@@ -7,38 +7,39 @@
 </ng-container>
 
 <h3 class="row justify-content-center align-items-center">Create a new product</h3>
-
-<form (click)="feedback = ''" class="user-form" style="width: 100%; max-width: 80%; margin: 0 auto; align-items: center;">
-
-  <div class="form-container" style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
-
+<form (click)="feedback = ''" class="user-form"
+  style="width: 100%; max-width: 80%; margin: 0 auto; align-items: center;">
+  <div class="form-container"
+    style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
     <div class="form-group col-md-6" style="width: 100%;">
       <h6>Product Name</h6>
-      <input type="text" class="form-control" [(ngModel)]="product.name" placeholder="name" style="width: 100%;" [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control" [(ngModel)]="product.name" placeholder="name" style="width: 100%;"
+        [ngModelOptions]="{standalone: true}">
       <label style="color: red;" *ngIf="!product.name">Name must not be empty</label>
     </div>
-
     <div class="form-group col-md-6" style="width: 100%;">
       <h6>Description</h6>
-      <input type="text" class="form-control" [(ngModel)]="product.description" placeholder="description" style="width: 100%;" [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control" [(ngModel)]="product.description" placeholder="description"
+        style="width: 100%;" [ngModelOptions]="{standalone: true}">
       <label style="color: red;" *ngIf="!product.description">Description must not be empty</label>
     </div>
-
     <div class="form-group col-md-6" style="width: 100%;">
       <h6>Price</h6>
-      <input type="number" class="form-control" [(ngModel)]="product.price" placeholder="price" style="width: 100%;" [ngModelOptions]="{standalone: true}">
+      <input type="number" class="form-control" [(ngModel)]="product.price" placeholder="price" style="width: 100%;"
+        [ngModelOptions]="{standalone: true}">
+        <label style="color: red;" *ngIf="product.price <= 0">Must be larger than zero</label>
     </div>
-
     <div class="form-group col-md-6" style="width: 100%;">
       <h6>Stock</h6>
-      <input type="number" class="form-control" [(ngModel)]="product.stock" placeholder="stock" style="width: 100%;" [ngModelOptions]="{standalone: true}">
-      <label style="color: red;" *ngIf="!product.stock">Must not be zero</label>
+      <input type="number" class="form-control" [(ngModel)]="product.stock" placeholder="stock" style="width: 100%;"
+        [ngModelOptions]="{standalone: true}">
+      <label style="color: red;" *ngIf="product.stock < 0">Must not be negative</label>
     </div>
-
     <h6>Brands</h6>
     <div class="radio-buttons" style="display: flex; flex-wrap: wrap;">
       <div class="form-check col-md-4" *ngFor="let brand of brands; let i = index">
-        <input class="form-check-input" type="radio" name="brandRadio" [id]="'brandRadio' + i" [value]="brand" [(ngModel)]="selectedBrand">
+        <input class="form-check-input" type="radio" name="brandRadio" [id]="'brandRadio' + i" [value]="brand"
+          [(ngModel)]="selectedBrand">
         <label class="form-check-label" [for]="'brandRadio' + i">{{ brand }}</label>
       </div>
       <label style="color: red;" *ngIf="!selectedBrand">Must select a brand</label>
@@ -46,7 +47,8 @@
     <h6>Categories</h6>
     <div class="radio-buttons" style="display: flex; flex-wrap: wrap;">
       <div class="form-check col-md-4" *ngFor="let cat of categories; let i = index">
-        <input class="form-check-input" type="radio" name="catRadio" [id]="'catRadio' + i" [value]="cat" [(ngModel)]="selectedCategory">
+        <input class="form-check-input" type="radio" name="catRadio" [id]="'catRadio' + i" [value]="cat"
+          [(ngModel)]="selectedCategory">
         <label class="form-check-label" [for]="'catRadio' + i">{{ cat }}</label>
       </div>
     </div>
@@ -56,14 +58,16 @@
       <div style="display: flex; flex-wrap: wrap;">
         <div class="form-check col-md-4" *ngFor="let col of colors; let i = index">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="colRadio" [value]="col" [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
+            <input class="form-check-input" type="checkbox" name="colRadio" [value]="col"
+              [checked]="selectedColors.includes(col)" (change)="toggleColorSelection(col)">
             <label class="form-check-label" [for]="'colRadio' + i">{{ col }}</label>
           </div>
         </div>
       </div>
       <h6>Include for Promotions</h6>
       <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" (change)="toggleInclude()" id="flexSwitchCheckChecked" checked>
+        <input class="form-check-input" type="checkbox" role="switch" (change)="toggleInclude()"
+          id="flexSwitchCheckChecked" checked>
         <label class="form-check-label" for="flexSwitchCheckChecked"></label>
       </div>
       <div class="button-container">
@@ -73,4 +77,3 @@
     </div>
   </div>
 </form>
-<p *ngIf="!!feedback" style="text-align: center;" class="feedback">{{ feedback }}</p>

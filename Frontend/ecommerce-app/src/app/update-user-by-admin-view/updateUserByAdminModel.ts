@@ -8,5 +8,4 @@ export class modifyUserByAdminModel {
         this.address = address;
         this.roles = roles;
     }
-
 }

@@ -22,7 +22,6 @@ export class CreateProductAdminViewComponent implements OnInit {
 
   ngModelOptions = { standalone: true };
 
-
   brands: string[] = [];
   selectedBrand: string = "";
   categories: string[] = [];
@@ -33,35 +32,32 @@ export class CreateProductAdminViewComponent implements OnInit {
   product: createProductModel;
   loading: boolean = false;
 
-  createProduct() {
-    console.log('creando prod',this.product);
+  createProduct(): void {
     this.loading=true;
     this.product.brand=this.selectedBrand;
     this.product.category=this.selectedCategory;
     this.product.colours=this.selectedColors;
-    console.log('colores',this.product.colours)
-    const res = this.api.postProduct(this.product).subscribe({
-      next: res => {this.feedback = "Success"; this.loading=false;},
+    this.api.postProduct(this.product).subscribe({
+      next: () => {this.feedback = "Success"; this.loading=false;},
       error: res => {
         console.log(res)
         if(res.status==0) this.feedback = "Could not connect to server";
         else if(res.status==400) this.feedback = res.error.errorMessage;
         else this.feedback = "An error occurred";
-
         this.loading=false;
       }
     });
-    return res;
   }
 
-  toggleColorSelection(color: string) {
+  toggleColorSelection(color: string): void {
     if (this.selectedColors.includes(color)) {
       this.selectedColors = this.selectedColors.filter(c => c !== color);
     } else {
       this.selectedColors.push(color);
     }
   }
-  getBrands(){
+
+  getBrands(): void{
     this.loading=true;
     this.api.getBrands().subscribe(res => {
       this.brands = res;
@@ -69,7 +65,7 @@ export class CreateProductAdminViewComponent implements OnInit {
     this.loading=false;
   }
 
-  getCategories(){
+  getCategories(): void{
     this.loading=true;
     this.api.getCategories().subscribe(res => {
       this.categories = res;
@@ -77,7 +73,7 @@ export class CreateProductAdminViewComponent implements OnInit {
     this.loading=false;
   }
 
-  getAllColours(){
+  getAllColours(): void{
     this.loading=true;
     this.api.getColours().subscribe(res => {
       this.colors = res;
@@ -85,14 +81,15 @@ export class CreateProductAdminViewComponent implements OnInit {
     this.loading=false;
   }
 
-  isLoading(){
+  isLoading(): boolean{
     return this.loading;
   }
 
-  goBack() {
+  goBack(): void {
     this.router.navigate(['admin/products']);
   }
-  toggleInclude(){
+
+  toggleInclude(): void{
     if(this.product.includeForPromotion) this.product.includeForPromotion = false;
     else this.product.includeForPromotion = true;
   }
