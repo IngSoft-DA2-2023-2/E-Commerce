@@ -85,12 +85,17 @@ export class PurchaseViewComponent implements OnInit {
     this.paymentMethod.flag = "";
   }
 
-  onFlagChange(event: any) : void{
-    this.paymentMethod.flag = event.target.value;
+  onFlagChange(event: Event): void {
+    debugger;
+    console.log('flagg', event)
+    const flag = (event.target as HTMLSelectElement).value;
+    this.paymentMethod.flag = flag;
   }
 
-  onBankChange(event: any): void {
-    this.paymentMethod.bank = event.target.value;
+  onBankChange(event: Event): void {
+    debugger;
+    const selectedBank = (event.target as HTMLSelectElement).value;
+    this.paymentMethod.bank = selectedBank;
   }
 
   transferColors(colors: colour[]): string[] {
