@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
 import { userRegistrationInstance } from './signupUserModel';

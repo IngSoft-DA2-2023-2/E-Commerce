@@ -3,7 +3,6 @@ import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
 import { UpdateProductServiceService } from '../update-product-service.service';
 import { product, colour } from '../product-view/productModel';
-import { createProductModel } from '../create-product-admin-view/createProductModel';
 
 @Component({
   selector: 'app-product-admin-view',

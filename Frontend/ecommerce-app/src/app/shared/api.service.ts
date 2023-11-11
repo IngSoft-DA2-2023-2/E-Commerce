@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { product, productFilterRequestModel } from '../product-view/productModel';
 import { userRegistrationModel, userRetrieveModel } from '../signup-view/signupUserModel';
 import { sessionModel, sessionRequest } from '../signup-view/sessionModel';

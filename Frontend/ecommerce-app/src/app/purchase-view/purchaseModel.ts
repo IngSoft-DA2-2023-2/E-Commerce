@@ -1,4 +1,3 @@
-import { createProductModel } from "../create-product-admin-view/createProductModel";
 import { product } from "../product-view/productModel";
 export class paymentMethod{
     id: string;

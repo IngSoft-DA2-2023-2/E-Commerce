@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { userRetrieveModel } from '../signup-view/signupUserModel';
 import { UpdateUserService } from '../update-user.service';
 import { modifyUserByAdminModel } from './updateUserByAdminModel';
 import { Router } from '@angular/router';
@@ -29,7 +28,7 @@ export class UpdateUserByAdminViewComponent implements OnInit {
       this.userId = "";
     }
   }
-  
+
   ngOnInit(): void {
     const incomingData = this.dataService.getData();
     this.getAllRoles();
