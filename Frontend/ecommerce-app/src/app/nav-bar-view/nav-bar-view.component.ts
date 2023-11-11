@@ -15,7 +15,6 @@ export class NavBarViewComponent implements OnInit {
   constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    debugger;
     const res = localStorage.getItem('user');
     if (!!res) this.api.currentSession = JSON.parse((res as string));
     if (this.isLogged()) this.userName = this.api.currentSession?.user.name || "";

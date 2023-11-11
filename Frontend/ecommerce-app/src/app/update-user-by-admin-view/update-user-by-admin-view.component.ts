@@ -40,7 +40,6 @@ export class UpdateUserByAdminViewComponent implements OnInit {
   updateUserData() {
     this.feedback = "Loading...";
     this.updatingUser.roles = this.selectedRoles;
-    console.log('cargando:', this.feedback)
     if (!this.updatingUser.password) this.updatingUser.password = "";
     this.api.putUserByAdmin(this.userId, this.updatingUser).subscribe(
       res => {

@@ -88,7 +88,6 @@ export class ApiService {
   }
 
   postProduct(data: createProductModel) {
-    console.log('por pegarle a la api con esto', data)
     return this.httpClient.post<product>(this.url + '/products', data, { headers: { 'Authorization': `${this.currentSession?.token}` } });
   }
 
@@ -104,7 +103,6 @@ export class ApiService {
       stock: data.Stock,
       includeForPromotion: data.IncludeForPromotion
     };
-    console.log(requestBody.includeForPromotion);
     return this.httpClient.put<product>(route, requestBody, {
       headers: { 'Authorization': `${this.currentSession?.token}` }
     });

@@ -21,7 +21,6 @@ export class UpdataSelfDataViewComponent {
   }
 
   updateUserData() {
-    console.log(this.updatingUser)
     this.api.putUserByThemself(this.updatingUser).subscribe({
       next: res => {
         let user= (JSON.parse(localStorage.getItem('user') || "") as sessionModel);

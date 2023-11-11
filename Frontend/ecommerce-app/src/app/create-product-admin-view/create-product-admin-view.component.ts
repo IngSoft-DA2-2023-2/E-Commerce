@@ -40,7 +40,6 @@ export class CreateProductAdminViewComponent implements OnInit {
     this.api.postProduct(this.product).subscribe({
       next: () => {this.feedback = "Success"; this.loading=false;},
       error: res => {
-        console.log(res)
         if(res.status==0) this.feedback = "Could not connect to server";
         else if(res.status==400) this.feedback = res.error.errorMessage;
         else this.feedback = "An error occurred";

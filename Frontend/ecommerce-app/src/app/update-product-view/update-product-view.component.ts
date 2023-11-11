@@ -74,7 +74,6 @@ export class UpdateProductViewComponent implements OnInit {
     this.dataReceived?.colours.forEach(element => {
       result.push(element.name);
     });
-    console.log('colores iniciales', result)
     return result;
   }
 
