@@ -20,7 +20,6 @@
       <h6>Address</h6>
       <input type="text" class="form-control" [(ngModel)]="updatingUser.address" name="address" id="address" style="width: 100%;">
       <label style="color: red;" *ngIf="!updatingUser.address">If nothing is written, the previous address will not be changed</label>
-
     </div>
     <h6>Roles</h6>
     <div *ngFor="let r of roles; let i = index">

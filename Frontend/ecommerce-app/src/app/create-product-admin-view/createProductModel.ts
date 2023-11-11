@@ -8,7 +8,6 @@ export class createProductModel{
     stock:number;
     includeForPromotion:boolean;
 
-
     constructor(name:string,description:string,price:number,brandName:string,categoryName:string,colours:string[],stock:number, includeForPromotion:boolean){
         this.name = name;
         this.description = description;

@@ -6,13 +6,16 @@
     {{cartArray.length == 0? 'No products in cart' : this.feedback}}
 </div>
 
-<div class="alert alert-secondary" role="alert" *ngIf="hasCart()">
+<div class="alert alert-secondary" role="alert" *ngIf="hasCart() && isBuyer()">
     <h3>Price:${{total}}</h3>
     <h5 *ngIf="!!promotion">Promotion: {{promotion}}</h5>
     <button class="btn btn-outline-success" type="submit" (click)="purchase()">Pay</button>
 </div>
+<div class="alert alert-secondary" role="alert" *ngIf="!isBuyer()">
+<h3>Only buyers can buy products</h3>
+</div>
 <div (click)="this.feedback=''">
-<div class="d-flex">
+<div class="d-flex" *ngIf="isBuyer()">
     <div class="d-inline"> 
         <div class="form-check form-switch">
             <input class="form-check-input" type="radio" name="paymentMethod" id="Credit" (change)="onPaymentMethodChange('CreditCard')" checked>
@@ -54,12 +57,10 @@
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
             <h6 class="card-price">${{product.price }}</h6>
-  
             <p class="card-text">{{ product.brand.name }}</p>
             <p class="card-text">{{ product.description }}</p>
             <p class="card-text">{{ product.category.name }}</p>
             <p class="card-text">{{ product.stock }}</p>
-  
             <p class="card-text">Colors:</p>
             <p class="card-text">{{getColors(product).join(',')}}</p>
             <a class="btn btn-primary" (click)="removeFromCart(product)">Remove from cart</a>

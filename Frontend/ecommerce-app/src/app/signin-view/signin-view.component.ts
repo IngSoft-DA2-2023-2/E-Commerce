@@ -13,7 +13,8 @@ export class SigninViewComponent {
   constructor(private api: ApiService, private router: Router) { }
 
   feedback: string = "";
-  signInUser(email: string, password: string) {
+
+  signInUser(email: string, password: string): void {
     setTimeout(() => {
       this.feedback = "Loading...";
       if (!this.isValidEmail(email)) {
@@ -42,7 +43,7 @@ export class SigninViewComponent {
     return ret;
   }
 
-  goBack() {
+  goBack():void {
     this.feedback = "";
     this.router.navigate(['']);
   }

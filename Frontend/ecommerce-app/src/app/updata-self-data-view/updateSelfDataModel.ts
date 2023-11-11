@@ -8,5 +8,4 @@ export class UpdataSelfDataModel{
         this.password = password;
         this.address = address;
     }
-
 }

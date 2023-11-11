@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
 import { userRegistrationInstance } from './signupUserModel';
@@ -20,7 +20,6 @@ export class SignupViewComponent {
 
   signUpUser() {
     this.loading=true;
-    console.log(this.creatingUser)
     this.api.postUser(this.creatingUser).subscribe({
       next: (response) => {
         this.feedback = "";

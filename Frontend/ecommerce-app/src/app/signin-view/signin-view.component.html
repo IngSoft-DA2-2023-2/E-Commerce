@@ -1,7 +1,7 @@
 <app-nav-bar-view></app-nav-bar-view>
 <div class="alert alert-info" role="alert" *ngIf="!!this.feedback">
     {{this.feedback}}
-  </div>
+</div>
 <h3 class="row justify-content-center align-items-center">Sign In</h3>
 <form (click)="feedback = ''" class="user-form">
     <div class="form-container"
@@ -9,13 +9,11 @@
         <div class="form-group">
             <h6>Email</h6>
             <input type="email" class="form-control" placeholder="Enter email" #email style="width: 100%;">
-
         </div>
         <div class="form-group">
             <h6>Password</h6>
             <input type="password" class="form-control" placeholder="Enter password"
                 (keyup.enter)="signInUser(email.value, password.value)" #password style="width: 100%;">
-
         </div>
         <div clas="button-container">
             <button class="btn btn-primary" (click)="signInUser(email.value, password.value)">Sign in</button>

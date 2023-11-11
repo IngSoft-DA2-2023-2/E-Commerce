@@ -3,7 +3,6 @@ import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
 import { UpdateProductServiceService } from '../update-product-service.service';
 import { product, colour } from '../product-view/productModel';
-import { createProductModel } from '../create-product-admin-view/createProductModel';
 
 @Component({
   selector: 'app-product-admin-view',
@@ -14,17 +13,17 @@ export class ProductAdminViewComponent implements OnInit {
   constructor(private api: ApiService, private router: Router, private productService: UpdateProductServiceService) {
     if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
    }
+
   feedback?: string;
   loading: boolean = false;
+  products: product[] = [];
 
   ngOnInit(): void {
     this.feedback = ""
     this.getProducts(undefined);
   }
 
-  products: product[] = [];
-
-  getProducts(modelIn: HTMLInputElement | undefined) {
+  getProducts(modelIn: HTMLInputElement | undefined): void{
     this.loading = true;
     if (!modelIn || modelIn.value == "") {
       this.getAllProducts();
@@ -33,15 +32,11 @@ export class ProductAdminViewComponent implements OnInit {
     }
   }
 
-  getProductById(modelIn: HTMLInputElement) {
+  getProductById(modelIn: HTMLInputElement): void {
     this.loading = true;
     const id = modelIn.value;
-    console.log('Sending request for product with id: ' + id);
-
-    this.api.getProductById(id).subscribe(
-      (res) => {
-        console.log('Received response: ', res);
-
+    this.api.getProductById(id).subscribe({
+      next: res => {
         if (!res) {
           this.products = [];
           this.feedback = "No results found";
@@ -51,8 +46,7 @@ export class ProductAdminViewComponent implements OnInit {
         }
         this.loading = false;
       },
-      (error) => {
-        console.log('Error in API request: ', error);
+      error: error => {
         if (error.status === 0) {
           this.feedback = "Could not connect to the server, please try again later.";
         } else if (error.status === 400) {
@@ -64,10 +58,10 @@ export class ProductAdminViewComponent implements OnInit {
         }
         this.loading = false;
       }
-    );
+  });
   }
 
-  getAllProducts() {
+  getAllProducts() : void{
     let that = this;
     this.api.getProduct().subscribe({
       next: res => {
@@ -87,7 +81,6 @@ export class ProductAdminViewComponent implements OnInit {
     return;
   }
 
-
   getColourNames(colours?: colour[]): string[] {
     if (!colours) return [];
     let colourNames: string[] = [];
@@ -97,32 +90,30 @@ export class ProductAdminViewComponent implements OnInit {
     return colourNames;
   }
 
-  clearSearch() {
+  clearSearch(): void {
     const filteredId = document.getElementById("filteredId") as HTMLInputElement;
     if (filteredId) {
       filteredId.value = "";
     }
-
     this.getProducts(undefined);
   }
 
-  isLoading() {
+  isLoading(): boolean {
     return this.loading;
   }
 
-  goBack() {
+  goBack(): void{
     this.feedback = undefined;
     this.router.navigate(['']);
   }
 
-  updateProduct(p: product) {
+  updateProduct(p: product): void {
     this.productService.setData(p);
     this.router.navigate(['admin/updateProduct']);
   }
 
-  openProductCreationMenu() {
+  openProductCreationMenu(): void {
     this.feedback = undefined;
     this.router.navigate(['admin/createProduct']);
   }
-
 }

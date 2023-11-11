@@ -7,23 +7,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-purchase-history-admin',
   templateUrl: './purchase-history-admin.component.html',
-  styleUrls: ['./purchase-history-admin.component.css']
+  styleUrls: []
 })
 export class PurchaseHistoryAdminComponent {
   constructor(private api: ApiService, private router: Router) {
     if(!this.api.currentSession?.user.roles.includes('admin')) this.router.navigate(['']);
    }
+
   purchases: purchaseInterface[] = [];
   ngOnInit(): void {
     if (!this.api.currentSession) this.api.currentSession = JSON.parse(localStorage.getItem('user') || "{}");
     this.api.getPurchaseHistory().subscribe({
       next: response => {
-        console.log(response);
         this.purchases = response;
-        console.log(this.purchases);
-      },
-      error: error => {
-        console.log(error);
       }
     });
   }
@@ -33,7 +29,7 @@ export class PurchaseHistoryAdminComponent {
   }
 
   getProductNames(product?: product[]): string {
-    let ret = [];
+    const ret:string[] = [];
     if (!product) return "";
     for (let elem of product) {
       ret.push(elem.name);

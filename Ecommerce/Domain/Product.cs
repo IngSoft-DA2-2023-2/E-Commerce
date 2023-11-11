@@ -19,7 +19,7 @@ namespace Domain
         public virtual int Stock {  get => _stock;
             set 
             { 
-                if (value<=0) 
+                if (value<0) 
                 {
                     throw new DomainException("Stock must not be below 0");
                 }

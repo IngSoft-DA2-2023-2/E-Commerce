@@ -12,17 +12,15 @@ import { product } from '../product-view/productModel';
 
 export class NavBarViewComponent implements OnInit {
   userName: string = "";
-
   constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    debugger;
     const res = localStorage.getItem('user');
     if (!!res) this.api.currentSession = JSON.parse((res as string));
     if (this.isLogged()) this.userName = this.api.currentSession?.user.name || "";
   }
 
-  logout() {
+  logout(): void {
     if (!this.api.currentSession) return;
     const token: string = this.api.currentSession?.token;
     this.api.deleteSession().subscribe(
@@ -39,23 +37,23 @@ export class NavBarViewComponent implements OnInit {
    return elem;
   }
 
-  openSignUpMenu() {
+  openSignUpMenu(): void {
     this.router.navigate(['/signup']);
   }
 
-  openSignInMenu() {
+  openSignInMenu():void {
     this.router.navigate(['/signin']);
   }
 
-  openAdminMenu() {
+  openAdminMenu(): void {
     this.router.navigate(['/admin']);
   }
 
-  openUserAdminMenu() {
+  openUserAdminMenu():void {
   this.router.navigate(['/admin/users']);
   }
 
-  openProfileMenu(){
+  openProfileMenu():void{
     this.router.navigate(['/profile']);
   }
 
@@ -70,7 +68,7 @@ export class NavBarViewComponent implements OnInit {
   isLogged(): boolean {
     return !!this.api.currentSession;
   }
-  openPurchaseHistory(){
+  openPurchaseHistory(): void{
     this.router.navigate(['/purchases/history']);
   }
 

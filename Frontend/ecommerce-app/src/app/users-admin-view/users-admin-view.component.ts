@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { UpdateUserService } from '../update-user.service';
 import { userRetrieveModel } from '../signup-view/signupUserModel';
 
-
 @Component({
   selector: 'app-users-admin-view',
   templateUrl: './users-admin-view.component.html',
@@ -52,16 +51,15 @@ export class UsersAdminViewComponent {
         if(err.status==0) this.feedback = "Could not connect to server";
         else this.feedback = "Could not delete user";
         this.loading=false;
-
       }
     }
-
     );
   }
 
   isLoading(){
     return this.loading;
   }
+  
   createUser() {
     this.router.navigate(['admin/createUser']);
   }

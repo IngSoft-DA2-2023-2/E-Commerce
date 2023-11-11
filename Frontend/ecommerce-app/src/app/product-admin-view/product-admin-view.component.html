@@ -6,40 +6,37 @@
 <h6>Search product by Id</h6>
 <input type="text" class="form-control" id="filteredId" #id>
 <button class="btn btn-success" (click)="getProductById(id)">Search</button>
-<button class="btn btn-secondary"(click)="clearSearch()">Clear</button>
-
+<button class="btn btn-secondary" (click)="clearSearch()">Clear</button>
 <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Category</th>
-        <th scope="col">Description</th>
-        <th scope="col">Price</th>
-        <th scope="col">Colours</th>
-        <th scope="col">Stock</th>
-        <th scope="col">Promotions apply</th>
-        <th scope="col">Modify</th>
-   </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let p of products">
-        <th scope="row">{{p?.id}}</th>
-        <td>{{p?.name}}</td>
-        <td>{{p?.brand?.name}}</td>
-        <td>{{p?.category?.name}}</td>
-        <td>{{p?.description}}</td>
-        <td>{{p?.price}}</td>
-        <td>{{getColourNames(p?.colours)}}</td>
-        <td>{{p.stock}}</td>
-        <td *ngIf="p?.includeForPromotion">Yes</td>
-        <td *ngIf="!p?.includeForPromotion">No</td>
-        <td><button class="btn btn-warning" (click)="updateProduct(p)">Modify</button></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button (click)="openProductCreationMenu()" class="btn btn-success">New product</button>
-  <button (click)="goBack()" class="btn btn-secondary" id="back">Go back</button>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Colours</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Promotions apply</th>
+      <th scope="col">Modify</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products">
+      <th scope="row">{{p?.id}}</th>
+      <td>{{p?.name}}</td>
+      <td>{{p?.brand?.name}}</td>
+      <td>{{p?.category?.name}}</td>
+      <td>{{p?.description}}</td>
+      <td>{{p?.price}}</td>
+      <td>{{getColourNames(p?.colours)}}</td>
+      <td>{{p.stock}}</td>
+      <td *ngIf="p?.includeForPromotion">Yes</td>
+      <td *ngIf="!p?.includeForPromotion">No</td>
+      <td><button class="btn btn-warning" (click)="updateProduct(p)">Modify</button></td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="openProductCreationMenu()" class="btn btn-success">New product</button>
+<button (click)="goBack()" class="btn btn-secondary" id="back">Go back</button>

@@ -9,7 +9,6 @@
       <h6>Name</h6>
       <input type="text" class="form-control" [(ngModel)]="creatingUser.name" name="name" id="name">
       <label style="color: red;" *ngIf="(creatingUser.name?.length || 0) < 3 || (creatingUser.name?.length || 0 ) > 20">Name must be between 3-20 characters </label>
-
     </div>
     <div class="form-group col-12">
       <h6>Email</h6>
@@ -20,13 +19,11 @@
       <h6>Password</h6>
       <input type="password" class="form-control" [(ngModel)]="creatingUser.password" name="password" id="password">
       <label style="color: red;" *ngIf="(creatingUser.password?.length || 0) < 5 || (creatingUser.password?.length || 0) > 20">Password must be between 5-20 characters </label>
-
     </div>
     <div class="form-group col-12">
       <h6>Address</h6>
       <input type="text" class="form-control" [(ngModel)]="creatingUser.address" name="address" id="address">
       <label style="color: red;" *ngIf="(creatingUser.address?.length || 0) == 0">Address must not be empty </label>
-
     </div>
     <h6>Roles</h6>
     <div class="form-check" *ngFor="let r of roles; let i = index">

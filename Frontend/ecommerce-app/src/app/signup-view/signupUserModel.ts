@@ -16,7 +16,6 @@ export class userRegistrationInstance implements userRegistrationModel {
         this.address = "";
         this.password = "";
     }
-
 }
 
 export interface userModel{
