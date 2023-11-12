@@ -87,7 +87,7 @@
             <p class="card-text">{{ product.category.name }}</p>
 
             <p class="card-text">Colors:</p>
-            <p class="card-text">{{ getColors(product).join(',') }}</p>
+            <p class="card-text">{{ getColors(product).join(',')?getColors(product).join(',') : '-' }}</p>
 
             <div class="btn-group" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-primary" [disabled]="productCounter(product)===0"
