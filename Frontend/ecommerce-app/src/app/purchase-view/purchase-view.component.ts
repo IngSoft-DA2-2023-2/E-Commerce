@@ -118,10 +118,11 @@ export class PurchaseViewComponent implements OnInit {
     let returnCart = [];
     for (let element of cart) {
       let colorName = this.transferColors(element.colours);
-      let returnProduct = new productModel(element.id, element.name, element.description, element.price, element.brand.name, element.category.name, colorName, element.stock);
+      let returnProduct = new productModel(element.id, element.name, element.description, element.price, element.brand.name, element.category.name, colorName, element.stock,element.includeForPromotion);
       returnCart.push(returnProduct);
     }
     p.Cart = returnCart;
+    console.log('la compra',p);
     this.api.postPurchase(p).subscribe({
       next: res => {
         localStorage.setItem('cart', JSON.stringify([]));
