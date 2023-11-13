@@ -27,6 +27,8 @@ export interface purchaseInterface{
     total: number;
     paymentMethod: paymentMethod;
     cart : product[];
+    includeForPromotion:boolean;
+    
 }
 export interface paymentMethod{
     categoryName: string;
@@ -43,9 +45,10 @@ export class productModel{
     Category:string;
     Colour:string[];
     Stock:number;
+    includeForPromotion:boolean;
 
 
-    constructor(id:string, name:string,description:string,price:number,brandName:string,categoryName:string,colours:string[],stock:number){
+    constructor(id:string, name:string,description:string,price:number,brandName:string,categoryName:string,colours:string[],stock:number, includeForPromotion:boolean){
         this.Id = id;
         this.Name = name;
         this.Description = description;
@@ -54,6 +57,7 @@ export class productModel{
         this.Category = categoryName;
         this.Colour = colours;
         this.Stock = stock;
+        this.includeForPromotion = includeForPromotion;
     }
 }
 export class cartResponse{
