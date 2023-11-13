@@ -52,7 +52,10 @@ export class PurchaseViewComponent implements OnInit {
     let price = 0;
     let sendCart: cartForPromotion = new cartForPromotion();
     for (let element of this.cartArray) {
-      sendCart.cart.push(new createCartModel(element.name, element.description, element.price, element.brand.name, element.category.name, element.colours.map(c => c.name), element.stock));
+      sendCart.cart.push(new createCartModel(element.name, element.description, element.price, 
+        element.brand.name, element.category.name, 
+        element.colours.map(c => c.name), element.stock, 
+        element.includeForPromotion));
     }
     let response: cartResponse | undefined = undefined;
     try {
