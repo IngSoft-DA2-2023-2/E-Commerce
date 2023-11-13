@@ -89,14 +89,11 @@ export class PurchaseViewComponent implements OnInit {
   }
 
   onFlagChange(event: Event): void {
-    debugger;
-    console.log('flagg', event)
     const flag = (event.target as HTMLSelectElement).value;
     this.paymentMethod.flag = flag;
   }
 
   onBankChange(event: Event): void {
-    debugger;
     const selectedBank = (event.target as HTMLSelectElement).value;
     this.paymentMethod.bank = selectedBank;
   }
@@ -122,7 +119,6 @@ export class PurchaseViewComponent implements OnInit {
       returnCart.push(returnProduct);
     }
     p.Cart = returnCart;
-    console.log('la compra',p);
     this.api.postPurchase(p).subscribe({
       next: res => {
         localStorage.setItem('cart', JSON.stringify([]));
