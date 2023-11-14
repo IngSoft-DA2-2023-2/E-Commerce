@@ -7,6 +7,7 @@ namespace BusinessLogic.Promotions
     public class PromotionContext
     {
         private List<IPromotionable> _promotions;
+
         public PromotionContext()
         {
             _promotions = new List<IPromotionable>();
@@ -16,7 +17,6 @@ namespace BusinessLogic.Promotions
         {
             _promotions = promotions;
         }
-
 
         public bool IsEligibleForPromotions(List<Product> cart)
         {
@@ -43,7 +43,7 @@ namespace BusinessLogic.Promotions
             {
                 if (p.IncludeForPromotion) validProducts.Add(p);
             }
-            if (!IsEligibleForPromotions(validProducts)) throw new LogicException("Not Eligible for promotions");
+            if (!IsEligibleForPromotions(validProducts)) throw new LogicException("Not eligible for promotions.");
             string best = "";
             int maxDiscount = 0;
             foreach (IPromotionable promotion in _promotions)
@@ -67,6 +67,7 @@ namespace BusinessLogic.Promotions
             foreach (Product product in cart) prices += product.Price;
             return prices;
         }
+
         public int CalculateTotalWithPromotion(List<Product> cart)
         {
             int prices = 0;

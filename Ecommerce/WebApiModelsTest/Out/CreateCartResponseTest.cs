@@ -28,7 +28,7 @@ namespace WebApiModelsTest.Out
                     Brand = new Brand()
                     {
                         Name = "brand"
-                    }, 
+                    },
                     Category = new Category()
                     {
                         Name = "category"
@@ -46,11 +46,9 @@ namespace WebApiModelsTest.Out
             purchase.Cart = products;
             purchase.CurrentPromotion = "promotion";
             purchase.Total = 100;
-            
+
             CreateCartResponse createCartResponse = new CreateCartResponse(purchase);
             Assert.AreEqual(createCartResponse.Cart.First().Name, purchase.Cart.First().Name);
         }
-
-
     }
 }

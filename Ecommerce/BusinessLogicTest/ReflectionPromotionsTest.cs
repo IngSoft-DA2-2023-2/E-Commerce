@@ -8,14 +8,14 @@ namespace BusinessLogicTest
     [TestClass]
     public class ReflectionPromotionsTest
     {
+        private const int _minPromotions = 0;
         [TestMethod]
         public void ReturnListPromotionsTest()
         {
             ReflectionPromotions reflectionPromotions = new ReflectionPromotions();
             List<IPromotionable> listPromotions = reflectionPromotions.ReturnListPromotions();
-            Assert.IsTrue(listPromotions.Count > 0);
+            Assert.IsTrue(listPromotions.Count > _minPromotions);
             Assert.AreEqual(4, listPromotions.Count);
         }
-
     }
 }

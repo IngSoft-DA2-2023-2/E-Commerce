@@ -95,7 +95,8 @@ namespace BusinessLogicTest
             Mock<ISessionRepository> repo = new Mock<ISessionRepository>(MockBehavior.Strict);
 
             repo.Setup(logic => logic.DeleteSession(It.IsAny<Session>())).Returns(session);
-            repo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { session });
+            repo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).
+                Returns(new List<Session> { session });
 
             var sessionLogic = new SessionLogic(null, repo.Object);
 

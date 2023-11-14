@@ -13,12 +13,12 @@ namespace DataAccessTest
     [TestClass]
     public class CategoryRepositoryTest
     {
+        string categoryName = "category";
 
         [TestMethod]
         public void GivenExistingCategoryNameReturnsTrue()
         {
             Category category = new Category() { Name = "category" };
-            string categoryName = "category";
             var categoryContext = new Mock<ECommerceContext>();
             categoryContext.Setup(ctx => ctx.Categories).ReturnsDbSet(new List<Category>() { category });
             ICategoryRepository categoryRepository = new CategoryRepository(categoryContext.Object);
@@ -29,7 +29,6 @@ namespace DataAccessTest
         [TestMethod]
         public void GivenNonExistingCategoryNameThrowsException()
         {
-            string categoryName = "category";
             var categoryContext = new Mock<ECommerceContext>();
             categoryContext.Setup(ctx => ctx.Categories).ReturnsDbSet(new List<Category>() { });
             ICategoryRepository categoryRepository = new CategoryRepository(categoryContext.Object);
@@ -43,10 +42,7 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.IsTrue(catchedException.Message.Equals($"Category {categoryName} does not exists"));
-
-
+            Assert.IsTrue(catchedException.Message.Equals($"Category {categoryName} does not exists."));
         }
-
     }
 }

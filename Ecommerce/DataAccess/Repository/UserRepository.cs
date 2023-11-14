@@ -10,6 +10,7 @@ namespace DataAccess.Repository
     public class UserRepository : IUserRepository
     {
         private readonly ECommerceContext _eCommerceContext;
+
         public UserRepository(ECommerceContext context)
         {
             _eCommerceContext = context;
@@ -34,7 +35,7 @@ namespace DataAccess.Repository
             {
                 var rolId = existingUser.Roles;
                 StringWrapper admin = new StringWrapper() { Info = "admin" };
-                if (rolId.Contains(admin)) throw new DataAccessException("Admins can not be deleted");
+                if (rolId.Contains(admin)) throw new DataAccessException("Admins can not be deleted.");
                 while (rolId.Count > 0)
                 {
                     var rol = _eCommerceContext.StringListWrappers.FirstOrDefault(r => r.Id == rolId[0].Id);
@@ -45,7 +46,7 @@ namespace DataAccess.Repository
                 _eCommerceContext.SaveChanges();
                 return existingUser;
             }
-            throw new DataAccessException("No users found");
+            throw new DataAccessException("No users found.");
 
         }
 

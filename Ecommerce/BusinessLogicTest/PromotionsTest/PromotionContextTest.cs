@@ -20,6 +20,7 @@ namespace BusinessLogicTest.PromotionsTest
         private Category category;
         private PromotionContext promotionContext;
         private List<IPromotionable> promotions;
+
         [TestInitialize]
         public void Init()
         {
@@ -50,9 +51,7 @@ namespace BusinessLogicTest.PromotionsTest
 
             promotionContext.SetListPromotions(promotions);
 
-
         }
-
 
         [TestMethod]
         public void GivenPromotionableCartReturnsTrue()
@@ -65,6 +64,7 @@ namespace BusinessLogicTest.PromotionsTest
             };
             Assert.IsTrue(promotionContext.IsEligibleForPromotions(cart));
         }
+
         [TestMethod]
         public void GivenNonPromotionableCartReturnsFalse()
         {
@@ -74,6 +74,7 @@ namespace BusinessLogicTest.PromotionsTest
             };
             Assert.IsFalse(promotionContext.IsEligibleForPromotions(cart));
         }
+
         [TestMethod]
         public void GivenPromotionableCartReturnsBestPromotion()
         {
@@ -95,6 +96,7 @@ namespace BusinessLogicTest.PromotionsTest
             };
             Assert.AreEqual(12, promotionContext.CalculateTotalWithPromotion(cart));
         }
+
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
         public void GivenNonPromotionableCartThrowsException()

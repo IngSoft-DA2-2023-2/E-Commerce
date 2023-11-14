@@ -17,10 +17,11 @@ namespace DomainTest.ProductPartsTests
             };
             Assert.AreEqual(guid, colour.Id);
         }
+
         [TestMethod]
         public void ColourEqualsReturnsTrue()
         {
-            string name = "brand";
+            string name = "colour";
             Colour Colour1 = new Colour()
             {
                 Name = name,

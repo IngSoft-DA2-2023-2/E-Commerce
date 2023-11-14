@@ -25,6 +25,7 @@ namespace DataAccessTest
             var expectedReturn = productRepository.CreateProduct(product);
             Assert.AreEqual(expectedReturn, product);
         }
+
         [TestMethod]
         public void CreateAlreadyExistingProduct()
         {
@@ -83,7 +84,6 @@ namespace DataAccessTest
             Assert.AreEqual(expectedReturn, result);
         }
 
-
         [TestMethod]
         public void UpdateNonExistingProduct()
         {
@@ -108,16 +108,18 @@ namespace DataAccessTest
             var response = productRepository.GetProductById(product.Id);
             Assert.AreEqual(response, product);
         }
+
         [TestMethod]
         public void UpdateProductStockOk()
         {
-            Product product = new Product() { Name = "Sample", Id = new Guid(), Stock =5 };
+            Product product = new Product() { Name = "Sample", Id = new Guid(), Stock = 5 };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { product });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
             int response = productRepository.UpdateStock(product);
             Assert.AreEqual(response, 4);
         }
+
         [TestMethod]
         public void ThrowExceptionTryingToGetProductById()
         {
@@ -218,7 +220,13 @@ namespace DataAccessTest
         [TestMethod]
         public void ReturnsEmptyListWhenTryingToGetProductByCategoryThatHasNoElements()
         {
-            Product product = new Product() { Name = "Sample", Category = new Category() { Name = "category" }, Id = Guid.NewGuid() };
+            Product product = new Product()
+            {
+                Name = "Sample",
+                Category =
+                new Category() { Name = "category" },
+                Id = Guid.NewGuid()
+            };
             var productContext = new Mock<ECommerceContext>();
             productContext.Setup(ctx => ctx.Products).ReturnsDbSet(new List<Product>() { });
             IProductRepository productRepository = new ProductRepository(productContext.Object);
@@ -243,6 +251,7 @@ namespace DataAccessTest
             var response = productRepository.GetProductByPriceRange("0-10");
             Assert.AreEqual(response.Count(), 0);
         }
+
         [TestMethod]
         public void GetFilteredProductByPriceRange()
         {

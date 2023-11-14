@@ -28,9 +28,8 @@ namespace ServiceFactory
             serviceCollection.AddScoped<ICategoryLogic, CategoryLogic>();
             serviceCollection.AddScoped<IStringWrapperLogic, StringWrapperLogic>();
             serviceCollection.AddScoped<IColourLogic, ColourLogic>();
-
-
         }
+
         public static void AddConnectionString(this IServiceCollection serviceCollection, string connectionString)
         {
             serviceCollection.AddDbContext<DbContext, ECommerceContext>(o => o.UseSqlServer(connectionString));

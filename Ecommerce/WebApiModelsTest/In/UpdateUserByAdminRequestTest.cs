@@ -33,7 +33,5 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(user.Address, addressSample);
             Assert.AreEqual(user.Roles, buyerRole);
         }
-
-
     }
 }

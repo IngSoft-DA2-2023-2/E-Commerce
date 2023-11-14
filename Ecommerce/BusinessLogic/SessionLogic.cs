@@ -15,13 +15,13 @@ namespace BusinessLogic
             _userRepository = userRepository;
             _sessionRepository = sessionRepository;
         }
-
-
         public Session LogIn(string email, string password)
         {
-            User user = _userRepository.GetAllUsers(u => u.Email == email && u.Password == password).FirstOrDefault();
+            User user = _userRepository.
+                GetAllUsers(u => u.Email == email && u.Password == password).
+                FirstOrDefault();
 
-            if (user is null) throw new LogicException("Incorrect credentials");
+            if (user is null) throw new LogicException("Incorrect credentials.");
 
             Session newSession = new Session
             {
@@ -34,7 +34,8 @@ namespace BusinessLogic
 
         public Session LogOut(Guid token)
         {
-            Session? session = _sessionRepository.GetSessions(s => s.Id == token).FirstOrDefault();
+            Session? session = _sessionRepository.
+                GetSessions(s => s.Id == token).FirstOrDefault();
 
             if (session is null) throw new LogicException("Invalid token");
 

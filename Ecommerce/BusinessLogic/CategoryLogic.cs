@@ -29,12 +29,11 @@ namespace BusinessLogic
             }
         }
 
-
         public IEnumerable<string> GetCategories()
         {
             try
             {
-                return _categoryRepository.GetCategories().Select(c=>c.Name).Distinct();
+                return _categoryRepository.GetCategories().Select(c => c.Name).Distinct();
             }
             catch (DataAccessException e)
             {

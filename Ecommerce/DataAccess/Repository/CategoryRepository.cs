@@ -8,6 +8,7 @@ namespace DataAccess.Repository
     public class CategoryRepository : ICategoryRepository
     {
         private readonly ECommerceContext _categoryRepository;
+
         public CategoryRepository(ECommerceContext context)
         {
             _categoryRepository = context;
@@ -16,7 +17,7 @@ namespace DataAccess.Repository
         public bool CheckForCategory(string categoryName)
         {
             var category = _categoryRepository.Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
-            if (category is null) throw new DataAccessException($"Category {categoryName} does not exists");
+            if (category is null) throw new DataAccessException($"Category {categoryName} does not exists.");
             return true;
         }
 

@@ -15,7 +15,7 @@ namespace Promotion3x1Fidelity
             List<Product> productsForPromotion = new List<Product>();
             foreach (Product product in cart)
             {
-                if(product.IncludeForPromotion)
+                if (product.IncludeForPromotion)
                 {
                     productsForPromotion.Add(product);
                 }
@@ -38,9 +38,7 @@ namespace Promotion3x1Fidelity
             {
                 throw new LogicException("Not applicable promotion");
             }
-
             decimal currentDiscount = 0;
-
             foreach (var group in productsForPromotion.GroupBy(product => product.Brand.Name))
             {
                 if (group.Count() >= _minQuantity)
@@ -51,9 +49,9 @@ namespace Promotion3x1Fidelity
                     currentDiscount += cheapestProducts.Sum(product => product.Price);
                 }
             }
-
             return (int)Math.Round(currentDiscount);
         }
+
         public override string ToString()
         {
             return Name;

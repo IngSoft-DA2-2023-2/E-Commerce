@@ -26,16 +26,13 @@ namespace WebApiModelsTest.Controllers
                 Id = Guid.NewGuid(),
                 Name = "category"
             };
-            List<string> ret = new List<string>() {"category" };
+            List<string> ret = new List<string>() { "category" };
             Mock<ICategoryLogic> categoryLogic = new Mock<ICategoryLogic>();
             categoryLogic.Setup(p => p.GetCategories()).Returns(ret);
             CategoryController categoryController = new CategoryController(categoryLogic.Object);
             var result = categoryController.GetAllCategories() as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(ret, result.Value);
-
         }
-
-
     }
 }

@@ -38,10 +38,6 @@ namespace WebApi.Controllers
             var result = new SessionResponse(session);
 
             return Ok(result);
-
-
-
         }
     }
 }
-

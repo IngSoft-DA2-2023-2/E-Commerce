@@ -27,8 +27,6 @@ namespace WebApiModelsTest.Controller
                 Roles = new List<StringWrapper>(),
             };
 
-
-
             CreateSessionRequest received = new CreateSessionRequest()
             {
                 Email = userSample.Email,
@@ -63,9 +61,6 @@ namespace WebApiModelsTest.Controller
         public void DeleteSession()
         {
             Guid guid = Guid.NewGuid();
-
-
-
 
             IEnumerable<User> expected = new List<User>()
             {

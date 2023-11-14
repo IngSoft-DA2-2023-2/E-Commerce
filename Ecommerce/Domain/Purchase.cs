@@ -13,6 +13,7 @@ namespace Domain
             get => _date;
             set => _date = value;
         }
+
         public Guid Id { get; set; }
 
         public Purchase()
@@ -34,17 +35,15 @@ namespace Domain
             }
         }
 
-
         public void DropPromotion()
         {
             CurrentPromotion = null;
         }
 
-
         private static void ValidateCart(List<Product> value)
         {
-            if (value == null) throw new DomainException("Cart must not be null");
-            if (value.Count == 0) throw new DomainException("Cart must not be empty");
+            if (value == null) throw new DomainException("Cart must not be null.");
+            if (value.Count == 0) throw new DomainException("Cart must not be empty.");
         }
 
     }

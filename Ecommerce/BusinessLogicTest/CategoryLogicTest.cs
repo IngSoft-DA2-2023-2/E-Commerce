@@ -28,6 +28,7 @@ namespace BusinessLogicTest
             repository.VerifyAll();
             Assert.IsTrue(result);
         }
+
         [TestMethod]
         public void GivennonExistingCategoryThrowsException()
         {

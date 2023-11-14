@@ -26,6 +26,7 @@ namespace WebApiModelsTest.In
                 Bank = "Itau",
             };
         }
+
         [TestMethod]
         public void GivenPMCreditCardRequestReturnsPMRequest()
         {

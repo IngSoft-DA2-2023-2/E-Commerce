@@ -65,7 +65,8 @@ namespace WebApi.Controllers
         [Route("admin")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult RegistrationByAdmin([FromBody] CreateUserByAdminRequest received, [FromHeader] string Authorization)
+        public IActionResult RegistrationByAdmin([FromBody] CreateUserByAdminRequest received,
+            [FromHeader] string Authorization)
         {
             var userHeader = Authorization;
 
@@ -127,9 +128,9 @@ namespace WebApi.Controllers
         private User UserRequestByAdminToEntity([FromBody] UpdateUserRequestByAdmin received)
         {
             User ret = new User();
-            if (received.Name!="") ret.Name = received.Name;
-            if (received.Address!="") ret.Address = received.Address;
-            if (received.Roles.Count!=0)
+            if (received.Name != "") ret.Name = received.Name;
+            if (received.Address != "") ret.Address = received.Address;
+            if (received.Roles.Count != 0)
             {
                 foreach (string receivedRol in received.Roles) ret.Roles.Add(new StringWrapper() { Info = receivedRol });
             }
@@ -140,7 +141,8 @@ namespace WebApi.Controllers
         [HttpPut]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received, [FromHeader] string Authorization)
+        public IActionResult UpdateUserByThemself([FromBody] UpdateUserRequestByThemself received,
+            [FromHeader] string Authorization)
         {
             var userHeader = Authorization;
 
@@ -158,11 +160,10 @@ namespace WebApi.Controllers
         {
             User ret = new User();
             ret.Id = id;
-            if (received.Name is not null && received.Name!="") ret.Name = received.Name;
-            if (received.Password is not null && received.Password!="") ret.Password = received.Password;
+            if (received.Name is not null && received.Name != "") ret.Name = received.Name;
+            if (received.Password is not null && received.Password != "") ret.Password = received.Password;
             if (received.Address is not null && received.Address != "") ret.Address = received.Address;
             return ret;
         }
     }
 }
-

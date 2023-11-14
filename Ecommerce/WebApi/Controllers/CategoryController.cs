@@ -26,7 +26,4 @@ namespace WebApi.Controllers
             return Ok(_categoryLogic.GetCategories());
         }
     }
-
-
 }
-

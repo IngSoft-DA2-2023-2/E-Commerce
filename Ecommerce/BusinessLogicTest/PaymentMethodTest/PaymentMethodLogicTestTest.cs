@@ -9,7 +9,6 @@ namespace BusinessLogicTest.PaymentMethodTest
     public class PaymentMethodLogicTestTest
     {
         private IPaymentMethod _bankDebitLogic;
-        private readonly int totalCart = 100;
         private readonly string categoryName = "BankDebit";
 
         [TestInitialize]

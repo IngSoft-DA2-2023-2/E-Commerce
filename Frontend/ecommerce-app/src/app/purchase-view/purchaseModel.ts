@@ -43,7 +43,7 @@ export class productModel{
     Price:number;
     Brand:string;
     Category:string;
-    Colour:string[];
+    Colours:string[];
     Stock:number;
     includeForPromotion:boolean;
 
@@ -55,7 +55,7 @@ export class productModel{
         this.Price = price;
         this.Brand = brandName;
         this.Category = categoryName;
-        this.Colour = colours;
+        this.Colours = colours;
         this.Stock = stock;
         this.includeForPromotion = includeForPromotion;
     }

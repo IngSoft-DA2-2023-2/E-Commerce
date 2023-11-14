@@ -13,19 +13,20 @@ namespace Domain
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
         public virtual List<Colour> Colours { get; set; } = new List<Colour>();
+        public virtual bool IncludeForPromotion { get; set; } = true;
 
-        public virtual bool IncludeForPromotion {  get; set; } = true;
-
-        public virtual int Stock {  get => _stock;
-            set 
-            { 
-                if (value<0) 
+        public virtual int Stock
+        {
+            get => _stock;
+            set
+            {
+                if (value < 0)
                 {
                     throw new DomainException("Stock must not be below 0");
                 }
                 _stock = value;
             }
-        } 
+        }
 
         public string Name
         {
@@ -66,15 +67,14 @@ namespace Domain
             }
 
         }
+
         public override bool Equals(object? obj)
         {
             return (Name.Equals(((Product)obj).Name)) &&
-     (Description.Equals(((Product)obj).Description)) &&
-     (Price.Equals(((Product)obj).Price)) &&
-     (Brand.Name.Equals(((Product)obj).Brand.Name)) &&
-     (Category.Name.Equals(((Product)obj).Category.Name));
+              (Description.Equals(((Product)obj).Description)) &&
+              (Price.Equals(((Product)obj).Price)) &&
+              (Brand.Name.Equals(((Product)obj).Brand.Name)) &&
+              (Category.Name.Equals(((Product)obj).Category.Name));
         }
-
-
     }
 }

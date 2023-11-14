@@ -99,7 +99,7 @@ export class ApiService {
       price: data.Price,
       brand: data.Brand,
       category: data.Category,
-      colour: data.Colour,
+      colours: data.Colours,
       stock: data.Stock,
       includeForPromotion: data.IncludeForPromotion
     };

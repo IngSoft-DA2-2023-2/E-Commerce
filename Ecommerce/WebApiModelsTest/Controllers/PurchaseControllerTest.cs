@@ -15,12 +15,31 @@ namespace WebApiModelsTest.Controller
     [TestClass]
     public class PurchaseControllerTest
     {
+        private IEnumerable<User> listUsers;
+        private Guid buyerId;
+
+
+        [TestInitialize]
+        public void Init()
+        {
+            buyerId = Guid.NewGuid();
+            listUsers = new List<User>()
+            {
+                new User {
+                    Email= "email@sample.com",
+                    Name="name1",
+                    Password="password",
+                    Address="address sample",
+                    Roles=new List<StringWrapper>{new StringWrapper() { Info = "buyer" } },
+                    Id = buyerId
+                },
+            };
+        }
         [TestMethod]
         public void CreateNewPurchase()
         {
             List<string> colour = new List<string>() { "Red", "Blue" };
             Guid id = Guid.NewGuid();
-            Guid buyer = Guid.NewGuid();
             List<CreateProductForPurchase> cart = new List<CreateProductForPurchase>()
             {
                 new CreateProductForPurchase()
@@ -29,7 +48,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = "brand",
                     Category = "category",
-                    Colour = colour,
+                    Colours = colour,
                     Stock = 1
                 }
             };
@@ -57,20 +76,9 @@ namespace WebApiModelsTest.Controller
             Purchase purchase = new Purchase()
             {
                 Id = id,
-                UserId = buyer,
+                UserId = buyerId,
                 Cart = products,
                 PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" }
-            };
-            IEnumerable<User> listUsers = new List<User>()
-            {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
-                    Id = buyer
-                },
             };
 
             Guid guid = Guid.NewGuid();
@@ -79,20 +87,19 @@ namespace WebApiModelsTest.Controller
             userLogic.Setup(logic => logic.GetUserIdFromToken(It.IsAny<string>())).Returns(listUsers.First().Id);
             userLogic.Setup(logic => logic.IsBuyer(It.Is<string>(s => s == guid.ToString()))).Returns(true);
             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
-            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.ToEntity(buyer).UserId &&
+            purchaseLogic.Setup(p => p.CreatePurchase(It.Is<Purchase>(purchase => purchase.UserId == purchaseRequest.ToEntity(buyerId).UserId &&
                   purchase.Cart.First().Name == purchaseRequest.Cart.First().Name))).Returns(purchase);
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             var result = purchaseController.CreatePurchase(purchaseRequest, guid.ToString()) as OkObjectResult;
             Assert.IsNotNull(result);
             var response = result.Value as CreatePurchaseResponse;
-            Assert.AreEqual(purchaseRequest.ToEntity(buyer).UserId, response.BuyerId);
+            Assert.AreEqual(purchaseRequest.ToEntity(buyerId).UserId, response.BuyerId);
             Assert.AreEqual(purchaseRequest.Cart.First().Name, response.Cart.First().Name);
         }
 
         [TestMethod]
         public void GetAllPurchaseOk()
         {
-            Guid buyerId = Guid.NewGuid();
             List<Purchase> purchases = new List<Purchase>();
             purchases.Add(new Purchase()
             {
@@ -108,17 +115,7 @@ namespace WebApiModelsTest.Controller
                 }
             });
 
-            IEnumerable<User> listUsers = new List<User>()
-            {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List<StringWrapper>{new StringWrapper() { Info = "buyer" } },
-                    Id = buyerId
-                },
-            };
+           
 
             Guid guid = Guid.NewGuid();
             Session session = new Session() { Id = guid, User = listUsers.First() };
@@ -139,7 +136,7 @@ namespace WebApiModelsTest.Controller
 
             Assert.IsNotNull(res);
             Assert.AreEqual(res.Count(), 1);
-            Assert.AreEqual(res,purchases);
+            Assert.AreEqual(res, purchases);
         }
 
         [TestMethod]
@@ -156,7 +153,7 @@ namespace WebApiModelsTest.Controller
                     Description = "description",
                     Brand = "brand",
                     Category = "category",
-                    Colour = colour,
+                    Colours = colour,
 
                 }
             };
@@ -186,21 +183,6 @@ namespace WebApiModelsTest.Controller
                 Cart = products
             };
 
-
-
-
-            IEnumerable<User> listUsers = new List<User>()
-            {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
-                    Id = buyer
-                },
-            };
-
             Guid guid = Guid.NewGuid();
 
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
@@ -220,8 +202,8 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void GetAllPurchaseUnauthorized()
         {
-            Guid buyerId = Guid.NewGuid();
             List<Purchase> purchases = new List<Purchase>();
+
             purchases.Add(new Purchase()
             {
                 Id = Guid.NewGuid(),
@@ -236,18 +218,6 @@ namespace WebApiModelsTest.Controller
                     }
                 }
             });
-
-            IEnumerable<User> listUsers = new List<User>()
-            {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List<StringWrapper>{ new StringWrapper { Id = new Guid(), Info =  "buyer" } },
-                    Id = buyerId
-                },
-            };
 
             Guid guid = Guid.NewGuid();
 
@@ -265,9 +235,6 @@ namespace WebApiModelsTest.Controller
 
             PurchaseController purchaseController = new PurchaseController(purchaseLogic.Object, userLogic.Object);
             Assert.ThrowsException<UnauthorizedAccessException>(() => purchaseController.GetAllPurchases(buyerId.ToString()));
-
         }
-
     }
 }
-

@@ -11,8 +11,8 @@ namespace ApiModels.Out
         public string SelectedPromotion { get; set; }
         public int Total { get; set; }
         public CreatePaymentMethodResponse PaymentMethod { get; set; }
-
         public List<CreateProductResponse> Cart { get; set; } = new List<CreateProductResponse>();
+
         public CreatePurchaseResponse(Purchase savedPurchase)
         {
             Id = savedPurchase.Id;

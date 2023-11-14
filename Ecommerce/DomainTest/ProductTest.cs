@@ -25,7 +25,6 @@ namespace UnitTest.DomainTest
             productSample = new Product();
         }
 
-
         [TestMethod]
         public void GivenProductReturnsItsName()
         {
@@ -111,4 +110,3 @@ namespace UnitTest.DomainTest
         }
     }
 }
-

@@ -11,6 +11,7 @@ namespace BusinessLogic
     {
         private readonly IUserRepository _userRepository;
         private readonly ISessionRepository _sessionRepository;
+
         public UserLogic(IUserRepository userRepository, ISessionRepository sessionRepository)
         {
             this._sessionRepository = sessionRepository;
@@ -23,7 +24,7 @@ namespace BusinessLogic
             {
                 if (_userRepository.GetAllUsers(u => u.Email == user.Email).Any())
                 {
-                    throw new LogicException("Existing user with that email");
+                    throw new LogicException("Existing user with that email.");
                 }
                 user.Id = Guid.NewGuid();
                 return _userRepository.CreateUser(user);
@@ -41,7 +42,7 @@ namespace BusinessLogic
             {
                 if (_userRepository.GetAllUsers(u => u.Email == user.Email).Any())
                 {
-                    throw new LogicException("Existing user with that email");
+                    throw new LogicException("Existing user with that email.");
                 }
                 user.Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } };
                 user.Id = Guid.NewGuid();
@@ -71,18 +72,17 @@ namespace BusinessLogic
             }
         }
 
-
         public User UpdateUserByAdmin(User updated)
         {
             try
             {
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
-                if (outdated is null) throw new LogicException("User not found");
+                if (outdated is null) throw new LogicException("User not found.");
 
-                if(updated.Name is not null && updated.Name!= "") outdated.Name=updated.Name;
-                if(updated.Password is not null && updated.Password!="")outdated.Password=updated.Password;
-                if(updated.Address is not null && updated.Address!="")outdated.Address=updated.Address;
-                if(updated.Roles is not null) outdated.Roles = updated.Roles;
+                if (updated.Name is not null && updated.Name != "") outdated.Name = updated.Name;
+                if (updated.Password is not null && updated.Password != "") outdated.Password = updated.Password;
+                if (updated.Address is not null && updated.Address != "") outdated.Address = updated.Address;
+                if (updated.Roles is not null) outdated.Roles = updated.Roles;
 
 
                 return _userRepository.UpdateUser(outdated);
@@ -98,11 +98,11 @@ namespace BusinessLogic
             try
             {
                 var outdated = _userRepository.GetAllUsers(u => u.Id == updated.Id).FirstOrDefault();
-                if (outdated == null) throw new LogicException("User not found");
-                if(updated.Name is not null && updated.Name!="") outdated.Name=updated.Name;
-                if(updated.Password is not null && updated.Password!="")outdated.Password=updated.Password;
-                if(updated.Address is not null && updated.Address!="")outdated.Address = updated.Address;
-            
+                if (outdated == null) throw new LogicException("User not found.");
+                if (updated.Name is not null && updated.Name != "") outdated.Name = updated.Name;
+                if (updated.Password is not null && updated.Password != "") outdated.Password = updated.Password;
+                if (updated.Address is not null && updated.Address != "") outdated.Address = updated.Address;
+
                 return _userRepository.UpdateUser(outdated);
             }
             catch (DataAccessException e)
@@ -123,7 +123,6 @@ namespace BusinessLogic
             }
         }
 
-
         public bool IsAdmin(string token)
         {
             try
@@ -141,15 +140,12 @@ namespace BusinessLogic
             }
 
         }
-
         public Guid GetUserIdFromToken(string userHeader)
         {
             Guid tokenGuid = Guid.Parse(userHeader);
             return _sessionRepository.GetSessions(s => s.Id == tokenGuid).FirstOrDefault().User.Id;
 
         }
-
-
 
         public bool IsBuyer(string token)
         {

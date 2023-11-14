@@ -24,12 +24,12 @@ namespace WebApiModelsTest.In
             purchaseRequest = new CreatePurchaseRequest();
             createPaymentMethodRequest = new CreatePaymentMethodRequest();
         }
+
         [TestMethod]
         public void GivenPurchaseRequestReturnsProductRequest()
         {
             purchaseRequest.Cart = products;
             Assert.AreEqual(purchaseRequest.Cart.First().Name, products.First().Name);
         }
-
     }
 }

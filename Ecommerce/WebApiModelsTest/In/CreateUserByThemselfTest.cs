@@ -15,7 +15,6 @@ namespace WebApiModelsTest.In
         private readonly string passwordSample = "passwordSample";
         private CreateUserByThemselfRequest request;
 
-
         [TestInitialize]
         public void Init()
         {
@@ -49,5 +48,3 @@ namespace WebApiModelsTest.In
         }
     }
 }
-
-
