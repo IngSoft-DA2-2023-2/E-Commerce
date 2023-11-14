@@ -40,8 +40,6 @@ namespace WebApi.Filters
                     StatusCode = StatusCodes.Status500InternalServerError,
                 };
             }
-
-
         }
     }
 }

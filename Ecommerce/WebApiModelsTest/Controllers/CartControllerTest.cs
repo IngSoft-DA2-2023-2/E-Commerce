@@ -48,6 +48,7 @@ namespace WebApiModelsTest.Controllers
                     Stock = 1
                 }
             };
+
             CreateCartRequest cartRequest = new CreateCartRequest()
             {
                 Cart = cart,
@@ -56,9 +57,8 @@ namespace WebApiModelsTest.Controllers
             {
                 Cart = products,
             };
-            
 
-             Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
+            Mock<IPurchaseLogic> purchaseLogic = new Mock<IPurchaseLogic>();
             purchaseLogic.Setup(p => p.CreatePurchaseLogic(It.Is<Purchase>(purchase => purchase.Cart.First().Name == cartRequest.Cart.First().Name))).Returns(purchase);
             CartController cartController = new CartController(purchaseLogic.Object);
             var result = cartController.CreateCart(cartRequest) as OkObjectResult;

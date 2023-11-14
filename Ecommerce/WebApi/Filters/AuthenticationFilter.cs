@@ -7,7 +7,6 @@ namespace WebApi.Filters
     [ExcludeFromCodeCoverage]
     public class AuthenticationFilter : ActionFilterAttribute, IActionFilter
     {
-
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             string header = context.HttpContext.Request.Headers["Authorization"];
@@ -19,7 +18,5 @@ namespace WebApi.Filters
                 };
             }
         }
-
-
     }
 }

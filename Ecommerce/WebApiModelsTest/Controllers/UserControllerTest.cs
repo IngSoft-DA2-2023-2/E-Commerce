@@ -5,6 +5,7 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 
@@ -14,11 +15,13 @@ namespace WebApiModelsTest.Controller
     [TestClass]
     public class UserControllerTest
     {
-
-        [TestMethod]
-        public void GetAllUsers()
+        private IEnumerable<User> expected;
+        private Guid guid;
+        [TestInitialize]
+        public void Init()
         {
-            IEnumerable<User> expected = new List<User>()
+            guid = Guid.NewGuid();
+            expected = new List<User>()
             {
                 new User {
                     Email= "mail1@sample.com",
@@ -26,10 +29,16 @@ namespace WebApiModelsTest.Controller
                     Password="password1",
                     Address="address sample",
                     Roles= new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
+                    Id = guid,
+
                 },
             };
-            var token = "testToken";
+        }
 
+        [TestMethod]
+        public void GetAllUsers()
+        {
+            var token = "testToken";
 
             var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
@@ -50,23 +59,10 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Address, expectedMappedResult.First().Address);
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
         }
+
         [TestMethod]
         public void ThrowExceptionTryingToGetUsers()
         {
-            Guid guid = Guid.NewGuid();
-
-            IEnumerable<User> expected = new List<User>()
-            {
-                new User {
-                    Email= "mail1@sample.com",
-                    Name="name1",
-                    Password="password1",
-                    Address="address sample",
-                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
-                    Id = guid,
-                },
-            };
-
             var token = "testToken";
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(false);
@@ -81,26 +77,11 @@ namespace WebApiModelsTest.Controller
                 catchedException = ex;
             }
             Assert.IsInstanceOfType(catchedException, typeof(UnauthorizedAccessException));
-
         }
 
         [TestMethod]
         public void GetExistingUserById()
         {
-            Guid guid = Guid.NewGuid();
-
-            IEnumerable<User> expected = new List<User>()
-            {
-                new User {
-                    Email= "mail1@sample.com",
-                    Name="name1",
-                    Password="password1",
-                    Address="address sample",
-                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
-                    Id = guid,
-                },
-            };
-
             var token = "testToken";
 
             var expectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
@@ -123,23 +104,10 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.First().Email, expectedMappedResult.First().Email);
             Assert.AreEqual(resultValue.First().Roles.First(), expectedMappedResult.First().Roles.First());
         }
+
         [TestMethod]
         public void ThrowExceptionTryingToGetUserById()
         {
-            Guid guid = Guid.NewGuid();
-
-            IEnumerable<User> expected = new List<User>()
-            {
-                new User {
-                    Email= "mail1@sample.com",
-                    Name="name1",
-                    Password="password1",
-                    Address="address sample",
-                    Roles=new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
-                    Id = guid,
-                },
-            };
-
             var token = "testToken";
             Mock<IUserLogic> logic = new Mock<IUserLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.IsAdmin(It.Is<string>(s => s == token))).Returns(false);
@@ -154,7 +122,6 @@ namespace WebApiModelsTest.Controller
                 catchedException = ex;
             }
             Assert.IsInstanceOfType(catchedException, typeof(UnauthorizedAccessException));
-
         }
 
         [TestMethod]
@@ -178,7 +145,6 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
             Assert.AreEqual(resultValue.Count, 0);
         }
-
 
         [TestMethod]
         public void CreateUserByAdmin()
@@ -392,6 +358,5 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(resultValue.Roles.First(), expectedMappedResult.Roles.First());
             Assert.AreEqual(resultValue.Guid, guid);
         }
-
     }
 }

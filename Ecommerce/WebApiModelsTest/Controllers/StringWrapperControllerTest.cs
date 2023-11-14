@@ -16,17 +16,16 @@ namespace WebApiModelsTest.Controllers
     [TestClass]
     public class StringWrapperControllerTest
     {
-
         [TestMethod]
         public void GetAllRoles()
         {
             StringWrapper stringWrapper = new StringWrapper()
             {
                 Id = Guid.NewGuid(),
-                Info = "Admin"
+                Info = "admin"
             };
             List<StringWrapper> stringWrappers = new List<StringWrapper>() { stringWrapper };
-            IEnumerable<string> expected = new List<string> { "Admin"};
+            IEnumerable<string> expected = new List<string> { "admin" };
             Mock<IStringWrapperLogic> stringWrapperLogic = new Mock<IStringWrapperLogic>();
             stringWrapperLogic.Setup(p => p.GetRoles()).Returns(stringWrappers);
             StringWrapperController stringWrapperController = new StringWrapperController(stringWrapperLogic.Object);

@@ -18,7 +18,6 @@ namespace WebApiModelsTest.Controllers
     [TestClass]
     public class ColourControllerTest
     {
-
         [TestMethod]
         public void GetAllColours()
         {
@@ -39,6 +38,5 @@ namespace WebApiModelsTest.Controllers
             Assert.AreEqual(expected.First(), resultValue.First());
             Assert.AreEqual(expected.Count(), resultValue.Count());
         }
-
     }
 }

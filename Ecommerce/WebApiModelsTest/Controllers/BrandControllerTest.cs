@@ -21,7 +21,6 @@ namespace WebApiModelsTest.Controllers
         [TestMethod]
         public void GetAllBrands()
         {
-          
             Brand brand = new Brand()
             {
                 Id = Guid.NewGuid(),
@@ -36,7 +35,5 @@ namespace WebApiModelsTest.Controllers
             Assert.IsNotNull(result);
             Assert.AreEqual(brands, result.Value);
         }
-
-
     }
 }
