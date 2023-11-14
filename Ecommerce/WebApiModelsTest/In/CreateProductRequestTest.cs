@@ -16,8 +16,6 @@ namespace WebApiModelsTest.In
         private const string _categorySample = "category sample";
         private readonly List<string> _coloursSample = new List<string> { "Red", "Blue" };
 
-
-
         [TestInitialize]
         public void Init()
         {
@@ -65,8 +63,5 @@ namespace WebApiModelsTest.In
             productRequestExample.Colours = _coloursSample;
             Assert.AreEqual(_coloursSample, productRequestExample.Colours);
         }
-
-
-
     }
 }

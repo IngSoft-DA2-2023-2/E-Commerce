@@ -31,7 +31,5 @@ namespace WebApiModelsTest.In
             Assert.AreEqual(user.Password, passwordSample);
             Assert.AreEqual(user.Address, addressSample);
         }
-
-
     }
 }

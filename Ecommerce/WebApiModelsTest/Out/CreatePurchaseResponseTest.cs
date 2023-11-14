@@ -52,18 +52,21 @@ namespace WebApiModelsTest.Out
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Id, createPurchaseResponse.Id);
         }
+
         [TestMethod]
         public void GivenProductResponseReturnsBuyerGuid()
         {
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.UserId, createPurchaseResponse.BuyerId);
         }
+
         [TestMethod]
         public void GivenProductResponseReturnsProductCorrectly()
         {
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Cart.First().Name, createPurchaseResponse.Cart.First().Name);
         }
+
         [TestMethod]
         public void GivenProductResponseReturnsCurrentPromotion()
         {
@@ -78,7 +81,6 @@ namespace WebApiModelsTest.Out
             Assert.AreEqual(purchase.Date, createPurchaseResponse.PurchaseTime);
         }
 
-
         [TestMethod]
         public void GivenProductResponseReturnsTotal()
         {
@@ -90,8 +92,5 @@ namespace WebApiModelsTest.Out
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Total, createPurchaseResponse.Total);
         }
-
-
-
     }
 }
