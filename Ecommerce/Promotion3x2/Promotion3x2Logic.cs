@@ -34,10 +34,7 @@ namespace Promotion3x2
                 }
             }
             if (!IsApplicable(cart)) throw new LogicException("Not applicable promotion");
-
             decimal discount = 0;
-
-
             foreach (var group in productsForPromotion.GroupBy(product => product.Category.Name))
             {
                 if (group.Count() >= _minQuantity)
@@ -50,6 +47,7 @@ namespace Promotion3x2
 
             return (int)Decimal.Round(discount);
         }
+
         public override string ToString()
         {
             return Name;

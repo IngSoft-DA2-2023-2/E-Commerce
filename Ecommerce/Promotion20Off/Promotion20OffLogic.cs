@@ -17,7 +17,7 @@ namespace Promotion20Off
             int cant = 0;
             foreach (var product in cart)
             {
-                if(product.IncludeForPromotion)cant++;
+                if (product.IncludeForPromotion) cant++;
             }
             return cant >= _minCartSize;
         }
@@ -44,7 +44,5 @@ namespace Promotion20Off
         {
             return Name;
         }
-
-
     }
 }
