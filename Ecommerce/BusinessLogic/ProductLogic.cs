@@ -13,7 +13,9 @@ namespace BusinessLogic
         private readonly BrandLogic _brandLogic;
         private readonly CategoryLogic _categoryLogic;
         private readonly ColourLogic _colourLogic;
-        public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository)
+        public ProductLogic(IProductRepository productRepository,
+            IBrandRepository brandRepository, ICategoryRepository categoryRepository,
+            IColourRepository colourRepository)
         {
             _productRepository = productRepository;
             _brandLogic = new BrandLogic(brandRepository);
@@ -33,7 +35,8 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<Product> FilterUnionProduct(string? name, string? brandName, string? categoryName, string? priceRange)
+        public IEnumerable<Product> FilterUnionProduct(string? name,
+            string? brandName, string? categoryName, string? priceRange)
         {
             try
             {
@@ -64,8 +67,6 @@ namespace BusinessLogic
             {
                 throw new LogicException(e);
             }
-
-
         }
 
         public Product AddProduct(Product newProduct)
@@ -86,7 +87,6 @@ namespace BusinessLogic
             }
         }
 
-
         public Product UpdateProduct(Product newProduct)
         {
             try
@@ -102,8 +102,8 @@ namespace BusinessLogic
                 throw new LogicException(e);
             }
         }
-
-        public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName, string? priceRange)
+        public IEnumerable<Product> FilterIntersectionProduct(string? name,
+            string? brandName, string? categoryName, string? priceRange)
         {
             IEnumerable<Product>? products = null;
             try
@@ -125,7 +125,8 @@ namespace BusinessLogic
 
                 }
 
-                if (categoryName is not null && (brandName is not null || name is not null))
+                if (categoryName is not null &&
+                    (brandName is not null || name is not null))
                 {
 
                     products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
@@ -136,7 +137,8 @@ namespace BusinessLogic
                     products = _productRepository.GetProductByCategory(categoryName);
 
                 }
-                if(priceRange is not null && (brandName is not null || name is not null || categoryName is not null))
+                if (priceRange is not null &&
+                    (brandName is not null || name is not null || categoryName is not null))
                 {
                     products = products.Intersect(_productRepository.GetProductByPriceRange(priceRange));
                 }
@@ -160,13 +162,15 @@ namespace BusinessLogic
             {
                 if (product.Equals(expected))
                 {
-                    if (expected.Stock < 0 || expected.Stock > product.Stock) throw new LogicException("invalid stock");
+                    if (expected.Stock < 0 || expected.Stock > product.Stock)
+                        throw new LogicException("Invalid stock.");
                     return true;
                 }
             }
-            throw new LogicException("Product Does not exists.");
+            throw new LogicException("Product does not exists.");
 
         }
+
         public void UpdateStock(IEnumerable<Product> products)
         {
             foreach (Product product in products)

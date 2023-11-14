@@ -5,6 +5,7 @@ namespace BusinessLogic.PaymentMethod
     public class PaymentMethodContext
     {
         private readonly List<IPaymentMethod> _paymentMethods;
+
         public PaymentMethodContext()
         {
             _paymentMethods = new List<IPaymentMethod>();

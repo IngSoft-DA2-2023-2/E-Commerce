@@ -403,7 +403,7 @@ namespace BusinessLogicTest
                 catchedException = ex;
             }
             Assert.IsInstanceOfType(catchedException, typeof(LogicException));
-            Assert.AreEqual(catchedException?.Message, "Product Does not exists.");
+            Assert.AreEqual(catchedException?.Message, "Product does not exists.");
 
         }
         [TestMethod]

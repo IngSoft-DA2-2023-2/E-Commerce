@@ -32,8 +32,9 @@ namespace BusinessLogic
         {
             try
             {
-               return _brandRepository.GetBrands().Select(b=>b.Name).Distinct();
-            }catch (DataAccessException e)
+                return _brandRepository.GetBrands().Select(b => b.Name).Distinct();
+            }
+            catch (DataAccessException e)
             {
                 throw new LogicException(e);
             }
