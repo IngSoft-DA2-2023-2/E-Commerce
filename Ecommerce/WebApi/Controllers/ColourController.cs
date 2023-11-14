@@ -23,10 +23,7 @@ namespace WebApi.Controllers
         [AnnotatedCustomExceptionFilter]
         public IActionResult GetAllColours()
         {
-            return Ok(_colourLogic.GetColours().Select(c=>c.Name));
+            return Ok(_colourLogic.GetColours().Select(c => c.Name));
         }
     }
-
-
 }
-

@@ -26,7 +26,4 @@ namespace WebApi.Controllers
             return Ok(_brandLogic.GetBrands());
         }
     }
-
-
 }
-

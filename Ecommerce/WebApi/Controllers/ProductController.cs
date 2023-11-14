@@ -25,8 +25,10 @@ namespace WebApi.Controllers
         public IActionResult GetAllProductsByFilters([FromQuery] string? operation, [FromQuery] string? name = null,
             [FromQuery] string? brandName = null, [FromQuery] string? categoryName = null, [FromQuery] string? priceRange = null)
         {
-            if (operation is null || operation == "or") return Ok(productLogic.FilterUnionProduct(name, brandName, categoryName, priceRange));
-            if (operation == "and") return Ok(productLogic.FilterIntersectionProduct(name, brandName, categoryName,priceRange));
+            if (operation is null || operation == "or")
+                return Ok(productLogic.FilterUnionProduct(name, brandName, categoryName, priceRange));
+            if (operation == "and")
+                return Ok(productLogic.FilterIntersectionProduct(name, brandName, categoryName, priceRange));
             return BadRequest();
         }
 
@@ -41,7 +43,8 @@ namespace WebApi.Controllers
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult CreateProduct([FromBody] CreateProductRequest product, [FromHeader] string Authorization)
+        public IActionResult CreateProduct([FromBody] CreateProductRequest product,
+            [FromHeader] string Authorization)
         {
             var userHeader = Authorization;
             if (userLogic.IsAdmin(userHeader))
@@ -62,7 +65,8 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         [AnnotatedCustomExceptionFilter]
         [AuthenticationFilter]
-        public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product, [FromHeader] string Authorization)
+        public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest product,
+            [FromHeader] string Authorization)
         {
             var userHeader = Authorization;
             if (userLogic.IsAdmin(userHeader))
@@ -77,10 +81,6 @@ namespace WebApi.Controllers
             {
                 throw new UnauthorizedAccessException();
             }
-
         }
     }
-
-
 }
-

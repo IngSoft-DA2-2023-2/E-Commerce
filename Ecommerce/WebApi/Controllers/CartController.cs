@@ -19,7 +19,6 @@ namespace WebApi.Controllers
             _purchaseLogic = purchaseLogic;
         }
 
-
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         public IActionResult CreateCart([FromBody] CreateCartRequest cart)
@@ -29,6 +28,5 @@ namespace WebApi.Controllers
                 var response = new CreateCartResponse(savedPurchase);
                 return Ok(response);
         }
-
     }
 }

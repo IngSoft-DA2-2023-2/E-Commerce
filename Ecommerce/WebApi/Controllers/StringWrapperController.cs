@@ -23,10 +23,7 @@ namespace WebApi.Controllers
         [AnnotatedCustomExceptionFilter]
         public IActionResult GetAllRoles()
         {
-            return Ok(_stringWrapperLogic.GetRoles().Select(r=>r.Info));
+            return Ok(_stringWrapperLogic.GetRoles().Select(r => r.Info));
         }
     }
-
-
 }
-
