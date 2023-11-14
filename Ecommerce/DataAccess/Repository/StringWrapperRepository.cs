@@ -17,7 +17,7 @@ namespace DataAccess.Repository
         {
             _context = context;
         }
-       
+
         public IEnumerable<StringWrapper> GetRoles()
         {
             var roles = _context.StringListWrappers.ToList();
@@ -29,7 +29,7 @@ namespace DataAccess.Repository
                     rolesReturn.Add(role);
                 }
             }
-           return rolesReturn;
+            return rolesReturn;
         }
     }
 }

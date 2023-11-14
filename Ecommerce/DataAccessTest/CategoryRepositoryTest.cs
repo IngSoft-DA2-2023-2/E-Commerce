@@ -43,7 +43,7 @@ namespace DataAccessTest
                 catchedException = ex;
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
-            Assert.IsTrue(catchedException.Message.Equals($"Category {categoryName} does not exists"));
+            Assert.IsTrue(catchedException.Message.Equals($"Category {categoryName} does not exists."));
 
 
         }

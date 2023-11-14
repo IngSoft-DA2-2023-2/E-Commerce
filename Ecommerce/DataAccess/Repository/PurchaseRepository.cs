@@ -9,6 +9,7 @@ namespace DataAccess.Repository
     public class PurchaseRepository : IPurchaseRepository
     {
         private readonly ECommerceContext _eCommerceContext;
+
         public PurchaseRepository(ECommerceContext eCommerce)
         {
             _eCommerceContext = eCommerce;
