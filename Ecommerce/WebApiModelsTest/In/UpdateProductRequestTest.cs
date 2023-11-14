@@ -62,8 +62,8 @@ namespace WebApiModelsTest.In
         [TestMethod]
         public void GivenUpdateProductRequestReturnsItsColour()
         {
-            updateProductRequestExample.Colour = _coloursSample;
-            Assert.AreEqual(_coloursSample, updateProductRequestExample.Colour);
+            updateProductRequestExample.Colours = _coloursSample;
+            Assert.AreEqual(_coloursSample, updateProductRequestExample.Colours);
         }
 
 

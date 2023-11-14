@@ -379,7 +379,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description1",
                 Category = "Category1",
                 Brand = "Brand1",
-                Colour = colour,
+                Colours = colour,
                 Price = 100,
                 Stock = 1
             };
@@ -406,7 +406,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Colours.First().Name == productRequest.Colour.First() &&
+            product.Colours.First().Name == productRequest.Colours.First() &&
             product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Guid id = new Guid();
             var result = productController.UpdateProduct(id, productRequest, token) as OkObjectResult;
@@ -416,7 +416,7 @@ namespace WebApiModelsTest.Controller
             Assert.AreEqual(productRequest.Description, response.Description);
             Assert.AreEqual(productRequest.Category, response.Category);
             Assert.AreEqual(productRequest.Brand, response.Brand);
-            Assert.AreEqual(productRequest.Colour.First(), response.Colours.First());
+            Assert.AreEqual(productRequest.Colours.First(), response.Colours.First());
             Assert.AreEqual(productRequest.Price, response.Price);
         }
 
@@ -429,7 +429,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description1",
                 Category = "Category1",
                 Brand = "Brand1",
-                Colour = new List<string>() { "Red", "Blue" },
+                Colours = new List<string>() { "Red", "Blue" },
                 Price = 100,
                 Stock = 1
             };
@@ -458,7 +458,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Colours.First().Name == productRequest.Colour.First() &&
+            product.Colours.First().Name == productRequest.Colours.First() &&
             product.Price == productRequest.Price))).Throws(new TestException("This is a test exception"));
             ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
 
@@ -506,7 +506,7 @@ namespace WebApiModelsTest.Controller
                 Description = "Description1",
                 Category = "Category1",
                 Brand = "Brand1",
-                Colour = colour,
+                Colours = colour,
                 Price = 100
             };
             IEnumerable<User> listUsers = new List<User>()
@@ -532,7 +532,7 @@ namespace WebApiModelsTest.Controller
             product.Description == productRequest.Description &&
             product.Category.Name == productRequest.Category &&
             product.Brand.Name == productRequest.Brand &&
-            product.Colours.First().Name == productRequest.Colour.First() &&
+            product.Colours.First().Name == productRequest.Colours.First() &&
             product.Price == productRequest.Price))).Returns(product); ProductController productController = new ProductController(productLogic.Object, userLogic.Object);
             Guid id = new Guid();
             Assert.ThrowsException<UnauthorizedAccessException>(() => productController.UpdateProduct(id, productRequest, token));

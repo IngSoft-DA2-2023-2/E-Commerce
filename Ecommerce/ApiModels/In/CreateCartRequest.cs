@@ -18,7 +18,7 @@ namespace ApiModels.In
             {
                 products.Add(createProductRequest.ToEntity());
             }
-            return new Purchase() { Cart = products, PaymentMethod= new Paypal() {CategoryName ="PayPal" } };
+            return new Purchase() { Cart = products, PaymentMethod = new Paypal() { CategoryName = "PayPal" } };
         }
     }
 }
