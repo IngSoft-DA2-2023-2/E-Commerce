@@ -5,11 +5,6 @@ namespace UnitTest.Exceptions
     [ExcludeFromCodeCoverage]
     public class UnitTestException : Exception
     {
-        public UnitTestException(string message) : base(message)
-        {
-
-        }
-
-
+        public UnitTestException(string message) : base(message) { }
     }
 }

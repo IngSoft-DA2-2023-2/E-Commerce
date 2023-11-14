@@ -17,6 +17,7 @@ namespace DomainTest.ProductPartsTests
             };
             Assert.AreEqual(guid, brand.Id);
         }
+
         [TestMethod]
         public void BrandEqualsReturnsTrue()
         {
