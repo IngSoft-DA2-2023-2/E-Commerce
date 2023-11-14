@@ -26,7 +26,5 @@ namespace BusinessLogicTest.PaymentMethodTest
         {
             Assert.AreEqual(90, _paymentMethodContext.CalculateDiscount(100, "Paganza"));
         }
-
-
     }
 }

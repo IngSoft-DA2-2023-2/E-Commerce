@@ -28,6 +28,7 @@ namespace BusinessLogicTest
             repository.VerifyAll();
             Assert.IsTrue(result);
         }
+
         [TestMethod]
         public void GivennonExistingBrandThrowsException()
         {
@@ -37,7 +38,8 @@ namespace BusinessLogicTest
             };
 
             Mock<IBrandRepository> repository = new Mock<IBrandRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.CheckForBrand("Brand")).Throws(new DataAccessException("Brand Brand does not exists"));
+            repository.Setup(logic => logic.CheckForBrand("Brand")).
+                Throws(new DataAccessException("Brand Brand does not exists"));
             var brandLogic = new BrandLogic(repository.Object);
             Exception catchedException = null;
             try
@@ -62,6 +64,5 @@ namespace BusinessLogicTest
             var expectedReturn = brandLogic.GetBrands();
             Assert.IsTrue(expectedReturn.Contains(brand.Name));
         }
-
     }
 }

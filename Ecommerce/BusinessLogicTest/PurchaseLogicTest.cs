@@ -56,6 +56,7 @@ namespace BusinessLogicTest
             repository.VerifyAll();
             Assert.AreEqual(result.Cart.First().Name, purchase.Cart.First().Name);
         }
+
         [TestMethod]
         public void ThrowsExceptionWhenTryingToCreatePurchase()
         {

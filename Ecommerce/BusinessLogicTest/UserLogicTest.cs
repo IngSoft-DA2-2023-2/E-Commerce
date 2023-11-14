@@ -13,11 +13,13 @@ namespace BusinessLogicTest
     [TestClass]
     public class UserLogicTest
     {
+        private User expected;
+        private Session session;
 
-        [TestMethod]
-        public void CreateUserByAdminCorrect()
+        [TestInitialize]
+        public void Init()
         {
-            User expected = new User()
+            expected = new User()
             {
                 Name = "Juan",
                 Email = "a@a.com",
@@ -26,12 +28,17 @@ namespace BusinessLogicTest
                 Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
             };
 
-            Session session = new Session()
+            session = new Session()
             {
                 Id = Guid.NewGuid(),
                 User = expected,
             };
 
+        }
+
+        [TestMethod]
+        public void CreateUserByAdminCorrect()
+        {
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
@@ -55,21 +62,6 @@ namespace BusinessLogicTest
         [TestMethod]
         public void CreateUserByThemselfCorrect()
         {
-            User expected = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-            };
-
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected,
-            };
-
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
@@ -94,21 +86,6 @@ namespace BusinessLogicTest
         [ExpectedException(typeof(LogicException))]
         public void CreateUserByAdminWithExistingEmailThrowsLogicException()
         {
-            User expected = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-            };
-
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected,
-            };
-
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
@@ -125,20 +102,6 @@ namespace BusinessLogicTest
         [ExpectedException(typeof(LogicException))]
         public void CreateUserByThemselfWithExistingEmailThrowsLogicException()
         {
-            User expected = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-            };
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected,
-            };
-
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
@@ -154,21 +117,6 @@ namespace BusinessLogicTest
         [ExpectedException(typeof(LogicException))]
         public void CreateUserByAdminReceivesDataAccessExceptionAndThrowsLogicException()
         {
-            User expected = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-
-            };
-
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected,
-            };
 
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
@@ -185,27 +133,12 @@ namespace BusinessLogicTest
         [ExpectedException(typeof(LogicException))]
         public void CreateUserByThemselfReceivesDataAccessExceptionAndThrowsLogicException()
         {
-            User expected = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-
-            };
-
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected,
-            };
-
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.CreateUser(It.IsAny<User>())).Throws(new DataAccessException($"User with email a@a.com already exists."));
+            repo.Setup(logic => logic.CreateUser(It.IsAny<User>()))
+                .Throws(new DataAccessException($"User with email a@a.com already exists."));
             repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { });
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
@@ -215,97 +148,58 @@ namespace BusinessLogicTest
         [TestMethod]
         public void GetAllUsers()
         {
-            IEnumerable<User> expected = new List<User>()
+            IEnumerable<User> expectedUsers = new List<User>()
             {
-               new User()
-               {
-               Name = "Juan",
-               Email = "a@a.com",
-               Address = "aaa",
-               Password = "12345",
-               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
-               },
+               expected,
             };
-
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected.First(),
-            };
-
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expectedUsers);
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             var result = userLogic.GetAllUsers(null);
 
             repo.VerifyAll();
-            Assert.AreEqual(result.First().Name, expected.First().Name);
-            Assert.AreEqual(result.First().Address, expected.First().Address);
-            Assert.AreEqual(result.First().Password, expected.First().Password);
-            Assert.AreEqual(result.First().Email, expected.First().Email);
-            Assert.AreEqual(result.First().Roles, expected.First().Roles);
+            Assert.AreEqual(result.First().Name, expectedUsers.First().Name);
+            Assert.AreEqual(result.First().Address, expectedUsers.First().Address);
+            Assert.AreEqual(result.First().Password, expectedUsers.First().Password);
+            Assert.AreEqual(result.First().Email, expectedUsers.First().Email);
+            Assert.AreEqual(result.First().Roles, expectedUsers.First().Roles);
         }
 
         [TestMethod]
         public void GetUserByPredicate()
         {
-            IEnumerable<User> expected = new List<User>()
+            IEnumerable<User> expectedUsers = new List<User>()
             {
-               new User()
-               {
-               Name = "Juan",
-               Email = "a@a.com",
-               Address = "aaa",
-               Password = "12345",
-               Roles = new List < StringWrapper > { new StringWrapper() { Info = "buyer" } },
-               },
+                expected,
             };
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected.First(),
-            };
-
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
             sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
 
             Mock<IUserRepository> repo = new Mock<IUserRepository>(MockBehavior.Strict);
-            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expected);
+            repo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(expectedUsers);
             var userLogic = new UserLogic(repo.Object, sessionRepo.Object);
 
             var result = userLogic.GetAllUsers(u => u.Name == "Juan");
 
             repo.VerifyAll();
-            Assert.AreEqual(result.First().Name, expected.First().Name);
-            Assert.AreEqual(result.First().Address, expected.First().Address);
-            Assert.AreEqual(result.First().Password, expected.First().Password);
-            Assert.AreEqual(result.First().Email, expected.First().Email);
-            Assert.AreEqual(result.First().Roles, expected.First().Roles);
+            Assert.AreEqual(result.First().Name, expectedUsers.First().Name);
+            Assert.AreEqual(result.First().Address, expectedUsers.First().Address);
+            Assert.AreEqual(result.First().Password, expectedUsers.First().Password);
+            Assert.AreEqual(result.First().Email, expectedUsers.First().Email);
+            Assert.AreEqual(result.First().Roles, expectedUsers.First().Roles);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LogicException))]
         public void GetUsersThrowsDataAccessException()
         {
-            IEnumerable<User> expected = new List<User>()
+            IEnumerable<User> expectedUsers = new List<User>()
             {
-               new User()
-               {
-               Name = "Juan",
-               Email = "a@a.com",
-               Address = "aaa",
-               Password = "12345",
-               Roles = new List < StringWrapper > ()
-               },
-            };
-            Session session = new Session()
-            {
-                Id = Guid.NewGuid(),
-                User = expected.First(),
+              expected,
             };
 
             Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
@@ -505,14 +399,8 @@ namespace BusinessLogicTest
         {
             User toDelete = new User() { Email = "a@a.com" };
 
-            User deleted = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-            };
+            User deleted = expected;
+
             Session session = new Session()
             {
                 Id = Guid.NewGuid(),
@@ -535,15 +423,8 @@ namespace BusinessLogicTest
         [ExpectedException(typeof(LogicException))]
         public void DeleteUserThrowsLogicException()
         {
-            User user = new User()
-            {
-                Name = "Juan",
-                Email = "a@a.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-                Id = Guid.NewGuid(),
-            };
+            User user = expected;
+
             Session session = new Session()
             {
                 Id = Guid.NewGuid(),
@@ -590,15 +471,8 @@ namespace BusinessLogicTest
         [TestMethod]
         public void IsBuyerReturnsTrue()
         {
-            User user = new User()
-            {
-                Name = "Juan",
-                Email = "juan@gmail.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "buyer" } },
-                Id = Guid.NewGuid(),
-            };
+            User user = expected;
+
             Session session = new Session()
             {
                 Id = Guid.NewGuid(),
@@ -619,15 +493,8 @@ namespace BusinessLogicTest
         [TestMethod]
         public void IsAdminReturnsFalse()
         {
-            User user = new User()
-            {
-                Name = "Juan",
-                Email = "juan@gmail.com",
-                Address = "aaa",
-                Password = "12345",
-                Roles = new List<StringWrapper> { new StringWrapper() { Info = "user" } },
-                Id = Guid.NewGuid(),
-            };
+            User user = expected;
+
             Session session = new Session()
             {
                 Id = Guid.NewGuid(),
@@ -701,8 +568,5 @@ namespace BusinessLogicTest
 
             Assert.AreEqual(userLogic.GetUserIdFromToken(session.Id.ToString()), user.Id);
         }
-
     }
 }
-
-

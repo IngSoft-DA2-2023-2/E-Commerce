@@ -25,13 +25,15 @@ namespace BusinessLogicTest
             repository.VerifyAll();
             Assert.IsTrue(result);
         }
+
         [TestMethod]
         public void GivenNonExistingColourThrowsException()
         {
             Colour expected = new Colour() { Name = "Colour" };
 
             Mock<IColourRepository> repository = new Mock<IColourRepository>(MockBehavior.Strict);
-            repository.Setup(logic => logic.CheckForColour("Colour")).Throws(new DataAccessException("Colour Colour does not exists"));
+            repository.Setup(logic => logic.CheckForColour("Colour")).
+                Throws(new DataAccessException("Colour Colour does not exists"));
             var colourLogic = new ColourLogic(repository.Object);
             Exception catchedException = null;
             try

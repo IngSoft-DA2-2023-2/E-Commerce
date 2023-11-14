@@ -19,7 +19,6 @@ namespace BusinessLogicTest.PromotionsTest
         private const int _oneHundred = 100;
         private const float _twentyPercent = 0.2f;
 
-
         [TestInitialize]
         public void Init()
         {
