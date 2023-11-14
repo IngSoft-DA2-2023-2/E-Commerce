@@ -13,7 +13,7 @@ namespace ApiModels.Out
         {
             CategoryName = paymentMethod.CategoryName;
             if (paymentMethod.GetType() == typeof(BankDebit)) Bank = ((BankDebit)paymentMethod).Bank;
-            if (paymentMethod.GetType() == typeof(CreditCard)) Bank = ((CreditCard)paymentMethod).Flag;
+            if (paymentMethod.GetType() == typeof(CreditCard)) Flag = ((CreditCard)paymentMethod).Flag;
         }
     }
 }
