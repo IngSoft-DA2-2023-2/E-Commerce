@@ -4,7 +4,7 @@ export class updateProductModel{
     Price:number;
     Brand:string;
     Category:string;
-    Colour:string[];
+    Colours:string[];
     Stock:number;
     IncludeForPromotion:boolean;
 
@@ -14,7 +14,7 @@ export class updateProductModel{
         this.Price = price;
         this.Brand = brandName;
         this.Category = categoryName;
-        this.Colour = colours;
+        this.Colours = colours;
         this.Stock = stock;
         this.IncludeForPromotion = includeForPromotion;
     }
