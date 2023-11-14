@@ -24,6 +24,7 @@ namespace DataAccessTest
             var expectedReturn = purchaseRepository.CreatePurchase(purchase);
             Assert.AreEqual(expectedReturn, purchase);
         }
+
         [TestMethod]
         public void CreateAlreadyExistingPurchase()
         {
@@ -43,6 +44,7 @@ namespace DataAccessTest
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Purchase already exists."));
         }
+
         [TestMethod]
         public void GetAllTheBuyersPurchases()
         {
@@ -68,6 +70,7 @@ namespace DataAccessTest
             var expectedReturn = purchaseRepository.GetPurchase(buyer);
             Assert.AreEqual(expectedReturn.First(), purchase);
         }
+
         [TestMethod]
         public void GetAllPurchases()
         {
@@ -78,6 +81,7 @@ namespace DataAccessTest
             var expectedReturn = purchaseRepository.GetAllPurchases();
             Assert.AreEqual(expectedReturn.First(), purchase);
         }
+
         [TestMethod]
         public void ReturnsEmptyListWhenNoElementsFound()
         {
@@ -87,6 +91,7 @@ namespace DataAccessTest
             var ret = purchaseRepository.GetAllPurchases();
             Assert.AreEqual(ret.Count(), 0);
         }
+
         [TestMethod]
         public void GetPaymentMethodFromPurchase()
         {

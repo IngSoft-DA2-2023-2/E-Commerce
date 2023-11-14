@@ -14,17 +14,21 @@ namespace DataAccessTest
     [TestClass]
     public class UserRepositoryTest
     {
+        User newUser;
 
-        [TestMethod]
-        public void CreateUser()
+        [TestInitialize]
+        public void Init()
         {
-
-            User newUser = new User
+            newUser = new User
             {
                 Name = "TestUser",
                 Email = "test@example.com"
             };
+        }
 
+        [TestMethod]
+        public void CreateUser()
+        {
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
             userContext.Setup(c => c.Users.Add(newUser));
@@ -39,12 +43,6 @@ namespace DataAccessTest
         [ExpectedException(typeof(DataAccessException))]
         public void CreateUserThrowsException()
         {
-            User newUser = new User
-            {
-                Name = "TestUser",
-                Email = "test@example.com"
-            };
-
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
             userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException($"User with email test@example.com already exists."));
@@ -58,12 +56,8 @@ namespace DataAccessTest
         public void DeleteUser()
         {
             Guid id = Guid.NewGuid();
-            User deletingUser = new User
-            {
-                Name = "TestUser",
-                Email = "test@example.com",
-                Id = id
-            };
+            User deletingUser = newUser;
+            deletingUser.Id = id;
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(
@@ -117,11 +111,11 @@ namespace DataAccessTest
                 Name = "TestUser",
                 Email = "test@example.com",
                 Id = Guid.NewGuid(),
-                Roles = new List<StringWrapper> { new StringWrapper() {Info="admin" } }
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "admin" } }
             };
 
             var userContext = new Mock<ECommerceContext>();
-            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>() { deletingUser});
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>() { deletingUser });
             userContext.Setup(c => c.Users.Remove(deletingUser));
             userContext.Setup(c => c.SaveChanges());
             IUserRepository userRepository = new UserRepository(userContext.Object);
@@ -131,11 +125,7 @@ namespace DataAccessTest
         [TestMethod]
         public void GetExistingUser()
         {
-            User existingUser = new User
-            {
-                Name = "TestUser",
-                Email = "test@example.com"
-            };
+            User existingUser = newUser;
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { existingUser });
@@ -253,7 +243,5 @@ namespace DataAccessTest
 
             var updatedResult = userRepository.UpdateUser(existingUser);
         }
-
     }
 }
-

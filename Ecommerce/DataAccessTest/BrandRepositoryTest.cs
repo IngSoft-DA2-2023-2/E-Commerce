@@ -13,11 +13,12 @@ namespace DataAccessTest
     [TestClass]
     public class BrandRepositoryTest
     {
+        private string brandName = "brand";
+
         [TestMethod]
         public void GivenExistingBrandNameReturnsTrue()
         {
             Brand brand = new Brand() { Name = "brand" };
-            string brandName = "brand";
             var brandContext = new Mock<ECommerceContext>();
             brandContext.Setup(ctx => ctx.Brands).ReturnsDbSet(new List<Brand>() { brand });
             IBrandRepository brandRepository = new BrandRepository(brandContext.Object);
@@ -28,7 +29,6 @@ namespace DataAccessTest
         [TestMethod]
         public void GivenNonExistingBrandNameThrowsException()
         {
-            string brandName = "brand";
             var brandContext = new Mock<ECommerceContext>();
             brandContext.Setup(ctx => ctx.Brands).ReturnsDbSet(new List<Brand>() { });
             IBrandRepository brandRepository = new BrandRepository(brandContext.Object);

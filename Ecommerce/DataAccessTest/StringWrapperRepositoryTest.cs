@@ -20,11 +20,11 @@ namespace DataAccessTest
         [TestMethod]
         public void GetAllRoles()
         {
-          
+
             StringWrapper stringWrapper = new StringWrapper()
             {
                 Id = Guid.NewGuid(),
-                Info = "Admin"
+                Info = "admin"
             };
 
             List<StringWrapper> stringWrappers = new List<StringWrapper>() { stringWrapper };
