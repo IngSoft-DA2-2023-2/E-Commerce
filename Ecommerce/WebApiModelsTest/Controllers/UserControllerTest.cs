@@ -5,7 +5,6 @@ using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using WebApi.Controllers;
 

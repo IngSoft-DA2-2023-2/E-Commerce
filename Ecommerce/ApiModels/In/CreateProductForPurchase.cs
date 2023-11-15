@@ -1,13 +1,5 @@
-﻿using Domain.ProductParts;
-using Domain;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using Domain;
+using Domain.ProductParts;
 
 namespace ApiModels.In
 {

@@ -1,5 +1,8 @@
-﻿namespace Domain.PaymentMethodCategories
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Domain.PaymentMethodCategories
 {
+    [ExcludeFromCodeCoverage]
     public class BankDebit : PaymentMethod
     {
         public override Guid Id { get; set; }

@@ -137,5 +137,11 @@ namespace BusinessLogicTest.PromotionsTest
                 };
             Assert.AreEqual(_discount3, _promo.CalculateDiscount(cartSample));
         }
+
+        [TestMethod]
+        public void GetNameOfPromotion()
+        {
+            Assert.AreEqual(_promo.ToString(), "3x1 Fidelity");
+        }
     }
 }

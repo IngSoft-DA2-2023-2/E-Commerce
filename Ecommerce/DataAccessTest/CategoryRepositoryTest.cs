@@ -13,7 +13,7 @@ namespace DataAccessTest
     [TestClass]
     public class CategoryRepositoryTest
     {
-        string categoryName = "category";
+        private readonly string categoryName = "category";
 
         [TestMethod]
         public void GivenExistingCategoryNameReturnsTrue()
@@ -43,6 +43,18 @@ namespace DataAccessTest
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Category {categoryName} does not exists."));
+        }
+
+        [TestMethod]
+        public void GetAllCategories()
+        {
+            var categoryContext = new Mock<ECommerceContext>();
+            Guid guid = Guid.NewGuid();
+            categoryContext.Setup(ctx => ctx.Categories).ReturnsDbSet(new List<Category>() { new Category() { Id = guid }, new Category() { Id = guid } });
+            ICategoryRepository categoryRepository = new CategoryRepository(categoryContext.Object);
+            IEnumerable<Category> res = categoryRepository.GetCategories();
+            Assert.AreEqual(1, res.Count());
+            Assert.AreEqual(guid,res.First().Id);
         }
     }
 }

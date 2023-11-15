@@ -1,6 +1,5 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
-using BusinessLogic;
 using Domain;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +21,11 @@ namespace WebApi.Controllers
         [HttpPost]
         [AnnotatedCustomExceptionFilter]
         public IActionResult CreateCart([FromBody] CreateCartRequest cart)
-        {      
-                var newpurchase = cart.ToEntity();
-                Purchase savedPurchase = _purchaseLogic.CreatePurchaseLogic(newpurchase);
-                var response = new CreateCartResponse(savedPurchase);
-                return Ok(response);
+        {
+            var newpurchase = cart.ToEntity();
+            Purchase savedPurchase = _purchaseLogic.CreatePurchaseLogic(newpurchase);
+            var response = new CreateCartResponse(savedPurchase);
+            return Ok(response);
         }
     }
 }

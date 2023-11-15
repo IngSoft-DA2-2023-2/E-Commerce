@@ -1,10 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 #nullable disable
 
 namespace DataAccess.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class v4_purchaseDate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

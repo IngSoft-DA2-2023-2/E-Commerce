@@ -1,10 +1,5 @@
 ﻿using ApiModels.In;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebApiModelsTest.In
 {
@@ -14,7 +9,7 @@ namespace WebApiModelsTest.In
     public class CreateProductForPurchaseTest
     {
         private CreateProductForPurchase productRequestExample;
-        private Guid _idSample = Guid.NewGuid();
+        private readonly Guid _idSample = Guid.NewGuid();
         private const string _nameSample = "name sample";
         private const int _priceSample = 100;
         private const string _descriptionSample = "description sample";

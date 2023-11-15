@@ -39,7 +39,6 @@ namespace BusinessLogicTest.PromotionsTest
         {
             _cartSample.Add(new Product());
             _purchaseSample.Cart = _cartSample;
-
             Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
@@ -48,9 +47,7 @@ namespace BusinessLogicTest.PromotionsTest
         {
             _cartSample.Add(new Product());
             _cartSample.Add(new Product());
-
             _purchaseSample.Cart = _cartSample;
-
             Assert.IsFalse(_promotionTotalLook.IsApplicable(_purchaseSample.Cart));
         }
 
@@ -175,7 +172,6 @@ namespace BusinessLogicTest.PromotionsTest
 
             Assert.AreEqual((int)(_hundred * _discount), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
         }
-
         public void GivenTwoPossibleApplicationReturnsHigherDiscount()
         {
             _cartSample.Add(new Product()
@@ -206,6 +202,12 @@ namespace BusinessLogicTest.PromotionsTest
             _purchaseSample.Cart = _cartSample;
 
             Assert.AreEqual((int)(_twoHundred * _discount), _promotionTotalLook.CalculateDiscount(_purchaseSample.Cart));
+        }
+
+        [TestMethod]
+        public void PromotionToString()
+        {
+            Assert.AreEqual("TotalLook", _promotionTotalLook.ToString());
         }
     }
 }

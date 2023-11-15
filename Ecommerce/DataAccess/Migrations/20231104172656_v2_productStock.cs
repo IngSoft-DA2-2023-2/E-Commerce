@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 #nullable disable
 
 namespace DataAccess.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class v2_productStock : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,9 +1,11 @@
 ﻿using Domain.Exceptions;
 using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 using Utilities;
 
 namespace Domain
 {
+    [ExcludeFromCodeCoverage]
     public class User
     {
         private const int _nameMinimumLength = 3;

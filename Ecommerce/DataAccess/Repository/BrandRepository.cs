@@ -1,7 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
-using Domain;
 using Domain.ProductParts;
 
 namespace DataAccess.Repository

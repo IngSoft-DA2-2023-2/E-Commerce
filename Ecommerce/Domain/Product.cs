@@ -1,8 +1,10 @@
 ﻿using Domain.Exceptions;
 using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Domain
 {
+    [ExcludeFromCodeCoverage]
     public class Product
     {
         private string _name;

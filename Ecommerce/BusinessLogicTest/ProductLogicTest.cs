@@ -1,5 +1,4 @@
 ﻿using BusinessLogic;
-using BusinessLogic.PaymentMethod;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
@@ -19,10 +18,10 @@ namespace BusinessLogicTest
         private Product expected2;
         private Product expected3;
         private Product expected4;
-        private Guid id1 = Guid.NewGuid();
-        private Guid id2 = Guid.NewGuid();
-        private Guid id3 = Guid.NewGuid();
-        private Guid id4 = Guid.NewGuid();
+        private readonly Guid id1 = Guid.NewGuid();
+        private readonly Guid id2 = Guid.NewGuid();
+        private readonly Guid id3 = Guid.NewGuid();
+        private readonly Guid id4 = Guid.NewGuid();
 
 
         [TestInitialize]
@@ -93,7 +92,7 @@ namespace BusinessLogicTest
             brandRepo.Setup(bLogic => bLogic.CheckForBrand("Brand")).Returns(true);
             categoryRepo.Setup(CaLogic => CaLogic.CheckForCategory("Category")).Returns(true);
             colourRepo.Setup(CoLogic => CoLogic.CheckForColour("Colour")).Returns(true);
-            var productLogic = new 
+            var productLogic = new
                 ProductLogic(productRepo.Object, brandRepo.Object, categoryRepo.Object, colourRepo.Object);
             var result = productLogic.AddProduct(expected);
             productRepo.VerifyAll();
@@ -191,6 +190,32 @@ namespace BusinessLogicTest
             Assert.IsTrue(result.Contains(expected2));
             Assert.IsTrue(result.Contains(expected3));
             Assert.IsTrue(result.Contains(expected4));
+        }
+
+        [TestMethod]
+        public void FilterProductUnionWithAllNull()
+        {
+            IEnumerable<Product> list = new List<Product>() { expected1, expected2, expected3 };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>();
+            productRepo.Setup(pLogic => pLogic.GetAllProducts()).Returns(list);
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            var result = productLogic.FilterUnionProduct(null, null, null, null);
+            productRepo.VerifyAll();
+            Assert.AreEqual(3, result.Count());
+            Assert.IsTrue(result.Contains(expected1));
+            Assert.IsTrue(result.Contains(expected2));
+            Assert.IsTrue(result.Contains(expected3));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LogicException))]
+        public void FilterProductUnionThrowsException()
+        {
+            IEnumerable<Product> list = new List<Product>() { expected1, expected2, expected3 };
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>();
+            productRepo.Setup(pLogic => pLogic.GetAllProducts()).Throws(new DataAccessException("error"));
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+            productLogic.FilterUnionProduct(null, null, null, null);
         }
 
         [TestMethod]
@@ -369,5 +394,34 @@ namespace BusinessLogicTest
             Assert.IsInstanceOfType(catchedException, typeof(LogicException));
             Assert.IsTrue(catchedException?.Message.Equals($"Product with id {id} does not exist."));
         }
+
+        [TestMethod]
+        public void UpdateToValidStock()
+        {
+            Mock<IProductRepository> productRepo = new Mock<IProductRepository>(MockBehavior.Strict);
+            productRepo.Setup(l => l.UpdateStock(It.IsAny<Product>())).Returns(1);
+            var productLogic = new ProductLogic(productRepo.Object, null, null, null);
+
+            List<Product> products = new List<Product>
+            {
+                new Product
+                {
+                    Name = "Product 1",
+                    Stock= 10,
+                },
+                 new Product
+                {
+                    Name = "Product 2",
+                    Stock= 20,
+                },
+            };
+            productLogic.UpdateStock(products);
+
+            Assert.AreEqual(2, products.Count);
+            Assert.AreEqual(1, products[0].Stock);
+            Assert.AreEqual(1, products[1].Stock);
+        }
+
+
     }
 }

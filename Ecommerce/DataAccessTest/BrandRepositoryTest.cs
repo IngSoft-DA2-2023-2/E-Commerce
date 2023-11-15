@@ -13,7 +13,7 @@ namespace DataAccessTest
     [TestClass]
     public class BrandRepositoryTest
     {
-        private string brandName = "brand";
+        private readonly string brandName = "brand";
 
         [TestMethod]
         public void GivenExistingBrandNameReturnsTrue()
