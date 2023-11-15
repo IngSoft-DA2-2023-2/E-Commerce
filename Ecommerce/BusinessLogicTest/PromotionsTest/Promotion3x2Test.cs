@@ -11,7 +11,7 @@ namespace BusinessLogicTest.PromotionsTest
     [TestClass]
     public class Promotion3x2Test
     {
-        private IPromotionable _promo3x2;
+        private Promotion3x2Logic _promo3x2;
         private readonly Category _categorySample1 = new Category() { Name = "category sample 1" };
         private readonly Category _categorySample2 = new Category() { Name = "category sample 2" };
         private readonly Category _categorySample3 = new Category() { Name = "category sample 3" };
@@ -21,12 +21,23 @@ namespace BusinessLogicTest.PromotionsTest
         private const int _three = 3;
         private const int _four = 4;
 
+        private const string name = "3x2";
+
         [TestInitialize]
         public void Init()
         {
             _promo3x2 = new Promotion3x2Logic();
         }
-
+        [TestMethod]
+        public void GetName()
+        {
+            Assert.AreEqual(_promo3x2.Name, name);
+        }
+        [TestMethod]
+        public void PromotionToString()
+        {
+            Assert.AreEqual(name, _promo3x2.ToString());
+        }
         [TestMethod]
         public void GivenItemsOfDifferentCategoriesReturnsIsNotApplicable()
         {

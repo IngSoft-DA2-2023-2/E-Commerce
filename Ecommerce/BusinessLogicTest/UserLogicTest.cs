@@ -295,9 +295,9 @@ namespace BusinessLogicTest
 
             User outdated = new User()
             {
-                Name = "Juancito",
-                Address = "aaa2",
-                Password = "123456",
+                Name = "Juan",
+                Address = "aaa",
+                Password = "11111",
             };
 
             Session session = new Session()
@@ -468,6 +468,52 @@ namespace BusinessLogicTest
 
             Assert.IsTrue(userLogic.IsAdmin(session.Id.ToString()));
         }
+
+        [TestMethod]
+        public void IsAdminWithoutSessionsReturnsFalse()
+        {
+            User user = new User()
+            {
+                Name = "Juan",
+                Email = "juan@gmail.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "admin" } },
+                Id = Guid.NewGuid(),
+            };
+
+
+            Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
+            sessionRepo.Setup(logic => logic.CreateSession(It.IsAny<Session>())).Returns(session);
+            sessionRepo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Returns(new List<Session> { });
+
+            Mock<IUserRepository> userRepo = new Mock<IUserRepository>(MockBehavior.Strict);
+            userRepo.Setup(logic => logic.GetAllUsers(It.IsAny<Func<User, bool>>())).Returns(new List<User> { user });
+            var userLogic = new UserLogic(userRepo.Object, sessionRepo.Object);
+
+            Assert.IsFalse(userLogic.IsAdmin(session.Id.ToString()));
+        }
+
+        [TestMethod]
+        public void IsAdminThrowsHandlesExceptionAndReturnsFalse()
+        {
+            User user = new User()
+            {
+                Name = "Juan",
+                Email = "juan@gmail.com",
+                Address = "aaa",
+                Password = "12345",
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "admin" } },
+                Id = Guid.NewGuid(),
+            };
+
+
+            Mock<ISessionRepository> sessionRepo = new Mock<ISessionRepository>(MockBehavior.Strict);
+            sessionRepo.Setup(logic => logic.GetSessions(It.IsAny<Func<Session, bool>>())).Throws(new Exception());
+            var userLogic = new UserLogic(null, sessionRepo.Object);
+            Assert.IsFalse(userLogic.IsAdmin(user.Id.ToString()));
+        }
+
         [TestMethod]
         public void IsBuyerReturnsTrue()
         {

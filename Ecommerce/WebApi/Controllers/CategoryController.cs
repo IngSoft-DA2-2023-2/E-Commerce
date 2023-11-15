@@ -1,8 +1,4 @@
-﻿using ApiModels.In;
-using ApiModels.Out;
-using BusinessLogic;
-using Domain;
-using LogicInterface;
+﻿using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Filters;
 

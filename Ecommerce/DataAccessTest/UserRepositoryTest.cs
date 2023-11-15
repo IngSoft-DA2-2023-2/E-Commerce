@@ -14,7 +14,7 @@ namespace DataAccessTest
     [TestClass]
     public class UserRepositoryTest
     {
-        User newUser;
+        private User newUser;
 
         [TestInitialize]
         public void Init()

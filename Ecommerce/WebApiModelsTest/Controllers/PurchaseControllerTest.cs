@@ -115,7 +115,7 @@ namespace WebApiModelsTest.Controller
                 }
             });
 
-           
+
 
             Guid guid = Guid.NewGuid();
             Session session = new Session() { Id = guid, User = listUsers.First() };

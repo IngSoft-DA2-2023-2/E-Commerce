@@ -56,7 +56,7 @@ namespace BusinessLogic
         {
             try
             {
-               Purchase returnPurchase = CreatePurchaseLogic(purchase);
+                Purchase returnPurchase = CreatePurchaseLogic(purchase);
                 _productLogic.UpdateStock(purchase.Cart);
                 return _purchaseRepository.CreatePurchase(returnPurchase);
             }

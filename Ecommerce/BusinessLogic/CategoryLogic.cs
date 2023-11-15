@@ -1,9 +1,7 @@
 ﻿using DataAccessInterface;
 using DataAccessInterface.Exceptions;
-using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
-using System.Globalization;
 
 namespace BusinessLogic
 {

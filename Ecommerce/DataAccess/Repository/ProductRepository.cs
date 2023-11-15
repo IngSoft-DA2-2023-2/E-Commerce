@@ -3,7 +3,6 @@ using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace DataAccess.Repository
 {
@@ -207,7 +206,7 @@ namespace DataAccess.Repository
                 if (newProduct.Category != null) product.Category = newProduct.Category;
                 if (newProduct.Colours != null) product.Colours = newProduct.Colours;
                 if (newProduct.Stock != 0) product.Stock = newProduct.Stock;
-                if (newProduct.IncludeForPromotion != product.IncludeForPromotion) product.IncludeForPromotion = 
+                if (newProduct.IncludeForPromotion != product.IncludeForPromotion) product.IncludeForPromotion =
                         newProduct.IncludeForPromotion;
 
                 _eCommerceContext.SaveChanges();

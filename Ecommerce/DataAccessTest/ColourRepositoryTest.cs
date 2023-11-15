@@ -13,7 +13,7 @@ namespace DataAccessTest
     [TestClass]
     public class ColourRepositoryTest
     {
-        string colourName = "colour";
+        private readonly string colourName = "colour";
 
         [TestMethod]
         public void GivenExistingColourNameReturnsTrue()

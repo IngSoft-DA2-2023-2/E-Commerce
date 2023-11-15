@@ -31,19 +31,15 @@ namespace WebApiModelsTest.Out
                     Colours =new List < Colour > () { new Colour() { Name = "Colour" } },
                     }
             };
-
             purchase = new Purchase()
             {
                 Id = Id,
                 UserId = BuyerId,
                 Cart = products,
                 CurrentPromotion = promotion,
-                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" }
-
-
+                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" },
+                Date = DateTime.Now,
             };
-
-
         }
 
         [TestMethod]

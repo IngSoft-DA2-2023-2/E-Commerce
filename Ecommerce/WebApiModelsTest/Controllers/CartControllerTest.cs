@@ -1,17 +1,11 @@
 ﻿using ApiModels.In;
 using ApiModels.Out;
-using Domain.PaymentMethodCategories;
-using Domain.ProductParts;
 using Domain;
+using Domain.ProductParts;
 using LogicInterface;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Controllers;
 
 namespace WebApiModelsTest.Controllers

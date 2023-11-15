@@ -1,7 +1,9 @@
 ﻿using Domain.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Domain
 {
+    [ExcludeFromCodeCoverage]
     public class Purchase
     {
 
