@@ -2,12 +2,14 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
 {
     public class PurchaseRepository : IPurchaseRepository
     {
         private readonly ECommerceContext _eCommerceContext;
+
         public PurchaseRepository(ECommerceContext eCommerce)
         {
             _eCommerceContext = eCommerce;
@@ -26,27 +28,31 @@ namespace DataAccess.Repository
 
         public IEnumerable<Purchase> GetAllPurchases()
         {
-            IEnumerable<Purchase> purchases = null;
-            purchases = _eCommerceContext.Purchases.ToList();
-            if (purchases.Count() == 0)
-            {
-                throw new DataAccessException("List is null");
-            }
-            return purchases;
+            return _eCommerceContext.Purchases.
+                Include(p => p.PaymentMethod).
+                Include(p => p.User).
+                Include(p => p.Cart).
+                 ThenInclude(pr => pr.Brand).
+                Include(p => p.Cart).
+                 ThenInclude(pr => pr.Category).
+                 Include(p => p.Cart).
+                 ThenInclude(pr => pr.Colours).
+                ToList();
         }
 
         public IEnumerable<Purchase> GetPurchase(Guid id)
         {
-            IEnumerable<Purchase> purchases = null;
-
-            purchases = _eCommerceContext.Purchases.Where(p => p.UserId == id).ToList();
-
-            if (purchases.Count() == 0)
-            {
-                throw new DataAccessException("List is null");
-            }
-            return purchases;
-
+            return _eCommerceContext.Purchases.
+                Where(p => p.UserId == id).
+                Include(p => p.PaymentMethod).
+                Include(p => p.User).
+                Include(p => p.Cart).
+                 ThenInclude(pr => pr.Brand).
+                Include(p => p.Cart).
+                 ThenInclude(pr => pr.Category).
+                 Include(p => p.Cart).
+                 ThenInclude(pr => pr.Colours).
+                ToList();
         }
 
     }

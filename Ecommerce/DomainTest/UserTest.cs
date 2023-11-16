@@ -23,6 +23,7 @@ namespace UnitTest.DomainTest
         private const string _nonAlphanumericalName = "______";
         private const string _thisPasswordIsTooLong = "ThisP44swordIsT00Long1234";
         private const string _wrongEmailFormat = "format.com";
+
         [TestInitialize]
         public void Init()
         {

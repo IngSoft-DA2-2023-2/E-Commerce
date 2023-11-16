@@ -16,6 +16,10 @@
           "MSTest.TestFramework": "2.2.10",
           "Microsoft.NET.Test.Sdk": "17.5.0",
           "Moq": "4.20.69",
+          "Promotion20Off": "1.0.0",
+          "Promotion3x1Fidelity": "1.0.0",
+          "Promotion3x2": "1.0.0",
+          "PromotionTotalLook": "1.0.0",
           "coverlet.collector": "3.2.0",
           "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions": "14.0.0.0"
         },
@@ -513,6 +517,42 @@
           "LogicInterface.dll": {}
         }
       },
+      "Promotion20Off/1.0.0": {
+        "dependencies": {
+          "Domain": "1.0.0",
+          "LogicInterface": "1.0.0"
+        },
+        "runtime": {
+          "Promotion20Off.dll": {}
+        }
+      },
+      "Promotion3x1Fidelity/1.0.0": {
+        "dependencies": {
+          "Domain": "1.0.0",
+          "LogicInterface": "1.0.0"
+        },
+        "runtime": {
+          "Promotion3x1Fidelity.dll": {}
+        }
+      },
+      "Promotion3x2/1.0.0": {
+        "dependencies": {
+          "Domain": "1.0.0",
+          "LogicInterface": "1.0.0"
+        },
+        "runtime": {
+          "Promotion3x2.dll": {}
+        }
+      },
+      "PromotionTotalLook/1.0.0": {
+        "dependencies": {
+          "Domain": "1.0.0",
+          "LogicInterface": "1.0.0"
+        },
+        "runtime": {
+          "PromotionTotalLook.dll": {}
+        }
+      },
       "Utilities/1.0.0": {
         "runtime": {
           "Utilities.dll": {}
@@ -760,6 +800,26 @@
       "sha512": ""
     },
     "LogicInterface/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Promotion20Off/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Promotion3x1Fidelity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Promotion3x2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PromotionTotalLook/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

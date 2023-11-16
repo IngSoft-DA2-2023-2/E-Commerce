@@ -20,6 +20,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\LogicInterface\LogicInterface.csproj" />
+    <ProjectReference Include="..\Promotion20Off\Promotion20Off.csproj" />
+    <ProjectReference Include="..\Promotion3x1Fidelity\Promotion3x1Fidelity.csproj" />
+    <ProjectReference Include="..\Promotion3x2\Promotion3x2.csproj" />
+    <ProjectReference Include="..\PromotionTotalLook\PromotionTotalLook.csproj" />
     <ProjectReference Include="..\WebApi\WebApi.csproj" />
   </ItemGroup>
 

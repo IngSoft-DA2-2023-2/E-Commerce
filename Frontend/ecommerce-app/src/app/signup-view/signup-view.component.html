@@ -1,0 +1,33 @@
+<app-nav-bar-view></app-nav-bar-view>
+<h3 class="row justify-content-center align-items-center">Sign Up</h3>
+<div class="alert alert-info" role="alert" *ngIf="isLoading() || this.feedback">
+      {{isLoading()? 'Loading...': feedback}}
+    </div>
+<form (click)="feedback = ''" class="user-form">
+  <div class="form-container"
+       style="max-width: 50%; display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px; margin: 0 auto;">
+    <div class="form-group">
+      <h6>Name</h6>
+      <input type="text" class="form-control" placeholder="Enter name" [(ngModel)]="creatingUser.name" name="name" style="width: 100%;">
+      <label style="color: red;" *ngIf="creatingUser.name.length < 3 || creatingUser.name.length > 20">Name must have 3-20 characters</label>
+    </div>
+    <div class="form-group">
+      <h6>Email</h6>
+      <input type="email" class="form-control" placeholder="Enter email" [(ngModel)]="creatingUser.email" name="email" style="width: 100%;">
+      <label style="color: red;" *ngIf="!isValidEmail(creatingUser.email)">Invalid email address</label>
+    </div>
+    <div class="form-group">
+      <h6>Address</h6>
+      <input type="text" class="form-control" placeholder="Enter address" [(ngModel)]="creatingUser.address" name="address" style="width: 100%;">
+    </div>
+    <div class="form-group">
+      <h6>Password</h6>
+      <input type="password" class="form-control" placeholder="Enter password" (keyup.enter)="signUpUser()" [(ngModel)]="creatingUser.password" name="password" style="width: 100%;">
+      <label style="color: red;" *ngIf="creatingUser.password.length < 5 || creatingUser.password.length > 20">Password must have between 5-20 characters</label>
+    </div>
+    <div class="button-container">
+      <button class="btn btn-primary" (click)="signUpUser()">Sign in</button>
+      <button class="btn btn-secondary" (click)="goBack()" id="back">Go back</button>
+    </div>
+  </div>
+</form>

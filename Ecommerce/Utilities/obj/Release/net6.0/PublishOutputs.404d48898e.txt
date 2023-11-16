@@ -1,0 +1,3 @@
+C:\ORT\DA2\222675-269851-270303\Ecommerce\Utilities\bin\Release\net6.0\publish\Utilities.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\Utilities\bin\Release\net6.0\publish\Utilities.deps.json
+C:\ORT\DA2\222675-269851-270303\Ecommerce\Utilities\bin\Release\net6.0\publish\Utilities.pdb

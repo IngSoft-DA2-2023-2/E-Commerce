@@ -1,5 +1,6 @@
 ﻿using ApiModels.Out;
 using Domain;
+using Domain.PaymentMethodCategories;
 using Domain.ProductParts;
 using System.Diagnostics.CodeAnalysis;
 
@@ -9,11 +10,11 @@ namespace WebApiModelsTest.Out
     [TestClass]
     public class CreatePurchaseResponseTest
     {
-        private Guid Id = Guid.NewGuid();
-        private Guid BuyerId = Guid.NewGuid();
-        private string promotion = "Promotion20Off";
+        private readonly Guid Id = Guid.NewGuid();
+        private readonly Guid BuyerId = Guid.NewGuid();
+        private readonly string promotion = "Promotion20Off";
         private CreatePurchaseResponse createPurchaseResponse;
-        private int total = 20;
+        private readonly int total = 20;
         private Purchase purchase;
         private List<Product> products;
 
@@ -30,59 +31,41 @@ namespace WebApiModelsTest.Out
                     Colours =new List < Colour > () { new Colour() { Name = "Colour" } },
                     }
             };
+            purchase = new Purchase()
+            {
+                Id = Id,
+                UserId = BuyerId,
+                Cart = products,
+                CurrentPromotion = promotion,
+                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" },
+                Date = DateTime.Now,
+            };
         }
 
         [TestMethod]
         public void GivenProductResponseReturnsGuid()
         {
-            purchase = new Purchase()
-            {
-                Id = Id,
-                UserId = BuyerId,
-                Cart = products,
-                CurrentPromotion = promotion,
-
-            };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Id, createPurchaseResponse.Id);
         }
+
         [TestMethod]
         public void GivenProductResponseReturnsBuyerGuid()
         {
-            purchase = new Purchase()
-            {
-                Id = Id,
-                UserId = BuyerId,
-
-                Cart = products,
-                CurrentPromotion = promotion,
-            };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.UserId, createPurchaseResponse.BuyerId);
         }
+
         [TestMethod]
         public void GivenProductResponseReturnsProductCorrectly()
         {
-            purchase = new Purchase()
-            {
-                Id = Id,
-                UserId = BuyerId,
-                Cart = products,
-                CurrentPromotion = promotion,
-            };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Cart.First().Name, createPurchaseResponse.Cart.First().Name);
         }
+
         [TestMethod]
         public void GivenProductResponseReturnsCurrentPromotion()
         {
-            purchase = new Purchase()
-            {
-                Id = Id,
-                UserId = BuyerId,
-                Cart = products,
-                CurrentPromotion = promotion,
-            };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.CurrentPromotion, createPurchaseResponse.SelectedPromotion);
         }
@@ -90,30 +73,20 @@ namespace WebApiModelsTest.Out
         [TestMethod]
         public void GivenProductResponseReturnsPurchaseDateTime()
         {
-            purchase = new Purchase()
-            {
-                Id = Id,
-                UserId = BuyerId,
-                Cart = products,
-                CurrentPromotion = promotion,
-            };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Date, createPurchaseResponse.PurchaseTime);
         }
-
 
         [TestMethod]
         public void GivenProductResponseReturnsTotal()
         {
             purchase = new Purchase()
             {
-                Total = total
+                Total = total,
+                PaymentMethod = new CreditCard() { CategoryName = "CreditCard", Flag = "Visa" }
             };
             createPurchaseResponse = new CreatePurchaseResponse(purchase);
             Assert.AreEqual(purchase.Total, createPurchaseResponse.Total);
         }
-
-
-
     }
 }

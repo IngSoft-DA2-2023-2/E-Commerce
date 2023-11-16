@@ -6,34 +6,51 @@ namespace BusinessLogic.Promotions
 {
     public class PromotionContext
     {
-        private readonly List<IPromotionable> _promotions;
+        private List<IPromotionable> _promotions;
+
         public PromotionContext()
         {
             _promotions = new List<IPromotionable>();
-            IPromotionable percentageOff = new Promotion20Off();
-            IPromotionable fidelity = new Promotion3x1Fidelity();
-            IPromotionable getOneFree = new Promotion3x2();
-            IPromotionable totalLook = new PromotionTotalLook();
-            _promotions.Add(percentageOff);
-            _promotions.Add(fidelity);
-            _promotions.Add(getOneFree);
-            _promotions.Add(totalLook);
+        }
+
+        public void SetListPromotions(List<IPromotionable> promotions)
+        {
+            _promotions = promotions;
         }
 
         public bool IsEligibleForPromotions(List<Product> cart)
         {
-            return _promotions.Any(promotion => promotion.IsApplicable(cart));
+            List<Product> validProducts = new List<Product>();
+            foreach (Product p in cart)
+            {
+                if (p.IncludeForPromotion)
+                {
+                    validProducts.Add(p);
+                }
+            }
+            bool isValid = false;
+            foreach (IPromotionable promo in _promotions)
+            {
+                if (promo.IsApplicable(validProducts)) isValid = true;
+            }
+            return isValid;
         }
+
         public string GetBestPromotion(List<Product> cart)
         {
-            if (!IsEligibleForPromotions(cart)) throw new LogicException("Not Eligible for promotions");
+            List<Product> validProducts = new List<Product>();
+            foreach (Product p in cart)
+            {
+                if (p.IncludeForPromotion) validProducts.Add(p);
+            }
+            if (!IsEligibleForPromotions(validProducts)) throw new LogicException("Not eligible for promotions.");
             string best = "";
             int maxDiscount = 0;
             foreach (IPromotionable promotion in _promotions)
             {
-                if (promotion.IsApplicable(cart))
+                if (promotion.IsApplicable(validProducts))
                 {
-                    int currentDiscount = promotion.CalculateDiscount(cart);
+                    int currentDiscount = promotion.CalculateDiscount(validProducts);
                     if (currentDiscount > maxDiscount)
                     {
                         best = promotion.ToString();
@@ -50,6 +67,7 @@ namespace BusinessLogic.Promotions
             foreach (Product product in cart) prices += product.Price;
             return prices;
         }
+
         public int CalculateTotalWithPromotion(List<Product> cart)
         {
             int prices = 0;

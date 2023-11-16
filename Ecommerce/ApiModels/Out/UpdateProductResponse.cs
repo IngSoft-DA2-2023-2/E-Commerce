@@ -12,6 +12,8 @@ namespace ApiModels.Out
         public string Brand { get; set; }
         public string Category { get; set; }
         public List<string> Colours { get; set; }
+        public int Stock { get; set; }
+        public bool IncludeForPromotion { get; set; }
 
         public UpdateProductResponse()
         {
@@ -30,6 +32,8 @@ namespace ApiModels.Out
             Brand = product.Brand.Name;
             Category = product.Category.Name;
             Colours = colours;
+            Stock = product.Stock;
+            IncludeForPromotion = product.IncludeForPromotion;
         }
     }
 }

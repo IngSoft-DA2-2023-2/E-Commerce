@@ -1,7 +1,7 @@
-﻿using BusinessLogic.Promotions;
-using Domain;
+﻿using Domain;
 using LogicInterface;
 using LogicInterface.Exceptions;
+using Promotion20Off;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
@@ -19,12 +19,11 @@ namespace BusinessLogicTest.PromotionsTest
         private const int _oneHundred = 100;
         private const float _twentyPercent = 0.2f;
 
-
         [TestInitialize]
         public void Init()
         {
             _cartSample = new List<Product>();
-            _promo20Off = new Promotion20Off();
+            _promo20Off = new Promotion20OffLogic();
         }
 
         [TestMethod]

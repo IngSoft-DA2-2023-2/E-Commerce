@@ -13,21 +13,22 @@ namespace DataAccessTest
     [TestClass]
     public class ColourRepositoryTest
     {
+        private readonly string colourName = "colour";
+
         [TestMethod]
         public void GivenExistingColourNameReturnsTrue()
         {
             Colour colour = new Colour() { Name = "colour" };
-            string colourName = "colour";
             var colourContext = new Mock<ECommerceContext>();
             colourContext.Setup(ctx => ctx.Colours).ReturnsDbSet(new List<Colour>() { colour });
             IColourRepository colourRepository = new ColourRepository(colourContext.Object);
             var expectedReturn = colourRepository.CheckForColour(colourName);
             Assert.IsTrue(expectedReturn);
         }
+
         [TestMethod]
         public void GivenNonExistingColourNameThrowsException()
         {
-            string colourName = "colour";
             var colourContext = new Mock<ECommerceContext>();
             colourContext.Setup(ctx => ctx.Colours).ReturnsDbSet(new List<Colour>() { });
             IColourRepository colourRepository = new ColourRepository(colourContext.Object);
@@ -42,6 +43,17 @@ namespace DataAccessTest
             };
             Assert.IsInstanceOfType(catchedException, typeof(DataAccessException));
             Assert.IsTrue(catchedException.Message.Equals($"Colour {colourName} does not exists"));
+        }
+
+        [TestMethod]
+        public void GivenExistingColourReturnsColour()
+        {
+            Colour colour = new Colour() { Name = "colour" };
+            var colourContext = new Mock<ECommerceContext>();
+            colourContext.Setup(ctx => ctx.Colours).ReturnsDbSet(new List<Colour>() { colour });
+            IColourRepository colourRepository = new ColourRepository(colourContext.Object);
+            var expectedReturn = colourRepository.GetColours();
+            Assert.IsTrue(expectedReturn.Contains(colour));
         }
     }
 }

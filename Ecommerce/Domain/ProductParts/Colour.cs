@@ -1,5 +1,8 @@
-﻿namespace Domain.ProductParts
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Domain.ProductParts
 {
+    [ExcludeFromCodeCoverage]
     public class Colour
     {
         public Guid Id { get; set; }

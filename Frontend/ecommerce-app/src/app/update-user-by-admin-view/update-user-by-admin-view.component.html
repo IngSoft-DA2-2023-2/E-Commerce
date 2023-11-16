@@ -1,0 +1,37 @@
+<app-nav-bar-view></app-nav-bar-view>
+<div class="alert alert-info" role="alert" *ngIf="feedback">
+  {{feedback}}
+</div>
+<h3 class="row justify-content-center align-items-center">Update an existing user</h3>
+<form *ngIf="updatingUser" style="width: 40%; margin: 0 auto; align-items: center;"  class="user-form">
+  <div style="display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px;" class="form-container">
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Name</h6>
+      <input type="text" class="form-control" [(ngModel)]="updatingUser.name" name="name" id="name" style="width: 100%;">
+    </div>
+    <label style="color: red;" *ngIf="updatingUser.name.length<3 || updatingUser.name.length>20">Name must be between 3-20 characters </label>
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Password</h6>
+      <input type="password" class="form-control" [(ngModel)]="updatingUser.password" name="password" id="password" style="width: 100%;">
+    </div>
+    <label style="color: red;" *ngIf="!updatingUser.password">If nothing is written, the previous password will not be changed</label>
+    <label style="color: red;" *ngIf="!!updatingUser.password &&((updatingUser.password?.length || 0) < 5 || (updatingUser.password?.length || 0) > 20)">Password must be between 5-20 characters </label>
+    <div class="form-group col-md-6" style="width: 100%;">
+      <h6>Address</h6>
+      <input type="text" class="form-control" [(ngModel)]="updatingUser.address" name="address" id="address" style="width: 100%;">
+      <label style="color: red;" *ngIf="!updatingUser.address">If nothing is written, the previous address will not be changed</label>
+    </div>
+    <h6>Roles</h6>
+    <div *ngFor="let r of roles; let i = index">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="rolRadio" [value]="r"
+          [checked]="selectedRoles.includes(r)" (change)="toggleRoleSelection(r)">
+        <label class="form-check-label" [for]="'rolRadio' + i">{{ r }}</label>
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="btn btn-primary" (click)="updateUserData()">Update changes</button>
+      <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+    </div>
+  </div>
+</form>

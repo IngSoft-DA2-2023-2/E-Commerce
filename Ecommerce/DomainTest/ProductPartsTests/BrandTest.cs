@@ -1,10 +1,5 @@
 ﻿using Domain.ProductParts;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DomainTest.ProductPartsTests
 {
@@ -22,6 +17,7 @@ namespace DomainTest.ProductPartsTests
             };
             Assert.AreEqual(guid, brand.Id);
         }
+
         [TestMethod]
         public void BrandEqualsReturnsTrue()
         {

@@ -18,47 +18,41 @@ namespace WebApiModelsTest.Controller
         [TestMethod]
         public void CreateSession()
         {
-            CreateSessionRequest received = new CreateSessionRequest()
+            User userSample = new User
             {
                 Email = "email@sample.com",
+                Name = "name1",
                 Password = "password",
+                Address = "address sample",
+                Roles = new List<StringWrapper>(),
+            };
+
+            CreateSessionRequest received = new CreateSessionRequest()
+            {
+                Email = userSample.Email,
+                Password = userSample.Password,
             };
 
             Guid guid = Guid.NewGuid();
-            Session session = new Session() { Id = guid };
+            Session session = new() { Id = guid, User = userSample };
+
             var expectedMappedResult = new SessionResponse(session);
 
             IEnumerable<User> expected = new List<User>()
             {
-                new User {
-                    Email= "email@sample.com",
-                    Name="name1",
-                    Password="password",
-                    Address="address sample",
-                    Roles=new List<StringWrapper>(),
-                },
+                userSample,
             };
-            var token = "testToken";
-
-
             var userExpectedMappedResult = expected.Select(u => new UserResponse(u)).ToList();
             Mock<IUserLogic> userLogic = new Mock<IUserLogic>(MockBehavior.Strict);
             userLogic.Setup(logic => logic.GetAllUsers(null)).Returns(expected);
-
-
-
-
             Mock<ISessionLogic> logic = new Mock<ISessionLogic>(MockBehavior.Strict);
             logic.Setup(logic => logic.LogIn(It.IsAny<string>(), It.IsAny<string>())).Returns(session);
             var sessionController = new SessionController(logic.Object, userLogic.Object);
             var expectedObjectResult = new CreatedAtActionResult("CreateSession", "Session", new { id = 5 }, expectedMappedResult);
-
             var result = sessionController.LogIn(received);
-
             logic.VerifyAll();
-            CreatedAtActionResult resultObject = result as CreatedAtActionResult;
-            SessionResponse resultValue = resultObject.Value as SessionResponse;
-
+            CreatedAtActionResult? resultObject = result as CreatedAtActionResult;
+            SessionResponse? resultValue = resultObject.Value as SessionResponse;
             Assert.AreEqual(resultObject.StatusCode, expectedObjectResult.StatusCode);
             Assert.AreEqual(guid, resultValue.Token);
         }
@@ -67,9 +61,6 @@ namespace WebApiModelsTest.Controller
         public void DeleteSession()
         {
             Guid guid = Guid.NewGuid();
-
-
-
 
             IEnumerable<User> expected = new List<User>()
             {

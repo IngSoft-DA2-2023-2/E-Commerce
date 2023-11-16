@@ -9,11 +9,13 @@ namespace BusinessLogic
 {
     public class ProductLogic : IProductLogic
     {
-        private IProductRepository _productRepository;
-        private BrandLogic _brandLogic;
-        private CategoryLogic _categoryLogic;
-        private ColourLogic _colourLogic;
-        public ProductLogic(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository, IColourRepository colourRepository)
+        private readonly IProductRepository _productRepository;
+        private readonly BrandLogic _brandLogic;
+        private readonly CategoryLogic _categoryLogic;
+        private readonly ColourLogic _colourLogic;
+        public ProductLogic(IProductRepository productRepository,
+            IBrandRepository brandRepository, ICategoryRepository categoryRepository,
+            IColourRepository colourRepository)
         {
             _productRepository = productRepository;
             _brandLogic = new BrandLogic(brandRepository);
@@ -33,12 +35,16 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<Product> FilterUnionProduct(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> FilterUnionProduct(string? name,
+            string? brandName, string? categoryName, string? priceRange)
         {
             try
             {
                 IEnumerable<Product> products = new List<Product>();
-                if (name is null && brandName is null && categoryName is null) return _productRepository.GetAllProducts();
+                if (name is null && brandName is null && categoryName is null && priceRange is null)
+                {
+                    return _productRepository.GetAllProducts();
+                }
                 if (name is not null) products = _productRepository.GetProductByName(name);
                 if (brandName is not null)
                 {
@@ -50,14 +56,17 @@ namespace BusinessLogic
                     IEnumerable<Product> categoryFilter = _productRepository.GetProductByCategory(categoryName);
                     products = products.Union(categoryFilter);
                 }
+                if (priceRange is not null)
+                {
+                    IEnumerable<Product> priceFilter = _productRepository.GetProductByPriceRange(priceRange);
+                    products = products.Union(priceFilter);
+                }
                 return products.Distinct();
             }
             catch (DataAccessException e)
             {
                 throw new LogicException(e);
             }
-
-
         }
 
         public Product AddProduct(Product newProduct)
@@ -67,7 +76,7 @@ namespace BusinessLogic
                 Guid guid = Guid.NewGuid();
                 newProduct.Id = guid;
                 _brandLogic.CheckBrand(newProduct.Brand);
-                _categoryLogic.CheckForCategory(newProduct.Category);
+                _categoryLogic.CheckForCategory(newProduct.Category.Name);
                 foreach (Colour colour in newProduct.Colours) _colourLogic.CheckForColour(colour);
                 return _productRepository.CreateProduct(newProduct);
             }
@@ -78,13 +87,12 @@ namespace BusinessLogic
             }
         }
 
-
         public Product UpdateProduct(Product newProduct)
         {
             try
             {
                 _brandLogic.CheckBrand(newProduct.Brand);
-                _categoryLogic.CheckForCategory(newProduct.Category);
+                _categoryLogic.CheckForCategory(newProduct.Category.Name);
                 foreach (Colour colour in newProduct.Colours) _colourLogic.CheckForColour(colour);
                 return _productRepository.UpdateProduct(newProduct);
 
@@ -94,10 +102,10 @@ namespace BusinessLogic
                 throw new LogicException(e);
             }
         }
-
-        public IEnumerable<Product> FilterIntersectionProduct(string? name, string? brandName, string? categoryName)
+        public IEnumerable<Product> FilterIntersectionProduct(string? name,
+            string? brandName, string? categoryName, string? priceRange)
         {
-            IEnumerable<Product> products = null;
+            IEnumerable<Product>? products = null;
             try
             {
                 if (name is not null)
@@ -117,7 +125,8 @@ namespace BusinessLogic
 
                 }
 
-                if (categoryName is not null && (brandName is not null || name is not null))
+                if (categoryName is not null &&
+                    (brandName is not null || name is not null))
                 {
 
                     products = products.Intersect(_productRepository.GetProductByCategory(categoryName));
@@ -128,12 +137,21 @@ namespace BusinessLogic
                     products = _productRepository.GetProductByCategory(categoryName);
 
                 }
+                if (priceRange is not null &&
+                    (brandName is not null || name is not null || categoryName is not null))
+                {
+                    products = products.Intersect(_productRepository.GetProductByPriceRange(priceRange));
+                }
+                else if (priceRange is not null)
+                {
+                    products = _productRepository.GetProductByPriceRange(priceRange);
+
+                }
             }
             catch (DataAccessException e)
             {
                 throw new LogicException(e);
             }
-            if (products.Count() == 0) throw new LogicException("there is no product with those conditions");
             return products;
         }
 
@@ -142,10 +160,25 @@ namespace BusinessLogic
             IEnumerable<Product> products = _productRepository.GetAllProducts();
             foreach (Product product in products)
             {
-                if (product.Equals(expected)) return true;
+                if (product.Equals(expected))
+                {
+                    if (expected.Stock < 0 || expected.Stock > product.Stock)
+                        throw new LogicException("Invalid stock.");
+                    return true;
+                }
             }
-            throw new LogicException("Product Does not exists.");
+            throw new LogicException("Product does not exists.");
 
+        }
+
+        public void UpdateStock(IEnumerable<Product> products)
+        {
+            foreach (Product product in products)
+            {
+                _productRepository.UpdateStock(product);
+                product.Stock = 1;
+                product.Id = Guid.NewGuid();
+            }
         }
     }
 }

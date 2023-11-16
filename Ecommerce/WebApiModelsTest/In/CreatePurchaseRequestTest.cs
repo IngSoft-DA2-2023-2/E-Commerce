@@ -8,10 +8,11 @@ namespace WebApiModelsTest.In
     public class CreatePurchaseRequestTest
     {
         private CreatePurchaseRequest purchaseRequest;
-        Guid guid = Guid.NewGuid();
-        private List<CreateProductRequest> products = new List<CreateProductRequest>()
+        private CreatePaymentMethodRequest createPaymentMethodRequest;
+        private readonly Guid guid = Guid.NewGuid();
+        private readonly List<CreateProductForPurchase> products = new List<CreateProductForPurchase>()
         {
-            new CreateProductRequest()
+            new CreateProductForPurchase()
             {
                 Name = "name",
             }
@@ -21,13 +22,14 @@ namespace WebApiModelsTest.In
         public void Init()
         {
             purchaseRequest = new CreatePurchaseRequest();
+            createPaymentMethodRequest = new CreatePaymentMethodRequest();
         }
+
         [TestMethod]
         public void GivenPurchaseRequestReturnsProductRequest()
         {
             purchaseRequest.Cart = products;
             Assert.AreEqual(purchaseRequest.Cart.First().Name, products.First().Name);
         }
-
     }
 }

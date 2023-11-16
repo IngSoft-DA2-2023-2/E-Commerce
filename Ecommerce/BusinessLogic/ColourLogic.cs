@@ -1,13 +1,14 @@
 ﻿using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
+using LogicInterface;
 using LogicInterface.Exceptions;
 
 namespace BusinessLogic
 {
-    public class ColourLogic
+    public class ColourLogic : IColourLogic
     {
-        private IColourRepository _context;
+        private readonly IColourRepository _context;
 
         public ColourLogic(IColourRepository context)
         {
@@ -26,6 +27,18 @@ namespace BusinessLogic
                 throw new LogicException(e);
             }
 
+        }
+
+        public IEnumerable<Colour> GetColours()
+        {
+            try
+            {
+                return _context.GetColours();
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
         }
     }
 }

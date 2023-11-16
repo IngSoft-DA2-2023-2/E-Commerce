@@ -1,0 +1,4756 @@
+{
+	"info": {
+		"_postman_id": "64b4ea65-b9a5-4734-9b18-45e35fa0fd95",
+		"name": "AcuñaBriossoUhalde",
+		"description": "(\\*) Promociones:  \nUna vez que los productos se encuentran en el carrito, el costo total se calcula sumando todos los precios  \nindividuales de los productos y, en caso de ser aplicable, se considera la promoción con el mayor valor de  \ndescuento en el sistema.\n\n> valores inválidos  \nvalores límites  \ningreso de tipos de datos erróneos  \ndatos vacíos  \ndatos nulos  \nomisión de campos obligatorios  \nomision campos redundantes  \nBody vacío {}  \nformato de los mensajes inválidos  \npruebas de las reglas del negocio como alta de elementos existentes  \nbaja de elementos inexistentes, etc. \n  \n\n(\\*) Un usuario debe poder registrarse, modificar su perfil, loguearse y desloguearse en el sistema. Solo  \nestando logueado se le permite realizar compras en el sitio.  \nDe los usuarios se tiene:  \n• Correo electrónico (se debe validar el formato) y debe ser único en el sistema.  \n• Rol (comprador y/o administrador).  \n• Dirección de entrega.\n\n> valores inválidos  \nvalores límites  \ningreso de tipos de datos erróneos  \ndatos vacíos  \ndatos nulos  \nomisión de campos obligatorios  \nomision campos redundantes  \nBody vacío {}  \nformato de los mensajes inválidos  \npruebas de las reglas del negocio como alta de elementos existentes  \nbaja de elementos inexistentes, etc. \n  \n\n(\\*) La aplicación debe contar con un módulo de administración en donde un usuario con rol administrador  \npuede:  \n• Ver los usuarios registrados en el sistema, pudiendo crear, modificar o eliminarlos.  \n• Ver todas las compras realizadas.\n\n> valores inválidos  \nvalores límites  \ningreso de tipos de datos erróneos  \ndatos vacíos  \ndatos nulos  \nomisión de campos obligatorios  \nomision campos redundantes  \nBody vacío {}  \nformato de los mensajes inválidos  \npruebas de las reglas del negocio como alta de elementos existentes  \nbaja de elementos inexistentes, etc.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29770752",
+		"_collection_link": "https://orange-equinox-804041.postman.co/workspace/My-Workspace~b3a32e31-d2bd-4581-8ada-7725eefd5f35/collection/29770752-64b4ea65-b9a5-4734-9b18-45e35fa0fd95?action=share&source=collection_link&creator=29770752"
+	},
+	"item": [
+		{
+			"name": "Valid",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "User_RegisterByThemself",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bianca\",\r\n    \"email\": \"bianca@b.com\",\r\n    \"password\": \"12345\",\r\n    \"address\": \"Av Dolores 5467\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/users",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin_RegistersAdmin",
+							"request": {
+								"auth": {
+									"type": "apikey"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Francisco\",\r\n    \"email\": \"francisco@f.com\",\r\n    \"password\": \"12345\",\r\n    \"address\": \"Av San Martin 8743\",\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/users/admin",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin_RegistersBuyer",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Santiago\",\r\n    \"email\": \"santiago@s.com\",\r\n    \"password\": \"12345\",\r\n    \"address\": \"Av Sanses 9834\",\r\n    \"roles\": [\r\n        \"buyer\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/users/admin",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin_RegistersBuyerAndAdmin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Juan\",\r\n    \"email\": \"juani@j.com\",\r\n    \"password\": \"12345\",\r\n    \"address\": \"Av Italia 4356\",\r\n    \"roles\": [\r\n        \"buyer\",\r\n        \"admin\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/users/admin",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin_UpdatesUser",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Floricienta\",\r\n  \"password\": \"12345\",\r\n  \"address\": \"Flores Amarillas 3423\",\r\n  \"roles\": [\r\n    \"buyer\"\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/users/{{updateUser}}/admin",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{updateUser}}",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LogInUser_UpdateByThemself",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerTokenUpdate}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"David\",\r\n    \"password\": \"12345\",\r\n    \"address\": \"Av buceo 2134\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/users",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDataOfAnUser",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/users/{{idUser}}",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{idUser}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDataAllUsers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/users",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteUser",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/users/{{idDelete}}/admin",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{idDelete}}",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Session",
+					"item": [
+						{
+							"name": "logInUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"n@n.com\",\r\n  \"password\": \"12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/sessions",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logOutUser",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{logOutId}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/sessions",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "AllProducts",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base}}/api/products?operation=or",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "or"
+										},
+										{
+											"key": "name",
+											"value": "Pantalon",
+											"disabled": true
+										},
+										{
+											"key": "brandName",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "categoryName",
+											"value": "nike",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ProductsNameBrand",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base}}/api/products?operation=and&brandName={{brandName}}&categoryName={{categoryName}}",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "and"
+										},
+										{
+											"key": "name",
+											"value": "Remera",
+											"disabled": true
+										},
+										{
+											"key": "brandName",
+											"value": "{{brandName}}"
+										},
+										{
+											"key": "categoryName",
+											"value": "{{categoryName}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ProductsFilterBy_productName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base}}/api/products?operation=and&name={{ProductName}}",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "and"
+										},
+										{
+											"key": "name",
+											"value": "{{ProductName}}"
+										},
+										{
+											"key": "brandName",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "categoryName",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ProductsFilterBy_brandName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base}}/api/products?operation=and&brandName={{brandName}}",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "and"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "brandName",
+											"value": "{{brandName}}"
+										},
+										{
+											"key": "categoryName",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ProductsFilterBy_categoryName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base}}/api/products?operation=and&categoryName={{categoryName}}",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "operation",
+											"value": "and"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "brandName",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "categoryName",
+											"value": "{{categoryName}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetdetailsProduct",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/products/71748a1c-ba31-488f-94bb-a8b264a300fc",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products",
+										"71748a1c-ba31-488f-94bb-a8b264a300fc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateProduct_1Colour",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\": \"Trousers blue\",\r\n    \"Description\": \"The best Trousers in the world\",\r\n    \"Price\": 1000,\r\n    \"Brand\": \"Adidas\",\r\n    \"Category\": \"Summer\",\r\n    \"Colours\": [\r\n        \"Blue\"\r\n    ],\r\n    \"Stock\": 30,\r\n    \"IncludeForPromotion\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/products",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateProduct_2Colours",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\": \"Hodie Taylor\",\r\n    \"Description\": \"Travis Swift version\",\r\n    \"Price\": 2300,\r\n    \"Brand\": \"Nike\",\r\n    \"Category\": \"Winter\",\r\n    \"Colours\": [\r\n        \"Blue\",\r\n        \"Black\",\r\n        \"White\"\r\n    ],\r\n    \"Stock\": 10,\r\n    \"IncludeForPromotion\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/products",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateProduct",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\": \"Boots\",\r\n    \"Description\": \"for rain white and black\",\r\n    \"Price\": 1000,\r\n    \"Brand\": \"Nike\",\r\n    \"Category\": \"Winter\",\r\n    \"Stock\": 20,\r\n    \"IncludeForPromotion\": true,\r\n    \"Colours\": [\r\n        \"White\",\r\n        \"Black\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7150/api/products/{{idProduct}}",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7150",
+									"path": [
+										"api",
+										"products",
+										"{{idProduct}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Purchase",
+					"item": [
+						{
+							"name": "Purchase_1ProductWithOutPromotion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"F282DEE6-1967-44CB-BAAF-20FEB193E13A\",\r\n            \"name\": \"Jeans\", \r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 80,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ],\r\n    \"PaymentMethod\": {\r\n    \"categoryName\": \"PayPal\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase_PaganzaMethod",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"F282DEE6-1967-44CB-BAAF-20FEB193E13A\",\r\n            \"name\": \"Jeans\", \r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 79,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ],\r\n    \"PaymentMethod\": {\r\n    \"categoryName\": \"Paganza\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase_2Products20%Off",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"63B327DD-40C1-4A4C-B719-963475BE2407\",\r\n            \"name\": \"Socks\",\r\n            \"description\": \"high quality\",\r\n            \"price\": 9,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 4,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"E3BDDD9F-2B99-462F-B081-BB8F20822464\",\r\n            \"name\": \"Hoodie\",\r\n            \"price\": 35,\r\n            \"description\": \"Ideal for all\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ],\r\n    \"PaymentMethod\": {\r\n        \"categoryName\": \"BankDebit\",\r\n        \"bank\": \"Itau\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase_3 3x1 Fidelidad",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6A8BED9B-6045-43F1-AE82-C8FC9320F834\",\r\n            \"name\": \"Black Jacket\",\r\n            \"price\": 30,\r\n            \"description\": \"For running and training\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 27,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"6A8BED9B-6045-43F1-AE82-C8FC9320F834\",\r\n            \"name\": \"Black Jacket\",\r\n            \"price\": 30,\r\n            \"description\": \"For running and training\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 27,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"6A8BED9B-6045-43F1-AE82-C8FC9320F834\",\r\n            \"name\": \"Black Jacket\",\r\n            \"price\": 30,\r\n            \"description\": \"For running and training\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 27,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ],\r\n    \"PaymentMethod\": {\r\n        \"categoryName\": \"CreditCard\",\r\n        \"flag\": \"visa\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase_4 Total Look",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6dc10046-f1ce-48a2-964c-84e1c79bc5f8\",\r\n            \"name\": \"Hoddie Blue\",\r\n            \"price\": 15,\r\n            \"description\": \"Hoddie  Blue\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 79,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"5910006A-1673-42C8-85D7-662C972A9130\",\r\n            \"name\": \"Swimming suit\",\r\n            \"price\": 49,\r\n            \"description\": \"Very comfortable\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 90,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"71748a1c-ba31-488f-94bb-a8b264a300fc\",\r\n            \"name\": \"Shirt Blue\",\r\n            \"price\": 45,\r\n            \"description\": \"Shirt  Blue\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 58,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ],\r\n    \"PaymentMethod\": {\r\n        \"categoryName\": \"PayPal\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase_4 3x2",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"71748a1c-ba31-488f-94bb-a8b264a300fc\",\r\n            \"name\": \"Shirt Blue\",\r\n            \"price\": 45,\r\n            \"description\": \"Shirt  Blue\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 57,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c030ec7c-60a1-4ed9-896b-cfc23f6e5f89\",\r\n            \"name\": \"Skirt Blue\",\r\n            \"price\": 100,\r\n            \"description\": \"skirt blue white\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 29,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"858a49db-2e75-457e-8d58-6f332847164a\",\r\n            \"name\": \"Trousers\",\r\n            \"price\": 200,\r\n            \"description\": \"Trousers black\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 23,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ],\r\n    \"PaymentMethod\": {\r\n        \"categoryName\": \"BankDebit\",\r\n        \"Bank\": \"Santander\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User_GetsOwnPurchases",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin_GetAllPurchases",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{adminToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base}}/api/purchases",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"purchases"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Brand",
+					"item": [
+						{
+							"name": "GetAllBrands",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base}}/api/products/brands",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products",
+										"brands"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "GetCategories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base}}/api/products/categories",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"products",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Create cart 20% off",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n         {\r\n            \"id\": \"63B327DD-40C1-4A4C-B719-963475BE2407\",\r\n            \"name\": \"Socks\",\r\n            \"description\": \"high quality\",\r\n            \"price\": 9,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"E3BDDD9F-2B99-462F-B081-BB8F20822464\",\r\n            \"name\": \"Hoodie\",\r\n            \"price\": 35,\r\n            \"description\": \"Ideal for all\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 2,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/cart/promotions",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"promotions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cart 3x1 Fidelidad",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n         {\r\n            \"id\": \"6A8BED9B-6045-43F1-AE82-C8FC9320F834\",\r\n            \"name\": \"Black Jacket\",\r\n            \"price\": 30,\r\n            \"description\": \"For running and training\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 24,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"6A8BED9B-6045-43F1-AE82-C8FC9320F834\",\r\n            \"name\": \"Black Jacket\",\r\n            \"price\": 30,\r\n            \"description\": \"For running and training\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 24,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"6A8BED9B-6045-43F1-AE82-C8FC9320F834\",\r\n            \"name\": \"Black Jacket\",\r\n            \"price\": 30,\r\n            \"description\": \"For running and training\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\",\r\n                \"White\"\r\n            ],\r\n            \"stock\": 24,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/cart/promotions",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"promotions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cart Total Look",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6dc10046-f1ce-48a2-964c-84e1c79bc5f8\",\r\n            \"name\": \"Hoddie Blue\",\r\n            \"price\": 15,\r\n            \"description\": \"Hoddie  Blue\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 78,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"5910006A-1673-42C8-85D7-662C972A9130\",\r\n            \"name\": \"Swimming suit\",\r\n            \"price\": 49,\r\n            \"description\": \"Very comfortable\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 89,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"71748a1c-ba31-488f-94bb-a8b264a300fc\",\r\n            \"name\": \"Shirt Blue\",\r\n            \"price\": 45,\r\n            \"description\": \"Shirt  Blue\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 56,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/cart/promotions",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"promotions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cart 3x2",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{buyerToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"71748a1c-ba31-488f-94bb-a8b264a300fc\",\r\n            \"name\": \"Shirt Blue\",\r\n            \"price\": 45,\r\n            \"description\": \"Shirt  Blue\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 56,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c030ec7c-60a1-4ed9-896b-cfc23f6e5f89\",\r\n            \"name\": \"Skirt Blue\",\r\n            \"price\": 100,\r\n            \"description\": \"skirt blue white\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 28,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"858a49db-2e75-457e-8d58-6f332847164a\",\r\n            \"name\": \"Trousers\",\r\n            \"price\": 200,\r\n            \"description\": \"Trousers black\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 22,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base}}/api/cart/promotions",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"promotions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "StringWrapper",
+					"item": [
+						{
+							"name": "GetRoles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base}}/api/users/roles",
+									"host": [
+										"{{base}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Invalid",
+			"item": [
+				{
+					"name": "Omission_required_fields",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User_RegisterByThemself",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Rafael\"\r\n\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n    \"password\": \"1234contra\",\r\n    \"address\": \"Av Fua 8743\",\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Bianca\",\r\n    \"email\": \"Bianca@gmail.com\",\r\n    \"password\": \"123contra\"\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_UpdatesUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Noelia\",\r\n    \"roles\": [\r\n        \"buyer\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/{{updateUser}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{updateUser}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LogInUser_UpdateByThemself",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Fiorella\",\r\n    \"address\": \"Av buceo 2134\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"diego@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_1Colour",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Medias\",\r\n    \"description\": \"medias auzules\",\r\n    \"colour\": [\r\n        \"Azul\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateProduct_2Colours",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Remera\",\r\n    \"description\": \"remera roja y azul\",\r\n    \"price\": 300,\r\n    \"brand\": \"Forever 21\",\r\n    \"category\": \"Verano\"\r\n   \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"RemeraActualizada\",\r\n  \"description\": \"remera actualizada\",\r\n  \"category\": \"Verano\",\r\n  \"colour\": [\r\n    \"Azul\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_1Product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"price\": 300,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Verano\",\r\n            \"colour\": [\r\n                \"Azul\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreatePurchase_2Products",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart Copy",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6e376d00-4f8a-422a-b4ca-d48eaa18a8b7\",\r\n            \"name\": \"Pants\",\r\n            \"description\": \"trousers\",\r\n            \"stock\": 2,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"b58d7892-f1a4-4098-b1f5-f850e78170ae\",\r\n            \"name\": \"Hodie Taylor\",\r\n            \"price\": 1000,\r\n            \"description\": \"Taylor Swift version\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\",\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 14,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x1 Fidelidad",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\"\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart Total Look",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n           \r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 12,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c73e364c-b4c5-4881-a34c-9fedd1d0ee48\",\r\n            \"name\": \"Shirt La Vela\",\r\n            \"price\": 10,\r\n            \"description\": \"Shirt  La Vela\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 80,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x2",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"7a0fbe5a-c27e-46ce-9d3e-e5072a96299c\",\r\n            \"name\": \"Short Selena Gomez\"\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 63,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"76a73a11-cca2-4bae-921d-4bd398867d8f\",\r\n            \"name\": \"Short MORAT\",\r\n            \"price\": 60,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Empty_Body{}",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User_RegisterByThemself",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_UpdatesUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/{{updateUser}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{updateUser}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LogInUser_UpdateByThemself",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_1Colour",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateProduct_2Colours",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_1Product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreatePurchase_2Products",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x1 Fidelidad",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart Total Look",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x2",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Empty_Info",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User_RegisterByThemself_Name",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"address\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"address\": \"\",\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"\",\r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"address\": \"\",\r\n    \"roles\": [\r\n        \"buyer\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_UpdatesUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Noelia\",\r\n  \"password\": \"\",\r\n  \"address\": \"\",\r\n  \"roles\": [\r\n    \"buyer\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/{{updateUser}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{updateUser}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LogInUser_UpdateByThemself",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"\",\r\n    \"password\": \"\",\r\n    \"address\": \"Av buceo 2134\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"\",\r\n  \"password\": \"123contra\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_1Colour",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"\",\r\n    \"price\": 0,\r\n    \"brand\": \"\",\r\n    \"category\": \"\",\r\n    \"colour\": [\r\n        \"\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateProduct_2Colours",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"\",\r\n    \"price\": 300,\r\n    \"brand\": \"\",\r\n    \"category\": \"\",\r\n    \"colour\": [\r\n        \"\",\r\n        \"\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"\",\r\n  \"description\": \"\",\r\n  \"price\": 300,\r\n  \"brand\": \"\",\r\n  \"category\": \"\",\r\n  \"colour\": [\r\n    \"\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_1Product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"name\": \"\",\r\n            \"description\": \"\",\r\n            \"price\": 0,\r\n            \"brand\": \"\",\r\n            \"category\": \"\",\r\n            \"colour\": [\r\n                \"\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreatePurchase_withOutProducts",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6e376d00-4f8a-422a-b4ca-d48eaa18a8b7\",\r\n            \"name\": \"Pants\",\r\n            \"description\": \"\",\r\n            \"price\": 200,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 2,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"b58d7892-f1a4-4098-b1f5-f850e78170ae\",\r\n            \"name\": \"Hodie Taylor\",\r\n            \"price\": 1000,\r\n            \"description\": \"\",\r\n            \"brand\": \"\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\",\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 14,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x1 Fidelidad",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 73,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart Total Look",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"ff1d4573-7191-4e96-8d14-e0f298f37889\",\r\n            \"name\": \"\",\r\n            \"price\": 500,\r\n            \"description\": \"Ariana Grande version\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 12,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c73e364c-b4c5-4881-a34c-9fedd1d0ee48\",\r\n            \"name\": \"\",\r\n            \"price\": 10,\r\n            \"description\": \"Shirt  La Vela\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 80,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x2",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"7a0fbe5a-c27e-46ce-9d3e-e5072a96299c\",\r\n            \"name\": \"Short Selena Gomez\",\r\n            \"price\": 55,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 63,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"76a73a11-cca2-4bae-921d-4bd398867d8f\",\r\n            \"name\": \"Short MORAT\",\r\n            \"price\": 60,\r\n            \"description\": \"\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Null_Info",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User_RegisterByThemself_Name",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": null,\r\n    \"email\": null,\r\n    \"password\": null,\r\n    \"address\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": null,\r\n    \"email\": null,\r\n    \"password\": null,\r\n    \"address\": null,\r\n    \"roles\": [\r\n        null\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": null,\r\n    \"email\": null,\r\n    \"password\": null,\r\n    \"address\": null,\r\n    \"roles\": [\r\n        null\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_UpdatesUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": null,\r\n  \"password\":null,\r\n  \"address\": null,\r\n  \"roles\": [\r\n    null\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/{{updateUser}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{updateUser}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LogInUser_UpdateByThemself",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": null,\r\n    \"password\": null,\r\n    \"address\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\":null,\r\n  \"password\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_1Colour",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": null,\r\n    \"description\": null,\r\n    \"price\": 0,\r\n    \"brand\":null,\r\n    \"category\": null,\r\n    \"colour\": [\r\n        null\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateProduct_2Colours",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": null,\r\n    \"description\": null,\r\n    \"price\": 300,\r\n    \"brand\": null,\r\n    \"category\": null,\r\n    \"colour\": [\r\n        null,\r\n        null\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": null,\r\n  \"description\": null,\r\n  \"price\": 300,\r\n  \"brand\": null,\r\n  \"category\":null,\r\n  \"colour\": [\r\n    null\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_1Product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"name\": null,\r\n            \"description\": null,\r\n            \"price\": null,\r\n            \"brand\": null,\r\n            \"category\": null,\r\n            \"colour\": [\r\n                null\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreatePurchase_withOutProducts",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": null,\r\n            \"name\": null,\r\n            \"description\": null,\r\n            \"price\": null,\r\n            \"brand\": null,\r\n            \"category\": null,\r\n            \"colours\": [\r\n                null\r\n            ],\r\n            \"stock\": null,\r\n            \"includeForPromotion\": null\r\n        },\r\n        {\r\n            \"id\": null,\r\n            \"name\": null,\r\n            \"price\": null,\r\n            \"description\": null,\r\n            \"brand\": null,\r\n            \"category\": null,\r\n            \"colours\": [\r\n                null,\r\n                null\r\n            ],\r\n            \"stock\": null,\r\n            \"includeForPromotion\": null\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Invalid_Info",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User_RegisterByThemself",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Rafa\",\r\n    \"email\": \"naq.com\",\r\n    \"password\": \"123\",\r\n    \"address\": \"Av Libertador 5487\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Die\",\r\n    \"email\": \"diego@gmail.com\",\r\n    \"password\": \"12\",\r\n    \"address\": \"Av Fua 8743\",\r\n    \"roles\": [\r\n        \"ad\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"B\",\r\n    \"email\": \"Bi\",\r\n    \"password\": \"a\",\r\n    \"address\": \"\",\r\n    \"roles\": [\r\n        \"buyer\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_UpdatesUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Noe\",\r\n  \"password\": \"1\",\r\n  \"address\": \"S4\",\r\n  \"roles\": [\r\n    \"buyer\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/{{updateUser}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{updateUser}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LogInUser_UpdateByThemself",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Fi\",\r\n    \"password\": \"F\",\r\n    \"address\": \"Av buc4\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"di\",\r\n  \"password\": \"1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_BrandWrong",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Medias\",\r\n    \"description\": \"m\",\r\n    \"price\": 300,\r\n    \"brand\": \"Ne\",\r\n    \"category\": \"V\",\r\n    \"colour\": [\r\n        \"Az\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateProduct_ColourWrong",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Remera\",\r\n    \"description\": \"remera roja y azul\",\r\n    \"price\": 300,\r\n    \"brand\": \"Forever 21\",\r\n    \"category\": \"Verano\",\r\n    \"colour\": [\r\n        \"Ro\",\r\n        \"Amaro\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Re\",\r\n  \"description\": \"\",\r\n  \"price\": 300,\r\n  \"brand\": \"Ne\",\r\n  \"category\": \"Veano\",\r\n  \"colour\": [\r\n    \"Azl\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_1Product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"name\": \"Mias\",\r\n            \"description\": \"medias auzules\",\r\n            \"price\": 300,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Verano\",\r\n            \"colour\": [\r\n                \"Azul\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreatePurchase_2Products",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"name\": \"Medias\",\r\n            \"description\": \"medias auzules\",\r\n            \"price\": 300,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Verano\",\r\n            \"colour\": [\r\n                \"Azul\"\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"Remera\",\r\n            \"description\": \"y\",\r\n            \"price\": 300,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Vo\",\r\n            \"colour\": [\r\n                \"Rojo\",\r\n                \"Amarillo\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6e376d00-4f8a-422a-b4ca-d48eaa18a8b7\",\r\n            \"name\": \"Ps\",\r\n            \"description\": \"trousers\",\r\n            \"price\": 200,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 2,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"b58d7892-f1a4-4098-b1f5-f850e78170ae\",\r\n            \"name\": \"Hodie Taylor\",\r\n            \"price\": 1000,\r\n            \"description\": \"Taylor Swift version\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\",\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 14,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x1 Fidelidad",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 73,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"A\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart Total Look",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"ff1d4573-7191-4e96-8d14-e0f298f37889\",\r\n            \"name\": \"Hodie Ariana Grande\",\r\n            \"price\": 500,\r\n            \"description\": \"Ariana Grande version\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 1,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c73e364c-b4c5-4881-a34c-9fedd1d0ee48\",\r\n            \"name\": \"Shirt La Vela\",\r\n            \"price\": 10,\r\n            \"description\": \"Shirt  La Vela\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"y\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 80,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x2",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"7a0fbe5a-c27e-46ce-9d3e-e5072a96299c\",\r\n            \"name\": \"Short Selena Gomez\",\r\n            \"price\": 55,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 63,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"76a73a11-cca2-4bae-921d-4bd398867d8f\",\r\n            \"name\": \"Short\",\r\n            \"price\": 60,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Wrong_DataTypes",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "User_RegisterByThemself",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Rafael\",\r\n    \"email\": 12212121,\r\n    \"password\": \"!!contra\",\r\n    \"address\": \"Av Libertador 5487\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": 123445,\r\n    \"email\": \"diego@gmail.com\",\r\n    \"password\": \"1234contra\",\r\n    \"address\": 8743,\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Bianca\",\r\n    \"email\": \"Bianca@gmail.com\",\r\n    \"password\": \"123contra\",\r\n    \"address\": \"Av Sanses 9834\",\r\n    \"roles\": [\r\n        12343\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_UpdatesUser",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Noelia\",\r\n  \"password\": {},\r\n  \"address\": 12132,\r\n  \"roles\": [\r\n    \"buyer\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/{{updateUser}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{updateUser}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LogInUser_UpdateByThemself",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":[],\r\n    \"password\": \"Fiorella\",\r\n    \"address\": \"Av buceo 2134\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"diego@gmail.com\",\r\n  \"password\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_1Colour",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Medias\",\r\n    \"description\": \"medias auzules\",\r\n    \"price\": \"232321\",\r\n    \"brand\": 12132,\r\n    \"category\": \"Verano\",\r\n    \"colour\": [\r\n        \"Azul\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": {\"name\" : \"incorrecto\"},\r\n  \"description\": \"remera actualizada\",\r\n  \"price\": 300,\r\n  \"brand\": \"Nike\",\r\n  \"category\": 4343,\r\n  \"colour\": [\r\n    \"Azul\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_1Product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"name\": {\"name\":\"medias\"},\r\n            \"description\": \"medias auzules\",\r\n            \"price\": [],\r\n            \"brand\": 2323,\r\n            \"category\": \"Verano\",\r\n            \"colour\": [\r\n                \"Azul\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6e376d00-4f8a-422a-b4ca-d48eaa18a8b7\",\r\n            \"name\": \"Pants\",\r\n            \"description\": \"trousers\",\r\n            \"price\": \"232\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 2,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"b58d7892-f1a4-4098-b1f5-f850e78170ae\",\r\n            \"name\": \"Hodie Taylor\",\r\n            \"price\": 1000,\r\n            \"description\": \"Taylor Swift version\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\",\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 14,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x1 Fidelidad",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": 1233,\r\n            \"price\": \"51\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 73,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": \"74\",\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart Total Look",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"ff1d4573-7191-4e96-8d14-e0f298f37889\",\r\n            \"name\": \"Hodie Ariana Grande\",\r\n            \"price\": 500,\r\n            \"description\": \"Ariana Grande version\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 12,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c73e364c-b4c5-4881-a34c-9fedd1d0ee48\",\r\n            \"name\": \"Shirt La Vela\",\r\n            \"price\": 10,\r\n            \"description\": \"Shirt  La Vela\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 80,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": 32423,\r\n            \"colours\":{},\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x2",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": {},\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"7a0fbe5a-c27e-46ce-9d3e-e5072a96299c\",\r\n            \"name\": \"Short Selena Gomez\",\r\n            \"price\": 55,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 63,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"76a73a11-cca2-4bae-921d-4bd398867d8f\",\r\n            \"name\": \"Short MORAT\",\r\n            \"price\": 60,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Business_Rules_Validation",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "RegisterByThemself",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"email\": \"Pablo@gmail.com\",\r\n    \"password\": \"Pablo1234\",\r\n    \"address\": \"Av Libertador 5487\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "RegisterByThemself_sameUser",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"email\": \"Pablo@gmail.com\",\r\n    \"password\": \"Pablo1234\",\r\n    \"address\": \"Av Libertador 5487\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Santiago Tonarelli\",\r\n    \"email\": \"Tonarelli@gmail.com\",\r\n    \"password\": \"12345\",\r\n    \"address\": \"Av Tonarelli 8743\",\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin_RegistersAdmin_sameUser",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Juan\",\r\n    \"email\": \"Irabedra@gmail.com\",\r\n    \"password\": \"1234Irabedra\",\r\n    \"address\": \"Av Irabedra 8743\",\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/users/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetInfo_Non_Existing_User",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:7150/api/users/{{idDeleteInexistente}}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"users",
+												"{{idDeleteInexistente}}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete_non-existing_user",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base}}/api/users/{{idDeleteInexistente}}/admin",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{idDeleteInexistente}}",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Session",
+							"item": [
+								{
+									"name": "logInNonExistingUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"Santiago@gmail.com\",\r\n  \"password\": \"123contra\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "logOutNonExistingUser",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{idDeleteInexistente}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base}}/api/sessions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Product",
+							"item": [
+								{
+									"name": "CreateProduct_ByBuyer",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Buzo\",\r\n    \"description\": \"Buzo Azul\",\r\n    \"price\": 1600,\r\n    \"brand\": \"Forever 21\",\r\n    \"category\": \"Invierno\",\r\n    \"colour\": [\r\n        \"Azul\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateProduct",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"RemeraActualizadaBuyer\",\r\n  \"description\": \"remera actualizada por un buyer\",\r\n  \"price\": 300,\r\n  \"brand\": \"Nike\",\r\n  \"category\": \"Verano\",\r\n  \"colour\": [\r\n    \"Azul\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/products/{{idProducto}}",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"products",
+												"{{idProducto}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Purchase",
+							"item": [
+								{
+									"name": "CreatePurchase_ByAdmin",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{adminToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"name\": \"Medias\",\r\n            \"description\": \"medias auzules\",\r\n            \"price\": 300,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Verano\",\r\n            \"colour\": [\r\n                \"Azul\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7150/api/purchases",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7150",
+											"path": [
+												"api",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Cart",
+							"item": [
+								{
+									"name": "Create cart 20% off",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"6e376d00-4f8a-422a-b4ca-d48eaa18a8b7\",\r\n            \"name\": 12345,\r\n            \"description\": \"trousers\",\r\n            \"price\": 200,\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 2,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"b58d7892-f1a4-4098-b1f5-f850e78170ae\",\r\n            \"name\": 323,\r\n            \"price\": 1000,\r\n            \"description\": \"Taylor Swift version\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"Blue\",\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 14,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x1 Fidelidad",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 73,\r\n            \"includeForPromotion\": true\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": 12343\r\n        },\r\n         {\r\n            \"id\": \"f282dee6-1967-44cb-baaf-20feb193e13a\",\r\n            \"name\": \"Jeans\",\r\n            \"description\": \"Ideal for work\",\r\n            \"price\": 51,\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n             \"stock\": 74,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart Total Look",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"ff1d4573-7191-4e96-8d14-e0f298f37889\",\r\n            \"name\": \"Hodie Ariana Grande\",\r\n            \"price\": 500,\r\n            \"description\": 232,\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Winter\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 12,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"c73e364c-b4c5-4881-a34c-9fedd1d0ee48\",\r\n            \"name\": \"Shirt La Vela\",\r\n            \"price\": 10,\r\n            \"description\": \"Shirt  La Vela\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Spring\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 80,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": false\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cart 3x2",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{buyerToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"cart\": [\r\n        {\r\n            \"id\": \"3c80d0f8-299b-4236-be9a-2580b909aa34\",\r\n            \"name\": \"Short\",\r\n            \"price\": 50,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Adidas\",\r\n            \"category\": true,\r\n            \"colours\": [\r\n                \"White\"\r\n            ],\r\n            \"stock\": 60,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"7a0fbe5a-c27e-46ce-9d3e-e5072a96299c\",\r\n            \"name\": \"Short Selena Gomez\",\r\n            \"price\": 55,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Nike\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Blue\"\r\n            ],\r\n            \"stock\": 63,\r\n            \"includeForPromotion\": true\r\n        },\r\n        {\r\n            \"id\": \"76a73a11-cca2-4bae-921d-4bd398867d8f\",\r\n            \"name\": \"Short MORAT\",\r\n            \"price\": 60,\r\n            \"description\": \"Short\",\r\n            \"brand\": \"Vans\",\r\n            \"category\": \"Summer\",\r\n            \"colours\": [\r\n                \"Black\"\r\n            ],\r\n            \"stock\": 3,\r\n            \"includeForPromotion\": true\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base}}/api/cart/promotions",
+											"host": [
+												"{{base}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"promotions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

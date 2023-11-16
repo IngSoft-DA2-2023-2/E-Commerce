@@ -3,6 +3,7 @@ using DataAccess.Repository;
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.ProductParts;
 using Moq;
 using Moq.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
@@ -13,17 +14,21 @@ namespace DataAccessTest
     [TestClass]
     public class UserRepositoryTest
     {
+        private User newUser;
 
-        [TestMethod]
-        public void CreateUser()
+        [TestInitialize]
+        public void Init()
         {
-
-            User newUser = new User
+            newUser = new User
             {
                 Name = "TestUser",
                 Email = "test@example.com"
             };
+        }
 
+        [TestMethod]
+        public void CreateUser()
+        {
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
             userContext.Setup(c => c.Users.Add(newUser));
@@ -38,12 +43,6 @@ namespace DataAccessTest
         [ExpectedException(typeof(DataAccessException))]
         public void CreateUserThrowsException()
         {
-            User newUser = new User
-            {
-                Name = "TestUser",
-                Email = "test@example.com"
-            };
-
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>());
             userContext.Setup(c => c.Users.Add(newUser)).Throws(new DataAccessException($"User with email test@example.com already exists."));
@@ -57,12 +56,8 @@ namespace DataAccessTest
         public void DeleteUser()
         {
             Guid id = Guid.NewGuid();
-            User deletingUser = new User
-            {
-                Name = "TestUser",
-                Email = "test@example.com",
-                Id = id
-            };
+            User deletingUser = newUser;
+            deletingUser.Id = id;
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(
@@ -107,13 +102,30 @@ namespace DataAccessTest
         }
 
         [TestMethod]
-        public void GetExistingUser()
+        [ExpectedException(typeof(DataAccessException))]
+        public void DeleteAdminUserThrowsException()
         {
-            User existingUser = new User
+
+            User deletingUser = new User
             {
                 Name = "TestUser",
-                Email = "test@example.com"
+                Email = "test@example.com",
+                Id = Guid.NewGuid(),
+                Roles = new List<StringWrapper> { new StringWrapper() { Info = "admin" } }
             };
+
+            var userContext = new Mock<ECommerceContext>();
+            userContext.Setup(c => c.Users).ReturnsDbSet(new List<User>() { deletingUser });
+            userContext.Setup(c => c.Users.Remove(deletingUser));
+            userContext.Setup(c => c.SaveChanges());
+            IUserRepository userRepository = new UserRepository(userContext.Object);
+            var expectedReturn = userRepository.DeleteUser(deletingUser.Id);
+        }
+
+        [TestMethod]
+        public void GetExistingUser()
+        {
+            User existingUser = newUser;
 
             var userContext = new Mock<ECommerceContext>();
             userContext.Setup(c => c.Users).ReturnsDbSet(new List<User> { existingUser });
@@ -231,7 +243,5 @@ namespace DataAccessTest
 
             var updatedResult = userRepository.UpdateUser(existingUser);
         }
-
     }
 }
-

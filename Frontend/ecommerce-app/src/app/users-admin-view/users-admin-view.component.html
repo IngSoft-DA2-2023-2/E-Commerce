@@ -1,0 +1,34 @@
+<app-nav-bar-view></app-nav-bar-view>
+<div class="alert alert-info" role="alert" *ngIf="isLoading() || !!this.feedback">
+    {{isLoading()? 'Loading...':this.feedback}}
+</div>
+<div class="backgroundColor" class="autoSize" (click)="this.feedback=''">
+    <h1>Users</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Roles</th>
+                <th scope="col">Modify</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of users">
+                <th scope="row">{{u?.guid}}</th>
+                <td>{{u?.name}}</td>
+                <td>{{u?.email}}</td>
+                <td>{{u?.address}}</td>
+                <td>{{u?.roles?.join(',')}}</td>
+                <td><button class="btn btn-warning" (click)="updateUser(u)">Modify</button></td>
+                <td><button class="btn btn-danger" *ngIf="!u.roles.includes('admin')"
+                        (click)="deleteUser(u)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="createUser()" class="btn btn-success">New user</button>
+    <button (click)="goBack()" class="btn btn-secondary" id="back">Go back</button>
+</div>

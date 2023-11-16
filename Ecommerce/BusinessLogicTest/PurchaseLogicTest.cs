@@ -2,6 +2,7 @@
 using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain;
+using Domain.PaymentMethodCategories;
 using Domain.ProductParts;
 using LogicInterface;
 using LogicInterface.Exceptions;
@@ -17,7 +18,7 @@ namespace BusinessLogicTest
         [TestMethod]
         public void CreatePurchaseCorrectly()
         {
-           Category category = new Category() { Name = "category" };
+            Category category = new Category() { Name = "category" };
             Brand brand = new Brand() { Name = "brand" };
             Purchase purchase = new Purchase()
             {
@@ -39,6 +40,11 @@ namespace BusinessLogicTest
                     Brand= brand,
                     Price = 4,
                     },
+                },
+                PaymentMethod = new CreditCard()
+                {
+                    CategoryName = "CreditCard",
+                    Flag = "Visa"
                 }
             };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);
@@ -50,6 +56,7 @@ namespace BusinessLogicTest
             repository.VerifyAll();
             Assert.AreEqual(result.Cart.First().Name, purchase.Cart.First().Name);
         }
+
         [TestMethod]
         public void ThrowsExceptionWhenTryingToCreatePurchase()
         {
@@ -67,6 +74,11 @@ namespace BusinessLogicTest
                           Category = new Category { Name = "category2"},
                           Price = 4,
                     }
+                },
+                PaymentMethod = new CreditCard()
+                {
+                    CategoryName = "CreditCard",
+                    Flag = "Visa"
                 }
             };
             Mock<IPurchaseRepository> repository = new Mock<IPurchaseRepository>(MockBehavior.Strict);

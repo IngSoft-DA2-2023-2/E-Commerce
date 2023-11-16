@@ -1,9 +1,11 @@
 ﻿using Domain.Exceptions;
 using Domain.ProductParts;
+using System.Diagnostics.CodeAnalysis;
 using Utilities;
 
 namespace Domain
 {
+    [ExcludeFromCodeCoverage]
     public class User
     {
         private const int _nameMinimumLength = 3;
@@ -15,6 +17,9 @@ namespace Domain
         protected string _email;
 
         public Guid Id { get; set; }
+        public string Address { get; set; }
+        public virtual List<StringWrapper> Roles { get; set; } = new();
+
         public string Email
         {
             get { return _email; }
@@ -24,6 +29,7 @@ namespace Domain
                 _email = value;
             }
         }
+
         public string Name
         {
             get { return _name; }
@@ -33,6 +39,7 @@ namespace Domain
                 _name = value;
             }
         }
+
         public string Password
         {
             get { return _password; }
@@ -42,15 +49,12 @@ namespace Domain
                 _password = value;
             }
         }
-        public string Address { get; set; }
-
-        public virtual List<StringWrapper> Roles { get; set; } = new();
 
         private static void ValidateEmail(string value)
         {
             if (!HelperValidator.IsValidEmail(value))
             {
-                throw new DomainException("email format is not valid");
+                throw new DomainException("Email format is not valid.");
             }
         }
 
@@ -58,7 +62,7 @@ namespace Domain
         {
             if (!HelperValidator.IsLengthBetween(value, _passwordMinimumLength, _passwordMaximumLength))
             {
-                throw new DomainException($"Password length must be between {_passwordMinimumLength} and {_passwordMaximumLength}");
+                throw new DomainException($"Password length must be between {_passwordMinimumLength} and {_passwordMaximumLength}.");
             }
         }
 
@@ -66,13 +70,12 @@ namespace Domain
         {
             if (!HelperValidator.IsLengthBetween(value, _nameMinimumLength, _nameMaximumLength))
             {
-                throw new DomainException($"Name length must be between {_nameMinimumLength} and {_nameMaximumLength}");
+                throw new DomainException($"Name length must be between {_nameMinimumLength} and {_nameMaximumLength}.");
             }
             if (!HelperValidator.IsAlphanumerical(value))
             {
-                throw new DomainException("Name must be alphanumerical");
+                throw new DomainException("Name must be alphanumerical.");
             }
         }
-
     }
 }

@@ -16,7 +16,6 @@ namespace WebApiModelsTest.Out
         private readonly List<string> _coloursSample = new List<string> { "Red", "Blue" };
         private readonly Guid _guidSample = new Guid();
 
-
         [TestInitialize]
         public void Init()
         {

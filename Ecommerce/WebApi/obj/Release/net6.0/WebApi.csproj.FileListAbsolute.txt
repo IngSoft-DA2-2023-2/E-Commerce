@@ -1,11 +1,17 @@
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\appsettings.Development.json
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\appsettings.json
+C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\libman.json
+C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\promotions\Promotion20Off.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\promotions\Promotion3x1Fidelity.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\promotions\Promotion3x2.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\promotions\PromotionTotalLook.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\WebApi.exe
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\WebApi.deps.json
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\WebApi.runtimeconfig.json
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\WebApi.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\WebApi.pdb
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\Humanizer.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\System.Web.Cors.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\ORT\DA2\222675-269851-270303\Ecommerce\WebApi\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll

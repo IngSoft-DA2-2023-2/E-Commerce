@@ -9,12 +9,11 @@ namespace WebApiModelsTest.In
     internal class CreateUserByThemselfTest
     {
 
-        private string nameSample = "nameSample";
-        private string addressSample = "address sample";
-        private string emailSample = "email@sample.com";
-        private string passwordSample = "passwordSample";
+        private readonly string nameSample = "nameSample";
+        private readonly string addressSample = "address sample";
+        private readonly string emailSample = "email@sample.com";
+        private readonly string passwordSample = "passwordSample";
         private CreateUserByThemselfRequest request;
-
 
         [TestInitialize]
         public void Init()
@@ -49,5 +48,3 @@ namespace WebApiModelsTest.In
         }
     }
 }
-
-

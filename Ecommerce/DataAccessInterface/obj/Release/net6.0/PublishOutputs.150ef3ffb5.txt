@@ -1,0 +1,7 @@
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\DataAccessInterface.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\DataAccessInterface.deps.json
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\DataAccessInterface.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\Domain.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\Utilities.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\Domain.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\DataAccessInterface\bin\Release\net6.0\publish\Utilities.pdb

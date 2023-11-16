@@ -1,25 +1,38 @@
 ﻿using DataAccessInterface;
 using DataAccessInterface.Exceptions;
 using Domain.ProductParts;
+using LogicInterface;
 using LogicInterface.Exceptions;
 
 namespace BusinessLogic
 {
-    public class BrandLogic
+    public class BrandLogic : IBrandLogic
     {
-        private IBrandRepository _context;
+        private readonly IBrandRepository _brandRepository;
 
         public BrandLogic(IBrandRepository context)
         {
-            _context = context;
+            _brandRepository = context;
         }
 
         public bool CheckBrand(Brand brand)
         {
             try
             {
-                _context.CheckForBrand(brand.Name);
+                _brandRepository.CheckForBrand(brand.Name);
                 return true;
+            }
+            catch (DataAccessException e)
+            {
+                throw new LogicException(e);
+            }
+        }
+
+        public IEnumerable<string> GetBrands()
+        {
+            try
+            {
+                return _brandRepository.GetBrands().Select(b => b.Name).Distinct();
             }
             catch (DataAccessException e)
             {

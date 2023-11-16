@@ -6,7 +6,6 @@ namespace DataAccessInterface
     {
         public Purchase CreatePurchase(Purchase purchase);
         public IEnumerable<Purchase> GetPurchase(Guid id);
-
         public IEnumerable<Purchase> GetAllPurchases();
     }
 }

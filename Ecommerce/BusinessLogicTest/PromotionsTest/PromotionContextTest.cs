@@ -1,7 +1,12 @@
 ﻿using BusinessLogic.Promotions;
 using Domain;
 using Domain.ProductParts;
+using LogicInterface;
 using LogicInterface.Exceptions;
+using Promotion20Off;
+using Promotion3x1Fidelity;
+using Promotion3x2;
+using PromotionTotalLook;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessLogicTest.PromotionsTest
@@ -10,12 +15,16 @@ namespace BusinessLogicTest.PromotionsTest
     [TestClass]
     public class PromotionContextTest
     {
-        Product product1;
-        Product product2;
-        Category category;
+        private Product product1;
+        private Product product2;
+        private Category category;
+        private PromotionContext promotionContext;
+        private List<IPromotionable> promotions;
+
         [TestInitialize]
         public void Init()
         {
+            promotionContext = new PromotionContext();
             category = new Category() { Name = "category" };
             product1 = new Product()
             {
@@ -33,60 +42,68 @@ namespace BusinessLogicTest.PromotionsTest
                 Category = category,
                 Price = 4,
             };
+
+            promotions = new List<IPromotionable>();
+            promotions.Add(new Promotion3x2Logic());
+            promotions.Add(new Promotion20OffLogic());
+            promotions.Add(new PromotionTotalLookLogic());
+            promotions.Add(new Promotion3x1FidelityLogic());
+
+            promotionContext.SetListPromotions(promotions);
+
         }
+
         [TestMethod]
         public void GivenPromotionableCartReturnsTrue()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1,
                 product2,
 
             };
-            Assert.IsTrue(promotion.IsEligibleForPromotions(cart));
+            Assert.IsTrue(promotionContext.IsEligibleForPromotions(cart));
         }
+
         [TestMethod]
         public void GivenNonPromotionableCartReturnsFalse()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1
             };
-            Assert.IsFalse(promotion.IsEligibleForPromotions(cart));
+            Assert.IsFalse(promotionContext.IsEligibleForPromotions(cart));
         }
+
         [TestMethod]
         public void GivenPromotionableCartReturnsBestPromotion()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1,
                 product2,
             };
-            Assert.AreEqual("20% Off", promotion.GetBestPromotion(cart));
+            Assert.AreEqual("20% Off", promotionContext.GetBestPromotion(cart));
         }
 
         [TestMethod]
         public void GivenPromotionableCartReturnsTotalWithBestPromotionApplied()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             {
                 product1,
                 product2,
             };
-            Assert.AreEqual(12, promotion.CalculateTotalWithPromotion(cart));
+            Assert.AreEqual(12, promotionContext.CalculateTotalWithPromotion(cart));
         }
+
         [TestMethod]
         [ExpectedException(typeof(LogicException), "Not Eligible for promotions")]
         public void GivenNonPromotionableCartThrowsException()
         {
-            PromotionContext promotion = new PromotionContext();
             List<Product> cart = new List<Product>()
             { product1 };
-            promotion.GetBestPromotion(cart);
+            promotionContext.GetBestPromotion(cart);
         }
     }
 }

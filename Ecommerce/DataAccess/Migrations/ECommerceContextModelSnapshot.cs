@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
-    [ExcludeFromCodeCoverage]
     [DbContext(typeof(ECommerceContext))]
+    [ExcludeFromCodeCoverage]
     partial class ECommerceContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -23,6 +23,27 @@ namespace DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Domain.PaymentMethod", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethod");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("PaymentMethod");
+                });
 
             modelBuilder.Entity("Domain.Product", b =>
                 {
@@ -40,6 +61,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IncludeForPromotion")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -49,6 +73,9 @@ namespace DataAccess.Migrations
 
                     b.Property<Guid?>("PurchaseId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -140,6 +167,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("CurrentPromotion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PaymentMethodId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
@@ -147,6 +180,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.HasIndex("UserId");
 
@@ -196,6 +231,42 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Domain.PaymentMethodCategories.BankDebit", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.Property<string>("Bank")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("BankDebit");
+                });
+
+            modelBuilder.Entity("Domain.PaymentMethodCategories.CreditCard", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.Property<string>("Flag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("CreditCard");
+                });
+
+            modelBuilder.Entity("Domain.PaymentMethodCategories.Paganza", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.HasDiscriminator().HasValue("Paganza");
+                });
+
+            modelBuilder.Entity("Domain.PaymentMethodCategories.Paypal", b =>
+                {
+                    b.HasBaseType("Domain.PaymentMethod");
+
+                    b.HasDiscriminator().HasValue("Paypal");
+                });
+
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.HasOne("Domain.ProductParts.Brand", "Brand")
@@ -235,11 +306,19 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Purchase", b =>
                 {
+                    b.HasOne("Domain.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PaymentMethod");
 
                     b.Navigation("User");
                 });

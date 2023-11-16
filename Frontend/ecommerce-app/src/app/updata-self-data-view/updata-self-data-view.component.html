@@ -1,0 +1,26 @@
+<app-nav-bar-view></app-nav-bar-view>
+<h3 class="row justify-content-center align-items-center">Update own profile</h3>
+<form (click)="feedback = ''" style="width: 40%; margin: 0 auto; align-items: center;" class="user-form">
+    <div class="form-container" style="display: flex; flex-direction: column; justify-content: center; background-color: rgb(238, 235, 235); padding: 0px; border-radius: 0px;">
+        <div class="form-group col-md-6" style="width: 100%;">
+            <h6>Name</h6>
+            <input type="text" class="form-control" [(ngModel)]="updatingUser.name" name="name" id="name" style="width: 100%;">
+            <label style="color: red;" *ngIf="(updatingUser.name?.length || 0) < 3 || (updatingUser.name?.length || 0 ) > 20">Name must be between 3-20 characters </label>
+        </div>
+        <div class="form-group col-md-6" style="width: 100%;">
+            <h6>Password</h6>
+            <input type="password" class="form-control" [(ngModel)]="updatingUser.password" name="password" id="password" style="width: 100%;">
+            <label style="color: red;" *ngIf="!updatingUser.password">If nothing is written, the previous password will not be changed </label>
+            <label style="color: red;" *ngIf="!!updatingUser.password && ((updatingUser.password?.length || 0) < 5 || (updatingUser.password?.length || 0 ) > 20)">Password must be between 5-20 characters </label>
+        </div>
+        <div class="form-group col-md-6" style="width: 100%;">
+            <h6>Address</h6>
+            <input type="text" class="form-control" [(ngModel)]="updatingUser.address" name="address" id="address" style="width: 100%;">
+        </div>
+        <div class="button-container">
+            <button class="btn btn-primary" (click)="updateUserData()">Update changes</button>
+            <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+        </div>
+    </div>
+</form>
+<p style="text-align: center;" class="feedback">{{ feedback }}</p>

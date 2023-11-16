@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.PaymentMethodCategories;
 using Domain.ProductParts;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
@@ -17,9 +18,19 @@ namespace DataAccess.Context
         public virtual DbSet<Colour> Colours { get; set; }
         public virtual DbSet<StringWrapper> StringListWrappers { get; set; }
 
-
         public ECommerceContext() { }
 
         public ECommerceContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Paganza>();
+            modelBuilder.Entity<Paypal>();
+            modelBuilder.Entity<BankDebit>();
+            modelBuilder.Entity<CreditCard>();
+
+        }
+
     }
 }

@@ -39,6 +39,18 @@
               },
               "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
                 "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion20Off\\Promotion20Off.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion20Off\\Promotion20Off.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x1Fidelity\\Promotion3x1Fidelity.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x1Fidelity\\Promotion3x1Fidelity.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x2\\Promotion3x2.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x2\\Promotion3x2.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\PromotionTotalLook\\PromotionTotalLook.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\PromotionTotalLook\\PromotionTotalLook.csproj"
               }
             }
           }
@@ -303,6 +315,254 @@
             "projectReferences": {
               "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
                 "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion20Off\\Promotion20Off.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion20Off\\Promotion20Off.csproj",
+        "projectName": "Promotion20Off",
+        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion20Off\\Promotion20Off.csproj",
+        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
+        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion20Off\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x1Fidelity\\Promotion3x1Fidelity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x1Fidelity\\Promotion3x1Fidelity.csproj",
+        "projectName": "Promotion3x1Fidelity",
+        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x1Fidelity\\Promotion3x1Fidelity.csproj",
+        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
+        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x1Fidelity\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x2\\Promotion3x2.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x2\\Promotion3x2.csproj",
+        "projectName": "Promotion3x2",
+        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x2\\Promotion3x2.csproj",
+        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
+        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Promotion3x2\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\PromotionTotalLook\\PromotionTotalLook.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\PromotionTotalLook\\PromotionTotalLook.csproj",
+        "projectName": "PromotionTotalLook",
+        "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\PromotionTotalLook\\PromotionTotalLook.csproj",
+        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
+        "outputPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\PromotionTotalLook\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\Domain\\Domain.csproj"
+              },
+              "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj": {
+                "projectPath": "C:\\ORT\\DA2\\222675-269851-270303\\Ecommerce\\LogicInterface\\LogicInterface.csproj"
               }
             }
           }
