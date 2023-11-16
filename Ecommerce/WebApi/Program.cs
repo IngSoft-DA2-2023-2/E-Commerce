@@ -13,20 +13,13 @@ namespace WebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
-            if (builder.Environment.IsDevelopment())
+            builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                builder.Services.AddCors(options =>
-                {
-
-                    options.AddDefaultPolicy(
-                        policy =>
-                        {
-                            policy.AllowAnyOrigin()
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                        });
-                });
-            }
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .WithExposedHeaders("Authorization");
+            }));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -34,7 +27,7 @@ namespace WebApi
             builder.Services.AddServices();
             builder.Services.AddConnectionString(builder.Configuration.GetConnectionString("Ecommerce"));
             var app = builder.Build();
-
+            app.UseCors("MyPolicy");
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
