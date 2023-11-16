@@ -1,0 +1,9 @@
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\PromotionTotalLook.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\PromotionTotalLook.deps.json
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\PromotionTotalLook.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\Domain.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\LogicInterface.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\Utilities.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\Domain.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\LogicInterface.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\PromotionTotalLook\bin\Release\net6.0\publish\Utilities.pdb

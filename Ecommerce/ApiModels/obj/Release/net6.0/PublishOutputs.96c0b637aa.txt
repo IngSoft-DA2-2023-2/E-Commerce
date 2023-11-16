@@ -1,0 +1,7 @@
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\ApiModels.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\ApiModels.deps.json
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\ApiModels.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\Domain.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\Utilities.dll
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\Domain.pdb
+C:\ORT\DA2\222675-269851-270303\Ecommerce\ApiModels\bin\Release\net6.0\publish\Utilities.pdb
